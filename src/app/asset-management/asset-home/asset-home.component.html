@@ -42,8 +42,10 @@
     <nb-list>
 
 
-      <nb-list-item [routerLink]="assetType.type" @init *ngFor="let assetType of assetTypes; index as index">
-        <app-navbar-list-item [title]="assetType.name" [selected]="assetType.path == router.url "  fxFlex >
+      <nb-list-item  @init *ngFor="let assetType of assetTypes; index as index">
+        <app-navbar-list-item  [routerlink]="assetType.type" fxLayout="column" [title]="assetType.name" 
+        [expanded]="assetType.path == router.url "
+        [selected]="assetType.path == router.url "  fxFlex >
           <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
       
         </app-navbar-list-item>

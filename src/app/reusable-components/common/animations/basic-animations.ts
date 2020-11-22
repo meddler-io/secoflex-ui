@@ -43,6 +43,14 @@ trigger('init', [
       style({opacity: '1'}),
       animate(250, style({opacity: 0})),
     ]),
+  ]),
+
+  trigger('navitem', [
+    transition(':enter', [
+      style({opacity: 0}),
+      animate(550, style({opacity: '1'})),
+    ]),
+ 
   ])
 ]
 

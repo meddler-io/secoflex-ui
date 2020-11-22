@@ -12,7 +12,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { HotkeysService } from '../hotkeys/hotkeys.service';
 
 @Component({
   exportAs: 'ngxResizeOverlay',
@@ -52,32 +51,32 @@ export class ResizeOverlayComponent implements OnInit, OnDestroy {
   private _query = '(min-width: 959px) and (min-height: 650px)';
 
   get keys(): string[] {
-    if (this.hotkeysService.hotkeys && this.hotkeysService.hotkeys[this.combo]) {
-      return this.hotkeysService.hotkeys[this.combo][0].keys;
-    } else {
+    // if (this.hotkeysService.hotkeys && this.hotkeysService.hotkeys[this.combo]) {
+    //   return this.hotkeysService.hotkeys[this.combo][0].keys;
+    // } else {
       return [];
-    }
+    // }
   }
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private hotkeysService: HotkeysService,
+    // private hotkeysService: HotkeysService,
     private cdr: ChangeDetectorRef
   ) {
     this._buildObservable();
   }
 
   ngOnInit(): void {
-    this.hotkeysService.add(this.combo, {
-      callback: this.toggle.bind(this),
-      description: 'Toggle browser size warning',
-      visible: false,
-      component: this
-    });
+    // this.hotkeysService.add(this.combo, {
+    //   callback: this.toggle.bind(this),
+    //   description: 'Toggle browser size warning',
+    //   visible: false,
+    //   component: this
+    // });
   }
 
   ngOnDestroy(): void {
-    this.hotkeysService.deregister(this.combo);
+    // this.hotkeysService.deregister(this.combo);
   }
 
   onClick(ev: KeyboardEvent): void {

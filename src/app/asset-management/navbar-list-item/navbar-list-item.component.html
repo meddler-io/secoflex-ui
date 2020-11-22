@@ -1,15 +1,53 @@
-<button nbButton fxFlex appearance="ghost"
+<button (click)="toggleExpand()" nbButton fxFlex appearance="ghost"
 
-[style.background-color]="  selected$ ?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
+[style.background-color]="  expanded$ ?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
  
-[status]="selected$ ? 'success' : 'info'" size="small" fxLayoutAlign="Start">
+[status]="expanded$ ? 'success' : 'info'" size="small" fxLayoutAlign="Start">
 
 <nb-icon
-[status]="selected$ ? 'basic' : 'info'" 
-[icon]="selected$ ? 'chevron-down-outline' : 'chevron-right-outline'"
+[status]="expanded$ ? 'basic' : 'info'" 
+[icon]="expanded$ ? 'chevron-down-outline' : 'chevron-right-outline'"
 icon="chevron-right-outline">
 
 </nb-icon>
 {{title$}}
 
 </button>
+
+<div @navitem *ngIf="expanded$" class="subitem" fxLayout="column">
+
+
+<button nbButton fxFlex appearance="ghost"
+
+ 
+ [routerLink]="routerLink"
+ [status]="selected$ ? 'basic' : 'basic'" size="small" fxLayoutAlign="Start">
+
+<nb-icon
+[status]="selected$ ? 'basic' : 'basic'" 
+ 
+icon="plus-circle-outline">
+
+</nb-icon>
+Add
+
+</button>
+
+
+<button nbButton fxFlex appearance="ghost"
+
+[routerLink]="routerLink"
+ 
+[status]="selected$ ? 'basic' : 'basic'" size="small" fxLayoutAlign="Start">
+
+<nb-icon
+[status]="selected$ ? 'basic' : 'basic'" 
+icon="external-link-outline"
+ >
+
+</nb-icon>
+Configure
+
+</button>
+
+</div>
