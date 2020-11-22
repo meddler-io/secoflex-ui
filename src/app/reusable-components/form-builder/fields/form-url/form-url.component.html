@@ -1,0 +1,75 @@
+<div fxFlex fxLayout="column">
+    <!-- Customizations -->
+    <ng-container>
+
+        <div fxFlex fxLayout="column">
+            <nb-checkbox [checked]="customizations.required " (checkedChange)="customizations.required = $event"
+                fxFlex="50%" status="success">Required</nb-checkbox>
+            <nb-checkbox [checked]="customizations.multiple " (checkedChange)="customizations.multiple = $event"
+                fxFlex="50%" status="success">Multiple</nb-checkbox>
+            <nb-checkbox [checked]="customizations.allow_user_to_add "
+                (checkedChange)="customizations.allow_user_to_add = $event" fxFlex="50%" status="success">Allow user to
+                add new URL</nb-checkbox>
+
+
+            <nb-checkbox [checked]="customizations.strict_validation "
+                (checkedChange)="customizations.strict_validation = $event" fxFlex="50%" status="success">Strict
+                Validation</nb-checkbox>
+
+        </div>
+
+    </ng-container>
+
+    <!-- Preview -->
+
+    <div fxLayout="column" class="preview">
+        <ng-container [formGroup]="formGroup">
+            <ng-container formArrayName="urls">
+                <ng-container   *ngFor="let url of urls.controls ; let i=index " >
+                    <div class="item" fxFlex fxLayout="row"  [formGroupName]="i" >
+                        <div fxFlex class="field">
+                            <nb-form-field  >
+
+                                <input 
+
+                                [status]="url.invalid? 'danger' :  'success'" fullWidth
+                                placeholder="http://example.com"
+                                
+                                fullWidth shape="semi-round"  nbInput type="text"
+                                    formControlName="url" class="form-control">
+
+                                <button [disabled]="i==0" nbSuffix nbButton ghost (click)="deleteUrl(i)">
+                                    <nb-icon pack="eva" icon="trash-outline">
+                                    </nb-icon>
+                                </button>
+                            </nb-form-field>
+
+                        </div>
+                        <ng-container>
+
+                            <div fxFlex fxLayoutAlign="end center">
+                                <p class="caption-2 status-danger"
+                                    [ngStyle]="{  'visibility': url.invalid ? 'visible' : 'hidden'   }"
+                                    >
+                                    * Invalid URL
+
+                                </p>
+                            </div>
+
+                        </ng-container>
+                    </div>
+
+                </ng-container>
+
+            </ng-container>
+
+
+            <div fxFlex fxLayoutAlign="end end">
+                <button status="primary" size="small" nbButton (click)="addUrl()">Add</button>
+            </div>
+
+
+        </ng-container>
+    </div>
+
+</div>

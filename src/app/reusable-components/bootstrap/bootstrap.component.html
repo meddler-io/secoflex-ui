@@ -1,0 +1,216 @@
+<nb-layout center>
+    <nb-layout-header fixed>
+
+        <div fxFlex fxLayoutAlign="center center">
+
+            <span routerLink="/" class="h5">
+                <button nbButton ghost status="danger" size="large">
+
+                    <nb-icon icon="menu-2">
+                    </nb-icon>
+                </button>
+
+                SecoFlex
+
+            </span>
+
+
+            <div fxFlex fxLayoutAlign="end center">
+
+
+                <button nbButton outline status="success" size="small">
+                    <nb-icon icon="checkmark-circle-2">
+                    </nb-icon>
+                    Save
+
+                </button>
+
+                <button nbButton outline status="basic" size="small">
+
+                    <nb-icon icon="settings-2-outline">
+                    </nb-icon>
+                </button>
+            </div>
+        </div>
+    </nb-layout-header>
+
+
+
+    <nb-sidebar *ngIf="true" left class="leftsidebar">
+
+        <nb-sidebar-header>
+
+            <button fxFlex nbButton hero size="medium" status="danger">Create New</button>
+
+
+        </nb-sidebar-header>
+
+        <nb-menu [items]="items">
+        </nb-menu>
+
+        <nb-sidebar-footer>
+            <button fxFlex nbButton hero size="medium" status="success">Create New</button>
+
+        </nb-sidebar-footer>
+    </nb-sidebar>
+
+
+    <nb-layout-column >
+
+
+
+
+        <app-form-builder [toggleDragAndScroll]="toggleDragAndScroll" #formBuilder
+            [form_schema_id]="formSchema.form_id"></app-form-builder>
+
+
+
+    </nb-layout-column>
+
+
+
+    <nb-sidebar *ngIf="true" right class="rightsidebar">
+
+
+
+        <nb-sidebar-header>
+
+
+
+            <button disabled nbButton hero size="medium" fxFlex status="basic">
+
+                <span fxFlex fxLayoutAlign="start center">
+                    Components
+                </span>
+
+
+
+                <button (click)="toggleScroll()" nbButton ghost [status]=" toggleDragAndScroll ?  'danger' : 'basic'"
+                    size="tiny">
+
+                    <nb-icon icon="move">
+                    </nb-icon>
+                </button>
+
+                <button nbButton ghost status="basic" size="tiny">
+
+                    <nb-icon icon="eye">
+                    </nb-icon>
+                </button>
+
+
+
+            </button>
+
+
+
+
+
+
+
+        </nb-sidebar-header>
+
+        <nb-list>
+            <nb-list-item (click)="addField(componentType)" *ngFor="let componentType of componentTypes"
+                class="lisitem">
+                {{ componentType.title }}
+            </nb-list-item>
+        </nb-list>
+
+
+
+
+        <nb-sidebar-footer>
+
+
+            <button fxFlex nbButton hero size="medium" status="success">Create New</button>
+
+        </nb-sidebar-footer>
+
+
+    </nb-sidebar>
+
+</nb-layout>
+
+
+
+
+<ng-template #formAutoComplete>
+
+    <div fxFlex="25%">
+        <span class="h6">
+            Secoflex
+        </span>
+    </div>
+
+    <div fxFlex="50%">
+
+
+        <nb-form-field fxFlex appearance="filled">
+
+
+
+            <nb-icon nbPrefix size="small" ghost icon="search-outline" pack="eva">
+            </nb-icon>
+
+
+            <input (keyup.escape)=" formInput.blur() " fullWidth [formControl]="inputFormControl" nbInput type="text"
+                placeholder="Create new" fieldSize="medium" [nbAutocomplete]="autoControl" />
+
+            <button size="large" *ngIf="inputFormControl.value.length" nbSuffix nbButton ghost
+                (click)="inputFormControl.value = '' ">
+                <nb-icon icon="close-circle-outline" pack="eva">
+                </nb-icon>
+            </button>
+        </nb-form-field>
+
+        <nb-autocomplete (selectedChange)="formAutoCompleteSelectionChanged($event   )" #autoControl size="medium"
+            [activeFirst]="true">
+
+
+            <nb-option *ngFor="let option of filteredControlOptions$ | async" [value]="option.form_name ">
+                {{ option.form_name }}
+            </nb-option>
+        </nb-autocomplete>
+
+
+        <ng-template #searchBarTemplate>
+
+
+            <button fxLayoutAlign="start center" size="large" ghost nbButton fxFlex>
+
+                <nb-icon icon="search-outline" pack="eva">
+                </nb-icon>
+            </button>
+
+
+        </ng-template>
+    </div>
+
+    <div fxFlex="25%" fxLayoutAlign="end">
+        <nb-actions size="small">
+
+            <nb-action icon="power-outline"></nb-action>
+            <nb-action icon="person-outline"></nb-action>
+            <nb-action icon="home-outline"></nb-action>
+            <nb-action>Some Action</nb-action>
+        </nb-actions>
+
+    </div>
+
+
+</ng-template>
+
+
+<ng-template #formActionTemplate>
+    <div fxFlex="50%" fxLayoutAlign="end">
+
+        <nb-actions size="small">
+            <nb-action (click)="onFocusShift(true)" icon="search-outline"></nb-action>
+            <nb-action icon="power-outline"></nb-action>
+            <nb-action icon="person-outline"></nb-action>
+            <nb-action icon="home-outline"></nb-action>
+            <nb-action>Some Action</nb-action>
+        </nb-actions>
+    </div>
+</ng-template>

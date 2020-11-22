@@ -1,0 +1,67 @@
+<div appBorder fxLayout="column" fxLayoutGap="1rem">
+
+  <div fxLayout="row">
+
+    <div fxFlex="50%" appBorder>
+      <span>
+        {{app.app_name}}
+
+      </span>
+    </div>
+
+
+  </div>
+
+
+  <div fxLayout="row">
+
+    <div fxFlex="50%" appBorder>
+      <span>
+        {{app.package_name}}
+
+
+      </span>
+    </div>
+
+
+  </div>
+
+
+
+
+
+  <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="1rem">
+
+
+
+    <button (click)="edit()" size="tiny" nbButton outline status="basic">
+      Download
+    </button>
+
+    <button (click)="edit()" size="tiny" nbButton filled status="danger">
+      Delete
+    </button>
+
+
+  </div>
+
+
+
+
+
+  <div fxFlex>
+
+    <nb-progress-bar size="tiny" [value]="0" status="primary" [displayValue]="true"></nb-progress-bar>
+  </div>
+</div>
+
+
+<ng-template #editNewAppTemplate>
+
+
+  <app-ios-create-new [app]="app">
+
+  </app-ios-create-new>
+
+
+</ng-template>

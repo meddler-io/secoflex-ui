@@ -1,0 +1,32 @@
+<div fxFlex class="container">
+
+
+  <div appBorder fxLayout="row" fxFlex class="list-head" fxLayoutAlign="start center" fxLayoutGap="1rem">
+
+
+
+
+    <div fxFlex="50%">
+      <nb-form-field>
+        <nb-icon icon="search-outline" nbPrefix status="basic">
+
+        </nb-icon>
+        <input nbInput fullWidth placeholder="Search Web" status="primary">
+
+      </nb-form-field>
+    </div>
+
+
+
+    <div fxFlex="50%" fxLayoutGap="1rem">
+      <button (click)="addDomain(domainAddTemplate)" fieldSize="small" fxFlex nbButton status="primary" outline>Add
+        New</button>
+      <button (click)="addDomain(domainAddTemplate)" fxFlex nbButton status="success" outline>Import</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #domainAddTemplate>
+
+  <app-web-add></app-web-add>
+</ng-template>

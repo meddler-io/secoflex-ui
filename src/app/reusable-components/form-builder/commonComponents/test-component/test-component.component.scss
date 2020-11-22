@@ -1,0 +1,77 @@
+.gutter{
+
+    overflow: visible;
+}
+.icon{
+    margin-left: 0.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.attachments{
+    margin-bottom: 1rem;;
+}
+
+.focussed{
+    background: none;;
+}
+
+.headingContainer{
+    margin-bottom: 1rem;
+}
+
+
+input{
+    font-weight: 450!important;
+    color: #838080;
+}
+
+textarea{
+    font-weight: 450!important;
+    color: #838080;
+    resize: none;
+}
+  
+
+.popmenu{
+    padding: 1rem;
+    background: #fff;
+}
+
+
+nb-list-item{
+    padding: 0.7rem;
+    border: none!important;
+}
+
+.unpublishedCard{
+    // border: 0.0625rem solid #f8cdd8!important;
+    // box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 2px 28px #f8cdd8, 0 4px 10px #8f9bb37a;
+    padding: 0.7rem;
+
+    // transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+}
+
+.publishedCard{
+    // border: 0.0625rem solid #9df3be!important;
+    // box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 2px 28px #d5f4e1, 0 4px 10px #8f9bb37a;
+    padding: 0.7rem;
+
+    // transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+}
+.identifier{
+    margin-left: 1rem;
+}
+
+.textMar{
+    margin-bottom: 1rem;
+}
+.iconmargin{
+    margin-left: 1rem;
+}
+
+
+

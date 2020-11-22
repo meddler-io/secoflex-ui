@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutGap="1rem">
+
+    <div fxFlex>
+
+        <nb-list>
+            <nb-list-item  *ngFor="let possiblePair of possibleOptions">
+                <div fxFlex>
+                    <nb-checkbox #checkbox fxFlex> {{possiblePair?.name}} </nb-checkbox>
+
+                </div>
+
+            </nb-list-item>
+        </nb-list>
+    </div>
+
+
+    <div fxFlex fxLayoutGap="1rem">
+        <input #nameInput fieldSize="small" placeholder="Name" nbInput>
+        <input #valueInput fieldSize="small" placeholder="Value" nbInput>
+        <button (click)="add( nameInput , valueInput )" size="small" nbButton>Add</button>
+    </div>
+
+
+</div>

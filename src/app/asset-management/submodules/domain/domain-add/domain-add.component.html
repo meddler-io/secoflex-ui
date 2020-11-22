@@ -1,0 +1,74 @@
+<nb-layout center [restoreScrollTop]="false">
+    <nb-layout-header fixed>
+  
+  
+  
+      <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+  
+        <nb-icon icon="plus-circle">
+        </nb-icon>
+        <div fxFlex class="h6">
+          Domains
+  
+        </div>
+        <!-- <div fxFlex fxLayoutAlign="end center">
+    
+          <nb-toggle [checked]="true" labelPosition="left" status="primary">IPv4</nb-toggle>
+        </div> -->
+  
+        <button (click)="addNewDomain()" nbButton outline status="warning" size="small">
+  
+          <nb-icon icon="plus-circle">
+          </nb-icon>
+          Add
+  
+        </button>
+  
+        <button (click)="saveIp()" outline nbButton status="success" size="small">
+  
+          <nb-icon icon="checkmark-circle-2">
+          </nb-icon>
+          Save
+  
+        </button>
+  
+  
+  
+  
+      </div>
+    </nb-layout-header>
+  
+    <nb-layout-column @init>
+  
+      <nb-card @init>
+  
+  
+        <nb-card-body appBorder @init *ngFor="let ip_address_import of ip_addresses.controls; index as index ">
+          <nb-form-field [nbSpinner]="saving">
+            <div nbPrefix icon="at-outline" pack="eva">
+              #{{index+1}}
+            </div>
+            <input [formControl]="ip_addresses.controls[index]" nbInput fieldSize="medium" status="primary" fullWidth
+              placeholder="IP Address">
+  
+            <button *ngIf="index != 0" (click)="removeAt(index)" nbButton nbSuffix size="small" filled status="primary">
+              <nb-icon icon="close-outline">
+              </nb-icon>
+            </button>
+  
+          </nb-form-field>
+  
+        </nb-card-body>
+  
+      </nb-card>
+  
+  
+  
+  
+  
+  
+    </nb-layout-column>
+  
+  
+  </nb-layout>
+  

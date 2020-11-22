@@ -1,0 +1,365 @@
+<nb-layout center>
+  <nb-layout-header fixed>
+
+    <div fxFlex fxLayoutAlign="center center">
+
+      <div fxFlex fxLayoutAlign="start center">
+
+        <button nbButton ghost status="danger" size="large">
+          <nb-icon icon="menu">
+          </nb-icon>
+        </button>
+
+        <span fxHide.lt-sm fxShow routerLink="/" class="h5">
+          SecoFlex
+        </span>
+      </div>
+
+      <div fxFlex fxLayoutAlign="end center">
+
+
+        <button (click)="viewEditor = !viewEditor" nbButton outline status="success" size="small">
+          <nb-icon icon="checkmark-circle-2">
+          </nb-icon>
+          Preview
+
+        </button>
+
+        <button (click)="toggleProperties()" nbButton outline status="basic" size="small">
+
+          <nb-icon icon="settings-2-outline">
+          </nb-icon>
+        </button>
+
+
+
+
+      </div>
+    </div>
+  </nb-layout-header>
+
+
+
+  <nb-sidebar *ngIf="!toggleAddComponentValue" left fxLayout="column">
+
+
+
+    <nb-sidebar-header>
+
+      <button (click)="toggleAddComponent()" nbButton ghost status="success" size="tiny">
+        <nb-icon icon="plus">
+        </nb-icon>
+        Add
+
+      </button>
+
+      <div fxFlex fxLayoutAlign="end center">
+        <span routerLink="/" class="colored">
+          Hierarchy
+        </span>
+      </div>
+
+
+    </nb-sidebar-header>
+
+
+    <ng-container>
+
+      <app-field-viewer [fields]="formSchema.field" [field_id]="selectedField | async">
+      </app-field-viewer>
+
+
+      <ng-template #progress>
+        <div fxFlex fxLayoutAlign="center center">
+
+          <ngx-progress-spinner mode="indeterminate" color="#1483FF" [value]="3" [total]="100" [strokeWidth]="5">
+          </ngx-progress-spinner>
+        </div>
+      </ng-template>
+
+
+
+    </ng-container>
+
+
+
+
+
+
+
+  </nb-sidebar>
+
+  <nb-sidebar left *ngIf=" toggleAddComponentValue " fxLayout="column">
+
+
+
+    <nb-sidebar-header>
+
+      <button (click)="toggleAddComponent()" nbButton ghost status="success" size="tiny">
+        <nb-icon icon="plus">
+        </nb-icon>
+        Back
+
+      </button>
+
+
+      <div fxFlex fxLayoutAlign="end center">
+        <span routerLink="/" class="colored">
+          Hierarchy
+        </span>
+      </div>
+
+
+    </nb-sidebar-header>
+
+    <nb-list>
+      <nb-list-item [appLeftBorder]="ColorPallete[index % ColorPallete.length]" [animate]="true"
+        (click)="addField(componentType)" *ngFor="let componentType of componentTypes; index as index">
+        <div fxFlex class=" subtitle">
+          {{ componentType.title }}
+
+        </div>
+      </nb-list-item>
+    </nb-list>
+
+
+
+
+
+  </nb-sidebar>
+
+  <nb-layout-column @init *ngIf="viewEditor == false">
+
+
+
+
+    <app-form-builder #formBuilder [form_schema_id]="formSchema.form_id">
+    </app-form-builder>
+
+
+
+  </nb-layout-column>
+
+  <nb-layout-column @init *ngIf="viewEditor == true">
+
+
+    <div fxLayout fxLayoutAlign="center" fxFlexFill fxLayoutGap="1rem">
+
+
+
+      <div fxFlex="0 1 800px" fxLayout="column" fxLayoutGap="1rem">
+
+        <app-field-editor #fieldEditor (getProperties)="getProperties($event)" fxLayoutAlign="start start"
+          [field_id]="selectedField | async ">
+        </app-field-editor>
+
+        <!-- Todo: Remove cards -->
+        <nb-card size="small" status="basic" fxFlex *ngIf="false && report_builder_visible" @init>
+
+          <nb-card-header>
+            <div fxFlex>
+              <span routerLink="/" class="subtitle-2 ">
+                Editor
+              </span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+
+
+            <app-field-editor #fieldEditor (getProperties)="getProperties($event)" fxLayoutAlign="start start"
+              [field_id]="selectedField | async ">
+            </app-field-editor>
+          </nb-card-body>
+
+        </nb-card>
+
+
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+
+  </nb-layout-column>
+
+
+  <nb-sidebar @init *ngIf="properties_visible" right>
+
+    <nb-sidebar-header>
+
+
+      <ngx-navbar [(active)]="activeBottom" fxFlex (activeChange)="activeNavbarMenuChange($event)">
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="apps"></ngx-icon>
+        </ngx-navbar-item>
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="chart-scatter"></ngx-icon>
+        </ngx-navbar-item>
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="database"></ngx-icon>
+        </ngx-navbar-item>
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="commandline"></ngx-icon>
+        </ngx-navbar-item>
+      </ngx-navbar>
+    </nb-sidebar-header>
+
+
+
+    <nb-sidebar-header fxLayoutAlign="center center">
+      <nb-form-field fxFlex>
+        <nb-icon nbPrefix icon="search" pack="eva"></nb-icon>
+        <input type="text" nbInput fullWidth status="control" status="basic" placeholder="Search">
+
+        <button nbSuffix ghost status="primary" nbButton (click)="save()">
+          <nb-icon icon="checkmark-outline" pack="eva"></nb-icon>
+
+
+        </button>
+
+      </nb-form-field>
+    </nb-sidebar-header>
+
+    <div [ngSwitch]="activeBottom" fxFlex>
+
+
+      <ng-template [ngSwitchCase]="0">
+
+        <ng-container *ngIf=" (properties_visible || report_builder_visible)  ">
+          <ng-container *ngIf="(properties | async)?.length > 0 ; else progress ">
+
+            <ngx-section fxFlex style="overflow: auto;" fxFlex *ngIf="properties_visible" [sectionCollapsible]="false">
+
+
+              <div>
+
+
+
+
+                <ng-container *ngFor="let property of properties | async ; index as index ">
+
+                  <app-property (propertOnChange)="properyOnChange(index, $event)" [property]="property">
+                  </app-property>
+
+                </ng-container>
+
+
+       
+
+
+
+              </div>
+
+            </ngx-section>
+
+
+
+          </ng-container>
+
+
+
+          <ng-template #progress>
+            <div fxFlex fxLayoutAlign="center center">
+
+              <ngx-progress-spinner mode="indeterminate" color="#1483FF" [value]="3" [total]="100" [strokeWidth]="5">
+              </ngx-progress-spinner>
+            </div>
+          </ng-template>
+
+
+
+        </ng-container>
+
+
+      </ng-template>
+      <ng-template [ngSwitchCase]="1">
+
+        <ng-container *ngIf=" (properties_visible || report_builder_visible)  ">
+          <ng-container *ngIf="(properties | async)?.length > 0 ; else progress ">
+
+
+
+            <app-field-viewer fxFlex [fields]="formSchema.field" [field_id]="selectedField | async">
+            </app-field-viewer>
+
+
+
+
+
+
+
+
+
+          </ng-container>
+
+
+
+          <ng-template #progress>
+            <div fxFlex fxLayoutAlign="center center">
+
+              <ngx-progress-spinner mode="indeterminate" color="#1483FF" [value]="3" [total]="100" [strokeWidth]="5">
+              </ngx-progress-spinner>
+            </div>
+          </ng-template>
+
+
+
+        </ng-container>
+
+
+      </ng-template>
+      <ng-template [ngSwitchCase]="2">
+        <nb-card fxFlex>
+          <nb-card-body>
+
+            <nb-menu [items]="items">
+            </nb-menu>
+
+          </nb-card-body>
+        </nb-card>
+
+      </ng-template>
+      <ng-template [ngSwitchDefault]>
+        <p>HTML Course</p>
+      </ng-template>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <nb-sidebar-footer>
+
+
+      <ngx-navbar fxFlex (activeChange)="activeNavbarMenuChange($event)">
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="apps"></ngx-icon>
+        </ngx-navbar-item>
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="chart-scatter"></ngx-icon>
+        </ngx-navbar-item>
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="database"></ngx-icon>
+        </ngx-navbar-item>
+        <ngx-navbar-item>
+          <ngx-icon fontIcon="commandline"></ngx-icon>
+        </ngx-navbar-item>
+      </ngx-navbar>
+    </nb-sidebar-footer>
+
+
+
+  </nb-sidebar>
+
+</nb-layout>

@@ -1,0 +1,58 @@
+<div class="margin" fxLayout="row" fxLayoutAlign="end">
+  <div>
+    <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+    <button fxLayoutAlign="space-evenly center" fxLayout="row" fxFlex outline size="small" status="success"
+      (click)="addFile()" class="upload-item" nbButton>
+      Add
+    </button>
+
+  </div>
+</div>
+
+<div class="preview">
+
+
+  <div class="contains" fxLayoutAlign="start space-evenly  " fxLayout="row wrap" appDnd
+    (fileDropped)="onFileDropped($event)">
+
+
+    <ng-container *ngIf="uploadingFiles.length == 0 &&  (files$ | async).length == 0 ">
+      <div class="nofiles" fxFlex fxLayoutAlign="center center" (click)="addFile()">
+        <div fxLayout="column">
+
+          <img src="assets/svg/file.svg">
+          <span class="text center"> Drop your files here to upload </span>
+
+        </div>
+
+
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngFor="let file of files$ | async">
+
+
+      <div fxFlex.md="25%" fxFlex.sm="30%" fxFlex.lg="25%" fxFlex.gt-lg="20%">
+        <app-upload appBorder [fileData]="file" class="upload-item" fxFlex>
+        </app-upload>
+
+      </div>
+
+    </ng-container>
+
+
+    <ng-container *ngFor="let file of uploadingFiles">
+
+
+      <div fxFlex.md="25%" fxFlex.sm="30%" fxFlex.lg="25%" fxFlex.gt-lg="20%">
+        <app-upload appBorder [fileData]="file.fileData" [file]="file.file" class="upload-item" fxFlex>
+        </app-upload>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</div>

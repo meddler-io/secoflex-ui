@@ -1,0 +1,45 @@
+.label {
+  margin-top: 0.1875rem;
+  margin-bottom: 0.1875rem;
+}
+
+textarea {
+  resize: vertical;
+  // min-height: calc(1.5rem + 0.1875rem + 0.1875rem);
+}
+
+:host ::ng-deep .ngx-input-tag__tag {
+  margin: 3px;
+}
+
+:host ::ng-deep .ngx-input-switch {
+  display: flex;
+  flex-direction: row-reverse;
+  // flex: 1 1 1000%;
+  justify-content: start;
+  align-items: center;
+  align-content: center;
+
+  span {
+
+    padding-left: 0.6875rem;
+    font-family: Open Sans, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    // flex: 1;
+    // margin-left: 1rem;
+
+  }
+}
+
+
+.margin {
+  margin-bottom: 0.4rem;
+
+
+}
+
+.label{
+  margin-bottom: 0.7rem;
+}

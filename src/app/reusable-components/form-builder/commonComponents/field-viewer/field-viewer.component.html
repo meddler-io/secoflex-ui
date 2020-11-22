@@ -1,0 +1,82 @@
+<div fxLayout="column">
+
+  <div fxLayout="row">
+
+    <nb-list>
+
+      <nb-list-item [class.selected]="item.data == field_schema_id " (click)="selectField(item.data)"
+        (mouseover)="onHover(index)" (mouseleave)="onHover(-1)"
+        [appLeftBorder]="ColorPallete[index % ColorPallete.length]" [animate]="true"
+        *ngFor="let item of _items; index as index" style="max-width: 100%!important">
+
+        <div fxLayout="row" fxFlex="1 1 calc( 100% - 50px)">
+
+          <div fxFlex fxLayout="column" fxLayoutAlign="start" class="contains">
+
+            <div class="text" fxFlex [class.text-input__loading--line]="item.loading  " [class.half]="item.loading ">
+
+
+              <span class="text" fxFlex>
+                {{ item.title  }}
+
+              </span>
+
+            </div>
+            <div class="text" fxFlex [class.text-input__loading--line]="item.loading " [class.full]="item.loading ">
+              <span class="text" fxFlex>
+                {{ item.data  }}
+              </span>
+            </div>
+
+
+
+
+
+
+          </div>
+
+
+
+        </div>
+
+        <div *ngIf="onHover$ == index" fxLayout="column" fxFlex="50px 50px">
+          <button [class.selected]="item.data == field_schema_id " ghost status="primary" nbButton
+            (click)=" item.loading  = true ">
+            <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+          </button>
+        </div>
+      </nb-list-item>
+
+
+
+    </nb-list>
+  </div>
+
+
+  <div fxLayout="row"   fxLayoutGap="1rem" class="nomargin" fxLayoutAlign="center center">
+
+    <button class="margin" fxFlex nbButton ghost status="success" size="small">
+      <nb-icon icon="plus">
+      </nb-icon>
+      Add new
+
+    </button>
+  </div>
+</div>
+
+<!-- <div fxFlex fxLayout="row">
+  <div fxFlex>
+    <span class="subtitle-2">
+      #{{ ( identifier || field_schema_data.field_id ) }}
+    </span>
+  </div>
+
+  <div fxFlex>
+    <span class="caption-2">
+      {{title}}
+    </span>
+  </div>
+</div> -->
+
+<!-- {{field_schema_data.field_id | json}} -->
+<!-- {{identifier | json}} -->

@@ -1,0 +1,19 @@
+<ng-container
+
+>
+
+
+  <div [ngStyle]="{  'min-height': editorHeight + 'px' }" class="attachments editor" nbSpinnerSize="large"
+    [nbSpinner]="editorLoading">
+
+
+    <editor
+    [disabled]="!_properties.editable"
+    #editorComponent apiKey="hvixogidbngalt6ngnz11kzdko8y4nkhi1e4wd4z0d2bp6sd" initialValue=""  (onInit)="onInitEditor()"
+      [init]="config">
+    </editor>
+  </div>
+
+  
+
+</ng-container>

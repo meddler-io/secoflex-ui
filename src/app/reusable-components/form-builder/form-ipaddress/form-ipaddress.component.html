@@ -1,0 +1,69 @@
+<div fxFlex fxLayout="column">
+
+  <div fxLayout="column" class="editor preview">
+
+    <ng-container [formGroup]="formGroup">
+
+
+
+
+      <ng-container formArrayName="ipaddresses">
+
+
+        <div  *ngIf="_properties?.allow_user_to_add" fxFlex fxLayoutAlign="end end">
+          <button status="success" outline [size]="_properties.size" nbButton (click)="addIpAddress()">Add</button>
+        </div>
+
+        <ng-container *ngFor="let ipaddress of ipaddresses.controls ; let i=index ">
+
+
+          <div class="item" fxFlex fxLayout="row" [formGroupName]="i">
+
+
+            <div fxFlex class="field">
+              <nb-form-field>
+
+                <input [fieldSize]="_properties.size" [status]="ipaddress.invalid? 'danger' :  'control'" fullWidth
+                  #ipInput nbInput type="text" [placeholder]="_properties.placeholder" formControlName="ip_address">
+
+                <button [size]="_properties.size" [disabled]="i==0" nbSuffix nbButton ghost
+                  (click)="deleteIpAddress(i)">
+                  <nb-icon pack="eva" icon="trash-outline">
+                  </nb-icon>
+                </button>
+              </nb-form-field>
+
+            </div>
+            <ng-container>
+
+              <div fxFlex fxLayoutAlign="end center">
+                <p class="caption-2 status-danger"
+                  [ngStyle]="{  'visibility': ipaddress.invalid ? 'visible' : 'hidden'   }">
+
+                  <ng-container *ngIf="ipaddress.errors?.notUnique == true ; else genericError ">
+
+                    Duplicate Ip address
+                  </ng-container>
+
+                  <ng-template #genericError>
+                    * Invalid IP Address
+                  </ng-template>
+
+                </p>
+              </div>
+
+            </ng-container>
+          </div>
+
+        </ng-container>
+
+      </ng-container>
+
+
+
+
+
+    </ng-container>
+  </div>
+
+</div>

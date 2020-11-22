@@ -1,0 +1,89 @@
+<div fxFlex class="container">
+
+  <div fxLayout="column">
+
+    <div fxLayout="row" fxFlex class="list-head">
+
+
+
+
+      <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
+        <span class="marL" style=" padding-left:'2rem'">
+          Host
+
+        </span>
+      </div>
+
+
+      <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item-head">
+        Group
+      </div>
+
+
+      <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
+        Last Checked
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="scsroll" fxLayout="column">
+
+    <ng-container *ngFor="let host of hosts ; index as index">
+
+      <div fxLayout="column" (click)="detailedView(index)">
+
+        <div       [class.selected]="selected_host_list_item == index " fxLayout="row" fxFlex>
+
+          <div appHoverColor appBorder fxFlex fxLayoutAlign="center center" fxLayoutGap="1rem" class="list-item">
+
+            <ng-container *ngIf="host?.health == 'up' ; else healthDown">
+
+              <nb-icon class="health-up " icon="arrow-up">
+
+              </nb-icon>
+            </ng-container>
+            <ng-template #healthDown>
+              <nb-icon class="health-down " icon="arrow-down">
+
+              </nb-icon>
+            </ng-template>
+
+            <div appHoverColor fxFlex fxLayoutAlign="start center" class="list-item">
+
+
+              <span class="marL list-item-head">
+                {{host.host}}
+
+              </span>
+            </div>
+
+          </div>
+          <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item">
+            {{host.group || 'None'}}
+
+          </div>
+
+
+
+          <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item">
+            {{host.dou | date}}
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
+
+
+
+<ng-template #template>
+
+  <app-host-add></app-host-add>
+
+
+</ng-template>

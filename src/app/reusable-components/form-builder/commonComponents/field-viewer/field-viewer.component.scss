@@ -1,0 +1,139 @@
+.text-input__loading {
+
+  //   height: 1.2rem;
+  // width: 100%;
+}
+
+.subtitle {
+
+  height: 1.2rem;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  // margin: 0.4rem;
+
+  // overflow: hidden;
+
+
+
+  /* Needed to make it work */
+  // overflow: hidden;
+  // white-space: nowrap;
+  // text-overflow: ellipsis;
+
+
+}
+
+.contains {
+  overflow: hidden;
+
+}
+
+.text {
+  height: 1.6rem;
+
+  font-size: 1.0rem;
+  line-height: 1.2rem;
+  padding: 0.2rem;
+
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  // overflow: hidden;
+  // overflow-x: hidden;
+  // white-space: nowrap;
+  // text-overflow: ellipsis;
+
+}
+
+span.text {
+  overflow: hidden;
+
+}
+
+.text-input__loading--line {
+  height: 1.2rem;
+  line-height: 1.2rem;
+  margin: 0.2rem;
+  padding: 0px;
+  -webkit-animation: pulse 1s infinite ease-in-out;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+.half{
+  width: 50%;
+}
+.full{
+  width: 100%;
+}
+
+.text-input__loading div:nth-child(3) {
+  width: 150px;
+}
+
+.text-input__loading div:nth-child(5) {
+  width: 150px;
+}
+
+.text-input__loading div:nth-child(6) {
+  width: 250px;
+}
+
+.text-input__loading div:nth-child(7) {
+  width: 250px;
+}
+
+.text-input__loading div:nth-child(1) {
+  width: 50%;
+}
+
+.text-input__loading div:nth-child(2) {
+  width: 100%;
+}
+
+.text-input__loading div:nth-child(4) {
+  // width: 100px;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+
+  50% {
+    background-color: rgba(165, 165, 165, 0.4);
+  }
+
+  100% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+
+  50% {
+    background-color: rgba(165, 165, 165, 0.4);
+  }
+
+  100% {
+    background-color: rgba(165, 165, 165, 0.1);
+  }
+}
+
+
+.selected {
+  background: #00b887;
+  color: #fff !important;
+}
+
+.nomargin{
+  padding: 0px;
+  margin: 0px;
+}
+
+.margin{
+  padding: 1.2rem !important;
+  margin: 0px;
+}

@@ -1,0 +1,107 @@
+<nb-layout center [restoreScrollTop]="false">
+  <nb-layout-header fixed>
+
+    <div fxFlex fxLayoutAlign="center center">
+
+      <div fxFlex fxLayoutAlign="start center">
+
+        <button nbButton ghost status="danger" size="medium">
+          <nb-icon icon="menu">
+          </nb-icon>
+        </button>
+
+        <span fxHide.lt-sm fxShow routerLink="/" class="h5">
+          Assets
+        </span>
+      </div>
+
+
+    </div>
+  </nb-layout-header>
+
+
+
+  <nb-sidebar left fxLayout="column">
+
+
+
+    <nb-sidebar-header>
+
+
+
+      <button [routerLink]="[   { outlets: {  primary:  ['/asset' , 'test' ]  ,   asset: [ 'host'] } }]" nbButton fxFlex ghost status="primary">
+        <!-- <nb-icon icon="settings-outline"></nb-icon> -->
+        Workspace
+      </button>
+
+
+
+
+    </nb-sidebar-header>
+
+    <nb-list>
+
+      <nb-list-item [routerLink]="assetType.type" @init *ngFor="let assetType of assetTypes; index as index">
+        <button nbButton fxFlex [appearance]=" assetType.path == router.url ?  'outline' : 'ghost'"
+          [status]=" assetType.path == router.url ? 'success' : 'basic'" size="small" fxLayoutAlign="Start">
+          <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
+          {{assetType.name}}
+
+        </button>
+      </nb-list-item>
+
+      <!-- <nb-list-item [routerLink]="assetType.link" [class.selected-route]="assetType.path == router.url " appBorder
+        appHoverColor @init *ngFor="let assetType of assetTypes; index as index">
+
+        <div fxLayout="row" fxFlex fxLayoutGap="1rem">
+
+
+          <div fxFlex="1 0">
+
+            {{assetType.name}}
+          </div>
+
+
+
+        </div>
+
+      </nb-list-item> -->
+
+    </nb-list>
+
+
+
+    <nb-sidebar-footer>
+
+
+      <button (click)="openSettings(settingsTemplate)" nbButton fxFlex ghost status="success">
+        <nb-icon icon="settings-outline">
+
+        </nb-icon>
+        Configuration
+      </button>
+
+    </nb-sidebar-footer>
+
+  </nb-sidebar>
+
+
+
+  <nb-layout-column>
+
+
+    <router-outlet >
+
+    </router-outlet>
+
+  </nb-layout-column>
+
+
+
+
+</nb-layout>
+
+
+<ng-template #settingsTemplate>
+  <app-asset-configuration></app-asset-configuration>
+</ng-template>

@@ -1,0 +1,27 @@
+<div fxFlex class="container">
+
+
+  <div appBorder fxLayout="row" fxFlex class="list-head" fxLayoutAlign="start center" fxLayoutGap="1rem">
+
+    <div fxFlex="50%">
+      <nb-form-field >
+        <nb-icon icon="search-outline" nbPrefix status="basic" >
+
+        </nb-icon>
+        <input nbInput fullWidth placeholder="Search Host"   status="primary">
+
+      </nb-form-field>
+    </div>
+
+
+
+    <div fxFlex="50%" fxLayoutGap="1rem">
+      <button (click)="addIp(addIpTemplate)" fxFlex nbButton status="info" outline>Add New</button>
+      <button (click)="addIp(addIpTemplate)" fxFlex nbButton status="success" outline>Import</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #addIpTemplate>
+  <app-host-add></app-host-add>
+</ng-template>

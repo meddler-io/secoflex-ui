@@ -1,0 +1,39 @@
+<div fxFlex fxLayout="column">
+
+
+  <div fxLayout="column">
+
+    <div fxLayout="row" fxFlex class="list-head">
+
+
+
+
+      <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
+        <span class="marL" style=" padding-left:'2rem'">
+          App Name
+
+
+        </span>
+      </div>
+
+
+      <div appHoverColor appBorder fxFlex fxLayoutAlign="center center" class="list-item-head">
+        Package Name
+
+      </div>
+
+
+      <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
+        Date
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <app-android-list-item [app]="app" fxFlex="50%" *ngFor="let app of apps">
+
+  </app-android-list-item>
+
+</div>

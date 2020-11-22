@@ -1,0 +1,12 @@
+
+
+<ngx-codemirror [(ngModel)]="_properties.code" [config]="{
+    lineNumbers: true,
+    lineWrapping: true,
+    theme: 'dracula',
+    mode: {
+      name: 'javascript',
+      json: true
+    }
+  }" [autocompleteTokens]="autocompleteTokens">
+</ngx-codemirror>

@@ -1,0 +1,84 @@
+<div fxFlex class="container">
+
+  <div fxLayout="column">
+
+    <div fxLayout="row" fxFlex class="list-head">
+
+
+
+
+      <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
+        <span class="marL" style=" padding-left:'2rem'">
+          Domain
+
+        </span>
+      </div>
+
+
+      <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item-head">
+        Group
+      </div>
+
+
+      <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
+        Last Checked
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="scsroll" fxLayout="column">
+
+    <ng-container *ngFor="let domain of domains ; index as index">
+
+      <div fxLayout="column" (click)="detailedView(index)">
+
+        <div [class.selected]="selected_domain_list_item == index " fxLayout="row" fxFlex>
+
+          <div appHoverColor appBorder fxFlex fxLayoutAlign="center center" fxLayoutGap="1rem" class="list-item">
+
+
+
+            <span class="bullet ">
+              #{{index+1}}
+
+            </span>
+
+            <div appHoverColor fxFlex fxLayoutAlign="start center" class="list-item">
+
+
+              <span class="marL list-item-head">
+                {{domain.domain}}
+
+              </span>
+            </div>
+
+          </div>
+          <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item">
+            {{domain.group || 'None'}}
+
+          </div>
+
+
+
+          <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item">
+            {{domain.dou | date}}
+          </div>
+        </div>
+
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
+
+
+
+<ng-template #template>
+
+  <app-domain-add></app-domain-add>
+
+
+</ng-template>

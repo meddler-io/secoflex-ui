@@ -1,0 +1,99 @@
+<div fxLayout="column">
+
+  <div fxLayout="row" fxFlex class="list-head">
+
+
+
+
+    <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
+      <span class="marL" style=" padding-left:'2rem'">
+        {{app.app_name || 'App Name'}}
+
+
+      </span>
+    </div>
+
+
+    <div appHoverColor appBorder fxFlex fxLayoutAlign="center center" class="list-item-head">
+      {{app.package_name || 'package.com.name'}}
+
+    </div>
+
+
+    <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
+      {{app.doc | date }}
+
+    </div>
+
+
+  </div>
+
+</div>
+
+<div *ngIf="false" appBorder fxLayout="column" fxLayoutGap="1rem">
+
+  <div fxLayout="row">
+
+    <div fxFlex="50%" appBorder>
+      <span>
+        {{app.app_name}}
+
+      </span>
+    </div>
+
+
+  </div>
+
+
+  <div fxLayout="row">
+
+    <div fxFlex="50%" appBorder>
+      <span>
+        {{app.package_name}}
+
+
+      </span>
+    </div>
+
+
+  </div>
+
+
+
+
+
+  <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="1rem">
+
+
+
+    <button (click)="edit()" size="tiny" nbButton outline status="basic">
+      Download
+    </button>
+
+    <button (click)="edit()" size="tiny" nbButton filled status="danger">
+      Delete
+    </button>
+
+
+  </div>
+
+
+
+
+
+  <div fxFlex>
+
+    <nb-progress-bar size="tiny" [value]="0" status="primary" [displayValue]="true"></nb-progress-bar>
+  </div>
+</div>
+
+
+<ng-template #editNewAppTemplate>
+
+
+  <app-android-create-new [app]="app">
+
+  </app-android-create-new>
+
+
+</ng-template>

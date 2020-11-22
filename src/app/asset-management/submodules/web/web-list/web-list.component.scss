@@ -1,0 +1,61 @@
+.list-item-head {
+    font-weight: 600 !important;
+    font-size: 0.9rem;
+    // background-color: #1e1e1e;;
+    color: #a4b1cd !important;
+    overflow: auto;
+  
+  }
+  
+  
+  .list-item {
+    font-weight: 200;
+    font-size: 0.9rem;
+    // background-color: #1e1e1e;;
+    color: #fff !important;
+    margin-left: 0.8rem;
+  
+    // color: var(color-primary-100) !important;
+    overflow: auto;
+  
+  }
+  
+  .list-head {
+    height: 4rem;
+  }
+  
+  .container {
+    margin-top: 1rem;
+  
+  
+  }
+  
+  .scroll {
+    // height: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 0;
+    overflow: auto;
+  
+  }
+  
+  .health-up {
+    color: #9fef00 !important;
+  }
+  
+  
+  .health-down {
+    color: #ff3e3e !important;
+  }
+  
+  
+  
+  :host ::ng-deep ngx-drawer {
+    width: 599px;
+  }
+  
+  .selected {
+    background: #3366ff !important;
+  
+  }
+  

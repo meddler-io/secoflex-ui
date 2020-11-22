@@ -1,0 +1,137 @@
+<nb-layout center [restoreScrollTop]="false">
+  <nb-layout-header fixed>
+
+    <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+
+      <nb-icon icon="plus-circle">
+      </nb-icon>
+      <div fxFlex class="h6">
+        Android App
+
+      </div>
+
+
+      <button outline nbButton status="success" size="small">
+
+        <nb-icon icon="checkmark-circle-2">
+        </nb-icon>
+        Save
+
+      </button>
+
+
+
+
+    </div>
+  </nb-layout-header>
+
+  <nb-layout-column @init>
+
+
+    <form [formGroup]="android_data_form">
+
+      <div appBorder fxLayout="column" fxLayoutGap="1rem">
+
+
+        <div fxFlex>
+
+
+          <nb-form-field [nbSpinner]="saving">
+            <div nbPrefix icon="at-outline" pack="eva">
+              <nb-icon icon="hash-outline"></nb-icon>
+            </div>
+            <input formControlName="app_name" fullWidth nbInput fieldSize="medium" status="primary" placeholder="App name">
+
+          </nb-form-field>
+
+
+
+        </div>
+
+
+        <div fxFlex>
+
+
+          <nb-form-field [nbSpinner]="saving">
+            <div nbPrefix icon="at-outline" pack="eva">
+              <nb-icon icon="hash-outline"></nb-icon>
+            </div>
+            <input formControlName="package_name" fullWidth nbInput fieldSize="medium" status="primary" placeholder="Package Name">
+
+
+
+
+          </nb-form-field>
+
+
+
+        </div>
+
+        <div fxFlex fxLayout="row">
+          <input type="file" #file style="display: none" (change)="onFilesAdded()" />
+
+          <nb-form-field [nbSpinner]="saving" fxFlex>
+
+            <div nbPrefix icon="at-outline" pack="eva">
+              <nb-icon icon="hash-outline"></nb-icon>
+            </div>
+            <input fxLayoutAlign="start start" (click)="selectFile()" fieldSize="medium" fullWidth
+              [value]="selected_file?.name || 'No File Selected' " status="primary" type="button" nbInput outline>
+
+            <div nbSuffix icon="at-outline" pack="eva">
+              <!-- #1 -->
+              <!-- <nb-icon icon="arrow-circle-up-outline"></nb-icon> -->
+              <button *ngIf="!selected_file" (click)="selectFile()" size="small" nbButton ghost status="primary">
+                <nb-icon icon="arrow-circle-up-outline"></nb-icon>
+
+              </button>
+              <button *ngIf="selected_file" (click)="removeFile()" size="small" nbButton ghost status="danger">
+                <nb-icon icon="close-circle"></nb-icon>
+
+              </button>
+
+            </div>
+          </nb-form-field>
+          <div *ngIf="false" fxLayoutAlign="end center">
+            <button *ngIf="!selected_file" (click)="selectFile()" size="tiny" nbButton ghost status="success">
+              Select File
+            </button>
+            <button *ngIf="selected_file" (click)="removeFile()" size="tiny" nbButton ghost status="danger">
+              Remove File
+            </button>
+
+
+          </div>
+
+        </div>
+
+
+
+
+        <div fxFlex fxLayoutAlign="end">
+
+          <button (click)="upload()" [disabled]="!selected_file" size="small" nbButton outline status="basic">
+            Upload
+          </button>
+        </div>
+
+
+        <div fxFlex>
+
+          <nb-progress-bar size="tiny" [value]="progressStatus.progress" status="primary" [displayValue]="true">
+          </nb-progress-bar>
+
+        </div>
+
+      </div>
+
+    </form>
+
+
+
+
+
+  </nb-layout-column>
+
+
+</nb-layout>

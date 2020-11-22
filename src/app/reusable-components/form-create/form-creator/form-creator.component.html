@@ -1,0 +1,95 @@
+<nb-layout center>
+
+    <nb-layout-header fixed>
+        <div fxFlex fxLayoutAlign="start center">
+
+            <span class="h5">
+                <button nbButton ghost status="danger" size="large">
+
+                    <nb-icon icon="menu-2">
+                    </nb-icon>
+                </button>
+                SecoFlex
+            </span>
+
+
+        </div>
+    </nb-layout-header>
+    <nb-layout-column fxLayoutAlign="center center">
+        <nb-card size="medium" fxFlex @openClose>
+
+            <!-- <nb-card-header> -->
+            <!-- <span class="h6">Create Form</span> -->
+            <!-- </nb-card-header> -->
+
+            <nb-card-header>
+
+                <div fxFlex fxLayoutGap="1rem">
+                    <nb-form-field filled fxFlex>
+
+                        <nb-icon nbPrefix size="large" ghost icon="search-outline" pack="eva">
+                        </nb-icon>
+                        <input [formControl]="inputFormControl" filled #searchInput
+                            (input)="filterItem(searchInput.value)" fieldSize="giant" type="text" nbInput fullWidth
+                            placeholder="Search formschema">
+                    </nb-form-field>
+
+
+                    <div fxLayoutAlign="end center" fxLayoutGap="1rem">
+                        <button (click)="createForm()" outline nbButton status="basic" size="large">
+                            Create New
+                        </button>
+
+
+                    </div>
+                </div>
+
+            </nb-card-header>
+
+
+
+
+            <nb-list [nbSpinner]="loading == true" nbSpinnerSize="large">
+                <nb-list-item (mouseover)="setOnHoverIndex(index)" (mouseout)="setOnHoverIndex(-1)" class="lisitem"
+                    [routerLink]=" [  '/', 'form-builder' , option.form_id ]" @openClose
+                    *ngFor="let option of  filteredItems$  | async ; index as index">
+                    <div fxFlex fxLayoutAlign="end center">
+                        <span class="h6" fxFlex>
+                            {{ option.form_name  }}
+                            
+                        </span>
+
+                    
+
+                        <button  [ngStyle]="{  'visibility' :  (hoverIndex == index) ? 'visible': 'hidden' }"  nbButton ghost status="basic" size="large">
+
+                            <nb-icon icon="trash">
+                            </nb-icon>
+                        </button>
+                    </div>
+
+
+
+                </nb-list-item>
+            </nb-list>
+
+
+            <nb-card-footer>
+                <div fxFlex fxLayoutAlign="end" fxLayoutGap="1rem">
+                    <button nbButton ghost status="danger" size="medium">
+                        Create New
+                    </button>
+
+                    <button nbButton status="success" size="medium">
+                        Edit
+                    </button>
+                </div>
+            </nb-card-footer>
+
+
+        </nb-card>
+
+
+    </nb-layout-column>
+
+</nb-layout>

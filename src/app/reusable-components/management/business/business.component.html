@@ -1,0 +1,57 @@
+<ngx-tree>
+  <ngx-tree-node [label]="'Node 2'" [expandable]="true" [expanded]="true" [selectable]="true">
+    <ngx-tree>
+      <ngx-tree-node [label]="'Node 1'"></ngx-tree-node>
+      <ngx-tree-node [label]="'Node 2'"></ngx-tree-node>
+      <ngx-tree-node [label]="'Node 3'"></ngx-tree-node>
+    </ngx-tree>
+  </ngx-tree-node>
+
+
+  <ngx-tree-node [label]="'Node 3'" [selectable]="true"></ngx-tree-node>
+
+
+  <ngx-tree-node [label]="'Node 4'" [selectable]="true" [expandable]="true" [expanded]="false">
+    <ngx-tree>
+      <ngx-tree-node [label]="'Node 1'"></ngx-tree-node>
+      <ngx-tree-node [label]="'Node 2'" [expandable]="true" [expanded]="true" [disabled]="true">
+        <ngx-tree>
+          <ngx-tree-node [label]="'Node 1'"></ngx-tree-node>
+          <ngx-tree-node [label]="'Node 2'"></ngx-tree-node>
+          <ngx-tree-node [label]="'Node 3'"></ngx-tree-node>
+        </ngx-tree>
+      </ngx-tree-node>
+      <ngx-tree-node [label]="'Node 3'"></ngx-tree-node>
+
+      <ngx-input style="margin-left: 20px" size="sm" label="Project name" hint="Create a new project"></ngx-input>
+
+
+    </ngx-tree>
+
+
+  </ngx-tree-node>
+
+
+  <ngx-tree-node [label]="'Node 1'" [selectable]="true"></ngx-tree-node>
+
+
+  <ngx-tree-node [label]="'Create Business'" [selectable]="true"></ngx-tree-node>
+  <ngx-input style="margin-left: 20px" size="sm" label="Business name" hint="Create a new business"></ngx-input>
+  <!-- <input  placeholder="Create Business"  type="text" class="form-input"  /> -->
+  <!-- <input placeholder="Create Business" nbInput fieldSize="tiny" style="margin-left: 20px" value=""   status="success"> -->
+
+</ngx-tree>
+
+<ngx-overlay #overlay >
+    
+  <span style="display: inline-block; line-height:
+    14px; vertical-align: middle;">
+    <h3>Click anywhere to return</h3>
+
+    <ngx-input style="margin-left: 20px" size="sm" label="Business name" hint="Create a new business"></ngx-input>
+
+
+  </span>
+</ngx-overlay>
+<button class="btn
+    btn-primary" (click)="overlay.visible = true">Show Overlay</button>

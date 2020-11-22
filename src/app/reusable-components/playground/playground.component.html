@@ -1,0 +1,88 @@
+<nb-layout >
+    <nb-layout-header fixed>
+
+        <div fxFlex fxLayoutAlign="center center">
+
+            <span routerLink="/" class="h5">
+                <button nbButton ghost status="danger" size="large">
+
+                    <nb-icon icon="menu-2">
+                    </nb-icon>
+                </button>
+
+                SecoFlex
+
+            </span>
+
+
+            <div fxFlex fxLayoutAlign="end center">
+
+
+                <button nbButton ghost status="danger" size="medium">
+                    <nb-icon icon="checkmark-circle-2">
+                    </nb-icon>
+                    Previous
+
+                </button>
+
+                <button nbButton ghost status="success" size="medium">
+                    <nb-icon icon="checkmark-circle-2">
+                    </nb-icon>
+                    Next
+
+                </button>
+
+
+            </div>
+        </div>
+    </nb-layout-header>
+
+
+
+
+    <nb-layout-column withScroll>
+
+        <nb-card size="medium">
+            <nb-card-header>
+              Some fruits
+            </nb-card-header>
+            <nb-list>
+                <nb-list-item *ngFor="let user of users">
+                    {{ user.name }}
+                </nb-list-item>
+            </nb-list>
+          </nb-card>
+
+          <nb-card size="medium">
+            <nb-card-header>
+              Some fruits
+            </nb-card-header>
+            <nb-list>
+                <nb-list-item *ngFor="let user of users">
+                    {{ user.name }}
+                </nb-list-item>
+            </nb-list>
+          </nb-card>
+
+    </nb-layout-column>
+
+
+    <nb-layout-column>
+
+        <div fxLayout="column" fxFlex class="container">
+
+            <nb-list fxFlex="1 9">
+
+
+                <nb-list-item *ngFor="let user of users">
+                    {{ user.name }}
+                </nb-list-item>
+            </nb-list>
+
+
+
+        </div>
+
+    </nb-layout-column>
+
+</nb-layout>

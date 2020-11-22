@@ -1,0 +1,34 @@
+<div fxFlex class="container">
+
+
+  <div appBorder fxLayout="row" fxFlex class="list-head" fxLayoutAlign="start center" fxLayoutGap="1rem">
+
+
+    <div fxFlex="50%">
+      <nb-form-field>
+        <nb-icon icon="search-outline" nbPrefix status="basic">
+
+        </nb-icon>
+        <input nbInput fullWidth placeholder="Search HIosost" status="primary">
+
+      </nb-form-field>
+    </div>
+
+
+    <div fxFlex="50%" fxLayoutGap="1rem">
+      <button (click)="createNewApp(createNewAppTemplate)" fxFlex nbButton status="success" outline>Upload</button>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #createNewAppTemplate>
+
+
+
+  <app-ios-create-new>
+
+  </app-ios-create-new>
+
+
+</ng-template>

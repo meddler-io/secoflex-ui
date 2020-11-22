@@ -1,0 +1,100 @@
+<div fxLayout="column">
+
+  <div fxFlex *ngIf="selectedIcon && selectedIcon != '' ; else chooseIcon">
+  
+    <button (click)="open(dialog)" fxFlex outline nbButton shape="round" size="tiny" status="primary">Change
+      Icon
+
+      <nb-icon [icon]="selectedIcon"></nb-icon>
+
+    </button>
+
+  </div>
+
+
+  <ng-template #chooseIcon>
+    <button (click)="open(dialog)" fxFlex outline nbButton shape="round" size="tiny" status="basic">Choose
+      Icon
+    </button>
+  </ng-template>
+
+</div>
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card size="medium" fxFlex="1 1 800px">
+    <nb-card-header>
+
+      <div fxFlex fxLayoutAlign="start center">
+        <span>
+          Choose Icon
+
+        </span>
+
+        <div fxFlex fxLayoutAlign="end center">
+          <ng-container *ngIf="selectedIcon">
+            <button (click)="ref.close()" outline nbButton status="success">
+              <nb-icon [icon]="selectedIcon"></nb-icon>
+
+              Save
+            </button>
+          </ng-container>
+        </div>
+
+      </div>
+    </nb-card-header>
+    <nb-card-body fxLayout="row wrap" fxLayoutAlign="center center">
+
+
+
+      <ng-container *ngIf="evaicons | async as evaicons  ; else progress ">
+
+        <ng-container *ngFor=" let icon of evaicons   ">
+
+
+          <button [outline]=" selectedIcon === icon " [ghost]="selectedIcon !== icon" (click)="selectIcon(icon)"
+            nbButton [status]=" selectedIcon !== icon ? 'basic': 'success' ">
+            <nb-icon [icon]="icon"></nb-icon>
+          </button>
+        </ng-container>
+      </ng-container>
+
+
+      <ng-template #progress>
+
+
+        <ngx-progress-spinner mode="indeterminate" color="#1483FF" [value]="3" [total]="100" [strokeWidth]="5">
+        </ngx-progress-spinner>
+
+      </ng-template>
+
+
+
+    </nb-card-body>
+
+    <nb-card-footer>
+
+      <div fxFlex fxLayoutAlign="end center">
+
+        <ng-container *ngIf="selectedIcon">
+
+
+          <button (click)="selectIcon(undefined)" nbButton status="danger" ghost>
+            Remove Icon
+          </button>
+
+
+        </ng-container>
+
+
+
+      </div>
+
+
+
+
+
+    </nb-card-footer>
+
+  </nb-card>
+</ng-template>

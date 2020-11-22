@@ -1,0 +1,176 @@
+<div  fxLayout="column" @init appBorder>
+
+
+  <div fxLayout="row" class="label" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
+
+
+    <div fxFlex>
+      <span class="tag tag-small tag-bordered"> {{property?.property_name}}</span>
+
+    </div>
+
+
+    <button (click)="openDialog({ context: { count: 19 }, template: wizardTmpl, class: 'wizard' })" class="margin"
+      nbButton ghost status="primary" size="tiny">
+      <nb-icon icon="expand">
+      </nb-icon>
+
+    </button>
+
+
+  </div>
+
+
+
+
+  <form [formGroup]="form">
+
+
+    <ng-container [ngSwitch]="property.property_tyoe ">
+      <ng-container *ngSwitchCase="PropertyType.TOGGLE_SWITCH  ">
+
+
+
+        <ngx-toggle class="caption" formControlName="property" [label]="property?.property_name">
+        </ngx-toggle>
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_TEXT  ">
+
+
+        <input status="control" nbInput fxFlex formControlName="property" #fileldId
+          [placeholder]="property.property_name" fieldSize="small" />
+
+
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_ICON  ">
+
+
+        <app-icon-selector formControlName="property">
+
+        </app-icon-selector>
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_TEXTAREA  ">
+
+
+        <textarea status="control" nbInput fxFlex formControlName formControlName="property" #fileldId
+          [placeholder]="property.property_name" fieldSize="small">
+            </textarea>
+
+        <!-- <ngx-input type="textarea" label="Hello World" #fileldId appearance="outline" formControlName="property"
+          [placeholder]="property.property_name" size="sm" [hint]="property.property_name"></ngx-input> -->
+
+
+
+        <!-- <input class="form-input" label="Hello World" #fileldId formControlName="property"
+          [placeholder]="property.property_name" size="sm" [hint]="property.property_name"> -->
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_CHECKBOX  ">
+        <nb-checkbox formControlName="property">Toggle me</nb-checkbox>
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_SELECT  ">
+
+        <nb-select [size]="size" placeholder="Select Showcase">
+          <nb-option value="">Option empty</nb-option>
+          <nb-option value="0">Option 0</nb-option>
+          <nb-option value="1">Option 1</nb-option>
+          <nb-option value="2">Option 2</nb-option>
+          <nb-option value="3">Option 3</nb-option>
+          <nb-option value="4">Option 4</nb-option>
+        </nb-select>
+
+
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_RADIO  ">
+
+
+        <nb-radio-group formControlName="property">
+          <nb-radio *ngFor="let option of options" [disabled]="option.disabled" [value]="option.value">
+            {{ option.label }}
+          </nb-radio>
+        </nb-radio-group>
+
+      </ng-container>
+
+
+      <ng-container *ngSwitchCase=" PropertyType.INPUT_MULTI_SELECT  ">
+
+        <nb-select multiple [size]="size" placeholder="Select Showcase">
+          <nb-option value="">Option empty</nb-option>
+          <nb-option value="0">Option 0</nb-option>
+          <nb-option value="1">Option 1</nb-option>
+          <nb-option value="2">Option 2</nb-option>
+          <nb-option value="3">Option 3</nb-option>
+          <nb-option value="4">Option 4</nb-option>
+        </nb-select>
+
+      </ng-container>
+
+      <ng-container *ngSwitchCase=" PropertyType.CHIPS  ">
+
+
+        <input fullWidth #fileldId [placeholder]="property.property_name" formControlName="property" [fieldSize]="size"
+          nbInput />
+
+      </ng-container>
+
+    </ng-container>
+
+
+
+
+  </form>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<ng-template #wizardTmpl let-context="context">
+  <div class="ngx-dialog-header">
+    <h1>Custom header title</h1>
+    <span>Custom subtext</span>
+  </div>
+
+  <ngx-tabs>
+    <ngx-tab label="General">
+      <h2>Tab content</h2>
+      <p>First tab content goes here</p>
+      <p>Count: <strong>{{context.count}}</strong></p>
+    </ngx-tab>
+    <ngx-tab label="Administration">
+      <h2>Second tab has a slightly longer title that goes here</h2>
+      <p>Second tab content goes here</p>
+    </ngx-tab>
+  </ngx-tabs>
+
+  <div class="ngx-dialog-footer">
+    <div class="wizard-nav">
+      <button type="button" class="btn btn-bordered">
+        <i class="ngx-icon ngx-arrow-left has-text"></i>Prev
+      </button>
+      <button type="button" class="btn btn-bordered">
+        Next <i class="ngx-icon ngx-arrow-right"></i>
+      </button>
+    </div>
+    <button type="button" class="btn btn-primary">
+      <i class="ngx-icon ngx-check has-text"></i>Save
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,228 @@
+
+
+
+<button (click)="triggerScrollTo()">
+  Go down 200 pixels
+</button>
+
+<div appLeftBorder *ngIf="baseFormCommonProperties?.description?.length > 0">
+  <span class="subtitle text-hint">{{baseFormCommonProperties?.description}}</span>
+</div>
+
+
+<div id="destination" >
+
+
+
+
+
+
+
+
+  <div *ngIf="baseFormCommonProperties?.instructions?.length > 0">
+    <ngx-tip status="notice">
+      {{baseFormCommonProperties?.instructions}}
+    </ngx-tip>
+  </div>
+
+  <div appBorder>
+    <ng-template #componentTemplate></ng-template>
+  </div>
+  <!-- </ngx-section> -->
+</div>
+
+
+<!-- </nb-accordion-item-body>
+</nb-accordion-item> -->
+
+<!-- </nb-accordion> -->
+
+<nb-card @init *ngIf="false" cdkDrag [cdkDragDisabled]="!(dragEventListener$ | async)">
+
+  <nb-card-header *ngIf="deleteState && false">
+
+    <div fxFlex fxLayoutAlign="end" fxLayoutGap="1rem">
+
+      <div fxFlex fxLayoutGap="1rem">
+
+        <div>
+          <span class="h6">{{undo_message}}</span>
+
+        </div>
+      </div>
+
+      <div fxLayoutGap="1rem">
+        <button size="tiny" status="primary" nbButton (click)="undo()">Undo</button>
+        <button size="tiny" status="danger" nbButton (click)="delete()">Delete</button>
+
+
+
+      </div>
+
+    </div>
+
+  </nb-card-header>
+  <nb-card-header *ngIf="false" [class.unpublishedCard]="published == false && false"
+    [class.publishedCard]="published == true" fxLayoutAlign="end center" fxLayoutGap="0rem">
+
+
+    <div fxFlex class="identifier">
+
+
+
+      <nb-form-field>
+        <input #fileldId (keyup.enter)="updateIdentifier(fileldId.value)" placeholder="Identifier" [value]="identifier"
+          fieldSize="small" nbInput>
+        <nb-icon nbPrefix icon="hash-outline" pack="eva"></nb-icon>
+      </nb-form-field>
+
+
+
+    </div>
+
+
+
+    <ng-container *ngIf="published !== undefined">
+
+      <ng-container *ngIf="published  ; else unpublishFormFieldTemplate">
+        <button size="tiny" nbButton (click)="togglePublished(false)" outline [status]="publishing?'basic':'danger'"
+          [disabled]="publishing" nbSpinnerStatus="basic" [nbSpinner]="publishing" nbSpinnerSize="tiny">
+          <nb-icon icon="checkmark-circle-2"></nb-icon>
+          Unpublish
+        </button>
+
+      </ng-container>
+
+      <ng-template #unpublishFormFieldTemplate>
+
+        <button size="tiny" nbButton (click)="togglePublished(true)" outline [status]="publishing  ?'basic':'success'"
+          [disabled]="publishing" nbSpinnerStatus="basic" [nbSpinner]="publishing" nbSpinnerSize="tiny">
+          <nb-icon icon="checkmark-circle-2"></nb-icon>
+          Publish
+        </button>
+
+      </ng-template>
+
+    </ng-container>
+
+
+
+
+    <button (click)="openDialog( settingsTemplate )" size="tiny" nbButton outline status="basic">
+      <nb-icon icon="settings-2"></nb-icon>
+    </button>
+
+
+    <ng-template #settingsTemplate>
+      <div class="popmenu">
+
+        <nb-list>
+          <nb-list-item>
+            <nb-checkbox status="success">
+              Required</nb-checkbox>
+          </nb-list-item>
+          <nb-list-item>
+
+            <nb-checkbox status="success">
+              Multiple</nb-checkbox>
+          </nb-list-item>
+          <nb-list-item>
+
+            <nb-checkbox status="success">Allow user to
+              add new URL</nb-checkbox>
+          </nb-list-item>
+        </nb-list>
+        <div fxLayoutAlign="end center">
+          <button size="tiny" status="info" nbButton (click)="delete()">Customize</button>
+          <button size="tiny" status="danger" nbButton (click)="delete()">Delete</button>
+        </div>
+        <div fxLayoutAlign="end center">
+
+
+
+          <button size="small" status="success" nbButton (click)="delete()">Save</button>
+        </div>
+
+      </div>
+    </ng-template>
+
+
+
+  </nb-card-header>
+
+  <nb-card-header *ngIf="!deleteState && false">
+
+
+
+
+
+
+    <div fxFlex fxLayout="column" fxLayoutAlign="end" fxLayoutGap="1rem">
+
+
+      <div class="headingContainer">
+        <!-- <h4 class="title">{{title}}</h4> -->
+
+        <div fxFlex="55">
+
+          <nb-form-field>
+            <input #titleInput (keyup.enter)="updateTitle( titleInput.value )" placeholder="Hello World"
+              fieldSize="medium" fullWidth [(ngModel)]="title" nbInput>
+            <button [disabled]="i==0" nbPrefix nbButton ghost (click)="deleteIpAddress(i)">
+              <nb-icon pack="eva" icon="edit-outline">
+              </nb-icon>
+            </button>
+          </nb-form-field>
+        </div>
+
+      </div>
+
+
+      <div class="headingContainer">
+        <!-- <h6 class="subtitle-2">{{subtitle}}</h6> -->
+
+        <div fxFlex="80">
+
+          <nb-form-field>
+
+
+
+            <textarea rows="3" placeholder="Enter description" #subtitleInput
+              (keyup.enter)="updateSubtitle( subtitleInput.value )" fieldSize="medium" fullWidth [(ngModel)]="subtitle"
+              nbInput>
+                        </textarea>
+
+
+
+            <!-- <button [disabled]="i==0" nbPrefix nbButton ghost (click)="deleteIpAddress(i)">
+                            <nb-icon pack="eva" icon="edit-outline">
+                            </nb-icon>
+                        </button> -->
+          </nb-form-field>
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+
+  </nb-card-header>
+
+
+  <nb-card-body class="gutter">
+    <ng-template #componentTemplate></ng-template>
+  </nb-card-body>
+
+
+  <!-- <nb-card-footer>
+        <span class="attachments" class="h6">Attachments</span>
+
+        <app-form-file></app-form-file>
+
+    </nb-card-footer> -->
+</nb-card>

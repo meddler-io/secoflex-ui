@@ -1,0 +1,78 @@
+<ng-container *ngIf="fileData; else fileUploadTemplate">
+
+  <div fxLayout="column">
+
+
+
+    <!-- <div (click)="deleteFile()" class="flex-item" fxLayout="column" fxFlex fxLayoutAlign="center center">   </div> -->
+
+
+    <div class="border" [nbSpinner]="deleteInProgress || createInProgress">
+
+
+
+
+      <nb-form-field (click)="toggleEditMode( $event  )" class="margin-nested" [nbSpinner]="chaningFileName"
+        nbSpinnerSize="tiny">
+
+
+        <!-- <button *ngIf="!editMode; else saveButton" (click)="deleteFile(  )" size="tiny" nbPrefix nbButton ghost> -->
+        <nb-icon icon="file-text-outline" pack="eva" nbPrefix>
+        </nb-icon>
+        <!-- </button> -->
+
+        <button *ngIf="!editMode; else saveButton" (click)="toggleEditMode( $event  )" size="tiny" nbSuffix nbButton
+          ghost>
+          <nb-icon icon="edit-outline" pack="eva">
+          </nb-icon>
+        </button>
+
+        <ng-template #saveButton>
+          <button (click)="setFilename( filename.value  )" size="tiny" nbSuffix nbButton ghost>
+            <nb-icon icon="checkmark-outline" pack="eva">
+            </nb-icon>
+          </button>
+
+        </ng-template>
+
+
+
+        <input (blur)="setFilename(filename.value )" (keyup.enter)="setFilename(filename.value )" #filename
+          [disabled]="!editMode || chaningFileName" [value]="fileData?.filename" class="filename" fieldSize="medium"
+          type="text" nbInput placeholder="Filename">
+
+        <!-- <button nbSuffix nbButton ghost size="tiny">
+                <nb-icon icon="code-download-outline" pack="eva">
+                </nb-icon>
+            </button> -->
+
+      </nb-form-field>
+
+
+      <!-- [ngStyle]="{  'visibility': uploading ? 'visible' : 'hidden'   }" -->
+      <div fxLayoutAlign="center center" fxFill class="bottombar progressbar  margin-nested">
+        <nb-progress-bar *ngIf="uploading ; else extension" fxFlex size="tiny" fullWidth [value]="uploadProgress" status="success">
+          {{uploadProgress}}%
+        </nb-progress-bar>
+        <ng-template #extension>
+          <div  fxFlex fxLayoutAlign="end center">
+            <span nbButton class="tag tag-small tag-bordered"> PDF</span>
+            <span nbButton (click)="deleteFile()" class="tag tag-small tag-filled"> Delete</span>
+
+          </div>
+        </ng-template>
+
+      </div>
+
+    </div>
+
+    
+  </div>
+
+</ng-container>
+
+<ng-template #fileUploadTemplate>
+  <ng-container *ngIf="file">
+    Helllo World {{file.name}}
+  </ng-container>
+</ng-template>
