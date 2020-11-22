@@ -20,6 +20,7 @@ import { LoadingModule } from './loading/loading.module';
   declarations: [
     AppComponent,
 
+
     
   ],
   imports: [

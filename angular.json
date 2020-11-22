@@ -15,11 +15,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-
           "allowedCommonJsDependencies": [
             "highlight.js"
-          ]
-          ,
+          ],
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/frontend",
@@ -31,8 +29,7 @@
             "assets": [
               "src/favicon.ico",
               "src/ckeditor/ckeditor.js",
-              "src/assets",
-
+              "src/assets"
             ],
             "styles": [
               "src/styles.scss",
@@ -101,9 +98,6 @@
             "styles": [
               "src/styles.scss",
               "./node_modules/highlight.js/styles/androidstudio.css"
-
-
-
             ],
             "scripts": []
           }
@@ -136,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "frontend"
+  "defaultProject": "frontend",
+  "cli": {
+    "analytics": false
+  }
 }

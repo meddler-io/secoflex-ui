@@ -8,10 +8,11 @@ import { CommonDirectivesModule } from '../common-directives/common-directives.m
 
 import { AssetConfigurationComponent } from './asset-configuration/asset-configuration.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.component';
 
 
 @NgModule({
-  declarations: [AssetHomeComponent, AssetConfigurationComponent],
+  declarations: [AssetHomeComponent, AssetConfigurationComponent, NavbarListItemComponent],
   imports: [
     NbLayoutModule,
     FlexLayoutModule,
