@@ -26,3 +26,7 @@ background: #fff !important;
 .ngx-overlay{
   z-index: 1040 !important;
 }
+
+*,*:focus,*:hover{
+  outline:none;
+}
