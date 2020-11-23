@@ -1,4 +1,4 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, animate, group } from '@angular/animations';
 
 export const basicAnimations = [trigger('openClose', [
     // ...
@@ -52,6 +52,52 @@ trigger('init', [
     ]),
  
   ])
+,
+
+trigger('slideInOut', [
+  state('in', style({height: '*', opacity: 0})),
+  transition(':leave', [
+      style({height: '*', opacity: 1}),
+
+      group([
+          animate(100, style({height: 0})),
+          animate('100ms ease-in-out', style({'opacity': '0'}))
+      ])
+
+  ]),
+  transition(':enter', [
+      style({height: '0', opacity: 0}),
+
+      group([
+          animate(200, style({height: '*'})),
+          animate('200ms ease-in-out', style({'opacity': '1'}))
+      ])
+
+  ])
+
+]
+)
+
+
+,
+
+trigger('openClose', [
+  state('open', style({
+      height: '*',
+      opacity: 1,
+  })),
+  state('closed', style({
+      height: '0',
+      opacity: 0
+  })),
+  transition('void => &', [
+      animate('0.35s')
+  ]),
+  transition('* => void', [
+      animate('0.35s')
+  ]),
+]),
+
 ]
 
 

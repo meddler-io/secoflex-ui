@@ -28,6 +28,7 @@ import { LoadingModule } from './loading/loading.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     LoadingModule,
+
     // NbThemeModule.forRoot({ name: 'dark' }),
 
     HttpClientModule,

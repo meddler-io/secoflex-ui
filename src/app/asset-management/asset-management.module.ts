@@ -39,7 +39,8 @@ import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.com
     // NbCardModule,
     // NbTabsetModule,
     // CommonDirectivesModule,
-    NbButtonModule
+    NbButtonModule,
+
 
 
 
