@@ -6,6 +6,7 @@ import { ViewPagerComponent } from './reusable-components/form-builder/commonCom
 import { PlaygroundComponent } from './reusable-components/playground/playground.component';
 import { BusinessComponent } from './reusable-components/management/business/business.component';
 import { AppComponent } from './app.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
@@ -42,6 +43,11 @@ const routes: Routes = [
 
     component: BootstrapComponent
   },
+
+  {
+    path: '**',
+    component: SpinnerComponent
+  }
   // { path: "**", redirectTo: "/asset", pathMatch: "full" },
 
 

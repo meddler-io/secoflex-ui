@@ -9,7 +9,7 @@ import { RepositoryAddComponent } from './repository-add/repository-add.componen
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FlexModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NbInputModule, NbFormFieldModule, NbIconModule, NbLayoutModule, NbToggleModule, NbSpinnerModule, NbProgressBarModule, NbSelectModule } from '@nebular/theme';
+import { NbInputModule, NbFormFieldModule, NbIconModule, NbLayoutModule, NbToggleModule, NbSpinnerModule, NbSelectModule, NbRadioModule } from '@nebular/theme';
 
 import { CommonImportsModule } from '../common/common-imports.module';
 
@@ -18,14 +18,15 @@ import { CommonImportsModule } from '../common/common-imports.module';
   declarations: [RepositoryHomeComponent, RepositoryListComponent, RepositorySearchComponent, RepositoryAddComponent],
   imports: [
 
+
     CommonModule,
     RepositoryRoutingModule,
     CommonImportsModule,
     FlexModule,
     NbInputModule,
-    NbSelectModule,
-    // NbFormFieldModule,
+    NbFormFieldModule,
     NbIconModule,
+
     OverlayModule,
     NbLayoutModule,
     NbToggleModule,
@@ -33,7 +34,9 @@ import { CommonImportsModule } from '../common/common-imports.module';
     FormsModule,
     ReactiveFormsModule,
     NbSpinnerModule,
-    NbProgressBarModule,
+    NbFormFieldModule,
+    NbSelectModule,
+    NbRadioModule
 
   ]
 })

@@ -1,16 +1,63 @@
-<!-- <nb-tabset>
-  <nb-tab tabTitle="Domains" fxFlexFill>
+ 
+
+<nb-card size="giant">
+
+
+
+  <nb-card-header>
+
+    <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+
+      <nb-icon class="text-hint" icon="plus-circle">
+      </nb-icon>
+      <div fxFlex class="h6 text-hint">
+        List of Domains
+
+      </div>
+    </div>
+
+  </nb-card-header>
+
+  <nb-card-header >
+
+
     <app-domain-search></app-domain-search>
+  </nb-card-header>
+  <nb-card-header class="nogap">
+
+    <div fxLayout="column">
+
+      <div fxLayout="row" fxFlex class="list-head">
+
+
+
+
+        <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
+          <span class="marL" style=" padding-left:'2rem'">
+            Domain
+
+          </span>
+        </div>
+
+
+        <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item-head">
+          Group
+        </div>
+
+
+        <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
+          Last Checked
+        </div>
+
+
+      </div>
+
+    </div>
+  </nb-card-header>
+
+
+  <nb-card-body class="nogap">
+
     <app-domain-list></app-domain-list>
-  </nb-tab>
-  <nb-tab tabTitle="Manage">
-    <p>List of <strong>orders</strong>.</p>
-  </nb-tab>
-  <nb-tab tabTitle="Import" disabled>
-    <p>List of <strong>transactions</strong>.</p>
-  </nb-tab>
-</nb-tabset> -->
-
-
-<app-domain-search></app-domain-search>
-<app-domain-list></app-domain-list>
+  </nb-card-body>
+</nb-card>

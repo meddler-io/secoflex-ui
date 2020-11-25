@@ -20,6 +20,8 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
     route-tabset-tab-text-font-weight: 300,
     // header-text-font-weight: 250,
     header-height: 4rem,
+    card-header-text-font-weight: 500,
+    card-padding: 1rem,
 
   ), dark, dark);
 

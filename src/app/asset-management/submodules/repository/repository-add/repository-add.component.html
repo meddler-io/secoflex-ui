@@ -1,55 +1,27 @@
-<nb-layout center [restoreScrollTop]="false">
-  <nb-layout-header fixed>
-
-
-
-    <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
-
-      <nb-icon icon="plus-circle">
-      </nb-icon>
-      <div fxFlex class="h6">
-        Web App
-
-      </div>
-      <!-- <div fxFlex fxLayoutAlign="end center">
-    
-          <nb-toggle [checked]="true" labelPosition="left" status="primary">IPv4</nb-toggle>
-        </div> -->
-
-      <button (click)="addNewIp()" nbButton outline status="warning" size="small">
-
-        <nb-icon icon="plus-circle">
-        </nb-icon>
-        Add
-
-      </button>
-
-      <button (click)="saveIp()" outline nbButton status="success" size="small">
-
-        <nb-icon icon="checkmark-circle-2">
-        </nb-icon>
-        Save
-
-      </button>
-
-
-
-
-    </div>
-  </nb-layout-header>
-
-  <nb-layout-column @init>
-
-
-
     <nb-card @init>
 
-      <nb-card-body appBorder @init>
+
+      <nb-card-header>
+
+        <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+
+          <nb-icon class="text-hint" icon="plus-circle">
+          </nb-icon>
+          <div fxFlex class="h6 text-hint">
+            Add Repository
+
+          </div>
+
+        </div>
+
+      </nb-card-header>
+
+      <nb-card-header @init>
         <nb-form-field [nbSpinner]="saving">
           <div nbPrefix icon="at-outline" pack="eva">
             Url
           </div>
-          <input nbInput fieldSize="medium" status="primary" fullWidth placeholder="Repository Url">
+          <input nbInput fieldSize="medium" fxFlex status="primary" fullWidth placeholder="Repository Url">
 
           <button nbButton nbSuffix size="small" filled status="primary">
             <nb-icon icon="close-outline">
@@ -58,65 +30,128 @@
 
         </nb-form-field>
 
+      </nb-card-header>
+      <nb-card-body @init>
+
+
+        <div fxLayout="row" class="caption-2">
+          Credentials
+        </div>
       </nb-card-body>
 
-      <nb-card-body appBorder @init>
+      <nb-card-body @init appBorder>
 
 
-        <nb-tabset>
+        <div fxLayout="row">
 
-          <nb-tab tabTitle="No Auth">
-            <p>List of <strong>notifications</strong>.</p>
-          </nb-tab>
+          <nb-radio-group [(ngModel)]="credential_selected" fxLayout="row" name="status" status="basic">
+            <nb-radio [checked]="true" value="none">
+              None
+            </nb-radio>
+
+            <nb-radio value="password">
+              Password
+            </nb-radio>
+
+            <nb-radio value="access_token">
+              Access token
+            </nb-radio>
+
+            <nb-radio value="ssh">
+              SSH
+            </nb-radio>
+          </nb-radio-group>
+
+        </div>
 
 
-          <nb-tab tabTitle="Credentials">
-            <p>List of <strong>notifications</strong>.</p>
-          </nb-tab>
 
 
-
-          <nb-tab tabTitle="Access Token">
-            <p>List of <strong>notifications</strong>.</p>
-          </nb-tab>
-
-        </nb-tabset>
 
 
 
       </nb-card-body>
 
 
-      <nb-card-body>
-  
-        
+
+
+
+
+      <nb-card-body @init fxLayout="column" fxLayoutGap="1rem">
+
+        <ng-container [ngSwitch]="credential_selected">
+
+
+          <ng-container *ngSwitchCase="'none'">
+
+          </ng-container>
+
+
+          <ng-container *ngSwitchCase="'password'">
+            <nb-form-field  >
+
+              <input nbInput fieldSize="medium" status="primary"   placeholder="Username">
+
+              <button nbButton nbSuffix size="small" filled status="primary">
+                <nb-icon icon="close-outline">
+                </nb-icon>
+              </button>
+
+            </nb-form-field>
+
+
+            <nb-form-field  >
+
+              <input nbInput fieldSize="medium" status="primary"   placeholder="Password">
+
+              <button nbButton nbSuffix size="small" filled status="primary">
+                <nb-icon icon="close-outline">
+                </nb-icon>
+              </button>
+
+            </nb-form-field>
+          </ng-container>
+
+
+
+
+          <ng-container *ngSwitchCase="'access_token'">
+
+
+
+            <textarea rows="7" status="primary" nbInput fullWidth placeholder="Access Token"></textarea>
+
+
+          </ng-container>
+
+
+          <ng-container *ngSwitchCase="'ssh'">
+            <textarea rows="7"  status="primary"  nbInput fullWidth placeholder="SSH Key"></textarea>
+          </ng-container>
+        </ng-container>
+
+
       </nb-card-body>
 
-     
 
-      <nb-card-footer>
-        <button nbButton>Save</button>
+
+
+
+
+      <nb-card-footer fxLayoutAlign="end center">
+
+
+
+        <button [disabled]="!ip_addresses.valid" (click)="saveIp()" outline nbButton
+          [status]="ip_addresses.valid ? 'success': 'basic'">
+
+          <nb-icon icon="checkmark-circle-2">
+          </nb-icon>
+          Save
+
+
+        </button>
       </nb-card-footer>
 
+
     </nb-card>
-
-
-
-
-
-
-    <nb-select placeholder="Select Showcase">
-        <nb-option value="">Option empty</nb-option>
-        <nb-option value="0">Option 0</nb-option>
-        <nb-option value="1">Option 1</nb-option>
-        <nb-option value="2">Option 2</nb-option>
-        <nb-option value="3">Option 3</nb-option>
-        <nb-option value="4">Option 4</nb-option>
-      </nb-select>
-
-
-
-  </nb-layout-column>
-
-
-</nb-layout>

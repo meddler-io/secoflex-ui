@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, Validators } from '@angular/forms';
 import { AssetApiService } from 'src/app/asset-management/asset-api.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 
+const ipPattern =
+  "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+
+const validations = [
+  Validators.pattern(ipPattern), Validators.required
+]
 @Component({
   selector: 'app-host-add',
   templateUrl: './host-add.component.html',
@@ -16,10 +22,14 @@ export class HostAddComponent implements OnInit {
   saving_ip_index = -1
 
 
+
+
   ip_addresses_adding: FormControl;
 
   ip_addresses = new FormArray([
-    new FormControl('')
+    new FormControl('',
+      validations
+    )
   ]);
 
 
@@ -28,7 +38,7 @@ export class HostAddComponent implements OnInit {
 
   addNewIp() {
 
-    this.ip_addresses.push(new FormControl(''));
+    this.ip_addresses.push(new FormControl('', validations));
   }
 
   constructor(private assetApiService: AssetApiService) { }

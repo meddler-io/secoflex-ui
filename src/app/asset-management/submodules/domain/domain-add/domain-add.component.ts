@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormArray } from '@angular/forms';
+import { FormControl, FormArray, Validators } from '@angular/forms';
 import { AssetApiService } from 'src/app/asset-management/asset-api.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
+
+const ipPattern =
+  "^([A-Za-z0-9]\.|[A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9]\.){1,3}[A-Za-z]{2,6}$"
+
+const validations = [
+  Validators.pattern(ipPattern), Validators.required
+]
 
 @Component({
   selector: 'app-domain-add',
@@ -20,16 +27,16 @@ export class DomainAddComponent implements OnInit {
   ip_addresses_adding: FormControl;
 
   ip_addresses = new FormArray([
-    new FormControl('')
+    new FormControl('', validations)
   ]);
 
 
   tmp$ = 1
 
 
-  addNewDomain() {
+  addNew() {
 
-    this.ip_addresses.push(new FormControl(''));
+    this.ip_addresses.push(new FormControl('' , validations));
   }
 
   constructor(private assetApiService: AssetApiService) { }

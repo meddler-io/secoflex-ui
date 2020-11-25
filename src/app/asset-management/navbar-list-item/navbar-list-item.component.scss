@@ -20,6 +20,16 @@
 }
 
 
+
+.selected {
+  // background-color: hsla(0, 0%, 0%, 0.3) !important;
+  // background-color: hsla(0, 0%, 0%, 0.3) !important;
+  background-color: #081428 !important;
+
+
+}
+
+
 .subitem {
   margin-top: 4px !important;
   margin-bottom: 4px !important;
@@ -70,4 +80,8 @@ button {
 .itemicon {
   margin-right: 1rem;
   font-size: 1rem;
+}
+
+.collapsible{
+  overflow: hidden;
 }

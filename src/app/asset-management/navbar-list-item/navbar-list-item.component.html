@@ -1,13 +1,16 @@
 <div class="list-item" fxLayout="column">
 
 
-  <div class="item" (click)="toggleExpand()" nbButton fxFlex appearance="ghost"
-    [style.background-color]="  expanded$ ?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  " size="small"
-    fxLayoutAlign="Start">
+
+  <div class="item" appDebounceClick (debounceClick)="toggle()" [debounceTime]="220" nbButton fxFlex appearance="ghost"
+    [routerLink]="item.link"
+    [style.background-color]="  expanded$ || item.path == router.url  ?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
+    size="small" fxLayoutAlign="Start">
 
     <div class="itemicon">
-      <nb-icon [status]="expanded$ ? 'basic' : 'info'"
-        [icon]="expanded$ ? 'chevron-down-outline' : 'chevron-right-outline'" icon="chevron-right-outline">
+      <nb-icon [status]="expanded$  || item.path == router.url? 'basic' : 'info'"
+        [icon]="expanded || item.path == router.url$ ? 'chevron-down-outline' : 'chevron-right-outline'"
+        icon="chevron-right-outline">
 
       </nb-icon>
     </div>
@@ -15,32 +18,23 @@
     {{title$}}
 
   </div>
+  <!-- @slideInOut (@slideInOut.start)="onAnimationStart($event)" (@slideInOut.done)="onAnimationEnd($event)" -->
+
+  <div [@collapse]="!expanded$ " class="subitemContainer collapsible" fxLayout="column">
 
 
-  <div @slideInOut (@slideInOut.start)="onAnimationStart($event)" (@slideInOut.done)="onAnimationEnd($event)"
-    *ngIf="expanded$" class="subitemContainer" fxLayout="column">
 
-
-    <div class="subitem" fxFlex appearance="ghost" [routerLink]="routerLink" size="small" fxLayoutAlign="Start">
+    <div [class.selected]=" child.path == router.url " *ngFor="let child of item.children" class="subitem" fxFlex
+      appearance="ghost" [routerLink]="child.link" size="small" fxLayoutAlign="Start">
       <div class="itemicon">
-        <nb-icon [status]="selected$ ? 'basic' : 'basic'" icon="plus-circle-outline">
+        <nb-icon [status]=" child.path == router.url ? 'success' : 'basic'" [icon]="child?.icon">
 
         </nb-icon>
       </div>
-      Add
-
+      {{child?.name}}
     </div>
 
 
-    <div class="subitem" fxFlex appearance="ghost" [routerLink]="routerLink" size="small" fxLayoutAlign="Start">
-      <div class="itemicon">
-        <nb-icon [status]="selected$ ? 'basic' : 'basic'" icon="external-link-outline">
-
-        </nb-icon>
-      </div>
-      Configure
-
-    </div>
 
   </div>
 

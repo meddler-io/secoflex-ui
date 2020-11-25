@@ -10,11 +10,12 @@
     height: 4rem;
 }
 
-.container{
-    margin-top: 1rem;
-}
+
 
 :host nb-tab {
   padding: 0rem;
 }
 
+.nogap{
+  padding: 0rem !important;
+}

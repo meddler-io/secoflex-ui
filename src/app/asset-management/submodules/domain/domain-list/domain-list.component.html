@@ -1,33 +1,6 @@
 <div fxFlex class="container">
 
-  <div fxLayout="column">
 
-    <div fxLayout="row" fxFlex class="list-head">
-
-
-
-
-      <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
-        <span class="marL" style=" padding-left:'2rem'">
-          Domain
-
-        </span>
-      </div>
-
-
-      <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item-head">
-        Group
-      </div>
-
-
-      <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
-        Last Checked
-      </div>
-
-
-    </div>
-
-  </div>
   <div class="scsroll" fxLayout="column">
 
     <ng-container *ngFor="let domain of domains ; index as index">

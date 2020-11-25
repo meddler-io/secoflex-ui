@@ -1,23 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HostAddComponent } from './host-add/host-add.component';
 import { HostManagementComponent } from './host-management/host-management.component';
 
 const routes: Routes = [
 
-
   {
-
-    path: '',
-    component: HostManagementComponent,
-
-
-
+    path: 'add',
+    component: HostAddComponent,
   },
   {
     path: '**',
     component: HostManagementComponent,
-
-
 
   },
 
