@@ -24,7 +24,7 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
   assetTypes = this.assetStoreService.getAssetTypes
   loading = true;
 
-  constructor(private assetStoreService: AssetStoreService, public router: Router, 
+  constructor(private assetStoreService: AssetStoreService, public router: Router,
     // private loadingService: LoadingService
     private activatedRoute: ActivatedRoute,
 
@@ -34,12 +34,7 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
     private aseetService: AssetApiService
   ) {
 
-    // this.onInitRouterEvents()
-    // this.onInitActivatedRouterEvent()
-    // NavigationEnd
-    // NavigationCancel
-    // NavigationError
-    // RoutesRecognized
+
   }
 
 
@@ -99,6 +94,8 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
 
     console.log('reloading')
     // this.openSettings(this.template)
+    this.activatedRoute.url.subscribe((data) =>
+      console.log('rpiute2' , data, this.activatedRoute.snapshot.firstChild.data) ); // just always empty {}
 
   }
 

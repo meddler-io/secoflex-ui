@@ -43,6 +43,14 @@ export class AssetApiService {
   }
 
 
+  getRepository() {
+    return this.http.get(`${url}/repository`)
+  }
+
+  addRepository(repo) {
+    return this.http.post(`${url}/repository`,repo)
+  }
+
 
   getDomains() {
     return this.http.get(`${url}/domain`)

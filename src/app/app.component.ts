@@ -11,7 +11,7 @@ import { LoadingService } from './loading/loading.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'frontend';
+  title = 'Meddler';
   router_subscription: Subscription = undefined
   constructor(public router: Router,
     private loadingService: LoadingService

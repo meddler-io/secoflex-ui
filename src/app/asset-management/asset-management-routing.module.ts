@@ -8,12 +8,14 @@ const routes: Routes = [
     path: '',
     component: AssetHomeComponent,
     pathMatch: 'full',
+
   },
 
 
   {
     path: '',
     component: AssetHomeComponent,
+
 
     children: [
 
@@ -25,29 +27,43 @@ const routes: Routes = [
       // },
       {
         path: 'host',
-        loadChildren: () => import('./submodules/host/host.module').then(m => m.HostModule)
+        loadChildren: () => import('./submodules/host/host.module').then(m => m.HostModule),
+        data: ['hello'],
+
       },
       {
 
         path: 'domain',
-        loadChildren: () => import('./submodules/domain/domain.module').then(m => m.DomainModule)
+        loadChildren: () => import('./submodules/domain/domain.module').then(m => m.DomainModule),
+        data: ['hello'],
+
       },
 
       {
         path: 'web',
-        loadChildren: () => import('./submodules/web/web.module').then(m => m.WebModule)
+        loadChildren: () => import('./submodules/web/web.module').then(m => m.WebModule),
+        data: ['hello'],
+
       }, {
         path: 'android',
-        loadChildren: () => import('./submodules/android/android.module').then(m => m.AndroidModule)
+        loadChildren: () => import('./submodules/android/android.module').then(m => m.AndroidModule),
+        data: ['hello'],
+
       }, {
         path: 'ios',
-        loadChildren: () => import('./submodules/ios/ios.module').then(m => m.IosModule)
+        loadChildren: () => import('./submodules/ios/ios.module').then(m => m.IosModule),
+        data: ['hello'],
+
       }, {
         path: 'repository',
-        loadChildren: () => import('./submodules/repository/repository.module').then(m => m.RepositoryModule)
+        loadChildren: () => import('./submodules/repository/repository.module').then(m => m.RepositoryModule),
+        data: ['hello'],
+
       }, {
         path: 'docker',
-        loadChildren: () => import('./submodules/docker/docker.module').then(m => m.DockerModule)
+        loadChildren: () => import('./submodules/docker/docker.module').then(m => m.DockerModule),
+        data: ['hello'],
+
       },
 
 

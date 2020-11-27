@@ -1,68 +1,71 @@
-    <nb-card @init>
+<form [formGroup]="myForm" novalidate >
 
+  <nb-card @init>
 
-      <nb-card-header>
+    <nb-card-header>
 
-        <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+      <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
 
-          <nb-icon class="text-hint" icon="plus-circle">
+        <nb-icon class="text-hint" icon="plus-circle">
+        </nb-icon>
+        <div fxFlex class="h6 text-hint">
+          Add Repository
+
+        </div>
+
+      </div>
+
+    </nb-card-header>
+
+    <nb-card-header @init>
+      <nb-form-field [nbSpinner]="saving">
+        <div nbPrefix icon="at-outline" pack="eva">
+          Url
+
+        </div>
+        <input formControlName="url" nbInput fieldSize="medium" fxFlex [status]="url?.valid ? 'primary' : 'basic' "
+          fullWidth placeholder="Repository Url">
+
+        <button nbButton nbSuffix size="small" filled status="primary">
+          <nb-icon icon="close-outline">
           </nb-icon>
-          <div fxFlex class="h6 text-hint">
-            Add Repository
+        </button>
 
-          </div>
+      </nb-form-field>
 
-        </div>
-
-      </nb-card-header>
-
-      <nb-card-header @init>
-        <nb-form-field [nbSpinner]="saving">
-          <div nbPrefix icon="at-outline" pack="eva">
-            Url
-          </div>
-          <input nbInput fieldSize="medium" fxFlex status="primary" fullWidth placeholder="Repository Url">
-
-          <button nbButton nbSuffix size="small" filled status="primary">
-            <nb-icon icon="close-outline">
-            </nb-icon>
-          </button>
-
-        </nb-form-field>
-
-      </nb-card-header>
-      <nb-card-body @init>
+    </nb-card-header>
+    <nb-card-body @init>
 
 
-        <div fxLayout="row" class="caption-2">
-          Credentials
-        </div>
-      </nb-card-body>
+      <div fxLayout="row" class="caption-2">
+        Credentials
+      </div>
+    </nb-card-body>
 
-      <nb-card-body @init appBorder>
+    <nb-card-body @init appBorder>
 
 
-        <div fxLayout="row">
+      <div fxLayout="row">
 
-          <nb-radio-group [(ngModel)]="credential_selected" fxLayout="row" name="status" status="basic">
-            <nb-radio [checked]="true" value="none">
-              None
-            </nb-radio>
+        <nb-radio-group formControlName="credential_type" fxLayout="row" name="status" status="basic">
+          <nb-radio [checked]="true" value="none">
+            None
+          </nb-radio>
 
-            <nb-radio value="password">
-              Password
-            </nb-radio>
+          <nb-radio value="password">
+            Password
+          </nb-radio>
 
-            <nb-radio value="access_token">
-              Access token
-            </nb-radio>
+          <nb-radio value="access_token">
+            Access token
+          </nb-radio>
 
-            <nb-radio value="ssh">
-              SSH
-            </nb-radio>
-          </nb-radio-group>
+          <nb-radio value="ssh">
+            SSH
+          </nb-radio>
+        </nb-radio-group>
 
-        </div>
+      </div>
 
 
 
@@ -70,88 +73,104 @@
 
 
 
-      </nb-card-body>
+    </nb-card-body>
 
 
 
 
 
 
-      <nb-card-body @init fxLayout="column" fxLayoutGap="1rem">
+    <nb-card-body
+    formGroupName="credentials"
 
-        <ng-container [ngSwitch]="credential_selected">
-
-
-          <ng-container *ngSwitchCase="'none'">
-
-          </ng-container>
+     @init fxLayout="column" fxLayoutGap="1rem">
 
 
-          <ng-container *ngSwitchCase="'password'">
-            <nb-form-field  >
-
-              <input nbInput fieldSize="medium" status="primary"   placeholder="Username">
-
-              <button nbButton nbSuffix size="small" filled status="primary">
-                <nb-icon icon="close-outline">
-                </nb-icon>
-              </button>
-
-            </nb-form-field>
+      <ng-container  
+      
+      [ngSwitch]="myForm.get('credential_type').value">
 
 
-            <nb-form-field  >
+        <ng-container *ngSwitchCase="'none'">
 
-              <input nbInput fieldSize="medium" status="primary"   placeholder="Password">
-
-              <button nbButton nbSuffix size="small" filled status="primary">
-                <nb-icon icon="close-outline">
-                </nb-icon>
-              </button>
-
-            </nb-form-field>
-          </ng-container>
-
-
-
-
-          <ng-container *ngSwitchCase="'access_token'">
-
-
-
-            <textarea rows="7" status="primary" nbInput fullWidth placeholder="Access Token"></textarea>
-
-
-          </ng-container>
-
-
-          <ng-container *ngSwitchCase="'ssh'">
-            <textarea rows="7"  status="primary"  nbInput fullWidth placeholder="SSH Key"></textarea>
-          </ng-container>
         </ng-container>
 
 
-      </nb-card-body>
+        <ng-container *ngSwitchCase="'password'">
+          <nb-form-field>
+
+            <input
+            formControlName="username"
+            nbInput fieldSize="medium" status="primary" placeholder="Username">
+
+            <button nbButton nbSuffix size="small" filled status="primary">
+              <nb-icon icon="close-outline">
+              </nb-icon>
+            </button>
+
+          </nb-form-field>
+
+
+          <nb-form-field>
+
+            <input
+            formControlName="password"
+            nbInput fieldSize="medium" status="primary" placeholder="Password">
+
+            <button nbButton nbSuffix size="small" filled status="primary">
+              <nb-icon icon="close-outline">
+              </nb-icon>
+            </button>
+
+          </nb-form-field>
+        </ng-container>
+
+
+
+
+        <ng-container *ngSwitchCase="'access_token'">
+
+
+
+          <textarea
+          formControlName="access_token"
+          
+          rows="7" status="primary" nbInput fullWidth placeholder="Access Token"></textarea>
+
+
+        </ng-container>
+
+
+        <ng-container *ngSwitchCase="'ssh'">
+          <textarea
+          formControlName="ssh"
+          
+          rows="7" status="primary" nbInput fullWidth placeholder="SSH Key"></textarea>
+        </ng-container>
+      </ng-container>
+
+
+    </nb-card-body>
 
 
 
 
 
 
-      <nb-card-footer fxLayoutAlign="end center">
+    <nb-card-footer fxLayoutAlign="end center">
 
 
 
-        <button [disabled]="!ip_addresses.valid" (click)="saveIp()" outline nbButton
-          [status]="ip_addresses.valid ? 'success': 'basic'">
 
-          <nb-icon icon="checkmark-circle-2">
-          </nb-icon>
-          Save
+      <button [disabled]="!myForm?.valid" (click)="save()" outline nbButton [status]="myForm?.valid ? 'success': 'basic'">
+
+        <nb-icon icon="checkmark-circle-2">
+        </nb-icon>
+        Save
+
+      </button>
+    </nb-card-footer>
 
 
-        </button>
-      </nb-card-footer>
-
-
-    </nb-card>
+  </nb-card>
+</form>

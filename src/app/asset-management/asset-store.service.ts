@@ -13,6 +13,16 @@ export enum AssetType {
 }
 
 
+export interface NavbarItem {
+  name: string;
+  icon?: string;
+  type?: AssetType;
+  link?: string[];
+  path?: string[];
+  children?: NavbarItem[];
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,27 +31,29 @@ export class AssetStoreService {
   constructor() { }
 
 
-  get getAssetTypes() {
+  get getAssetTypes(): NavbarItem[] {
     return [
       {
         name: 'Hosts',
         icon: 'eva-arrow-left',
         type: AssetType.HOST,
-        link: [ '/asset', 'host', 'add'],
+        link: ['/asset', 'host', 'import'],
+
         path: ['/asset/host'],
         children: [
           {
-            name: 'Create',
-            icon: 'plus-circle-outline',
-            link: [ '/asset', 'host', 'add'],
-
-          },
-          {
-            name: 'Import',
+            name: 'Hosts',
             icon: 'external-link-outline',
             link: ['/asset', 'host', 'import'],
 
           },
+          {
+            name: 'Create',
+            icon: 'plus-circle-outline',
+            link: ['/asset', 'host', 'add'],
+
+          },
+
           {
             name: 'Configure',
             icon: 'external-link-outline',
@@ -57,106 +69,7 @@ export class AssetStoreService {
 
         path: ['/asset/domain'],
 
-        categories: [
-          {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          }, {
-            name: 'Hosts'
-          },
-          {
-            name: 'Security Groups'
-          },
-          {
-            name: 'Credentials'
-          },
-        ]
-        ,
+
         children: [
           {
             name: 'Create',
@@ -186,8 +99,6 @@ export class AssetStoreService {
 
         path: ['/asset/web'],
 
-        categories: []
-        ,
         children: [
           {
             name: 'Create',
@@ -216,7 +127,6 @@ export class AssetStoreService {
 
         path: ['/asset/android'],
 
-        categories: [],
         children: [
           {
             name: 'Create',
@@ -245,8 +155,6 @@ export class AssetStoreService {
         link: ['/asset', 'ios', 'add'],
 
         path: ['/asset/ios'],
-
-        categories: [],
         children: [
           {
             name: 'Create',
@@ -277,7 +185,6 @@ export class AssetStoreService {
 
         path: ['/asset/repository'],
 
-        categories: [],
         children: [
           {
             name: 'Create',
@@ -308,7 +215,6 @@ export class AssetStoreService {
 
         path: ['/asset/docker'],
 
-        categories: [],
         children: [
           {
             name: 'Create',

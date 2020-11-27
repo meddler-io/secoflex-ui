@@ -1,9 +1,9 @@
-<div class="list-item" fxLayout="column">
+<div class="list-item" fxLayout="column" (debounceMouseOver)="expand()" [debounceTime]="220" (debounceMouseLeave)="collapse()"
+  appDebounceClick>
 
 
 
-  <div class="item" appDebounceClick (debounceClick)="toggle()" [debounceTime]="220" nbButton fxFlex appearance="ghost"
-    [routerLink]="item.link"
+  <div class="item" nbButton fxFlex appearance="ghost" [routerLink]="item.link"
     [style.background-color]="  expanded$ || item.path == router.url  ?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
     size="small" fxLayoutAlign="Start">
 

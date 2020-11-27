@@ -1,1 +1,63 @@
-<p>repository-list works!</p>
+<div fxFlex class="container">
+
+ 
+    <div class="scsroll" fxLayout="column">
+  
+      <ng-container *ngFor="let web_app of web_apps ; index as index">
+  
+        <div fxLayout="column" (click)="detailedView(index)">
+  
+          <div       [class.selected]="selected_web_app_list_item == index " fxLayout="row" fxFlex>
+  
+            <div appHoverColor appBorder fxFlex fxLayoutAlign="center center" fxLayoutGap="1rem" class="list-item">
+  
+              <ng-container *ngIf="web_app?.health == 'up' ; else healthDown">
+  
+                <nb-icon class="health-up " icon="arrow-up">
+  
+                </nb-icon>
+              </ng-container>
+              <ng-template #healthDown>
+                <nb-icon class="health-down " icon="arrow-down">
+  
+                </nb-icon>
+              </ng-template>
+  
+              <div appHoverColor fxFlex fxLayoutAlign="start center" class="list-item">
+  
+  
+                <span class="marL list-item-head">
+                  {{web_app.url}}
+  
+                </span>
+              </div>
+  
+            </div>
+            <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item">
+              {{web_app.group || 'None'}}
+  
+            </div>
+  
+  
+  
+            <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item">
+              {{web_app.dou | date}}
+            </div>
+          </div>
+  
+        </div>
+      </ng-container>
+  
+    </div>
+  
+  </div>
+  
+  
+  
+  <ng-template #template>
+  
+    <app-web_app-add></app-web_app-add>
+  
+  
+  </ng-template>
+  

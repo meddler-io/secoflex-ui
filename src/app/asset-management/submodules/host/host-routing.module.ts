@@ -6,12 +6,17 @@ import { HostManagementComponent } from './host-management/host-management.compo
 const routes: Routes = [
 
   {
+    
     path: 'add',
     component: HostAddComponent,
+    data: ['hello3'],
+
   },
   {
     path: '**',
     component: HostManagementComponent,
+    data: ['hello2'],
+
 
   },
 

@@ -1,6 +1,68 @@
-<app-ios-add></app-ios-add>
+<nb-card size="giant">
 
 
-<app-ios-list>
+  <nb-card-header>
 
-</app-ios-list>
+    <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+
+      <nb-icon class="text-hint" icon="plus-circle">
+      </nb-icon>
+      <div fxFlex class="h6 text-hint">
+        List of Apps
+
+      </div>
+    </div>
+
+  </nb-card-header>
+
+  <nb-card-header>
+    <app-ios-add></app-ios-add>
+
+
+  </nb-card-header>
+
+  <nb-card-header class="nogap">
+
+    <div fxLayout="column">
+
+      <div fxLayout="row" fxFlex class="list-head">
+
+
+
+
+        <div appHoverColor appBorder fxFlex fxLayoutAlign="start center" class="list-item-head">
+          <span class="marL" style=" padding-left:'2rem'">
+            Host
+
+          </span>
+        </div>
+
+
+        <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item-head">
+          Group
+        </div>
+
+
+        <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item-head">
+          Last Checked
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </nb-card-header>
+
+  <nb-card-body class="nogap">
+
+    <app-ios-list>
+
+    </app-ios-list>
+
+  </nb-card-body>
+
+</nb-card>
+
+<!-- </nb-card-body>
+ </nb-card> -->

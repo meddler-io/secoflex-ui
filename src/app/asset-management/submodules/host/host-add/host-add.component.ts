@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 import { AssetApiService } from 'src/app/asset-management/asset-api.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 
@@ -41,10 +43,15 @@ export class HostAddComponent implements OnInit {
     this.ip_addresses.push(new FormControl('', validations));
   }
 
-  constructor(private assetApiService: AssetApiService) { }
+  constructor(private assetApiService: AssetApiService
+  ) { }
 
   ngOnInit(): void {
+
+
   }
+
+
 
   removeAt(index) {
     this.ip_addresses.removeAt(index)
