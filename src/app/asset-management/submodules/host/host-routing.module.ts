@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NavMenuItemsIdentifiers } from '../../asset-store.service';
 import { HostAddComponent } from './host-add/host-add.component';
 import { HostManagementComponent } from './host-management/host-management.component';
 
 const routes: Routes = [
 
   {
-    
+
     path: 'add',
     component: HostAddComponent,
-    data: ['hello3'],
-
+    data: {
+      id: NavMenuItemsIdentifiers.HostCreate
+    }
   },
   {
     path: '**',
     component: HostManagementComponent,
-    data: ['hello2'],
+    data: {
+      id: NavMenuItemsIdentifiers.HostConfigure
+    }
 
 
   },

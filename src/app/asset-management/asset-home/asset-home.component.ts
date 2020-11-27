@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 import { AssetApiService } from '../asset-api.service';
 import { AssetStoreService } from '../asset-store.service'
+import { NavbarState } from '../navbar-list-item/navbar-list-item.component';
 
 @Component({
   selector: 'app-asset-home',
@@ -15,6 +16,9 @@ import { AssetStoreService } from '../asset-store.service'
 
 })
 export class AssetHomeComponent implements OnInit, OnDestroy {
+
+
+  activeState : NavbarState
 
   @ViewChild('settingsTemplate', { static: false }) template: TemplateRef<any>;
 
@@ -94,8 +98,24 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
 
     console.log('reloading')
     // this.openSettings(this.template)
-    this.activatedRoute.url.subscribe((data) =>
-      console.log('rpiute2' , data, this.activatedRoute.snapshot.firstChild.data) ); // just always empty {}
+    this.activatedRoute.url.subscribe((data) => {
+
+      let resume_selected_component: NavbarState = {
+        item_id: this.activatedRoute.snapshot.firstChild.data.id,
+        subitem_id: this.activatedRoute.firstChild.snapshot.firstChild.data.id
+      }
+
+      this.activeState = resume_selected_component
+      console.log('resume_selected_component',resume_selected_component)
+
+
+    }
+    )
+
+
+
+
+    // just always empty {}
 
   }
 

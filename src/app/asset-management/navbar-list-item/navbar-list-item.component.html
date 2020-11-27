@@ -1,15 +1,15 @@
-<div class="list-item" fxLayout="column" (debounceMouseOver)="expand()" [debounceTime]="220" (debounceMouseLeave)="collapse()"
-  appDebounceClick>
+<div class="list-item" fxLayout="column" (debounceClick)="toggle()" [debounceTime]="220" appDebounceClick>
 
+  <!-- (debounceMouseOver)="expand()" (debounceMouseLeave)="collapse()" -->
 
-
-  <div class="item" nbButton fxFlex appearance="ghost" [routerLink]="item.link"
-    [style.background-color]="   activeState?.item_id  == item?.id ?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
+  <!-- [routerLink]="item.link" -->
+  <div class="item" nbButton fxFlex appearance="ghost" 
+    [style.background-color]="  ( expanded$ ||  activeState?.item_id  == item?.id   )?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
     size="small" fxLayoutAlign="Start">
 
     <div class="itemicon">
-      <nb-icon [status]="  activeState?.item_id  == item?.id  ? 'basic' : 'info'"
-        [icon]="  activeState?.item_id  == item?.id  ? 'chevron-down-outline' : 'chevron-right-outline'"
+      <nb-icon [status]="  ( expanded$ ||  activeState?.item_id  == item?.id   )? 'basic' : 'info'"
+        [icon]="  ( expanded$ ||  activeState?.item_id  == item?.id   ) ? 'chevron-down-outline' : 'chevron-right-outline'"
         icon="chevron-right-outline">
 
       </nb-icon>
@@ -20,14 +20,13 @@
   </div>
   <!-- @slideInOut (@slideInOut.start)="onAnimationStart($event)" (@slideInOut.done)="onAnimationEnd($event)" -->
 
-  <div [@collapse]=" expanded$ " class="subitemContainer collapsible" fxLayout="column">
+  <div [@collapse]=" ! ( expanded$ ||  activeState?.item_id  == item?.id   ) " class="subitemContainer collapsible"
+    fxLayout="column">
 
     <!-- [routerLink]="child.link" -->
 
-    <div [class.selected]=" activeState?.subitem_id == child?.id  " *ngFor="let child of item.children" class="subitem" fxFlex
-      appearance="ghost"
-      (click)="onItemClick(item , child)"
- size="small" fxLayoutAlign="Start">
+    <div [class.selected]=" activeState?.subitem_id == child?.id  " *ngFor="let child of item.children" class="subitem"
+      fxFlex appearance="ghost" (click)="onItemClick(item , child ,  child.link )" size="small" fxLayoutAlign="Start">
       <div class="itemicon">
         <nb-icon [status]=" activeState?.subitem_id == child?.id  ? 'success' : 'basic'" [icon]="child?.icon">
 

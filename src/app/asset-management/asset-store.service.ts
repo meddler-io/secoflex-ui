@@ -13,7 +13,7 @@ export enum AssetType {
 }
 
 
-const NavMenuItemsIdentifiers = {
+export const NavMenuItemsIdentifiers = {
   Host: 'host',
   HostCreate: 'host_create',
   HostConfigure: 'host_configure',

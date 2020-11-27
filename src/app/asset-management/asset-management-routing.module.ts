@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AssetHomeComponent } from './asset-home/asset-home.component';
+import { NavMenuItemsIdentifiers } from './asset-store.service';
 
 const routes: Routes = [
 
@@ -28,41 +29,56 @@ const routes: Routes = [
       {
         path: 'host',
         loadChildren: () => import('./submodules/host/host.module').then(m => m.HostModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Host
+        }
 
       },
       {
 
         path: 'domain',
         loadChildren: () => import('./submodules/domain/domain.module').then(m => m.DomainModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Domain
+        }
 
       },
 
       {
         path: 'web',
         loadChildren: () => import('./submodules/web/web.module').then(m => m.WebModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Web
+        }
+        ,
 
       }, {
         path: 'android',
         loadChildren: () => import('./submodules/android/android.module').then(m => m.AndroidModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Android
+        }
 
       }, {
         path: 'ios',
         loadChildren: () => import('./submodules/ios/ios.module').then(m => m.IosModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Ios
+        }
 
       }, {
         path: 'repository',
         loadChildren: () => import('./submodules/repository/repository.module').then(m => m.RepositoryModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Repository
+        }
 
       }, {
         path: 'docker',
         loadChildren: () => import('./submodules/docker/docker.module').then(m => m.DockerModule),
-        data: ['hello'],
+        data: {
+          id: NavMenuItemsIdentifiers.Docker
+        }
 
       },
 

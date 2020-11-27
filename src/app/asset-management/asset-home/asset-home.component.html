@@ -44,7 +44,9 @@
 
 
       <nb-list-item @init *ngFor="let assetType of assetTypes; index as index">
-        <app-navbar-list-item [item]="assetType" [routerlink]="assetType.type" fxLayout="column"
+        <app-navbar-list-item
+        [activestate]="activeState"
+        [item]="assetType" [routerlink]="assetType.type" fxLayout="column"
           [title]="assetType.name" fxFlex>
           <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
 

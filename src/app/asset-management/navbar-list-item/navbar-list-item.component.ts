@@ -5,9 +5,9 @@ import { basicAnimations } from 'src/app/reusable-components/common/animations/b
 import { AssetType, NavbarItem } from '../asset-store.service';
 import { NavbarSharedService } from '../navbar-shared-service.service';
 
-export interface NavbarState  {
+export interface NavbarState {
   item_id: string;
-   subitem_id: string;
+  subitem_id: string;
 }
 
 
@@ -21,15 +21,13 @@ export interface NavbarState  {
 })
 export class NavbarListItemComponent implements OnInit {
 
-  activeState : NavbarState = {
-    item_id: 'host',
-    subitem_id: 'host_create'
-  }
+  @Input('activestate')
+  activeState: NavbarState
 
 
   @Input('selected') selected$ = false;
   @Input('title') title$ = '';
-  @Input('item') item : NavbarItem
+  @Input('item') item: NavbarItem
   @Input('routerlink') routerLink;
   @Input('expanded') expanded$ = false;
 
@@ -46,24 +44,24 @@ export class NavbarListItemComponent implements OnInit {
   ngOnInit(): void {
 
     this.navbarStateSubscription = this
-    .navbarSharedService
-    .getState
-    .pipe(map(( state: NavbarState )=>{
-      if(this.item.id == state.item_id){
-        console.log('navbar_state', state)
-        this.activeState  = state
-        this.expand()
-      } else{
-        this.activeState  = state
-        this.collapse()
+      .navbarSharedService
+      .getState
+      .pipe(map((state: NavbarState) => {
+        if (this.item.id == state.item_id) {
+          console.log('navbar_state', state)
+          this.activeState = state
+          this.expand()
+        } else {
+          this.activeState = state
+          this.collapse()
 
 
-      }
-    })
-    )
-    .subscribe(navbar_state => {
-      // console.log('navbar_state', navbar_state)
-    })
+        }
+      })
+      )
+      .subscribe(navbar_state => {
+        // console.log('navbar_state', navbar_state)
+      })
 
 
 
@@ -111,8 +109,9 @@ export class NavbarListItemComponent implements OnInit {
   }
 
 
-  onItemClick( item: NavbarItem ,  subitem :  NavbarItem ){
-    this.navbarSharedService.setState =  { item_id: item.id , subitem_id: subitem.id } 
+  onItemClick(item: NavbarItem, subitem: NavbarItem, link) {
+    this.navbarSharedService.setState = { item_id: item.id, subitem_id: subitem.id }
+    this.router.navigate(link)
     // console.log('onItemClick', data)
   }
 }
