@@ -51,3 +51,18 @@ Assets:
 
 
 
+
+
+## Tools:
+    Every tool needs to be a Docker containers with custom configuration.
+    Plan:
+        Private Repository
+        Customization via yaml
+        Define input, output
+        Define dependencies
+        Have unit test to make sure it is working
+        Deploy
+
+        Export all tools to deploy the infra to new tenant
+
+        

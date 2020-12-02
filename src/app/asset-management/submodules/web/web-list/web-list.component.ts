@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AssetApiService } from 'src/app/asset-management/asset-api.service';
 
 
 
@@ -30,35 +31,13 @@ export class WebListComponent implements OnInit {
 
 
   web_apps: WebListItem[] = [
-    {
-      url: 'http://google.com',
-      health: 'up',
-      group: undefined,
-      type: 's',
-      tags: [],
-      last_health_check: new Date()
-    },
-    {
-      url: 'htps://facebook.com',
-      health: 'down',
-      group: undefined,
-      type: 's',
-      tags: [],
-      last_health_check: new Date()
-    },
-    {
-      url: 'https://www.linkedin.com',
-      health: 'down',
-      group: undefined,
-      type: 's',
-      tags: [],
-      last_health_check: new Date()
-    }
+
   ]
 
   constructor(
     private readonly el: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private assetApiService: AssetApiService
     // private dsa : BlockScrollStrategy
   ) {
 
@@ -94,6 +73,9 @@ export class WebListComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.assetApiService.getWeb().subscribe((data: WebListItem[]) => {
+      this.web_apps = data
+    })
 
   }
 

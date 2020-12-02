@@ -96,8 +96,7 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    console.log('reloading')
-    // this.openSettings(this.template)
+
     this.activatedRoute.url.subscribe((data) => {
 
       let resume_selected_component: NavbarState = {
@@ -106,17 +105,14 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
       }
 
       this.activeState = resume_selected_component
-      console.log('resume_selected_component',resume_selected_component)
+
 
 
     }
     )
 
 
-
-
-    // just always empty {}
-
+ 
   }
 
   ngOnDestroy(): void {

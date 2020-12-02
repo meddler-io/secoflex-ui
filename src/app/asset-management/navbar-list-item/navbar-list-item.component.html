@@ -3,11 +3,20 @@
   <!-- (debounceMouseOver)="expand()" (debounceMouseLeave)="collapse()" -->
 
   <!-- [routerLink]="item.link" -->
-  <div class="item" nbButton fxFlex appearance="ghost" 
-    [style.background-color]="  ( expanded$ ||  activeState?.item_id  == item?.id   )?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
-    size="small" fxLayoutAlign="Start">
+  <div class="item" nbButton fxFlex appearance="ghost"
+    [class.expanded]=" expanded$ " [class.active]="  activeState?.item_id  == item?.id  " size="small"
+ >
 
-    <div class="itemicon">
+    <span fxFlex >
+      {{title$}}
+
+    </span>
+
+
+
+    <div class="itemicon"
+    *ngIf=" activeState?.item_id  != item?.id  "
+    >  
       <nb-icon [status]="  ( expanded$ ||  activeState?.item_id  == item?.id   )? 'basic' : 'info'"
         [icon]="  ( expanded$ ||  activeState?.item_id  == item?.id   ) ? 'chevron-down-outline' : 'chevron-right-outline'"
         icon="chevron-right-outline">
@@ -15,24 +24,30 @@
       </nb-icon>
     </div>
 
-    {{title$}}
-
   </div>
   <!-- @slideInOut (@slideInOut.start)="onAnimationStart($event)" (@slideInOut.done)="onAnimationEnd($event)" -->
 
   <div [@collapse]=" ! ( expanded$ ||  activeState?.item_id  == item?.id   ) " class="subitemContainer collapsible"
     fxLayout="column">
 
+
     <!-- [routerLink]="child.link" -->
 
     <div [class.selected]=" activeState?.subitem_id == child?.id  " *ngFor="let child of item.children" class="subitem"
-      fxFlex appearance="ghost" (click)="onItemClick(item , child ,  child.link )" size="small" fxLayoutAlign="Start">
-      <div class="itemicon">
+      fxFlex appearance="ghost" (click)="onItemClick(item , child ,  child.link )" size="small"
+      fxLayoutAlign="start center">
+      <div class="itemicon " fxLayoutAlign="start center">
         <nb-icon [status]=" activeState?.subitem_id == child?.id  ? 'success' : 'basic'" [icon]="child?.icon">
 
         </nb-icon>
       </div>
-      {{child?.name}}
+      <span class="subtitle"
+      
+      [class.active]="  activeState?.subitem_id  == child?.id  "
+      >
+        {{child?.name}}
+
+      </span>
     </div>
 
 

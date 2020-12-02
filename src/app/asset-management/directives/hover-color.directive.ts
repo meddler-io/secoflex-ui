@@ -21,6 +21,8 @@ export class HoverColorDirective {
 
     this.renderer.setStyle(this.el.nativeElement, 'background', 'none')
     this.renderer.setStyle(this.el.nativeElement, 'font-weight', '100')
+    // this.renderer.setStyle(this.el.nativeElement, 'border-radius',  '9px')
+
 
   }
 

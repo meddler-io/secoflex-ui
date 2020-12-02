@@ -125,7 +125,7 @@ export class AssetStoreService {
             name: 'Create',
             icon: 'plus-circle-outline',
             link: ['/asset', 'domain', 'add'],
-        id: NavMenuItemsIdentifiers.DomainCreate,
+        id: NavMenuItemsIdentifiers.Domain,
 
 
           },
@@ -161,7 +161,7 @@ export class AssetStoreService {
             name: 'Create',
             icon: 'plus-circle-outline',
             link: ['/asset', 'web', 'add'],
-        id: NavMenuItemsIdentifiers.WebCreate,
+        id: NavMenuItemsIdentifiers.Web,
 
 
           },
@@ -169,7 +169,7 @@ export class AssetStoreService {
             name: 'Import',
             icon: 'external-link-outline',
             link: ['/asset', 'web', 'import'],
-        id: NavMenuItemsIdentifiers.WebConfigure,
+        id: NavMenuItemsIdentifiers.WebCreate,
 
 
           },
@@ -196,7 +196,7 @@ export class AssetStoreService {
             name: 'Create',
             icon: 'plus-circle-outline',
             link: ['/asset', 'android', 'add'],
-        id: NavMenuItemsIdentifiers.AndroidCreate,
+        id: NavMenuItemsIdentifiers.Android,
 
 
           },
@@ -204,7 +204,7 @@ export class AssetStoreService {
             name: 'Import',
             icon: 'external-link-outline',
             link: ['/asset', 'android', 'import'],
-        id: NavMenuItemsIdentifiers.AndroidConfigure,
+        id: NavMenuItemsIdentifiers.AndroidCreate,
 
 
           },
@@ -231,7 +231,7 @@ export class AssetStoreService {
             name: 'Create',
             icon: 'plus-circle-outline',
             link: ['/asset', 'ios', 'add'],
-        id: NavMenuItemsIdentifiers.IosCreate,
+        id: NavMenuItemsIdentifiers.Ios,
 
 
           },
@@ -239,7 +239,7 @@ export class AssetStoreService {
             name: 'Import',
             icon: 'external-link-outline',
             link: ['/asset', 'ios', 'import'],
-        id: NavMenuItemsIdentifiers.IosConfigure,
+        id: NavMenuItemsIdentifiers.IosCreate,
 
 
           },
@@ -269,7 +269,7 @@ export class AssetStoreService {
             name: 'Create',
             icon: 'plus-circle-outline',
             link: ['/asset', 'repository', 'add'],
-        id: NavMenuItemsIdentifiers.RepositoryCreate,
+        id: NavMenuItemsIdentifiers.Repository,
 
 
           },
@@ -277,7 +277,7 @@ export class AssetStoreService {
             name: 'Import',
             icon: 'external-link-outline',
             link: ['/asset', 'repository', 'import'],
-        id: NavMenuItemsIdentifiers.RepositoryConfigure,
+        id: NavMenuItemsIdentifiers.RepositoryCreate,
 
 
           },
@@ -306,7 +306,7 @@ export class AssetStoreService {
             name: 'Create',
             icon: 'plus-circle-outline',
             link: ['/asset', 'docker', 'add'],
-        id: NavMenuItemsIdentifiers.DockerCreate,
+        id: NavMenuItemsIdentifiers.Docker,
 
 
           },
@@ -314,7 +314,7 @@ export class AssetStoreService {
             name: 'Import',
             icon: 'external-link-outline',
             link: ['/asset', 'docker', 'import'],
-        id: NavMenuItemsIdentifiers.DockerConfigure,
+        id: NavMenuItemsIdentifiers.DockerCreate,
 
 
           },

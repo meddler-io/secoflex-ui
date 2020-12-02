@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NbComponentStatus } from '@nebular/theme';
+import { Validators, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { AssetApiService } from 'src/app/asset-management/asset-api.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 
+
 const ipPattern = /(?:git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/;
 const validations = [
-  Validators.pattern(ipPattern), Validators.required, Validators.minLength(1)
+  Validators.pattern(ipPattern), Validators.required
 ]
 
+
 @Component({
-  selector: 'app-repository-add',
-  templateUrl: './repository-add.component.html',
-  styleUrls: ['./repository-add.component.scss'],
+  selector: 'app-docker-add',
+  templateUrl: './docker-add.component.html',
+  styleUrls: ['./docker-add.component.scss'],
   animations: [...basicAnimations]
 })
-export class RepositoryAddComponent implements OnInit {
-
+export class DockerAddComponent implements OnInit {
 
 
   saving = false;
@@ -29,24 +29,24 @@ export class RepositoryAddComponent implements OnInit {
 
 
   auth$ = new FormGroup({
-    username: new FormControl('', [
+    username: new FormControl('admin', [
       Validators.required
     ]),
-    password: new FormControl('', [
+    password: new FormControl('password',[
       Validators.required
 
     ])
   })
 
   access_token$ = new FormGroup({
-    access_token: new FormControl('', [
+    access_token: new FormControl('access_token', [
       Validators.required
 
     ])
   })
 
   ssh$ = new FormGroup({
-    ssh: new FormControl('', [
+    ssh: new FormControl('ssh' , [
       Validators.required
 
     ])
@@ -65,7 +65,7 @@ export class RepositoryAddComponent implements OnInit {
 
   myForm = new FormGroup({
     name: new FormControl('', [Validators.required ]),
-    url: new FormControl('', validations),
+    url: new FormControl('http://localhost/asset/repository/add.git', validations),
     credential_type: new FormControl('none'),
     credentials: new FormGroup({
     })
@@ -111,10 +111,10 @@ export class RepositoryAddComponent implements OnInit {
 
   save() {
     this.saving = true;
-
-
-    this.assetApiService.addRepository(this.myForm.value).subscribe()
-
+    
+    
+        this.assetApiService.addDocker(this.myForm.value).subscribe()
+    
   }
 
   // 
@@ -125,5 +125,6 @@ export class RepositoryAddComponent implements OnInit {
 
 
   // credential_selected = 'none'
+
 
 }

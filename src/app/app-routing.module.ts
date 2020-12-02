@@ -44,11 +44,11 @@ const routes: Routes = [
     component: BootstrapComponent
   },
 
-  {
-    path: '**',
-    component: SpinnerComponent
-  }
-  // { path: "**", redirectTo: "/asset", pathMatch: "full" },
+  // {
+    // path: '**',
+    // component: SpinnerComponent
+  // }
+  { path: "**", redirectTo: "/tool", pathMatch: "full" },
 
 
 
