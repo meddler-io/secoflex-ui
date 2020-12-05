@@ -1,32 +1,29 @@
 
 
-<div appBorder fxLayout="column" fxLayoutGap="1rem">
+<div appBorder class="container" fxLayoutGap="1rem" fxLayout="column" >
 
   <div fxLayout="row">
 
-    <div fxFlex="50%" appBorder>
-      <span>
-        {{app.app_name}}
+    <div fxFlex="50%"  >
+      <input fullWidth  disabled  nbInput [value]="app?.app_name" placeholder="App name">
 
-      </span>
+    </div>
+
+
+  </div>
+
+  <div fxLayout="row">
+
+    <div fxFlex="50%"  >
+      <input fullWidth   disabled nbInput [value]="app?.package_name" placeholder="Package Name">
+
     </div>
 
 
   </div>
 
 
-  <div fxLayout="row">
-
-    <div fxFlex="50%" appBorder>
-      <span>
-        {{app.package_name}}
-
-
-      </span>
-    </div>
-
-
-  </div>
+ 
 
 
 
@@ -36,25 +33,21 @@
 
 
 
-    <button (click)="edit()" size="tiny" nbButton outline status="basic">
+
+
+    <button (click)="edit()" size="small" nbButton outline status="primary">
+      Update
+    </button>
+
+    <button (click)="edit()" size="small" nbButton outline status="success">
       Download
     </button>
 
-    <button (click)="edit()" size="tiny" nbButton filled status="danger">
-      Delete
-    </button>
-
-
   </div>
 
 
 
 
-
-  <div fxFlex>
-
-    <nb-progress-bar size="tiny" [value]="0" status="primary" [displayValue]="true"></nb-progress-bar>
-  </div>
 </div>
 
 

@@ -8,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HostManagementComponent implements OnInit {
 
+ 
   constructor() { }
 
   ngOnInit(): void {
+
+ 
   }
 
 }

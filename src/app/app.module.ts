@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingModule } from './loading/loading.module';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 
 
 
@@ -33,10 +34,10 @@ import { SpinnerComponent } from './spinner/spinner.component';
     LoadingModule,
 
 
-    // NbThemeModule.forRoot({ name: 'dark' }),
+    NbThemeModule.forRoot({ name: 'dark' }),
 
     HttpClientModule,
-
+    NbLayoutModule,
     // CKEditorModule,
     // NbMenuModule.forRoot(),
     // ScrollToModule.forRoot(),

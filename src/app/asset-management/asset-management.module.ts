@@ -29,7 +29,6 @@ import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.com
     NbListModule,
     NbAccordionModule,
     // CommonImportsModule,
-    NbLayoutModule,
     NbTabsetModule,
 
     NbThemeModule.forRoot({ name: 'dark' }),

@@ -7,7 +7,7 @@ import { HostManagementComponent } from './host-management/host-management.compo
 import { HostListComponent } from './host-list/host-list.component';
 import { FlexModule } from '@angular/flex-layout';
 import { HostSearchComponent } from './host-search/host-search.component';
-import { NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbSpinnerModule, NbToggleModule } from '@nebular/theme';
+import { NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSpinnerModule, NbToggleModule } from '@nebular/theme';
 
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +36,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     ReactiveFormsModule,
     NbSpinnerModule,
     NbFormFieldModule,
+
+    NbListModule
   ]
 })
 export class HostModule { }

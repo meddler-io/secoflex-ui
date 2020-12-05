@@ -1,16 +1,22 @@
-<nb-layout center [restoreScrollTop]="false">
+<nb-layout center [restoreScrollTop]="true"
+
+[windowMode]="true"
+>
   <nb-layout-header fixed>
 
-    <div fxFlex fxLayoutAlign="center center">
 
-      <div fxFlex fxLayoutAlign="start center">
 
-    
+    <div fxFlex fxLayoutAlign="start center">
 
-        <span fxHide.lt-sm fxShow routerLink="/" >
+      <div class="imageContainer" fxLayoutAlign="center center">
 
-          <img class="logo" src="/assets/logo.png"   >
-        </span>
+        <img src="/assets/logo.png">
+
+      </div>
+
+
+      <div class="nac">
+          Asdsad
       </div>
 
 
@@ -19,33 +25,18 @@
 
 
 
-  <nb-sidebar left fxLayout="column">
-
-
-
-    <nb-sidebar-header>
-
-
-
-      <button [routerLink]="[   { outlets: {  primary:  ['/asset' , 'test' ]  ,   asset: [ 'host'] } }]" nbButton fxFlex
-        ghost status="primary">
-        <!-- <nb-icon icon="settings-outline"></nb-icon> -->
-        Workspace
-      </button>
+  <nb-sidebar responsive left fxLayout="column">
 
 
 
 
-    </nb-sidebar-header>
 
     <nb-list>
 
 
       <nb-list-item @init *ngFor="let assetType of assetTypes; index as index">
-        <app-navbar-list-item
-        [activestate]="activeState"
-        [item]="assetType" [routerlink]="assetType.type" fxLayout="column"
-          [title]="assetType.name" fxFlex>
+        <app-navbar-list-item [activestate]="activeState" [item]="assetType" [routerlink]="assetType.type"
+          fxLayout="column" [title]="assetType.name" fxFlex>
           <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
 
         </app-navbar-list-item>
@@ -84,13 +75,16 @@
 
     <nb-sidebar-footer>
 
+      <div fxFlex fxLayoutAlign="center center">
+        <button (click)="openSettings(settingsTemplate)" nbButton fxFlex ghost status="success">
+          <nb-icon icon="settings-outline">
 
-      <button (click)="openSettings(settingsTemplate)" nbButton fxFlex ghost status="success">
-        <nb-icon icon="settings-outline">
+          </nb-icon>
+          Configuration
+        </button>
+      </div>
 
-        </nb-icon>
-        Configuration
-      </button>
+
 
     </nb-sidebar-footer>
 

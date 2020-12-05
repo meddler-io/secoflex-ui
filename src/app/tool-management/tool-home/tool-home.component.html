@@ -1,1 +1,87 @@
-<p>tool-home works!</p>
+<nb-layout center [restoreScrollTop]="false">
+  <nb-layout-header fixed>
+
+    <div fxFlex fxLayoutAlign="center center">
+
+      <div fxFlex fxLayoutAlign="start center">
+
+    
+        <button
+        routerLink="/"
+         nbButton ghost status="danger" size="small">
+
+
+
+          <img class="logo" src="/assets/logo.png"   >
+
+        </button>
+
+      </div>
+
+
+    </div>
+  </nb-layout-header>
+
+
+
+  <nb-sidebar left fxLayout="column">
+
+
+
+    <nb-sidebar-header>
+
+
+
+      <button [routerLink]="[   { outlets: {  primary:  ['/asset' , 'test' ]  ,   asset: [ 'host'] } }]" nbButton fxFlex
+        ghost status="primary">
+        <!-- <nb-icon icon="settings-outline"></nb-icon> -->
+        Workspace
+      </button>
+
+
+
+
+    </nb-sidebar-header>
+
+  
+
+    <nb-sidebar-footer>
+
+
+      <button (click)="openSettings(settingsTemplate)" nbButton fxFlex ghost status="success">
+        <nb-icon icon="settings-outline">
+
+        </nb-icon>
+        Configuration
+      </button>
+
+    </nb-sidebar-footer>
+
+  </nb-sidebar>
+
+
+
+  <nb-layout-column>
+
+
+    <!-- <app-spinner>
+
+  </app-spinner> -->
+
+    <router-outlet>
+
+    </router-outlet>
+
+
+
+  </nb-layout-column>
+
+
+
+
+</nb-layout>
+
+
+<ng-template #settingsTemplate>
+  <app-asset-configuration></app-asset-configuration>
+</ng-template>
