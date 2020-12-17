@@ -1,33 +1,18 @@
-<nb-layout center [restoreScrollTop]="true"
+<nb-layout center [restoreScrollTop]="true" [windowMode]="true">
 
-[windowMode]="true"
->
   <nb-layout-header fixed>
-
-
-
     <div fxFlex fxLayoutAlign="start center">
-
       <div class="imageContainer" fxLayoutAlign="center center">
-
         <img src="/assets/logo.png">
-
       </div>
-
-
-      <div class="nac">
-          Asdsad
-      </div>
-
-
     </div>
   </nb-layout-header>
 
 
 
-  <nb-sidebar responsive left fxLayout="column">
 
 
+  <nb-sidebar left fxLayout="column">
 
 
 
@@ -43,40 +28,16 @@
       </nb-list-item>
 
 
-      <!-- <nb-list-item [routerLink]="assetType.type" @init *ngFor="let assetType of assetTypes; index as index"> -->
-      <!-- <button nbButton fxFlex [appearance]=" assetType.path == router.url ?  'outline' : 'ghost'" -->
-      <!-- [status]=" assetType.path == router.url ? 'success' : 'basic'" size="small" fxLayoutAlign="Start"> -->
-      <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
-      <!-- {{assetType.name}} -->
-
-      <!-- </button> -->
-      <!-- </nb-list-item> -->
-
-      <!-- <nb-list-item [routerLink]="assetType.link" [class.selected-route]="assetType.path == router.url " appBorder
-        appHoverColor @init *ngFor="let assetType of assetTypes; index as index">
-
-        <div fxLayout="row" fxFlex fxLayoutGap="1rem">
-
-
-          <div fxFlex="1 0">
-
-            {{assetType.name}}
-          </div>
-
-
-
-        </div>
-
-      </nb-list-item> -->
-
     </nb-list>
 
 
 
-    <nb-sidebar-footer>
+    <!-- <nb-sidebar-footer>
 
       <div fxFlex fxLayoutAlign="center center">
-        <button (click)="openSettings(settingsTemplate)" nbButton fxFlex ghost status="success">
+        <button
+        
+        (click)="openSettings(settingsTemplate)" nbButton fxFlex filled status="success">
           <nb-icon icon="settings-outline">
 
           </nb-icon>
@@ -86,7 +47,7 @@
 
 
 
-    </nb-sidebar-footer>
+    </nb-sidebar-footer> -->
 
   </nb-sidebar>
 

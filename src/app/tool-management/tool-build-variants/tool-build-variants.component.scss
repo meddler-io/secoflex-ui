@@ -1,0 +1,16 @@
+.cardcontainer {
+  border-radius: 3px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(9, 30, 66, 0.31) 0px 0px 1px;
+
+  padding: 1rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+nb-card-body {
+  background: rgba(244, 245, 247, 0.212);
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 0px 0px 5px 5px;
+}

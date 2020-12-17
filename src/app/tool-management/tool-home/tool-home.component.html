@@ -1,87 +1,65 @@
-<nb-layout center [restoreScrollTop]="false">
+<nb-layout>
+
+
   <nb-layout-header fixed>
-
-    <div fxFlex fxLayoutAlign="center center">
-
-      <div fxFlex fxLayoutAlign="start center">
-
-    
-        <button
-        routerLink="/"
-         nbButton ghost status="danger" size="small">
+    <div fxLayoutGap="1rem" fxFlex fxLayoutAlign="space-between center">
+      <div class="imageContainer" fxLayoutAlign="center center">
+        <img src="/assets/logo.png">
+      </div>
 
 
+      <div>
 
-          <img class="logo" src="/assets/logo.png"   >
 
-        </button>
+        <nb-form-field>
+      
+          <input fieldSize="large" type="text" nbInput placeholder="Create new tool">
+
+          <!-- <button nbSuffix shape="round" nbButton status="basic"> -->
+            <!-- <nb-icon class="text-alternate"  icon="plus"></nb-icon> -->
+          <!-- </button> -->
+        </nb-form-field>
+
 
       </div>
 
 
     </div>
+
+
+
   </nb-layout-header>
 
 
 
   <nb-sidebar left fxLayout="column">
 
+    <nb-list>
 
 
-    <nb-sidebar-header>
+      <nb-list-item @init *ngFor="let toolMenuItem of toolMenu; index as index">
+        <app-navbar-list-item [activestate]="activeState" [item]="toolMenuItem" [routerlink]="toolMenuItem.type"
+          fxLayout="column" [title]="toolMenuItem.name" fxFlex>
+          <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
+
+        </app-navbar-list-item>
+      </nb-list-item>
+
+
+    </nb-list>
 
 
 
-      <button [routerLink]="[   { outlets: {  primary:  ['/asset' , 'test' ]  ,   asset: [ 'host'] } }]" nbButton fxFlex
-        ghost status="primary">
-        <!-- <nb-icon icon="settings-outline"></nb-icon> -->
-        Workspace
-      </button>
-
-
-
-
-    </nb-sidebar-header>
-
-  
-
-    <nb-sidebar-footer>
-
-
-      <button (click)="openSettings(settingsTemplate)" nbButton fxFlex ghost status="success">
-        <nb-icon icon="settings-outline">
-
-        </nb-icon>
-        Configuration
-      </button>
-
-    </nb-sidebar-footer>
 
   </nb-sidebar>
 
 
 
-  <nb-layout-column>
-
-
-    <!-- <app-spinner>
-
-  </app-spinner> -->
-
-    <router-outlet>
-
-    </router-outlet>
-
-
-
+  <nb-layout-column class="fullView">
+    <app-tool-screen></app-tool-screen>
   </nb-layout-column>
 
 
 
 
 </nb-layout>
-
-
-<ng-template #settingsTemplate>
-  <app-asset-configuration></app-asset-configuration>
-</ng-template>

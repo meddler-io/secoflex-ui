@@ -12,11 +12,6 @@
         Add Host
 
       </div>
-      <!-- <div fxFlex fxLayoutAlign="end center">
-    
-          <nb-toggle [checked]="true" labelPosition="left" status="primary">IPv4</nb-toggle>
-        </div> -->
-
 
 
       <button status="warning" (click)="addNewIp()" nbButton outline size="small">
@@ -34,47 +29,45 @@
     </div>
   </nb-card-header>
 
-  <nb-card-body  >
-
-
-    <div  fxLayout="row wrap"   >
-
-      <div  class="item" fxFlex="50%"   @init  
-        *ngFor="let ip_address_import of ip_addresses.controls; index as index ">
-        
-
-        <nb-form-field   [nbSpinner]="saving">
-          <div nbPrefix icon="at-outline" pack="eva">
-            #{{index+1}}
-          </div>
-          <input fullWidth [formControl]="ip_addresses.controls[index]" nbInput fieldSize="medium"
-            [status]="ip_addresses.controls[index].valid ? 'basic' : 'danger' " placeholder="IP Address">
-
-
-          <button [ngStyle]="{ 'visibility': index == 0 ? 'hidden' : 'visible'  }" nbSuffix (click)="removeAt(index)"
-            nbButton size="small" ghost status="basic">
-            <nb-icon icon="trash-outline">
-            </nb-icon>
-          </button>
-
-
-        </nb-form-field>
+  <nb-card-body>
 
 
 
-        <ng-container >
-          <div [ngStyle]="{ 'visibility': ip_addresses.controls[index].valid ? 'hidden' : 'visible'  }"
-            class="error-message">
-            <span class="caption">
-              *Invalid IP Address
-            </span>
-          </div>
+    <div class="item"   @init *ngFor="let ip_address_import of ip_addresses.controls; index as index ">
 
-        </ng-container>
 
-      </div>
+      <nb-form-field [nbSpinner]="saving">
+        <div nbPrefix icon="at-outline" pack="eva">
+          #{{index+1}}
+        </div>
+        <input fullWidth [formControl]="ip_addresses.controls[index]" nbInput fieldSize="medium"
+          [status]="ip_addresses.controls[index].valid ? 'basic' : 'danger' " placeholder="IP Address">
+
+
+        <button [ngStyle]="{ 'visibility': index == 0 ? 'hidden' : 'visible'  }" nbSuffix (click)="removeAt(index)"
+          nbButton size="small" ghost status="basic">
+          <nb-icon icon="trash-outline">
+          </nb-icon>
+        </button>
+
+
+      </nb-form-field>
+
+
+
+      <ng-container>
+        <div [ngStyle]="{ 'visibility': ip_addresses.controls[index].valid ? 'hidden' : 'visible'  }"
+          class="error-message">
+          <span class="caption">
+            *Invalid IP Address
+          </span>
+        </div>
+
+      </ng-container>
 
     </div>
+
+
 
 
 

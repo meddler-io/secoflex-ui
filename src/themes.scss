@@ -6,24 +6,102 @@
 @import '~@nebular/theme/styles/themes/default';
 @import '~@nebular/theme/styles/themes/dark';
 
-$nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
-    // text-disabled-color: color-basic-600,
-  ), default, default);
+$nb-enable-css-custom-properties: true; // <-- enable css custom properties
+
+
 
 $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
     // text-disabled-color: color-basic-600,
+
+    tabset-tab-underline-width: 0.1rem,
+    tabset-divider-width: 5px,
+    route-tabset-tab-text-font-size: 0.5rem,
+    route-tabset-tab-text-font-weight: 300,
+    header-height: 4rem,
+    header-padding: 0rem,
+    card-header-text-font-weight: 500,
+    card-padding: 1rem,
+
+    // Custom Variables
+    navitem-radius: 6px,
+    navitem-background: #74b9ff,
+    navitem-hover-background: hsla(0, 0%, 0%, 0.3),
+    navitem-selected-background: #0984e3,
+    // navitem-selected-background:llinear-gradient(to right, #36d1dc, #5b86e5),
+    /* Chrome 10-25, Safari 5.1-6 */
+
+    navitem-expanded-background: #74b9ff,
+    navitem-text: #868e96,
+    navitem-hover-text: #fff,
+    navitem-selected-text: #fff,
+    navitem-expanded-text: #fff,
+
+
+    navsubitem-expanded-background: #74b9ff,
+    navsubitem-text: #868e96,
+    navsubitem-hover-text: #fff,
+    navsubitem-selected-text: #74b9ff,
+    navsubitem-expanded-text: #fff,
+
+
+
+
+    accordion-padding: 10px 100px 10px 15px,
+    accordion-header-text-font-weight: 400,
+    accordion-header-border-width: 0,
+    accordion-header-text-color : rgb(184, 199, 224),
+
+
+
+    input-border-width: 0,
+    
+  ), default, default);
+
+
+
+$nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
 
 
     tabset-tab-underline-width: 0.1rem,
     tabset-divider-width: 5px,
     route-tabset-tab-text-font-size: 0.5rem,
     route-tabset-tab-text-font-weight: 300,
-    // header-text-font-weight: 250,
     header-height: 4rem,
     header-padding: 0rem,
     card-header-text-font-weight: 500,
     card-padding: 1rem,
-    layout-content-width: 1280px
+
+    // Custom Variables
+    navitem-radius: 6px,
+    navitem-background: #74b9ff,
+    navitem-hover-background: hsla(0, 0%, 0%, 0.3),
+    navitem-selected-background: #0984e3,
+    // navitem-selected-background:llinear-gradient(to right, #36d1dc, #5b86e5),
+    /* Chrome 10-25, Safari 5.1-6 */
+
+    navitem-expanded-background: #74b9ff,
+    navitem-text: #868e96,
+    navitem-hover-text: #fff,
+    navitem-selected-text: #fff,
+    navitem-expanded-text: #fff,
+
+
+    navsubitem-expanded-background: #74b9ff,
+    navsubitem-text: #868e96,
+    navsubitem-hover-text: #fff,
+    navsubitem-selected-text: #74b9ff,
+    navsubitem-expanded-text: #fff,
+
+    accordion-padding: 10px 100px 10px 15px,
+    accordion-header-text-font-weight: 400,
+    accordion-header-border-width: 0,
+
+    accordion-header-text-color : rgb(184, 199, 224),
+
+
+
+
+
   ), dark, dark);
 
 :root {
@@ -32,14 +110,21 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
 
 $nb-themes: nb-register-theme(( // add your variables here like:
 
-    // color-primary-100: #f2f6ff,
-    // color-primary-200: #d9e4ff,
-    // color-primary-300: #a6c1ff,
-    // color-primary-400: #598bff,
-    // color-primary-500: #3366ff,
-    // color-primary-600: #274bdb,
-    // color-primary-700: #1a34b8,
-    // color-primary-800: #102694,
-    // color-primary-900: #091c7a,
-
   ), default, default);
+
+
+@mixin gradient-selected-background() {
+  background: linear-gradient(to right, #5b86e5, #36d1dc);
+}
+
+@mixin gradient-hover-background() {
+
+  background: linear-gradient(to right, #457fca, #5b86e5);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+@mixin gradient-expanded-background() {
+
+  background: linear-gradient(to right, #457fca, #5b86e5);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

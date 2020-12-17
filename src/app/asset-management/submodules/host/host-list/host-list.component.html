@@ -1,15 +1,15 @@
 <div fxFlex class="container">
 
- 
+
   <div class="scsroll" fxLayout="column">
 
     <ng-container *ngFor="let host of hosts ; index as index">
 
       <div fxLayout="column" (click)="detailedView(index)">
 
-        <div       [class.selected]="selected_host_list_item == index " fxLayout="row" fxFlex>
+        <div [class.selected]="selected_host_list_item == index " fxLayout="row" fxFlex>
 
-          <div appHoverColor appBorder fxFlex fxLayoutAlign="center center" fxLayoutGap="1rem" class="list-item">
+          <div appHoverColor fxFlex fxLayoutAlign="center center" fxLayoutGap="1rem" class="list-item">
 
             <ng-container *ngIf="host?.health == 'up' ; else healthDown">
 
@@ -33,14 +33,14 @@
             </div>
 
           </div>
-          <div appHoverColor appBorder fxFlex="150px" fxLayoutAlign="center center" class="list-item">
+          <div appHoverColor fxFlex="150px" fxLayoutAlign="center center" class="list-item">
             {{host.group || 'None'}}
 
           </div>
 
 
 
-          <div appHoverColor appBorder fxFlex="180px" fxLayoutAlign="center center" class="list-item">
+          <div appHoverColor fxFlex="180px" fxLayoutAlign="center center" class="list-item">
             {{host.dou | date}}
           </div>
         </div>

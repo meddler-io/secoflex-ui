@@ -1,28 +1,41 @@
-<div class="list-item" fxLayout="column" (debounceClick)="toggle()" [debounceTime]="220" appDebounceClick>
-
-  <!-- (debounceMouseOver)="expand()" (debounceMouseLeave)="collapse()" -->
-
-  <!-- [routerLink]="item.link" -->
-  <div class="item" nbButton fxFlex appearance="ghost" [class.expanded]=" expanded$ "
-    [class.active]="  activeState?.item_id  == item?.id  " size="small">
-
-    <span fxFlex>
-      {{title$}}
-
-    </span>
+<div class="container">
 
 
+  <div [class.active]="  activeState?.item_id  == item?.id  " class="list-item" fxLayout="column"
+    [class.expanded]=" expanded$ " (debounceClick)="toggle()" [debounceTime]="220" appDebounceClick>
 
-    <div class="itemicon" *ngIf=" activeState?.item_id  != item?.id  ">
-      <nb-icon [status]="  ( expanded$ ||  activeState?.item_id  == item?.id   )? 'basic' : 'info'"
+    <div class="item" nbButton fxFlex appearance="ghost" fxLayoutAlign="center center" size="small">
+
+
+      <!-- <div class="itemicon">
+      <nb-icon [status]="  ( expanded$ ||  activeState?.item_id  == item?.id   )? 'basic' : 'info'" class="title"
         [icon]="  ( expanded$ ||  activeState?.item_id  == item?.id   ) ? 'chevron-down-outline' : 'chevron-right-outline'"
         icon="chevron-right-outline">
 
       </nb-icon>
+    </div> -->
+
+      <span class="title" fxFlex>
+        {{title$}}
+
+      </span>
+
+
+      <div class="  roundBtn" fxLayoutAlign="center center">
+        <nb-icon [class.active]="  activeState?.subitem_id  == item?.id  " icon="plus-outline">
+
+        </nb-icon>
+      </div>
+
+
+
+
     </div>
+    <!-- @slideInOut (@slideInOut.start)="onAnimationStart($event)" (@slideInOut.done)="onAnimationEnd($event)" -->
+
+
 
   </div>
-  <!-- @slideInOut (@slideInOut.start)="onAnimationStart($event)" (@slideInOut.done)="onAnimationEnd($event)" -->
 
   <div [@collapse]=" ! ( expanded$ ||  activeState?.item_id  == item?.id   ) " class="subitemContainer collapsible"
     fxLayout="column">
@@ -34,11 +47,11 @@
       fxFlex appearance="ghost" (click)="onItemClick(item , child ,  child.link )" size="small"
       fxLayoutAlign="start center">
       <div class="itemicon " fxLayoutAlign="start center">
-        <nb-icon [status]=" activeState?.subitem_id == child?.id  ? 'success' : 'basic'" [icon]="child?.icon">
+        <nb-icon class="subtitle" [class.active]="  activeState?.subitem_id  == child?.id  " [icon]="child?.icon">
 
         </nb-icon>
       </div>
-      <span class="subtitle" [class.active]="  activeState?.subitem_id  == child?.id  ">
+      <span class="subtitle" [class.selected]="  activeState?.subitem_id  == child?.id  ">
         {{child?.name}}
 
       </span>
@@ -47,6 +60,5 @@
 
 
   </div>
-
 
 </div>

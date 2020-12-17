@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RoutesRecognized } from '@angular/router';
+import { NbThemeService } from '@nebular/theme';
 
 import { Subscription } from 'rxjs';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
@@ -35,9 +36,11 @@ export class AssetHomeComponent implements OnInit, OnDestroy {
     // private readonly drawerService: DrawerService,
     private readonly el: ElementRef<HTMLElement>,
     @Inject(DOCUMENT) private document: Document,
-    private aseetService: AssetApiService
+    private aseetService: AssetApiService,
+    private themeService: NbThemeService
   ) {
 
+    this.themeService.changeTheme('default');
 
   }
 

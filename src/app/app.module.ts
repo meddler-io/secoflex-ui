@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingModule } from './loading/loading.module';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { HeadbarComponent } from './temp/headbar/headbar.component';
 
 
 
@@ -22,7 +23,7 @@ import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent
+    SpinnerComponent,
 
 
 

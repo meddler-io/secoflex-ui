@@ -1,57 +1,146 @@
-.item {
-  background-color: hsla(0, 0%, 00%, 0);
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
+@import '../../../themes';
 
-  font-size: 1rem !important;
-  font-weight: 400;
-  border-radius: 4px;
 
-  z-index: 6 !important;
+
+.active {
+  .title {
+    color: nb-theme(navitem-selected-text) !important;
+  }
 
 
 }
 
-.item:hover {
-  // background-color: hsla(0, 0%, 0%, 0.3) !important;
-  // background-color: hsla(0, 0%, 0%, 0.3) !important;
-  background-color: #081428;
+
+.container {
+
+ 
+
+  .list-item {
+    border-radius: nb-theme(navitem-radius);
+
+    color: nb-theme(navitem-text);
+
+    &:hover {
+      color: nb-theme(navitem-hover-text);
+      font-weight: 900 !important;
+      @include gradient-hover-background();
+    }
+
+    &.expanded {
+      @include gradient-expanded-background();
+      color: nb-theme(navitem-hover-text);
+    }
+
+
+
+
+    &.active {
+      color: nb-theme(navitem-hover-text);
+      @include gradient-selected-background();
+    }
+
+
+
+
+    .item {
+      // background-color: hsla(0, 0%, 00%, 0);
+      font-size: 1rem !important;
+
+      z-index: 6 !important;
+
+      .title {
+
+        padding: 1rem;
+        font-weight: 450;
+
+
+      }
+
+    }
+
+
+    .roundBtn {
+      border-radius: 50%;
+      width: 2.6rem;
+      height: 2.6rem;
+      margin-right: 1rem;
+
+    }
+
+    .roundBtn:hover {
+      background: rgba(255, 255, 255, 0.527);
+      // color: #fff;
+
+    }
+  }
+
+  .collapsible {
+
+
+    .subitem {
+
+      &:hover {
+        border-radius: nb-theme(navitem-radius) !important;
+
+        .subtitle {
+          color: nb-theme(navitem-selected-text) !important;
+
+        }
+
+      }
+
+      &.active {
+        color: nb-theme(navitem-selected-text) !important;
+        border-radius: nb-theme(navitem-radius) !important;
+
+        // background-color: nb-theme(navitem-selected-background);
+
+      }
+
+      .subtitle {
+        color: nb-theme(navitem-text) !important;
+        font-weight: 500;
+
+      }
+
+      &.selected {
+        border-radius: nb-theme(navitem-radius) !important;
+        background-color: nb-theme(navitem-selected-background);
+        color: nb-theme(navitem-selected-text) !important;
+
+
+        .subtitle {
+          color: nb-theme(navitem-selected-text) !important;
+          font-weight: 800 !important;
+        }
+      }
+
+
+    }
+
+  }
+
+
 }
 
 
-// [style.background-color]="  ( expanded$   )?  'hsla(0,0%,0%,0.3)'  : 'hsla(0,0%,00%,0)'  "
+
+
 
 .expanded {
 
-  // background-color: hsla(0, 0%, 0%, 0.3) !important;
-  background-color: #050e1f !important;
+
+  // background-color: nb-theme(navitem-selected-background);
 }
 
-.active {
-  color: #00d68f !important;
-  background-color: #050e1f !important;
 
-
-}
-
-.selected {
-  // background-color: hsla(0, 0%, 0%, 0.3) !important;
-  // background-color: hsla(0, 0%, 0%, 0.3) !important;
-  background-color: #081428 !important;
-}
 
 
 .subitem {
-  margin-top: 4px !important;
-  margin-bottom: 4px !important;
-  background-color: #1a2332;
-  // padding-bottom: 8px;
-  // padding-top: 8px;
-  padding: 8px;
-
-
-
-
+  margin-top: 2px !important;
+  margin-bottom: 1px !important;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
   z-index: 4 !important;
 
 }
@@ -59,18 +148,17 @@
 
 
 .subitem:hover {
-  border-radius: 4px;
+  // border-radius: 4px;
 
   background-color: hsla(0, 0%, 0%, 0.3);
 }
 
 .subitemContainer {
 
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 0.6rem;
+  // padding-right: 0.4rem;
   margin: 0.2rem;
-  border-radius: 4px;
-  background-color: #1a2332;
+  // border-radius: 4px;
 }
 
 .list-item {
@@ -91,8 +179,11 @@ button {
 }
 
 .itemicon {
-  margin-right: 1rem;
   // font-size: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  // margin-left: 0.5rem;
+
 }
 
 .collapsible {

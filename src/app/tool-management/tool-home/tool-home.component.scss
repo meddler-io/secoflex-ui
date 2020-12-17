@@ -23,7 +23,7 @@ img {
   // width: 16rem !important;
   // width: 100% !important;
   // padding: 2rem;
-height: 3rem;
+  height: 3rem;
 }
 
 :host ::ng-deep nb-sidebar {
@@ -45,7 +45,6 @@ height: 3rem;
   }
 
   .item {
-    padding: 1rem;
     border: 0;
   }
 
@@ -107,9 +106,6 @@ nb-list-item {
 
 nb-sidebar-footer {
   margin: 0.4rem !important;
-  // padding: 0.4rem !important;
-  font-weight: 600 !important;
-  background: #171a21 !important;
 }
 
 nb-sidebar-header {
@@ -137,4 +133,37 @@ nb-sidebar-header {
 
 nb-layout-column {
   overflow: hidden;
+}
+
+
+
+
+.roundBtn {
+  width: 4rem;
+  height: 4rem;
+
+
+  line-height: 115px;
+  text-align: center;
+  border: 0px solid red;
+  background-image: url("/assets/logo_mini.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+}
+
+pre {
+  // display: inline-block;
+  // font-size: 20px;
+  // padding-left: 10px;
+
+  font: 500 12px / 1.5 Monaco, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  white-space: pre;
+  padding: 0px 0px 0px 31px;
+}
+
+.fullView {
+  // max-height: calc(100vh - 4rem);
+  // overflow: sc;
 }
