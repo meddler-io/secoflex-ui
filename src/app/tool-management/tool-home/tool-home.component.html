@@ -1,4 +1,4 @@
-<nb-layout>
+<nb-layout center>
 
 
   <nb-layout-header fixed>
@@ -11,14 +11,16 @@
       <div>
 
 
-        <nb-form-field>
-      
-          <input fieldSize="large" type="text" nbInput placeholder="Create new tool">
+        <button class="newBtn" (click)="open(dialog)" shape="round" nbButton>
 
-          <!-- <button nbSuffix shape="round" nbButton status="basic"> -->
-            <!-- <nb-icon class="text-alternate"  icon="plus"></nb-icon> -->
-          <!-- </button> -->
-        </nb-form-field>
+          <div class="icon" icon="plus"></div>
+
+          <span>
+            New
+
+          </span>
+        </button>
+
 
 
       </div>
@@ -32,7 +34,9 @@
 
 
 
-  <nb-sidebar left fxLayout="column">
+  <!-- <nb-sidebar left fxLayout="column">
+
+
 
     <nb-list>
 
@@ -40,7 +44,7 @@
       <nb-list-item @init *ngFor="let toolMenuItem of toolMenu; index as index">
         <app-navbar-list-item [activestate]="activeState" [item]="toolMenuItem" [routerlink]="toolMenuItem.type"
           fxLayout="column" [title]="toolMenuItem.name" fxFlex>
-          <!-- <nb-icon icon="settings-outline">     </nb-icon> -->
+
 
         </app-navbar-list-item>
       </nb-list-item>
@@ -51,15 +55,60 @@
 
 
 
-  </nb-sidebar>
+
+  </nb-sidebar> -->
 
 
 
-  <nb-layout-column class="fullView">
-    <app-tool-screen></app-tool-screen>
+  <nb-layout-column>
+    <router-outlet>
+
+    </router-outlet>
+    <!-- <app-tool-screen></app-tool-screen> -->
   </nb-layout-column>
 
 
-
-
 </nb-layout>
+
+
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card style="min-width: 50rem;" class="dialog">
+    <nb-card-header>
+      <span class="h6 text-hint">
+        Create new tool
+
+      </span>
+    </nb-card-header>
+    <nb-card-body>
+
+      <div style="margin: 1rem;">
+        <nb-form-field   fieldSize="small">
+          <nb-icon icon="at" nbPrefix></nb-icon>
+          <input fullWidth  #alias nbInput placeholder="Alias">
+
+        </nb-form-field>
+      </div>
+      <div style="margin: 1rem;">
+        <nb-form-field>
+
+          <input #name fullWidth nbInput fieldSize="large" placeholder="Name">
+        </nb-form-field>
+      </div>
+      <div style="margin: 1rem;">
+        <nb-form-field>
+
+          <textarea #description style="resize: none;" fullWidth nbInput fieldSize="medium"
+            placeholder="Description"></textarea>
+        </nb-form-field>
+      </div>
+    </nb-card-body>
+    <nb-card-footer fxLayoutAlign="end" fxLayoutGap="1rem">
+      <button hero status="basic" nbButton (click)="ref.close()">Go Back</button>
+
+      <button (click)="createTool( alias.value ,  name.value , description.value )" hero status="success" nbButton
+        (click)="ref.close()">Save</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

@@ -75,7 +75,7 @@ export class ToolStoreService {
   get getToolMenu(): NavbarItem[] {
     return [
       {
-        name: 'Hosts',
+        name: 'Tools',
         icon: 'eva-arrow-left',
         type: ToolType.HOST,
         link: ['/tool', 'host', 'import'],
@@ -112,7 +112,7 @@ export class ToolStoreService {
         ]
       },
       {
-        name: 'Domains',
+        name: 'Dependencies',
         type: ToolType.DOMAIN,
         link: ['/tool', 'domain', 'add'],
 
@@ -149,7 +149,7 @@ export class ToolStoreService {
       },
 
       {
-        name: 'Web',
+        name: 'Store',
         type: ToolType.WEB,
         link: ['/tool', 'web', 'add'],
         id: NavMenuItemsIdentifiers.Web,

@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { LOG_SERVICE_URL } from '../reusable-components/common/shared/Constants';
+import { API_SERVICE_URL, LOG_SERVICE_URL } from '../reusable-components/common/shared/Constants';
 
 
 const THROTTLE_CONNECTION = false
-const url = LOG_SERVICE_URL + 'api/v2/asset'
+const url = API_SERVICE_URL + 'api/v2/tool'
 const baseurl = LOG_SERVICE_URL + 'api/v2/'
 
 
@@ -44,6 +44,23 @@ export class ToolApiService {
   }
 
 
+  createTool(alias , name, description) {
+    return this.http.post(`${url}`, {
+      alias: alias,
+      name: name,
+      description: description
+    })
+  }
+
+
+
+  getTool(id: string) {
+    return this.http.get(`${url}/${id}`)
+  }
+
+  getTools() {
+    return this.http.get(`${url}`)
+  }
 
   buildTool(ip_address) {
     return this.http.post(`${url}/host`, {

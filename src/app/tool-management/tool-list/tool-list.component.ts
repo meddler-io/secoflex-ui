@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { ToolApiService } from '../tool-api.service';
 
 export interface Group {
   name: string;
@@ -14,10 +15,20 @@ export interface Group {
   selector: 'app-tool-list',
   templateUrl: './tool-list.component.html',
   styleUrls: ['./tool-list.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolListComponent implements OnInit {
 
+
+
+  tools$ = this.toolApiService.getTools()
+
+  constructor(
+    private toolApiService: ToolApiService
+
+  ) {
+
+  }
 
   groups: Group[];
   filteredGroups$: Observable<Group[]>;
@@ -37,7 +48,7 @@ export class ToolListComponent implements OnInit {
       {
         name: 'Group 3',
         children: ['Option 31', 'Option 32', 'Option 33'],
-    }];
+      }];
 
     this.filteredGroups$ = of(this.groups);
     this.inputFormControl = new FormControl();

@@ -1,17 +1,52 @@
-<nb-card size="medium">
-  <nb-card-body>
+<nb-layout-header subHeader>
 
-    <input [formControl]="inputFormControl" nbInput type="text" placeholder="Enter value" [nbAutocomplete]="auto" />
+  <nb-form-field fxFlex="1 1">
+    <nb-icon nbPrefix icon="search"></nb-icon>
+    <input nbInput placeholder="Search tools" fieldSize="large" fullWidth>
+  </nb-form-field>
+</nb-layout-header>
 
-    <nb-autocomplete #auto>
 
-      <nb-option-group *ngFor="let group of filteredGroups$ | async; trackBy: trackByFn" [title]="group.name">
-        <nb-option *ngFor="let option of group.children" [value]="option">
-          {{ option }}
-        </nb-option>
-      </nb-option-group>
 
-    </nb-autocomplete>
 
-  </nb-card-body>
-</nb-card>
+
+
+
+<nb-accordion>
+  <nb-accordion-item [expanded]="index == 0" *ngFor="let tool of tools$ | async ; index as index ">
+    <nb-accordion-item-header fxLayoutAlign="space-between">
+
+
+
+      <span>
+        {{ tool?.name || 'Tool Name' }}
+
+      </span>
+
+      <span class="text-hint">
+        {{ '@' +  ( tool?.alias || 'Alias' ) }}
+      </span>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+
+      <nb-card>
+        <nb-card-body>
+          <div class="text-hint">
+            {{ tool?.description || 'Tool Description' }}
+
+
+
+          </div>
+        </nb-card-body>
+        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+          <button size="small" nbButton>Edit</button>
+          <button [routerLink]="[  '/tool'  , 'details', tool?._id ]  " status="success" size="small"
+            nbButton>Explore</button>
+        </nb-card-footer>
+      </nb-card>
+
+
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+</nb-accordion>

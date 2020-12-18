@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ToolManagementRoutingModule } from './tool-management-routing.module';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
-import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -18,12 +18,13 @@ import { ToolBuildVariantsComponent } from './tool-build-variants/tool-build-var
 import { ToolScreenComponent } from './tool-screen/tool-screen.component';
 import { AngularSplitModule } from 'angular-split';
 import { ToolListComponent } from './tool-list/tool-list.component';
+import { BuildCreateComponent } from './build-create/build-create.component';
 
 
 
 @NgModule({
   declarations: [ToolHomeComponent,
-    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent
+    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent
   ],
   imports: [
 
@@ -51,7 +52,9 @@ import { ToolListComponent } from './tool-list/tool-list.component';
     NbInputModule,
     NbFormFieldModule,
     NbAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NbDialogModule.forChild( ),
+    NbSelectModule
 
   ],
   providers: [
