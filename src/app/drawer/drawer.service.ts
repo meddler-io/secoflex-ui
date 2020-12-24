@@ -99,6 +99,8 @@ export class DrawerService extends InjectionRegistryService<DrawerComponent> {
       this.destroy(component);
     };
 
+    console.log('___')
+
     closeSub = component.instance.close.subscribe(kill.bind(this, component));
     if (component.instance.closeOnOutsideClick) {
       if (isRoot) {

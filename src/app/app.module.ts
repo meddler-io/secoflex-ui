@@ -13,9 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingModule } from './loading/loading.module';
-import { SpinnerComponent } from './spinner/spinner.component';
+
 import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { HeadbarComponent } from './temp/headbar/headbar.component';
+import { SpinnerModule } from './spinner/spinner/spinner.module';
 
 
 
@@ -23,19 +24,19 @@ import { HeadbarComponent } from './temp/headbar/headbar.component';
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent,
 
 
 
   ],
   imports: [
+    SpinnerModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LoadingModule,
 
 
-    NbThemeModule.forRoot({ name: 'dark' }),
+    NbThemeModule.forRoot({ name: 'default' }),
 
     HttpClientModule,
     NbLayoutModule,

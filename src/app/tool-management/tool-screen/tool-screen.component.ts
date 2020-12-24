@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   selector: 'app-tool-screen',
   templateUrl: './tool-screen.component.html',
   styleUrls: ['./tool-screen.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
 export class ToolScreenComponent implements OnInit {

@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { ToolApiService } from '../tool-api.service';
+import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 
 export interface Group {
   name: string;
@@ -16,6 +17,7 @@ export interface Group {
   templateUrl: './tool-list.component.html',
   styleUrls: ['./tool-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [...basicAnimations]
 })
 export class ToolListComponent implements OnInit {
 

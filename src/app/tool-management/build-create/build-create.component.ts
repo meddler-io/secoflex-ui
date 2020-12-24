@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ToolApiService } from '../tool-api.service';
 
 @Component({
   selector: 'app-build-create',
@@ -9,8 +10,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class BuildCreateComponent implements OnInit {
 
-  selectedbuildTypesFormControl = new FormControl();
 
+  @Input('close') close
+
+  @Input('refrence_id') refrence_id;
   buildTypes = [
     {
       name: 'Docker Image',
@@ -68,14 +71,16 @@ export class BuildCreateComponent implements OnInit {
 
 
   form = new FormGroup({
-    build_type: new FormControl('bundle_git'),
+    tool_tag: new FormControl(''),
+    tool_name: new FormControl(''),
+    build_type: new FormControl('registry_public'),
 
     registry_public: new FormGroup({
 
 
-      authentication: new FormControl('none'),
-      image_name: new FormControl('rounak316/hello'),
-      image_tag: new FormControl('latest'),
+      authentication: new FormControl('token'),
+      image_name: new FormControl(''),
+      image_tag: new FormControl(''),
       username: new FormControl(''),
       password: new FormControl(''),
       auth_token: new FormControl(''),
@@ -88,8 +93,8 @@ export class BuildCreateComponent implements OnInit {
 
       registry_url: new FormControl(''),
       authentication: new FormControl('none'),
-      image_name: new FormControl('rounak316/hello'),
-      image_tag: new FormControl('latest'),
+      image_name: new FormControl(''),
+      image_tag: new FormControl(''),
       username: new FormControl(''),
       password: new FormControl(''),
       auth_token: new FormControl(''),
@@ -99,9 +104,6 @@ export class BuildCreateComponent implements OnInit {
       repository: new FormControl('github'),
       repository_url: new FormControl(''),
       authentication: new FormControl('credentials'),
-
-
-
       username: new FormControl(''),
       password: new FormControl(''),
       token: new FormControl(''),
@@ -124,7 +126,9 @@ export class BuildCreateComponent implements OnInit {
 
   });
 
-  constructor() { }
+  constructor(
+    private toolApiService: ToolApiService
+  ) { }
 
   ngOnInit(): void {
     this.switchLayout()
@@ -133,9 +137,25 @@ export class BuildCreateComponent implements OnInit {
 
   switchLayout() {
 
-    this.selectedbuildTypesFormControl.valueChanges.subscribe(val => {
-      console.log('value', val)
-    })
+  
   }
 
+
+  createBuild() {
+
+
+    let data = {
+      type: this.form.value.build_type,
+      tool_tag: this.form.value.tool_tag,
+      tool_name: this.form.value.tool_name,
+
+      ...this.form.value[this.form.value.build_type],
+      refrence_id: this.refrence_id,
+
+    }
+
+    console.debug( this.form.value[this.form.value.build_type] , this.form.value.build_type )
+    this.toolApiService.buildTool(this.form.value.build_type, data).subscribe()
+
+  }
 }

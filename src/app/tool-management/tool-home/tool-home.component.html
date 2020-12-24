@@ -33,30 +33,85 @@
   </nb-layout-header>
 
 
-
-  <!-- <nb-sidebar left fxLayout="column">
-
+  <nb-sidebar left fxLayout="column">
 
 
-    <nb-list>
+
+    <nb-list >
+
+      <nb-list-item class="create" @init fxLayoutAlign="center">
+
+
+        <div fxFlex fxLayout="row" >
+
+          <button fullWidth class="newBtn" shape="round" nbButton>
+
+            <div class="icon" icon="plus"></div>
+
+            <span>
+              Create Tool
+
+            </span>
+          </button>
+
+        </div>
+      </nb-list-item>
 
 
       <nb-list-item @init *ngFor="let toolMenuItem of toolMenu; index as index">
         <app-navbar-list-item [activestate]="activeState" [item]="toolMenuItem" [routerlink]="toolMenuItem.type"
           fxLayout="column" [title]="toolMenuItem.name" fxFlex>
 
-
         </app-navbar-list-item>
+      </nb-list-item>
+ 
+
+    </nb-list>
+ 
+
+
+  </nb-sidebar>
+
+
+
+  <nb-sidebar right fxLayout="column">
+
+
+
+    <nb-list >
+
+      <nb-list-item class="create" @init fxLayoutAlign="center">
+
+
+        <div fxFlex fxLayout="row" >
+
+          <button fullWidth class="newBtn" shape="round" nbButton>
+
+            <div class="icon" icon="plus"></div>
+
+            <span>
+              Create Tool
+
+            </span>
+          </button>
+
+        </div>
       </nb-list-item>
 
 
+      <nb-list-item @init *ngFor="let toolMenuItem of toolMenu; index as index">
+        <app-navbar-list-item [activestate]="activeState" [item]="toolMenuItem" [routerlink]="toolMenuItem.type"
+          fxLayout="column" [title]="toolMenuItem.name" fxFlex>
+
+        </app-navbar-list-item>
+      </nb-list-item>
+ 
+
     </nb-list>
+ 
 
 
-
-
-
-  </nb-sidebar> -->
+  </nb-sidebar>
 
 
 
@@ -84,9 +139,9 @@
     <nb-card-body>
 
       <div style="margin: 1rem;">
-        <nb-form-field   fieldSize="small">
+        <nb-form-field fieldSize="small">
           <nb-icon icon="at" nbPrefix></nb-icon>
-          <input fullWidth  #alias nbInput placeholder="Alias">
+          <input fullWidth #alias nbInput placeholder="Alias">
 
         </nb-form-field>
       </div>

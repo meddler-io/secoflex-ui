@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tool-build-variants',
   templateUrl: './tool-build-variants.component.html',
-  styleUrls: ['./tool-build-variants.component.scss']
+  styleUrls: ['./tool-build-variants.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ToolBuildVariantsComponent implements OnInit {
 

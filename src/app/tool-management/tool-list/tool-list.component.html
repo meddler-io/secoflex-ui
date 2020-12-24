@@ -1,52 +1,84 @@
-<nb-layout-header subHeader>
+ <nb-layout-header @init subHeader>
 
-  <nb-form-field fxFlex="1 1">
-    <nb-icon nbPrefix icon="search"></nb-icon>
-    <input nbInput placeholder="Search tools" fieldSize="large" fullWidth>
-  </nb-form-field>
-</nb-layout-header>
+   <div fxLayout="row" fxLayoutAlign="start center">
 
+     <button
+     shape="round" 
+     
+     [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+       <nb-icon icon="arrow-back-outline">
 
+       </nb-icon>
+     </button>
 
+     <div class="h6 text-hint">
+       Tools
 
-
-
-
-<nb-accordion>
-  <nb-accordion-item [expanded]="index == 0" *ngFor="let tool of tools$ | async ; index as index ">
-    <nb-accordion-item-header fxLayoutAlign="space-between">
-
-
-
-      <span>
-        {{ tool?.name || 'Tool Name' }}
-
-      </span>
-
-      <span class="text-hint">
-        {{ '@' +  ( tool?.alias || 'Alias' ) }}
-      </span>
-    </nb-accordion-item-header>
-    <nb-accordion-item-body>
-
-      <nb-card>
-        <nb-card-body>
-          <div class="text-hint">
-            {{ tool?.description || 'Tool Description' }}
+     </div>
+   </div>
 
 
 
-          </div>
-        </nb-card-body>
-        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
-          <button size="small" nbButton>Edit</button>
-          <button [routerLink]="[  '/tool'  , 'details', tool?._id ]  " status="success" size="small"
-            nbButton>Explore</button>
-        </nb-card-footer>
-      </nb-card>
+
+ </nb-layout-header>
 
 
-    </nb-accordion-item-body>
-  </nb-accordion-item>
 
-</nb-accordion>
+
+
+
+ <nb-accordion @init>
+   <nb-accordion-item [expanded]="index == 0" *ngFor="let tool of tools$ | async ; index as index ">
+     <nb-accordion-item-header fxLayoutAlign="space-between">
+
+
+
+       <span>
+         {{ tool?.name || 'Tool Name' }}
+
+       </span>
+
+       <span class="text-hint">
+         {{ '@' +  ( tool?.alias || 'Alias' ) }}
+       </span>
+     </nb-accordion-item-header>
+     <nb-accordion-item-body>
+
+       <nb-card>
+         <nb-card-body>
+           <div class="text-hint">
+             {{ tool?.description || 'Tool Description' }}
+
+
+
+           </div>
+         </nb-card-body>
+
+
+         <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+
+           <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+             <nb-icon icon="settings-2-outline"></nb-icon>
+             Edit
+           </button>
+
+
+           <button status="basic" ghost size="small" nbButton>
+
+             <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+             Fork
+           </button>
+
+
+           <button [routerLink]="[  '/tool'  , 'builds', tool?._id ]  " status="success" size="small"
+             nbButton>Explore</button>
+         </nb-card-footer>
+       </nb-card>
+
+
+     </nb-accordion-item-body>
+   </nb-accordion-item>
+
+ </nb-accordion>

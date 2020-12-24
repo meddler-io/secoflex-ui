@@ -84,7 +84,7 @@ export class ToolStoreService {
         path: ['/tool/host'],
         children: [
           {
-            name: 'Hosts',
+            name: 'Create Tool',
             icon: 'external-link-outline',
             link: ['/tool', 'host', 'import'],
             id: NavMenuItemsIdentifiers.Host,
@@ -92,14 +92,7 @@ export class ToolStoreService {
 
 
           },
-          {
-            name: 'Create',
-            icon: 'plus-circle-outline',
-            link: ['/tool', 'host', 'add'],
-            id: NavMenuItemsIdentifiers.HostCreate,
 
-
-          },
 
           {
             name: 'Configure',
@@ -112,7 +105,7 @@ export class ToolStoreService {
         ]
       },
       {
-        name: 'Dependencies',
+        name: 'Data Sources',
         type: ToolType.DOMAIN,
         link: ['/tool', 'domain', 'add'],
 
@@ -129,16 +122,9 @@ export class ToolStoreService {
 
 
           },
+       
           {
-            name: 'Import',
-            icon: 'external-link-outline',
-            link: ['/tool', 'domain', 'import'],
-            id: NavMenuItemsIdentifiers.DomainCreate,
-
-
-          },
-          {
-            name: 'Configure',
+            name: 'Manage',
             icon: 'external-link-outline',
             link: ['/tool', 'domain', 'configure'],
             id: NavMenuItemsIdentifiers.DomainConfigure,
@@ -149,7 +135,7 @@ export class ToolStoreService {
       },
 
       {
-        name: 'Store',
+        name: 'Plugin Store',
         type: ToolType.WEB,
         link: ['/tool', 'web', 'add'],
         id: NavMenuItemsIdentifiers.Web,
@@ -183,152 +169,7 @@ export class ToolStoreService {
           }
         ]
       },
-      {
-        name: 'Android',
-        type: ToolType.ANDROID,
-        link: ['/tool', 'android', 'add'],
-
-        path: ['/tool/android'],
-        id: NavMenuItemsIdentifiers.Android,
-
-        children: [
-          {
-            name: 'Create',
-            icon: 'plus-circle-outline',
-            link: ['/tool', 'android', 'add'],
-            id: NavMenuItemsIdentifiers.Android,
-
-
-          },
-          {
-            name: 'Import',
-            icon: 'external-link-outline',
-            link: ['/tool', 'android', 'import'],
-            id: NavMenuItemsIdentifiers.AndroidCreate,
-
-
-          },
-          {
-            name: 'Configure',
-            icon: 'external-link-outline',
-            link: ['/tool', 'android', 'configure'],
-            id: NavMenuItemsIdentifiers.AndroidConfigure,
-
-
-          }
-        ]
-
-      },
-      {
-        name: 'iOS',
-        type: ToolType.IOS,
-        link: ['/tool', 'ios', 'add'],
-        id: NavMenuItemsIdentifiers.Ios,
-
-        path: ['/tool/ios'],
-        children: [
-          {
-            name: 'Create',
-            icon: 'plus-circle-outline',
-            link: ['/tool', 'ios', 'add'],
-            id: NavMenuItemsIdentifiers.Ios,
-
-
-          },
-          {
-            name: 'Import',
-            icon: 'external-link-outline',
-            link: ['/tool', 'ios', 'import'],
-            id: NavMenuItemsIdentifiers.IosCreate,
-
-
-          },
-          {
-            name: 'Configure',
-            icon: 'external-link-outline',
-            link: ['/tool', 'ios', 'configure'],
-            id: NavMenuItemsIdentifiers.IosConfigure,
-
-
-          }
-        ]
-
-      },
-
-      {
-        name: 'Repository',
-        type: ToolType.REPOSITORY,
-        link: ['/tool', 'repository', 'add'],
-
-        path: ['/tool/repository'],
-        id: NavMenuItemsIdentifiers.Repository,
-
-
-        children: [
-          {
-            name: 'Create',
-            icon: 'plus-circle-outline',
-            link: ['/tool', 'repository', 'add'],
-            id: NavMenuItemsIdentifiers.Repository,
-
-
-          },
-          {
-            name: 'Import',
-            icon: 'external-link-outline',
-            link: ['/tool', 'repository', 'import'],
-            id: NavMenuItemsIdentifiers.RepositoryCreate,
-
-
-          },
-          {
-            name: 'Configure',
-            icon: 'external-link-outline',
-            link: ['/tool', 'repository', 'configure'],
-            id: NavMenuItemsIdentifiers.RepositoryConfigure,
-
-
-          }
-        ]
-
-
-      },
-      {
-        name: 'Docker',
-        type: ToolType.DOCKER,
-        link: ['/tool', 'docker', 'add'],
-        id: NavMenuItemsIdentifiers.Docker,
-
-        path: ['/tool/docker'],
-
-        children: [
-          {
-            name: 'Create',
-            icon: 'plus-circle-outline',
-            link: ['/tool', 'docker', 'add'],
-            id: NavMenuItemsIdentifiers.Docker,
-
-
-          },
-          {
-            name: 'Import',
-            icon: 'external-link-outline',
-            link: ['/tool', 'docker', 'import'],
-            id: NavMenuItemsIdentifiers.DockerCreate,
-
-
-          },
-          {
-            name: 'Configure',
-            icon: 'external-link-outline',
-            link: ['/tool', 'docker', 'configure'],
-            id: NavMenuItemsIdentifiers.DockerConfigure,
-
-
-          }
-        ]
-
-      }
+    
     ]
   }
 }

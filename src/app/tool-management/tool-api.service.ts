@@ -7,8 +7,8 @@ import { API_SERVICE_URL, LOG_SERVICE_URL } from '../reusable-components/common/
 
 
 const THROTTLE_CONNECTION = false
-const url = API_SERVICE_URL + 'api/v2/tool'
-const baseurl = LOG_SERVICE_URL + 'api/v2/'
+const url = API_SERVICE_URL + 'api/v2'
+const logUrl = LOG_SERVICE_URL + 'api/v2/'
 
 
 
@@ -37,15 +37,15 @@ export class ToolApiService {
       "X-Seek": 0 + '',
     })
 
-    return this.http.get(`${url}/host`, {
+    return this.http.get(`${logUrl}/tool/host`, {
       "headers": headers,
       responseType: 'text'
     })
   }
 
 
-  createTool(alias , name, description) {
-    return this.http.post(`${url}`, {
+  createTool(alias, name, description) {
+    return this.http.post(`${url}/tool`, {
       alias: alias,
       name: name,
       description: description
@@ -54,21 +54,24 @@ export class ToolApiService {
 
 
 
+
+
   getTool(id: string) {
-    return this.http.get(`${url}/${id}`)
+    return this.http.get(`${url}/tool/${id}`)
   }
 
   getTools() {
-    return this.http.get(`${url}`)
+    return this.http.get(`${url}/tool`)
   }
 
-  buildTool(ip_address) {
-    return this.http.post(`${url}/host`, {
-      value: ip_address
-    })
+  buildTool(build_type: string, data) {
+    return this.http.post(`${url}/build/${build_type}`, data
+    )
   }
 
-
+  getBuilds(refrence_id: string) {
+    return this.http.get(`${url}/build/${refrence_id}`)
+  }
 
 
 }

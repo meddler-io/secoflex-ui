@@ -1,0 +1,106 @@
+@import '../../../themes';
+
+nb-accordion-item {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+
+  nb-accordion-item-header {
+    &:hover {
+      background: nb-theme(color-basic-700);
+      color: #fff;
+
+
+
+
+    }
+  }
+
+}
+
+
+nb-layout-header {}
+
+input {
+  height: 100%;
+}
+
+nb-card {
+  margin-bottom: 0;
+  border: 0;
+}
+
+nb-accordion {
+  margin: 1rem;
+
+  height: calc(100vh - 13rem) !important;
+  overflow: scroll;
+}
+
+
+.h6 {
+  margin-left: 1rem;
+}
+
+nb-accordion-item-header {
+
+  // background-repeat: no-repeat !important;
+  // background-size: 33px 45px !important;
+  // background-position: 10px 5px !important;
+  // border-left: 4px #61acca solid !important;
+  // font-size: 21px !important;
+  // line-height: 1.6 !important;
+  // padding: 10px 20px !important;
+
+  // border-left: 4px nb-theme(text-basic-color) solid !important;
+
+
+  &.accordion-item-header-expanded {
+    border-left: 2px nb-theme(text-basic-color) solid !important;
+    // border-left: 4px nb-theme(text-primary-color) solid !important;
+
+
+
+  }
+
+}
+
+
+button.newBtn {
+  @include add-new-action-button()
+}
+
+.icon {
+  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2236%22 height=%2236%22 viewBox=%220 0 36 36%22%3E%3Cpath fill=%22%2334A853%22 d=%22M16 16v14h4V20z%22/%3E%3Cpath fill=%22%234285F4%22 d=%22M30 16H20l-4 4h14z%22/%3E%3Cpath fill=%22%23FBBC05%22 d=%22M6 16v4h10l4-4z%22/%3E%3Cpath fill=%22%23EA4335%22 d=%22M20 16V6h-4v14z%22/%3E%3Cpath fill=%22none%22 d=%22M0 0h36v36H0z%22/%3E%3C/svg%3E');
+
+}
+
+
+.head {
+
+  // position: fixed;
+  // top: 0;
+  height: 4rem;
+
+  background: nb-theme(color-basic-700);
+  color: #fff;
+  
+
+}
+
+.content {
+
+  height: calc(100% - 4rem);
+  overflow: auto;
+
+}
+
+.action {
+  margin-left: 5px;
+  &:hover {
+    nb-icon {
+      color: nb-theme(color-primary-500);
+    }
+
+  }
+  
+}

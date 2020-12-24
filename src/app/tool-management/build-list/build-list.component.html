@@ -1,0 +1,166 @@
+<nb-layout-header @init subHeader>
+
+
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+
+    <div fxLayout="row" fxLayoutAlign="start center">
+
+      <button
+      shape="round" 
+      [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+        <nb-icon icon="arrow-back-outline">
+
+        </nb-icon>
+      </button>
+
+      <div class="h6 text-hint">
+
+        Builds
+
+      </div>
+    </div>
+
+
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+
+      <button (click)="openDrawer(buildCreateTemplate)" class="newBtn" shape="round" nbButton>
+
+        <div class="icon"></div>
+
+        <span>
+          Create Build
+
+        </span>
+      </button>
+ 
+
+    </div>
+
+  </div>
+
+</nb-layout-header>
+
+
+
+
+
+
+
+<nb-accordion @init>
+  <nb-accordion-item [expanded]="index == 0" *ngFor="let build of builds$ | async ; index as index">
+    <nb-accordion-item-header fxLayoutAlign="space-between">
+
+
+
+      <span>
+        {{ build?.name || 'Build Name' }}
+
+      </span>
+
+      <span class="text-hint">
+        {{ '@' +  ( build?.alias || 'Alias' ) }}
+      </span>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+
+      <nb-card>
+        <nb-card-body>
+          <div class="text-hint">
+            {{ build?.description || 'Build Description' }}
+
+          </div>
+
+          <div class="text-hint">
+            {{ build?.doc || date }}
+
+          </div>
+
+        </nb-card-body>
+        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+          <button (click)="openLogs(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+            <nb-icon icon="file-text-outline"></nb-icon>
+            Logs
+          </button>
+
+          <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Monitor
+          </button>
+
+
+          <button status="basic" ghost size="small" nbButton>
+
+            <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+            Fork
+          </button>
+
+
+
+
+          <button [routerLink]="[  '/tool'  , 'build', build?._id ]  " status="danger" size="small"
+            nbButton>Run</button>
+        </nb-card-footer>
+      </nb-card>
+
+
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+</nb-accordion>
+
+
+<ng-template #logsTemplate let-close="close">
+
+  <div class="head" fxLayoutAlign="space-between center">
+
+
+    <div fxLayout="row" fxLayoutAlign="start center">
+
+      <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
+        <nb-icon icon="arrow-back-outline">
+
+        </nb-icon>
+      </button>
+
+      <div class="h6 text-hint">
+        Logs
+
+      </div>
+    </div>
+
+
+    <dic fxLayout="row">
+
+      <button ghost class="action " size="giant" nbButton>
+        <nb-icon icon="minus-outline">
+
+        </nb-icon>
+      </button>
+
+
+      <button ghost class="action " size="giant" nbButton>
+        <nb-icon icon="external-link-outline">
+
+        </nb-icon>
+      </button>
+
+    </dic>
+
+  </div>
+
+  <div class="content">
+    <app-log-stream></app-log-stream>
+  </div>
+
+</ng-template>
+
+<ng-template let-close="close" #buildCreateTemplate>
+
+  <app-build-create [close]="close" [refrence_id]="refrence_id"></app-build-create>
+
+</ng-template>

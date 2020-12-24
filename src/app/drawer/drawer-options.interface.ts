@@ -7,7 +7,7 @@ export interface DrawerOptions {
   readonly direction?: DrawerDirection;
   readonly template?: TemplateRef<any>;
   readonly context?: any;
-  readonly size?: number;
+  readonly size?: number | string;
   readonly zIndex?: number;
   readonly closeOnOutsideClick?: boolean;
   readonly isRoot?: boolean;
@@ -16,7 +16,7 @@ export interface DrawerOptions {
     direction?: DrawerDirection;
     template?: TemplateRef<any>;
     context?: any;
-    size?: number;
+    size?: number |string;
     zIndex?: number;
     closeOnOutsideClick?: boolean;
     isRoot?: boolean;

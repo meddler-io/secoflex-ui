@@ -31,7 +31,7 @@ import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.com
     // CommonImportsModule,
     NbTabsetModule,
 
-    NbThemeModule.forRoot({ name: 'dark' }),
+    NbThemeModule.forRoot({ name: 'default' }),
     NbEvaIconsModule,
 
 

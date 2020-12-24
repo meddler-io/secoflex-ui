@@ -1,15 +1,40 @@
+@import '../../../themes';
 
 nb-accordion-item {
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
-  
-    nb-accordion-item-header {
-      &:hover {
-        background: rgb(69, 81, 102);
-  
-  
-      }
+  // margin-bottom: 0.4rem;
+
+  nb-accordion-item-header {
+
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    margin: 1px;
+
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    &:hover {
+      background: nb-theme(color-basic-700);
+      color: #fff;
+
     }
-  
+
+    &.accordion-item-header-expanded {
+      background: nb-theme(color-basic-700);
+      color: #fff;
+
+    }
   }
-  
+
+
+  nb-accordion-item-body {
+    overflow: scroll;
+    background: var(--accordion-header-text-color);
+    color: #fff;
+    // margin: 1px;
+    // border-radius: 3px;
+
+
+  }
+
+}

@@ -8,13 +8,15 @@
 
 @include nb-install() {
   @include nb-theme-global();
-};
+}
+
+;
 /* You can add global styles to this file, and also import other style files */
 
 
-.backdrop_color{
-// background: #222b45 !important;
-background: #fff !important;
+.backdrop_color {
+  // background: #222b45 !important;
+  background: #fff !important;
 }
 
 .cdk-global-scrollblock {
@@ -23,12 +25,15 @@ background: #fff !important;
   overflow: hidden;
 }
 
-.ngx-overlay{
-  z-index: 1040 !important;
+// Breaking Change
+.ngx-overlay {
+  // z-index: 1040 !important;
 }
 
-*,*:focus,*:hover{
-  outline:none;
+*,
+*:focus,
+*:hover {
+  outline: none;
 }
 
 .dialog {
@@ -39,6 +44,11 @@ background: #fff !important;
   }
 }
 
-button{
+button {
   text-transform: capitalize !important;
+}
+
+
+@media only screen and (max-width: 500px) {
+  html { font-size:100%; -webkit-text-size-adjust:none; }  /* should render everything * 0.8 */  
 }

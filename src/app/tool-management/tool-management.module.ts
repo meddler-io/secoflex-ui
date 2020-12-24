@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ToolManagementRoutingModule } from './tool-management-routing.module';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
-import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -19,16 +19,22 @@ import { ToolScreenComponent } from './tool-screen/tool-screen.component';
 import { AngularSplitModule } from 'angular-split';
 import { ToolListComponent } from './tool-list/tool-list.component';
 import { BuildCreateComponent } from './build-create/build-create.component';
+import { SpinnerModule } from '../spinner/spinner/spinner.module';
+import { BuildListComponent } from './build-list/build-list.component';
+import { DrawerModule } from '../drawer/drawer.module';
+import { DividerComponent } from './divider/divider.component';
 
 
 
 @NgModule({
   declarations: [ToolHomeComponent,
-    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent
+
+    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent
   ],
   imports: [
 
-
+    DrawerModule,
+    SpinnerModule,
     NbLayoutModule,
     FlexLayoutModule,
     CommonModule,
@@ -54,7 +60,10 @@ import { BuildCreateComponent } from './build-create/build-create.component';
     NbAutocompleteModule,
     ReactiveFormsModule,
     NbDialogModule.forChild( ),
-    NbSelectModule
+    NbSelectModule,
+    NbListModule,
+    NbSpinnerModule,
+    NbCheckboxModule
 
   ],
   providers: [

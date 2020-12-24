@@ -66,3 +66,15 @@ Assets:
         Export all tools to deploy the infra to new tenant
 
         
+## Data Sources / Sink:
+    Each tool can be mapped to a data source & sink
+    Every tool is a docker container.
+    All the required inputs can be provided in of the ways:
+        1. Filesystem:
+            All the inputs will reside in files
+            Location to these files would although remain fixed, but pth can be obtained via Environment variables
+            All the outputs should go in the filesystem
+            Data files (json, csv, etc.) can directly be stored in the disk, and later will be synced with the database via watchdog
+            Watchdog would also be respinsible for cleaning the file system.
+            
+        2. Func. Call

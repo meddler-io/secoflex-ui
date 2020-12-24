@@ -47,7 +47,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   get size() {
     return this._size;
   }
-  set size(val: number) {
+  set size(val: number | string) {
     this._size = coerceNumberProperty(val);
   }
 
@@ -88,7 +88,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
     return this.direction === DrawerDirection.Bottom;
   }
 
-  private _size: number;
+  private _size: number | string;
   private _zIndex: number;
   private _closeOnOutsideClick: boolean;
 
@@ -101,9 +101,15 @@ export class DrawerComponent implements OnInit, OnDestroy {
     this.close.emit(true);
   }
 
-  setDimensions(size: number): void {
-    this.heightSize = `${this.isBottom && size ? size : 100}%`;
-    this.widthSize = `${this.isLeft && size ? size : 100}%`;
+  setDimensions(size: number | string): void {
+    this.heightSize = `${this.isBottom && size ? size : 'auto'}`;
+
+    if (size === 0)
+      this.widthSize = `${this.isLeft && size ? size : '50%'}`;
+    else
+      this.widthSize = `${this.isLeft && size ? size : 'auto'}`;
+
+    // this.widthSize = `auto`;
   }
 
   @HostListener('keyup.esc')
