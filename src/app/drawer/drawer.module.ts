@@ -8,12 +8,13 @@ import { DrawerComponent } from './drawer.component';
 import { DrawerService } from './drawer.service';
 import { DrawerContainerDirective } from './drawer-container.directive';
 import { InjectionService } from '../injection/injection.service';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
   declarations: [DrawerComponent, DrawerContainerDirective],
   exports: [DrawerComponent, DrawerContainerDirective],
   providers: [DrawerService, InjectionService, OverlayService],
-  imports: [CommonModule, OverlayModule],
+  imports: [CommonModule, OverlayModule , A11yModule],
   entryComponents: [DrawerComponent]
 })
 export class DrawerModule {}

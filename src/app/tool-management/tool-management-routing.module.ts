@@ -33,6 +33,11 @@ const routes: Routes = [
 
       },
       {
+        path: 'builds/all/:id',
+        component: BuildListComponent
+
+      },
+      {
         path: 'details/:id',
         component: BuildCreateComponent
 

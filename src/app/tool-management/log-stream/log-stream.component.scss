@@ -1,40 +1,58 @@
 @import '../../../themes';
 
-nb-accordion-item {
-  // margin-bottom: 0.4rem;
+:host ::ng-deep nb-accordion {
+  // background: nb-theme(background-alternative-color-1);
 
-  nb-accordion-item-header {
+  nb-accordion-item {
+    // margin-bottom: 0.4rem;
 
-    margin-left: 1px;
-    margin-right: 1px;
-    margin-bottom: 1px;
-    margin: 1px;
+    nb-accordion-item-header {
 
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
+      // margin-left: 1px;
+      // margin-right: 1px;
+      // margin-bottom: 1px;
+      // margin: 1px;
 
-    &:hover {
-      background: nb-theme(color-basic-700);
-      color: #fff;
+      // border-bottom-left-radius: 2px;
+      // border-bottom-right-radius: 2px;
+
+      &:hover {
+        background: nb-theme(background-alternative-color-1);
+        color: nb-theme(text-alternate-color);
+
+
+      }
+
+      &.accordion-item-header-expanded {
+        background: nb-theme(background-alternative-color-2);
+        color: nb-theme(text-alternate-color);
+
+
+
+      }
+    }
+
+
+    nb-accordion-item-body.marginBody {
+      overflow: scroll;
+      background: nb-theme(background-alternative-color-1);
+      color: nb-theme(text-alternate-color);
+
+      // margin: 1px;
+      // border-radius: 3px;
+
+      .ng-trigger-accordionItemBody{
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      pre {
+        margin: 0;
+      }
 
     }
 
-    &.accordion-item-header-expanded {
-      background: nb-theme(color-basic-700);
-      color: #fff;
-
-    }
   }
-
-
-  nb-accordion-item-body {
-    overflow: scroll;
-    background: var(--accordion-header-text-color);
-    color: #fff;
-    // margin: 1px;
-    // border-radius: 3px;
-
-
-  }
-
 }

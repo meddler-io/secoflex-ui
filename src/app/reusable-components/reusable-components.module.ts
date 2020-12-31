@@ -57,6 +57,7 @@ import { FieldDomainComponent } from './form-builder/fields/field-domain/field-d
 import { CommonImportsModule } from '../asset-management/submodules/common/common-imports.module';
 
 
+
 const routes: Routes = [
   {
     path: '',
@@ -73,7 +74,8 @@ const routes: Routes = [
 
   exports: [
     FormBuilderComponent, FormTextComponent, FormRichTextComponent, FormBooleanComponent, FormEnumComponent, FormFileComponent, FormImageComponent, FormVideoComponent, FormSelectComponent, FormListComponent, FormCodeComponent, FormUrlComponent, TestComponentComponent, FormIpaddressComponent
-    , RouterModule
+    , RouterModule,
+    
 
   ],
   imports: [
@@ -117,7 +119,9 @@ const routes: Routes = [
     // NgxUIModule,
     NbMenuModule,
     NbAccordionModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+
+    NbThemeModule
 
 
   ],

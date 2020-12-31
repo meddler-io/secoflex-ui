@@ -13,16 +13,28 @@ import { SpinnerComponent } from './spinner/spinner.component';
 const routes: Routes = [
 
 
-  // { path: "", redirectTo: "/asset", pathMatch: "full" },
-
   {
-    path: 'asset',
-    loadChildren: () => import('./asset-management/asset-management.module').then(m => m.AssetManagementModule)
+    path: '',
+    loadChildren: () => import('./lander/lander.module').then(m => m.LanderModule)
 
   },
+
   {
     path: 'tool',
     loadChildren: () => import('./tool-management/tool-management.module').then(m => m.ToolManagementModule)
+
+  },
+
+  // { path: "", redirectTo: "/asset", pathMatch: "full" },
+
+  {
+    path: 'schema',
+    loadChildren: () => import('./data-source/data-source.module').then(m => m.DataSourceModule)
+
+  },
+  {
+    path: 'asset',
+    loadChildren: () => import('./asset-management/asset-management.module').then(m => m.AssetManagementModule)
 
   },
   {
@@ -45,8 +57,8 @@ const routes: Routes = [
   },
 
   // {
-    // path: '**',
-    // component: SpinnerComponent
+  // path: '**',
+  // component: SpinnerComponent
   // }
   { path: "**", redirectTo: "/tool", pathMatch: "full" },
 

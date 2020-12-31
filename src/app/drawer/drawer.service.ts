@@ -10,6 +10,8 @@ import { DrawerOptions } from './drawer-options.interface';
 import { InjectionRegistryService } from '../injection-registry/injection-registry.service';
 import { InjectionService } from '../injection/injection.service';
 
+
+
 @Injectable()
 export class DrawerService extends InjectionRegistryService<DrawerComponent> {
   type: any = DrawerComponent;
@@ -28,7 +30,7 @@ export class DrawerService extends InjectionRegistryService<DrawerComponent> {
   constructor(
     readonly injectionService: InjectionService,
     private readonly overlayService: OverlayService,
-    private readonly rendererFactory: RendererFactory2
+    private readonly rendererFactory: RendererFactory2,
   ) {
     super(injectionService);
     this.renderer = this.rendererFactory.createRenderer(null, null);

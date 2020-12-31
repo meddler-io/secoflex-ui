@@ -18,6 +18,8 @@ import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 import { HeadbarComponent } from './temp/headbar/headbar.component';
 import { SpinnerModule } from './spinner/spinner/spinner.module';
 
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 
 
 
@@ -29,21 +31,13 @@ import { SpinnerModule } from './spinner/spinner/spinner.module';
 
   ],
   imports: [
-    SpinnerModule,
+    // SpinnerModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LoadingModule,
+    // HttpClientModule,
 
-
-    NbThemeModule.forRoot({ name: 'default' }),
-
-    HttpClientModule,
-    NbLayoutModule,
-    // CKEditorModule,
-    // NbMenuModule.forRoot(),
-    // ScrollToModule.forRoot(),
-    // CommonDirectivesModule,
 
 
   ],

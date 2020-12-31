@@ -8,7 +8,8 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   TemplateRef,
-  OnInit
+  OnInit,
+  ElementRef
 } from '@angular/core';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { trigger } from '@angular/animations';
@@ -16,6 +17,7 @@ import { trigger } from '@angular/animations';
 import { DRAWER_ANIMATION } from './drawer.animation';
 import { DrawerDirection } from './drawer-direction.enum';
 import { DrawerPosition } from './drawer-position.enum';
+import { NbFocusTrap, NbFocusTrapFactoryService } from '@nebular/theme';
 
 @Component({
   exportAs: 'ngxDrawer',
@@ -92,13 +94,30 @@ export class DrawerComponent implements OnInit, OnDestroy {
   private _zIndex: number;
   private _closeOnOutsideClick: boolean;
 
+  protected focusTrap: NbFocusTrap;
+
   ngOnInit() {
     this.position = this.isRoot ? DrawerPosition.fixed : DrawerPosition.absolute;
     this.setDimensions(this.size);
+
+
+    // 
+    {
+      this.focusTrap = this.focusTrapFactory.create(this.elementRef.nativeElement);
+      this.focusTrap.blurPreviouslyFocusedElement();
+      this.focusTrap.focusInitialElementWhenReady();
+    }
   }
 
   ngOnDestroy() {
     this.close.emit(true);
+
+    // 
+
+    if (this.focusTrap) {
+      this.focusTrap.restoreFocus();
+
+    }
   }
 
   setDimensions(size: number | string): void {
@@ -116,4 +135,13 @@ export class DrawerComponent implements OnInit, OnDestroy {
   onEscapeKey(): void {
     this.close.emit(true);
   }
+
+
+
+  constructor(
+    protected elementRef: ElementRef,
+    protected focusTrapFactory: NbFocusTrapFactoryService) {
+  }
+
+
 }

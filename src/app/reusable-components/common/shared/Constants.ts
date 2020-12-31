@@ -4,6 +4,9 @@ export const TOOL_SERVICE_URL = 'http://localhost:8001/'
 export const LOG_SERVICE_URL = 'http://localhost:8082/'
 
 
+export const THROTTLE = false;
+export const THROTTLE_DELAY = 300;
+
 // export const 
 export const ColorPallete = [
     "#61AFEF",

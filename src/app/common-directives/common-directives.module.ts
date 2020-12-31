@@ -8,6 +8,7 @@ import { TrimPipe } from './directives/trim.pipe';
 import { BorderDirective } from './directives/border.directive';
 import { HoverColorDirective } from '../asset-management/directives/hover-color.directive';
 import { DebounceClickDirective } from './debounce-click.directive';
+import { AutofocusDirective } from './autofocus.directive';
 
 const Directives = [
   LeftBorderDirective, EllipsisDirective,
@@ -23,7 +24,8 @@ const Directives = [
 @NgModule({
   declarations: [
     ...Directives,
-    DebounceClickDirective
+    DebounceClickDirective,
+    AutofocusDirective
 
   ],
   imports: [

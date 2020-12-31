@@ -1,84 +1,146 @@
- <nb-layout-header @init subHeader>
-
-   <div fxLayout="row" fxLayoutAlign="start center">
-
-     <button
-     shape="round" 
-     
-     [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
-       <nb-icon icon="arrow-back-outline">
-
-       </nb-icon>
-     </button>
-
-     <div class="h6 text-hint">
-       Tools
-
-     </div>
-   </div>
+<ng-container *ngIf=" tools$ | async as tools ; else loading">
 
 
 
-
- </nb-layout-header>
-
-
+  <nb-card *ngIf="false" >
+    <nb-card-header>
 
 
+      <div fxLayout="row" fxLayoutAlign="start center">
+
+        <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+          <nb-icon icon="arrow-back-outline">
+
+          </nb-icon>
+        </button>
+
+        <div class="h6 text-hint">
+          Tools
+
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-list>
+      <nb-list-item fxLayout="row" fxLayoutAlign="space-between" *ngFor="let tool of tools">
+
+        <div>
+
+          <div class="title text-hint">
+            {{ tool?.name || 'Tool Name' }}
+          </div>
+          <div class="desc text-hint">
+            {{ tool?.description || 'Tool Description' }}
+          </div>
+        </div>
 
 
- <nb-accordion @init>
-   <nb-accordion-item [expanded]="index == 0" *ngFor="let tool of tools$ | async ; index as index ">
-     <nb-accordion-item-header fxLayoutAlign="space-between">
+        <div>
+
+
+          <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Edit
+          </button>
+
+
+          <button status="basic" ghost size="small" nbButton>
+
+            <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+            Fork
+          </button>
+
+
+          <button [routerLink]="[  '/tool'  , 'builds', tool?._id ]  " status="success" size="small"
+            nbButton>Explore</button>
+        </div>
 
 
 
-       <span>
-         {{ tool?.name || 'Tool Name' }}
-
-       </span>
-
-       <span class="text-hint">
-         {{ '@' +  ( tool?.alias || 'Alias' ) }}
-       </span>
-     </nb-accordion-item-header>
-     <nb-accordion-item-body>
-
-       <nb-card>
-         <nb-card-body>
-           <div class="text-hint">
-             {{ tool?.description || 'Tool Description' }}
+      </nb-list-item>
+    </nb-list>
+  </nb-card>
 
 
 
-           </div>
-         </nb-card-body>
+  <nb-layout-header subHeader>
+
+    <div fxLayout="row" fxLayoutAlign="start center">
+
+      <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+        <nb-icon icon="arrow-back-outline">
+
+        </nb-icon>
+      </button>
+
+      <div class="h6 text-hint">
+        Tools
+
+      </div>
+    </div>
+
+  </nb-layout-header>
 
 
-         <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
 
-           <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
-
-             <nb-icon icon="settings-2-outline"></nb-icon>
-             Edit
-           </button>
+  <nb-accordion   >
+    <nb-accordion-item [expanded]="index == 0" *ngFor="let tool of tools   ; index as index ">
+      <nb-accordion-item-header fxLayoutAlign="space-between">
 
 
-           <button status="basic" ghost size="small" nbButton>
+        <span>
+          {{ tool?.name || 'Tool Name' }}
 
-             <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
-             Fork
-           </button>
+        </span>
+
+        <span class="text-hint">
+          {{ '@' +  ( tool?.alias || 'Alias' ) }}
+        </span>
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+
+        <div>
+
+          <div class="text-hint">
+            {{ tool?.description || 'Tool Description' }}
+          </div>
+
+          <div fxLayoutAlign="end center">
 
 
-           <button [routerLink]="[  '/tool'  , 'builds', tool?._id ]  " status="success" size="small"
-             nbButton>Explore</button>
-         </nb-card-footer>
-       </nb-card>
+            <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="settings-2-outline"></nb-icon>
+              Edit
+            </button>
 
 
-     </nb-accordion-item-body>
-   </nb-accordion-item>
+            <button status="basic" ghost size="small" nbButton>
 
- </nb-accordion>
+              <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+              Fork
+            </button>
+
+
+            <button [routerLink]="[  '/tool'  , 'builds', tool?._id ]  " status="success" size="small"
+              nbButton>Explore</button>
+          </div>
+
+        </div>
+
+
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+
+  </nb-accordion>
+
+</ng-container>
+
+
+<ng-template #loading>
+  <div fxLayoutAlign="center center">
+    <ngx-progress-spinner></ngx-progress-spinner>
+  </div>
+
+</ng-template>

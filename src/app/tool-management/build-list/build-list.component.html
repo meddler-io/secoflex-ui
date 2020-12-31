@@ -1,135 +1,138 @@
-<nb-layout-header @init subHeader>
+<ng-container *ngIf=" builds$ | async as builds ; else loading">
+
+
+  <nb-layout-header @init subHeader>
 
 
 
-  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
 
-    <div fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayoutAlign="start center">
 
-      <button
-      shape="round" 
-      [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
-        <nb-icon icon="arrow-back-outline">
+        <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+          <nb-icon icon="arrow-back-outline">
 
-        </nb-icon>
-      </button>
+          </nb-icon>
+        </button>
 
-      <div class="h6 text-hint">
+        <div class="h6 text-hint">
 
-        Builds
+          Builds
+
+        </div>
+      </div>
+
+
+
+      <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+
+        <button (click)="openDrawer(buildCreateTemplate)" class="newBtn" shape="round" nbButton>
+
+          <div class="icon"></div>
+
+          <span>
+            Create Build
+
+          </span>
+        </button>
+
 
       </div>
+
     </div>
 
+  </nb-layout-header>
 
 
-    <div fxFlex fxLayout="row" fxLayoutAlign="end center">
 
-      <button (click)="openDrawer(buildCreateTemplate)" class="newBtn" shape="round" nbButton>
 
-        <div class="icon"></div>
+
+
+  <nb-accordion @init>
+    <nb-accordion-item [expanded]="index == 0" *ngFor="let build of builds  ; index as index">
+      <nb-accordion-item-header fxLayoutAlign="space-between">
+
+
 
         <span>
-          Create Build
+          {{ build?.name || 'Build Name' }}
 
         </span>
-      </button>
- 
 
-    </div>
+        <span class="text-hint">
+          {{ '@' +  ( build?.alias || 'Alias' ) }}
+        </span>
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
 
+        <nb-card>
+          <nb-card-body>
+            <div class="text-hint">
+              {{ build?.description || 'Build Description' }}
+
+            </div>
+
+            <div class="text-hint">
+              {{ build?.doc || date }}
+
+            </div>
+
+          </nb-card-body>
+          <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+            <button (click)="openLogs(logsTemplate, build?._id)" status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="file-text-outline"></nb-icon>
+              Logs
+            </button>
+
+            <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="settings-2-outline"></nb-icon>
+              Monitor
+            </button>
+
+
+            <button status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+              Fork
+            </button>
+
+
+
+
+            <button (click)="runTask( build?._id ) " status="danger" size="small" nbButton>Run</button>
+          </nb-card-footer>
+        </nb-card>
+
+
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+
+  </nb-accordion>
+
+</ng-container>
+
+
+<ng-template #loading>
+  <div fxLayoutAlign="center center">
+    <ngx-progress-spinner></ngx-progress-spinner>
   </div>
 
-</nb-layout-header>
+</ng-template>
 
-
-
-
-
-
-
-<nb-accordion @init>
-  <nb-accordion-item [expanded]="index == 0" *ngFor="let build of builds$ | async ; index as index">
-    <nb-accordion-item-header fxLayoutAlign="space-between">
-
-
-
-      <span>
-        {{ build?.name || 'Build Name' }}
-
-      </span>
-
-      <span class="text-hint">
-        {{ '@' +  ( build?.alias || 'Alias' ) }}
-      </span>
-    </nb-accordion-item-header>
-    <nb-accordion-item-body>
-
-      <nb-card>
-        <nb-card-body>
-          <div class="text-hint">
-            {{ build?.description || 'Build Description' }}
-
-          </div>
-
-          <div class="text-hint">
-            {{ build?.doc || date }}
-
-          </div>
-
-        </nb-card-body>
-        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
-
-          <button (click)="openLogs(logsTemplate)" status="basic" ghost size="small" nbButton>
-
-            <nb-icon icon="file-text-outline"></nb-icon>
-            Logs
-          </button>
-
-          <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
-
-            <nb-icon icon="settings-2-outline"></nb-icon>
-            Monitor
-          </button>
-
-
-          <button status="basic" ghost size="small" nbButton>
-
-            <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
-            Fork
-          </button>
-
-
-
-
-          <button [routerLink]="[  '/tool'  , 'build', build?._id ]  " status="danger" size="small"
-            nbButton>Run</button>
-        </nb-card-footer>
-      </nb-card>
-
-
-    </nb-accordion-item-body>
-  </nb-accordion-item>
-
-</nb-accordion>
-
-
-<ng-template #logsTemplate let-close="close">
+<ng-template #logsTemplate let-close="close" let-context="context">
 
   <div class="head" fxLayoutAlign="space-between center">
-
-
     <div fxLayout="row" fxLayoutAlign="start center">
-
       <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
-        <nb-icon icon="arrow-back-outline">
-
+        <nb-icon class="text-alternate" icon="arrow-back-outline">
         </nb-icon>
       </button>
 
-      <div class="h6 text-hint">
+      <div class="subtitle text-alternate">
         Logs
-
       </div>
     </div>
 
@@ -137,14 +140,14 @@
     <dic fxLayout="row">
 
       <button ghost class="action " size="giant" nbButton>
-        <nb-icon icon="minus-outline">
+        <nb-icon class="text-alternate" icon="minus-outline">
 
         </nb-icon>
       </button>
 
 
       <button ghost class="action " size="giant" nbButton>
-        <nb-icon icon="external-link-outline">
+        <nb-icon class="text-alternate" icon="external-link-outline">
 
         </nb-icon>
       </button>
@@ -154,7 +157,7 @@
   </div>
 
   <div class="content">
-    <app-log-stream></app-log-stream>
+    <app-log-stream [log_id]="context?.id"></app-log-stream>
   </div>
 
 </ng-template>

@@ -32,8 +32,8 @@ nb-card {
 nb-accordion {
   margin: 1rem;
 
-  height: calc(100vh - 13rem) !important;
-  overflow: scroll;
+  // height: calc(100vh - 13rem) !important;
+  // overflow: scroll;
 }
 
 
@@ -81,9 +81,11 @@ button.newBtn {
   // top: 0;
   height: 4rem;
 
-  background: nb-theme(color-basic-700);
+  background: nb-theme(background-alternative-color-4);
+  box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.16), 2px 2px 3px rgba(255, 255, 255, 0.23);
+
   color: #fff;
-  
+
 
 }
 
@@ -96,11 +98,13 @@ button.newBtn {
 
 .action {
   margin-left: 5px;
+
   &:hover {
     nb-icon {
-      color: nb-theme(color-primary-500);
+      color: nb-theme(color-alternate-500);
+
     }
 
   }
-  
+
 }

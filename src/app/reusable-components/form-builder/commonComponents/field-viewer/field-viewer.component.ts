@@ -5,7 +5,7 @@ import { FormFieldComponents } from 'src/app/reusable-components/common/abstract
 import { from, of } from 'rxjs';
 import { NbMenuItem, NbMenuService } from '@nebular/theme';
 import { ActiveFormFieldService } from 'src/app/reusable-components/common/services/active-form-field.service';
-import { ColorPallete } from 'src/app/reusable-components/common/shared/Constants';
+import { ColorPallete, THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 
 
 @Component({
@@ -48,7 +48,7 @@ export class FieldViewerComponent implements OnInit {
               identifier = type
 
             }
-            of(null).pipe(delay(1000)).subscribe(_ => {
+            of(null).pipe(delay(THROTTLE_DELAY)).subscribe(_ => {
               this._items[index] = { title: type, icon: 'checkmark', data: field, selected: this.field_schema_id == field, loading: false }
 
             })

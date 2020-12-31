@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { ToolApiService } from '../tool-api.service';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, tap } from 'rxjs/operators';
+import { delay, filter, map, tap } from 'rxjs/operators';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
+import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 
 @Component({
   selector: 'app-build-list',
@@ -15,6 +16,10 @@ import { basicAnimations } from 'src/app/reusable-components/common/animations/b
   animations: [...basicAnimations]
 })
 export class BuildListComponent implements OnInit {
+
+
+  @ViewChild('buildCreateTemplate', { static: false }) buildCreateTemplate: TemplateRef<any>;
+
 
   refrence_id
 
@@ -38,6 +43,17 @@ export class BuildListComponent implements OnInit {
       .subscribe(id => {
 
         this.builds$ = this.toolApiService.getBuilds(id)
+        // .pipe(delay(THROTTLE_DELAY))
+        .pipe(tap((data: []) => {
+          if (data.length < 1) {
+
+            this.openDrawer(this.buildCreateTemplate)
+
+          }
+        }))
+
+
+
 
       })
 
@@ -73,7 +89,7 @@ export class BuildListComponent implements OnInit {
 
     });
   }
-  openLogs(template, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = false, isRoot = true, parentContainer?: any) {
+  openLogs(template, id: string, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
 
     const zIndex = 1000;
     const cssClass = 'backdrop_color'
@@ -83,12 +99,14 @@ export class BuildListComponent implements OnInit {
       direction,
       template,
       size,
-      context: 'Alert Everyone!',
       closeOnOutsideClick,
       parentContainer,
       isRoot,
       zIndex,
       cssClass,
+      context: {
+        id: id
+      }
     }
 
     )
@@ -96,5 +114,14 @@ export class BuildListComponent implements OnInit {
         this.document.body.classList.remove('cdk-global-scrollblock')
 
       });
+  }
+
+  runTask(id: string) {
+
+    const data = {
+      TraceId: id,
+      fprocess: 'echo hello world'
+    }
+    this.toolApiService.runTool(data).subscribe()
   }
 }

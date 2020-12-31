@@ -57,6 +57,8 @@ export class OverlayService {
           this.component = undefined;
         }
       }, 100);
+
+      
     }
   }
 

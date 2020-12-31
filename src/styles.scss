@@ -3,7 +3,6 @@
 @import '~@nebular/theme/styles/globals';
 
 
-// @import '~@swimlane/ngx-ui/index.css';
 
 
 @include nb-install() {
@@ -50,5 +49,28 @@ button {
 
 
 @media only screen and (max-width: 500px) {
-  html { font-size:100%; -webkit-text-size-adjust:none; }  /* should render everything * 0.8 */  
+  html {
+    font-size: 100%;
+    -webkit-text-size-adjust: none;
+  }
+
+  /* should render everything * 0.8 */
+}
+
+.test {
+  top: 4rem;
+  right: 0;
+  height: 100%;
+  position: absolute !important;
+  background: #fff;
+  width: 50% !important;
+
+}
+
+.test2 {
+
+  height: calc(100vh - 4rem);
+  overflow: auto;
+
+
 }

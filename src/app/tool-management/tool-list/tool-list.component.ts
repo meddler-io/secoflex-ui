@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { delay, map, startWith } from 'rxjs/operators';
 import { ToolApiService } from '../tool-api.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
+import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 
 export interface Group {
   name: string;
@@ -23,7 +24,7 @@ export class ToolListComponent implements OnInit {
 
 
 
-  tools$ = this.toolApiService.getTools()
+  tools$ = this.toolApiService.getTools() // .pipe(delay(THROTTLE_DELAY))
 
   constructor(
     private toolApiService: ToolApiService

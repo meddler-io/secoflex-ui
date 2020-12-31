@@ -1,7 +1,7 @@
-<ng-container [formGroup]="form">
+<ng-container  [formGroup]="form">
 
-  <nb-card fxFill>
-
+  <nb-card    fxFill>
+ 
     <nb-card-header fxLayoutAlign="space-between center">
 
       <div fxLayoutAlign="start center" fxLayout="row">
@@ -31,7 +31,7 @@
 
 
 
-    <nb-card-body>
+    <nb-card-body >
 
       <div fxLayoutAlign="space-between center" fxLayout="row" fxLayoutGap="1rem">
         <p class="subtitle text-basic">
@@ -45,7 +45,7 @@
       <app-divider></app-divider>
 
 
-      <div fxLayout="column">
+      <div fxLayout="column"  >
 
         <div>
           <p class="subtitle-2 text-hint">
@@ -55,8 +55,8 @@
 
         <div fxLayout="row" fxLayoutGap="1rem">
 
-          <nb-form-field fieldSize="small">
-            <input formControlName="tool_tag" nbInput placeholder="Tool name">
+          <nb-form-field  fieldSize="small">
+            <input cdkFocusInitial  formControlName="tool_tag" nbInput placeholder="Tool name">
           </nb-form-field>
           <nb-form-field>
 
@@ -199,7 +199,7 @@
           <div fxLayout="row" class="container">
             <nb-form-field>
               <nb-icon icon="at-outline" nbPrefix></nb-icon>
-              <input formControlName="username" fullWidth nbInput placeholder="Username">
+              <input  formControlName="username" fullWidth nbInput placeholder="Username">
             </nb-form-field>
           </div>
 
@@ -465,9 +465,10 @@
     </nb-card-body>
 
 
-    <nb-card-footer>
+    <nb-card-footer (click)="createBuild()">
 
-      <button class="buildBtn"  fxLayoutAlign="space-between center" size="large" status="success" filled fullWidth nbButton>
+      <button class="buildBtn" fxLayoutAlign="space-between center" size="giant" status="success" filled fullWidth
+        nbButton>
 
         <span>
           Build

@@ -1,13 +1,13 @@
 @import '../../../themes';
 
- nb-accordion-item {
+nb-accordion-item {
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
 
   nb-accordion-item-header {
 
-    
-    .text-hint{
+
+    .text-hint {
       // color: nb-theme(text-hint-color) !important;
       color: #000 !important;
 
@@ -19,24 +19,30 @@
       background: linear-gradient(to right, #457fca, #5b86e5);
       color: #fff;
 
-      .text-hint{
+      .text-hint {
         color: #fff !important;
-  
+
       }
-  
+
 
     }
 
 
-    
-  &.accordion-item-header-expanded {
-    border-left: 2px nb-theme(text-basic-color) solid !important;
+    .text-hint {
+      color: nb-theme(text-basic-color) !important;
 
-    .text-hint{
-      color: nb-theme(text-hint-color) !important;
+
 
     }
-  }
+
+    &.accordion-item-header-expanded {
+      border-left: 2px nb-theme(text-basic-color) solid !important;
+
+      .text-hint {
+        color: nb-theme(text-alternate-color) !important;
+
+      }
+    }
 
 
   }
@@ -61,8 +67,8 @@ nb-card {
 nb-accordion {
   margin-top: 1rem;
 
-  height: calc(100vh - 12rem) !important;
-  overflow: scroll;
+  // height: calc(100vh - 12rem) !important;
+  // overflow: scroll;
 }
 
 
@@ -79,11 +85,72 @@ button.newBtn {
 
 .action {
   margin-left: 5px;
+
   &:hover {
     nb-icon {
       color: nb-theme(color-primary-500);
     }
 
   }
-  
+
+}
+
+
+
+
+
+// New Try
+nb-list {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+
+  nb-list-item {
+
+
+    .text-hint {
+      // color: nb-theme(text-hint-color) !important;
+      color: #000 !important;
+
+    }
+
+
+    &:hover {
+      // background: rgb(69, 81, 102);
+      // background: linear-gradient(to right, #457fca, #5b86e5);
+      // color: #fff;
+
+      .text-hint {
+        // color: #fff !important;
+
+      }
+
+
+    }
+
+
+    .text-hint {
+      color: nb-theme(text-basic-color) !important;
+
+
+
+    }
+
+    &.accordion-item-header-expanded {
+      border-left: 2px nb-theme(text-basic-color) solid !important;
+
+      .text-hint {
+        color: nb-theme(text-alternate-color) !important;
+
+      }
+    }
+
+
+  }
+
+}
+
+
+nb-card-header {
+  padding: 0rem !important;
+  margin: 0rem !important;
 }

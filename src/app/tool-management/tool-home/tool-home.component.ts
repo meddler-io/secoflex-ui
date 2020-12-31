@@ -48,7 +48,11 @@ export class ToolHomeComponent implements OnInit {
   }
 
   open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog, { closeOnBackdropClick: false, context: 'this is some additional data passed to dialog' });
+    this.dialogService.open(dialog, {
+      
+      dialogClass: 'test',
+      // backdropClass: 'test2',
+      closeOnBackdropClick: false, context: 'this is some additional data passed to dialog' });
   }
 
 

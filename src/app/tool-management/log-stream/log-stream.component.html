@@ -1,24 +1,35 @@
- 
-  <nb-accordion >
-    <nb-accordion-item
-    [expanded]="index == topics.length - 1"
-    *ngFor="let topic of topics ; index as index" (collapsedChange)="collapsedChange(index, $event)">
-      <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
-        {{topic?.title}} 
-      </nb-accordion-item-header>
+ <nb-accordion   fxFill>
+   <nb-accordion-item [expanded]="index == topics.length - 1" *ngFor="let topic of topics ; index as index"
+     (collapsedChange)="collapsedChange(index, $event)">
+     <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
+       {{topic?.title}} {{log_id}}
+
+     </nb-accordion-item-header>
 
 
-      <!-- <ng-container *ngIf="topic?.content$ | async as content "> -->
+     <!-- <ng-container *ngIf="topic?.content$ | async as content "> -->
 
-      <nb-accordion-item-body *ngIf="topic?.content$ | async as content ">
-        <code fxFlex>
-          <pre [innerHTML]="content">   </pre>
-        </code>
-      </nb-accordion-item-body>
+     <nb-accordion-item-body class="marginBody">
 
-      <!-- </ng-container> -->
 
-    </nb-accordion-item>
+       <button (click)="pause(index)" nbButton size="small">Pause {{_pause}}</button>
+       <button (click)="resume(index)" nbButton size="small">Resume {{_pause}}</button>
 
-  </nb-accordion>
 
+       <div class="code">
+
+         <div *ngFor="let content of topic?.content">
+           <code fxFlex>
+             <pre [innerHTML]="content">   </pre>
+           </code>
+         </div>
+       </div>
+
+
+     </nb-accordion-item-body>
+
+     <!-- </ng-container> -->
+
+   </nb-accordion-item>
+
+ </nb-accordion>

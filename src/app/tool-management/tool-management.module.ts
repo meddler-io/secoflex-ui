@@ -8,7 +8,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ToolApiService } from './tool-api.service';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeadbarComponent } from '../temp/headbar/headbar.component';
 import { TemporarymoduleModule } from '../temp/temporarymodule/temporarymodule.module';
@@ -19,11 +18,13 @@ import { ToolScreenComponent } from './tool-screen/tool-screen.component';
 import { AngularSplitModule } from 'angular-split';
 import { ToolListComponent } from './tool-list/tool-list.component';
 import { BuildCreateComponent } from './build-create/build-create.component';
-import { SpinnerModule } from '../spinner/spinner/spinner.module';
 import { BuildListComponent } from './build-list/build-list.component';
 import { DrawerModule } from '../drawer/drawer.module';
 import { DividerComponent } from './divider/divider.component';
-
+import { ProgressSpinnerModule } from '../progress-spinner/progress-spinner.module';
+// 
+import {A11yModule} from '@angular/cdk/a11y';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { DividerComponent } from './divider/divider.component';
   imports: [
 
     DrawerModule,
-    SpinnerModule,
+
     NbLayoutModule,
     FlexLayoutModule,
     CommonModule,
@@ -46,7 +47,7 @@ import { DividerComponent } from './divider/divider.component';
     NbEvaIconsModule,
     NbDialogModule.forChild(),
     NbButtonModule,
-    CodemirrorModule,
+
     FormsModule,
     TemporarymoduleModule,
     NbListModule,
@@ -63,7 +64,16 @@ import { DividerComponent } from './divider/divider.component';
     NbSelectModule,
     NbListModule,
     NbSpinnerModule,
-    NbCheckboxModule
+    NbCheckboxModule,
+    ProgressSpinnerModule,
+
+    CommonDirectivesModule,
+    A11yModule,
+
+
+    HttpClientModule,
+    NbEvaIconsModule
+
 
   ],
   providers: [

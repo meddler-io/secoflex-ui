@@ -15,6 +15,7 @@ import { BaseFieldComponent, BaseFormCommonProperties } from 'src/app/reusable-c
 import { ThrowStmt } from '@angular/compiler';
 import { ActiveFormFieldService } from 'src/app/reusable-components/common/services/active-form-field.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 
 
 
@@ -62,7 +63,7 @@ export class TestComponentComponent implements OnInit {
   @Output() undo$ = new Subject<boolean>();
   @Output() destroy$ = new Subject<boolean>();
 
-  undoSubscription: Observable<any> = merge(this.undo$, this.delete$, of(true).pipe(delay(3000)))
+  undoSubscription: Observable<any> = merge(this.undo$, this.delete$, of(true).pipe(delay(THROTTLE_DELAY)))
     .pipe(first()).pipe(tap(deleteConfirm => {
       console.log('observer', deleteConfirm)
     })
