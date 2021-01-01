@@ -8,5 +8,3 @@ cp index.html 404.html
 git add .
 git commit -m "Autoated Build"
 git push --set-upstream origin main --force
-
-SHUBHAM SINGH #meddler #blueTeam #segmentationTesting

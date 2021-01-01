@@ -51,7 +51,7 @@
           </button>
 
 
-          <button [routerLink]="[  '/tool'  , 'builds', tool?._id ]  " status="success" size="small"
+          <button [routerLink]="[ 'builds' , tool?._id ]  " status="success" size="small"
             nbButton>Explore</button>
         </div>
 
@@ -67,7 +67,7 @@
 
     <div fxLayout="row" fxLayoutAlign="start center">
 
-      <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+      <button shape="round" [routerLink]="['/'  ]" ghost status="basic" class="action" size="large" nbButton>
         <nb-icon icon="arrow-back-outline">
 
         </nb-icon>
@@ -123,7 +123,7 @@
             </button>
 
 
-            <button [routerLink]="[  '/tool'  , 'builds', tool?._id ]  " status="success" size="small"
+            <button [routerLink]="[  '/tools'  , 'builds', tool?._id ]  " status="success" size="small"
               nbButton>Explore</button>
           </div>
 

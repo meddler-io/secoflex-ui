@@ -11,12 +11,6 @@ const routes: Routes = [
 
 
 
-
-  // {
-  //   path: '',
-  //   component: ToolHomeComponent,
-  //   pathMatch: 'full'
-  // },
   {
     path: '',
     component: ToolHomeComponent,
@@ -45,19 +39,13 @@ const routes: Routes = [
 
       {
         path: '**',
-        redirectTo: 'tool'
-
+        redirectTo: '/tools'
 
       }
     ]
   }
 
-  ,
-  {
-    path: '**',
-    // component: ToolListComponent
-    redirectTo: 'tool'
-  }
+
 ];
 
 @NgModule({

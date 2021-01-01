@@ -19,6 +19,7 @@ import { HeadbarComponent } from './temp/headbar/headbar.component';
 import { SpinnerModule } from './spinner/spinner/spinner.module';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { EntryComponentComponent } from './entry-component/entry-component.component';
 
 
 
@@ -26,6 +27,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 @NgModule({
   declarations: [
     AppComponent,
+    EntryComponentComponent,
 
 
 

@@ -6,24 +6,29 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
 
+
   {
     path: '',
     component: BootstrapComponent,
     children: [
       {
-        path: 'contact',
+        path: '',
+        component: LandingPageComponent
+      },
+      {
+        path: 'beta',
         component: ContactComponent,
       },
       {
         path: '**',
-        component: LandingPageComponent
+        redirectTo: ''
       }
     ]
   },
-  {
-    path: '**',
-    redirectTo: ''
-  }
+  // {
+  //   path: '**',
+  //   redirectTo: '/'
+  // }
 
 
 ];

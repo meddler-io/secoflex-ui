@@ -22,6 +22,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
 
+    console.log('ngOninit ROOT Destroy')
+    
+
     if (this.router_subscription)
       this.router_subscription.unsubscribe()
   }
@@ -68,6 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('ngOninit ROOT Created')
     this.onInitRouterEvents()
 
   }
