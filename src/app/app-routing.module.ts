@@ -48,7 +48,7 @@ const routes: Routes = [
         loadChildren: () => import('./reusable-components/reusable-components.module').then(m => m.ReusableComponentsModule)
       },
 
-      { path: "**", redirectTo: "home", pathMatch: "full" },
+      { path: "**", redirectTo: "tools", pathMatch: "full" },
 
 
 
