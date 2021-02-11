@@ -117,8 +117,8 @@ export class ToolApiService {
 
 
 
-  runTool(data) {
-    return this.http.post(`${url}/tool/run`, data)
+  runTool(id, data) {
+    return this.http.post(`${url}/build/run/${id}`, data)
   }
 
   getTool(id: string) {

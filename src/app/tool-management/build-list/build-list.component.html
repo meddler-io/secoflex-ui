@@ -80,6 +80,12 @@
           </nb-card-body>
           <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
+            <button (click)="openDrawer(buildconfigTemplate)" status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="file-text-outline"></nb-icon>
+              Config
+            </button>
+
             <button (click)="openLogs(logsTemplate, build?._id)" status="basic" ghost size="small" nbButton>
 
               <nb-icon icon="file-text-outline"></nb-icon>
@@ -165,5 +171,12 @@
 <ng-template let-close="close" #buildCreateTemplate>
 
   <app-build-create [close]="close" [refrence_id]="refrence_id"></app-build-create>
+
+</ng-template>
+
+
+<ng-template let-close="close" #buildconfigTemplate>
+
+  <app-build-config [close]="close" [refrence_id]="refrence_id"></app-build-config>
 
 </ng-template>

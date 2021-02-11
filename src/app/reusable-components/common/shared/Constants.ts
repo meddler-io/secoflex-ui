@@ -1,7 +1,7 @@
 
 export const API_SERVICE_URL = 'http://localhost:8000/'
 export const TOOL_SERVICE_URL = 'http://localhost:8001/'
-export const LOG_SERVICE_URL = 'http://localhost:8082/'
+export const LOG_SERVICE_URL = 'http://192.168.29.9:8082/'
 
 
 export const THROTTLE = false;

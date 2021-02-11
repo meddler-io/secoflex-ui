@@ -122,6 +122,6 @@ export class BuildListComponent implements OnInit {
       TraceId: id,
       fprocess: 'echo hello world'
     }
-    this.toolApiService.runTool(data).subscribe()
+    this.toolApiService.runTool(id, data).subscribe()
   }
 }

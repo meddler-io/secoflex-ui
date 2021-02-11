@@ -1,0 +1,450 @@
+<ng-container>
+
+
+      <nb-card [formGroup]="form">
+
+        <nb-card-body>
+
+
+
+
+          <div fxLayoutAlign="space-between center" fxLayout="row" fxLayoutGap="1rem">
+            <p class="subtitle text-basic">
+              Build Configuration
+            </p>
+
+            <button shape="round" ghost nbButton>
+              <nb-icon icon="info"></nb-icon>
+            </button>
+          </div>
+          <app-divider></app-divider>
+
+          <!-- Entrypoint -->
+          <div fxLayout="column">
+
+            <div>
+              <p class="subtitle-2 text-hint">
+                Entrypoint
+              </p>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth cdkFocusInitial formControlName="entrypoint" nbInput placeholder="/bin/watchdog">
+              </nb-form-field>
+            </div>
+          </div>
+
+          <app-divider></app-divider>
+
+          <!-- Command -->
+          <div fxLayout="column">
+
+            <div>
+              <p class="subtitle-2 text-hint">
+                Command
+              </p>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth cdkFocusInitial formControlName="cmd" nbInput placeholder="/usr/bin/mobsf">
+              </nb-form-field>
+            </div>
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- Arguments -->
+          <div fxLayout="column">
+
+            <div fxLayout="row">
+              <p fxFlex class="subtitle-2 text-hint">
+                Arguments
+              </p>
+
+              <button (click)="addArg()" ghost nbButton status="danger">
+                Add
+              </button>
+
+            </div>
+
+
+            <div fxFlex>
+
+              <ng-container formArrayName="args">
+
+                <ng-container *ngFor="let arg of this.form.get('args').controls ; let i=index ">
+
+
+                  <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
+                    <nb-form-field fxFlex fieldSize="small">
+                      <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
+
+
+                    </nb-form-field>
+
+
+                    <button nbSuffix nbButton (click)="deleteArg(i)">
+                      <nb-icon icon="trash-outline">
+                      </nb-icon>
+                    </button>
+
+                  </div>
+
+
+                </ng-container>
+
+
+              </ng-container>
+            </div>
+
+            <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('args').controls.length" fxFlex>
+              <p class="subtitle-2 text-hint">
+                No Arguments Defined
+              </p>
+            </div>
+
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- Variables -->
+          <div fxLayout="column">
+
+            <div fxLayout="row">
+              <p fxFlex class="subtitle-2 text-hint">
+                Variables
+              </p>
+
+
+
+              <button (click)="addVar()" ghost nbButton status="danger">
+                Add
+              </button>
+
+
+            </div>
+
+
+            <ng-container formArrayName="variables">
+
+              <ng-container *ngFor="let variable of this.form.get('variables').controls ; let i=index ">
+
+                <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+
+
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+                  <button nbButton (click)="deleteVariables(i)">
+                    <nb-icon icon="trash-outline">
+                    </nb-icon>
+                  </button>
+
+
+
+
+                </div>
+
+
+              </ng-container>
+
+
+            </ng-container>
+
+
+            <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('variables').controls.length" fxFlex>
+              <p class="subtitle-2 text-hint">
+                No Variables Defined
+              </p>
+            </div>
+
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- Substitute Variables -->
+          <div fxLayout="column">
+
+            <div>
+              <p class="subtitle-2 text-hint">
+                Substitute Variables
+              </p>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+
+              <nb-checkbox formControlName="substitute_var">Substitute Variables </nb-checkbox>
+
+            </div>
+          </div>
+
+
+          <app-divider></app-divider>
+
+
+
+
+          <!-- success_endpoint -->
+          <div fxLayout="column">
+
+            <div>
+              <p class="subtitle-2 text-hint">
+                Success Endpoint
+              </p>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth cdkFocusInitial formControlName="success_endpoint" nbInput
+                  placeholder="http://success_endpoint.com/usr/bin/mobsf">
+              </nb-form-field>
+            </div>
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- failure_endpoint -->
+          <div fxLayout="column">
+
+            <div>
+              <p class="subtitle-2 text-hint">
+                Failure Endpoint
+              </p>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth cdkFocusInitial formControlName="failure_endpoint" nbInput
+                  placeholder="http://failure_endpoint.com/usr/bin/mobsf">
+              </nb-form-field>
+            </div>
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- Process Env. Variables -->
+          <div fxLayout="column" formGroupName="config">
+
+            <div fxLayout="row">
+              <p fxFlex class="subtitle-2 text-hint">
+                Environment Variables
+              </p>
+
+
+
+              <button (click)="addConfProcess()" ghost nbButton status="danger">
+                Add
+              </button>
+
+
+            </div>
+
+
+            <ng-container formArrayName="process">
+
+              <ng-container *ngFor="let variable of this.form.get('config').get('process').controls ; let i=index ">
+
+                <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+
+
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+                  <button nbButton (click)="deleteConfProcess(i)">
+                    <nb-icon icon="trash-outline">
+                    </nb-icon>
+                  </button>
+
+
+
+
+                </div>
+
+
+              </ng-container>
+
+
+            </ng-container>
+
+
+            <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('config').get('process').controls .length"
+              fxFlex>
+              <p class="subtitle-2 text-hint">
+                No Environment Variables Defined
+              </p>
+            </div>
+
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- Reserved Env. Variables -->
+          <div fxLayout="column" formGroupName="config">
+
+            <div fxLayout="row">
+              <p fxFlex class="subtitle-2 text-hint">
+                Reserved Environment Variables
+              </p>
+
+
+
+              <button (click)="addReservedProcess()" ghost nbButton status="danger">
+                Add
+              </button>
+
+
+            </div>
+
+
+            <ng-container formArrayName="reserved">
+
+              <ng-container *ngFor="let variable of this.form.get('config').get('reserved').controls ; let i=index ">
+
+                <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+
+
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+                  <button nbButton (click)="deleteConfReserved(i)">
+                    <nb-icon icon="trash-outline">
+                    </nb-icon>
+                  </button>
+
+
+
+
+                </div>
+
+
+              </ng-container>
+
+
+            </ng-container>
+
+            <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('config').get('reserved').controls .length"
+              fxFlex>
+              <p class="subtitle-2 text-hint">
+                No Reserved Variables Defined
+              </p>
+            </div>
+          </div>
+
+          <app-divider></app-divider>
+
+
+          <!-- Systen Env. Variables -->
+          <div fxLayout="column" formGroupName="config">
+
+            <div fxLayout="row">
+              <p fxFlex class="subtitle-2 text-hint">
+                Systen Environment Variables
+              </p>
+
+
+
+              <button (click)="addSystemProcess()" ghost nbButton status="danger">
+                Add
+              </button>
+
+
+            </div>
+
+
+            <ng-container formArrayName="system">
+
+              <ng-container *ngFor="let variable of this.form.get('config').get('system').controls ; let i=index ">
+
+                <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+
+
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
+                  </nb-form-field>
+
+
+                  <button nbButton (click)="deleteConfSystem(i)">
+                    <nb-icon icon="trash-outline">
+                    </nb-icon>
+                  </button>
+
+
+
+
+                </div>
+
+
+              </ng-container>
+
+
+            </ng-container>
+
+            <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('config').get('system').controls .length"
+              fxFlex>
+              <p class="subtitle-2 text-hint">
+                No System Variables Defined
+              </p>
+            </div>
+          </div>
+
+          <app-divider></app-divider>
+
+        </nb-card-body>
+
+      </nb-card>
+
+
+
+
+
+</ng-container>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BuildConfigComponent } from './build-config/build-config.component';
 import { BuildCreateComponent } from './build-create/build-create.component';
 import { BuildListComponent } from './build-list/build-list.component';
 import { LogStreamComponent } from './log-stream/log-stream.component';
@@ -16,6 +17,11 @@ const routes: Routes = [
     component: ToolHomeComponent,
     children: [
 
+      {
+        path: 'test',
+        component: BuildConfigComponent
+
+      },
       {
         path: '',
         component: ToolListComponent

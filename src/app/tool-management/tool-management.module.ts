@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ToolManagementRoutingModule } from './tool-management-routing.module';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
-import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbThemeModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetComponent, NbTabsetModule, NbThemeModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -25,12 +25,13 @@ import { ProgressSpinnerModule } from '../progress-spinner/progress-spinner.modu
 // 
 import {A11yModule} from '@angular/cdk/a11y';
 import { HttpClientModule } from '@angular/common/http';
+import { BuildConfigComponent } from './build-config/build-config.component';
 
 
 @NgModule({
   declarations: [ToolHomeComponent,
 
-    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent
+    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent
   ],
   imports: [
 
@@ -66,6 +67,7 @@ import { HttpClientModule } from '@angular/common/http';
     NbSpinnerModule,
     NbCheckboxModule,
     ProgressSpinnerModule,
+    NbTabsetModule,
 
     CommonDirectivesModule,
     A11yModule,
