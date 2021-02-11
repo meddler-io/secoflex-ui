@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { ToolApiService } from '../tool-api.service';
 
 @Component({
   selector: 'app-build-config',
@@ -8,6 +9,12 @@ import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 })
 export class BuildConfigComponent implements OnInit {
 
+  LOADING = true
+
+  @Input('close') close
+
+  @Input('refrence_id') refrence_id;
+  @Input('build_id') build_id = '6023ed566c2cdfd6f2edb435'
 
   getArgs(): FormArray {
     return this.form.get('args') as FormArray
@@ -74,6 +81,8 @@ export class BuildConfigComponent implements OnInit {
     ])
     ,
 
+    success_endpoint: new FormControl('http://success_endpoint.com/usr/bin/mobsf'),
+    failure_endpoint: new FormControl(''),
 
 
     config: new FormGroup({
@@ -85,12 +94,6 @@ export class BuildConfigComponent implements OnInit {
         })
       ]),
 
-      _process: new FormGroup({
-        input_api: new FormControl(''),
-        input_api_token: new FormControl(''),
-        output_api: new FormControl(''),
-        file_upload_api: new FormControl(''),
-      }),
 
 
       reserved: new FormArray([
@@ -110,6 +113,13 @@ export class BuildConfigComponent implements OnInit {
         })
       ]),
 
+
+      _process: new FormGroup({
+        input_api: new FormControl(''),
+        input_api_token: new FormControl(''),
+        output_api: new FormControl(''),
+        file_upload_api: new FormControl(''),
+      }),
       _system: new FormGroup({
         base_path: new FormControl(''),
         input_dir: new FormControl(''),
@@ -127,28 +137,24 @@ export class BuildConfigComponent implements OnInit {
 
     }),
 
-    success_endpoint: new FormControl(''),
-    failure_endpoint: new FormControl(''),
-
-
-
-
-
-
-
-
 
 
   });
-  constructor(private fb: FormBuilder) { }
 
+
+  constructor(
+    private fb: FormBuilder,
+    private toolApiService: ToolApiService
+  ) { }
   ngOnInit(): void {
+
+    this.loadConfig()
   }
 
   addArg() {
     this.getArgs().push(
 
-      this.fb.control('hello'),
+      this.fb.control(''),
 
     )
   }
@@ -159,8 +165,8 @@ export class BuildConfigComponent implements OnInit {
     this.getVariables().push(
 
       new FormGroup({
-        key: new FormControl('key'),
-        value: new FormControl('value'),
+        key: new FormControl(''),
+        value: new FormControl(''),
       })
 
     )
@@ -171,8 +177,8 @@ export class BuildConfigComponent implements OnInit {
     this.getConfProcess().push(
 
       new FormGroup({
-        key: new FormControl('key'),
-        value: new FormControl('value'),
+        key: new FormControl(''),
+        value: new FormControl(''),
       })
 
     )
@@ -182,8 +188,8 @@ export class BuildConfigComponent implements OnInit {
     this.getConfSystem().push(
 
       new FormGroup({
-        key: new FormControl('key'),
-        value: new FormControl('value'),
+        key: new FormControl(''),
+        value: new FormControl(''),
       })
 
     )
@@ -193,14 +199,14 @@ export class BuildConfigComponent implements OnInit {
     this.getConfReserved().push(
 
       new FormGroup({
-        key: new FormControl('key'),
-        value: new FormControl('value'),
+        key: new FormControl(''),
+        value: new FormControl(''),
       })
 
     )
   }
 
-  dump() {
+  formToJson(): any {
     let data = this.form.getRawValue()
 
     let variables = {}
@@ -233,12 +239,95 @@ export class BuildConfigComponent implements OnInit {
     delete data['_system']
     data['config'] = config
     return data
+
   }
 
-  test() {
-    let data = this.dump()
-    console.log(data)
+  save() {
 
 
+    this
+      .toolApiService
+      .updateBuildConfig(this.build_id, this.formToJson())
+      .subscribe()
+  }
+
+
+  loadConfig() {
+
+    this.LOADING = true
+
+    this
+      .toolApiService
+      .getBuildConfig(this.build_id)
+      .subscribe(data => {
+
+
+
+        this.form.setControl('id', this.fb.control(data['id']))
+        this.form.setControl('entrypoint', this.fb.control(data['entrypoint']))
+        this.form.setControl('cmd', this.fb.control(data['cmd']))
+
+        let argsControl = []
+
+        data['args'].forEach(element => {
+          argsControl.push(this.fb.control(element))
+        });
+
+        this.form.setControl('args', this.fb.array(argsControl))
+
+        this.form.setControl('substitute_var', this.fb.control(data['substitute_var']))
+        this.form.setControl('success_endpoint', this.fb.control(data['success_endpoint']))
+        this.form.setControl('failure_endpoint', this.fb.control(data['failure_endpoint']))
+
+
+
+        let processConfigControl = []
+
+
+        Object.keys(data['config']['process']).forEach(element => {
+          processConfigControl.push(this.fb.group({
+
+            key: this.fb.control(element),
+            value: this.fb.control(data['config']['process'][element]),
+          }))
+        });
+
+
+        let systemConfigControl = []
+
+
+        Object.keys(data['config']['system']).forEach(element => {
+          systemConfigControl.push(this.fb.group({
+
+            key: this.fb.control(element),
+            value: this.fb.control(data['config']['system'][element]),
+          }))
+        });
+
+        let reservedConfigControl = []
+
+        Object.keys(data['config']['reserved']).forEach(element => {
+          reservedConfigControl.push(this.fb.group({
+
+            key: this.fb.control(element),
+            value: this.fb.control(data['config']['reserved'][element]),
+          }))
+        });
+
+        let configControl = this.fb.group({
+          process: this.fb.array(processConfigControl),
+          reserved: this.fb.array(reservedConfigControl),
+          system: this.fb.array(systemConfigControl)
+        })
+
+        this.form.setControl('config', configControl)
+
+        this.LOADING = false
+
+
+
+
+
+      })
   }
 }

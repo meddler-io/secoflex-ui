@@ -134,6 +134,15 @@ export class ToolApiService {
     )
   }
 
+  updateBuildConfig(build_id: string, data) {
+    return this.http.put(`${url}/build/config/${build_id}`, data
+    )
+  }
+
+  getBuildConfig(build_id: string) {
+    return this.http.get(`${url}/build/config/${build_id}`)
+  }
+
   getBuilds(refrence_id: string) {
     return this.http.get(`${url}/build/${refrence_id}`)
   }

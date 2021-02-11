@@ -5,7 +5,7 @@
 
 
 
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <div  fxFlex fxLayout="row" fxLayoutAlign="space-between center">
 
       <div fxLayout="row" fxLayoutAlign="start center">
 
@@ -24,7 +24,7 @@
 
 
 
-      <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+      <div  [style.marginRight]=" '0.5rem' " fxFlex fxLayout="row" fxLayoutAlign="end center">
 
         <button (click)="openDrawer(buildCreateTemplate)" class="newBtn" shape="round" nbButton>
 
@@ -175,8 +175,8 @@
 </ng-template>
 
 
-<ng-template let-close="close" #buildconfigTemplate>
+<ng-template let-close="close" let-context="context" #buildconfigTemplate>
 
-  <app-build-config [close]="close" [refrence_id]="refrence_id"></app-build-config>
+  <app-build-config [close]="close" [build_id]="context?.build_id"></app-build-config>
 
 </ng-template>
