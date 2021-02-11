@@ -1,4 +1,4 @@
-<ng-container *ngIf=" LOADING ; else loading">
+<ng-container *ngIf=" LOADING == false ; else loading">
 
 
 
@@ -47,6 +47,22 @@
       </div>
       <app-divider></app-divider>
 
+      <!-- Identifier -->
+      <div fxLayout="column">
+
+        <div>
+          <p class="subtitle-2 text-hint">
+            Identifier
+          </p>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="1rem">
+          <nb-form-field fxFlex fieldSize="small">
+            <input fullWidth cdkFocusInitial formControlName="id" nbInput placeholder="/bin/watchdog">
+          </nb-form-field>
+        </div>
+      </div>
+
       <!-- Entrypoint -->
       <div fxLayout="column">
 
@@ -56,11 +72,20 @@
           </p>
         </div>
 
-        <div fxLayout="row" fxLayoutGap="1rem">
-          <nb-form-field fxFlex fieldSize="small">
-            <input fullWidth cdkFocusInitial formControlName="entrypoint" nbInput placeholder="/bin/watchdog">
-          </nb-form-field>
-        </div>
+
+        <ng-container formArrayName="entrypoint">
+
+          <ng-container *ngFor="let entrypoint of this.form.get('entrypoint').controls ; let i=index ">
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/bin/watchdog">
+              </nb-form-field>
+            </div>
+
+          </ng-container>
+        </ng-container>
+
       </div>
 
       <app-divider></app-divider>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { ToolApiService } from '../tool-api.service';
 
@@ -9,12 +9,13 @@ import { ToolApiService } from '../tool-api.service';
 })
 export class BuildConfigComponent implements OnInit {
 
-  LOADING = true
+  LOADING = false
 
   @Input('close') close
 
   @Input('refrence_id') refrence_id;
-  @Input('build_id') build_id = '6023ed566c2cdfd6f2edb435'
+  @Input('build_id')
+  build_id = '6023ed566c2cdfd6f2edb435'
 
   getArgs(): FormArray {
     return this.form.get('args') as FormArray
@@ -61,7 +62,9 @@ export class BuildConfigComponent implements OnInit {
 
     id: new FormControl(''),
 
-    entrypoint: new FormControl('/bin/entrypoint'),
+    entrypoint: this.fb.array([
+      new FormControl('/bin/entrypoint'),
+    ]),
 
     cmd: new FormControl('/bin/cmd'),
 
@@ -144,7 +147,8 @@ export class BuildConfigComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private toolApiService: ToolApiService
+    private toolApiService: ToolApiService,
+    protected cdr: ChangeDetectorRef
   ) { }
   ngOnInit(): void {
 
@@ -261,71 +265,112 @@ export class BuildConfigComponent implements OnInit {
       .getBuildConfig(this.build_id)
       .subscribe(data => {
 
+        if (!data)
+          data = {}
 
 
-        this.form.setControl('id', this.fb.control(data['id']))
-        this.form.setControl('entrypoint', this.fb.control(data['entrypoint']))
-        this.form.setControl('cmd', this.fb.control(data['cmd']))
+        if (data['id'])
+          this.form.setControl('id', this.fb.control(data['id']))
 
-        let argsControl = []
-
-        data['args'].forEach(element => {
-          argsControl.push(this.fb.control(element))
-        });
-
-        this.form.setControl('args', this.fb.array(argsControl))
-
-        this.form.setControl('substitute_var', this.fb.control(data['substitute_var']))
-        this.form.setControl('success_endpoint', this.fb.control(data['success_endpoint']))
-        this.form.setControl('failure_endpoint', this.fb.control(data['failure_endpoint']))
+        if (data['cmd'])
+          this.form.setControl('cmd', this.fb.control(data['cmd']))
 
 
+        if (data['entrypoint']) {
 
-        let processConfigControl = []
-
-
-        Object.keys(data['config']['process']).forEach(element => {
-          processConfigControl.push(this.fb.group({
-
-            key: this.fb.control(element),
-            value: this.fb.control(data['config']['process'][element]),
-          }))
-        });
+          let entrypointControl = []
 
 
-        let systemConfigControl = []
+          data['entrypoint'].forEach(element => {
+            entrypointControl.push(this.fb.control(element))
+          });
 
 
-        Object.keys(data['config']['system']).forEach(element => {
-          systemConfigControl.push(this.fb.group({
+          this.form.setControl('entrypoint', this.fb.array(entrypointControl))
+        }
 
-            key: this.fb.control(element),
-            value: this.fb.control(data['config']['system'][element]),
-          }))
-        });
+        if (data['entrypoint']) {
 
-        let reservedConfigControl = []
+          let argsControl = []
 
-        Object.keys(data['config']['reserved']).forEach(element => {
-          reservedConfigControl.push(this.fb.group({
+          data['args'].forEach(element => {
+            argsControl.push(this.fb.control(element))
+          });
 
-            key: this.fb.control(element),
-            value: this.fb.control(data['config']['reserved'][element]),
-          }))
-        });
+          this.form.setControl('args', this.fb.array(argsControl))
 
-        let configControl = this.fb.group({
-          process: this.fb.array(processConfigControl),
-          reserved: this.fb.array(reservedConfigControl),
-          system: this.fb.array(systemConfigControl)
-        })
+        }
 
-        this.form.setControl('config', configControl)
+        if (data['substitute_var'])
+          this.form.setControl('substitute_var', this.fb.control(data['substitute_var']))
+
+        if (data['success_endpoint'])
+          this.form.setControl('success_endpoint', this.fb.control(data['success_endpoint']))
+
+        if (data['failure_endpoint'])
+          this.form.setControl('failure_endpoint', this.fb.control(data['failure_endpoint']))
+
+
+        if (data['config']) {
+
+          let processConfigControl = []
+          let systemConfigControl = []
+          let reservedConfigControl = []
+          if (data['config']['process']) {
+
+
+
+
+            Object.keys(data['config']['process']).forEach(element => {
+              processConfigControl.push(this.fb.group({
+
+                key: this.fb.control(element),
+                value: this.fb.control(data['config']['process'][element]),
+              }))
+            });
+
+          }
+
+          if (data['config']['system']) {
+
+
+
+
+            Object.keys(data['config']['system']).forEach(element => {
+              systemConfigControl.push(this.fb.group({
+
+                key: this.fb.control(element),
+                value: this.fb.control(data['config']['system'][element]),
+              }))
+            });
+
+          }
+
+          if (data['config']['reserved']) {
+
+
+            Object.keys(data['config']['reserved']).forEach(element => {
+              reservedConfigControl.push(this.fb.group({
+
+                key: this.fb.control(element),
+                value: this.fb.control(data['config']['reserved'][element]),
+              }))
+            });
+
+          }
+          let configControl = this.fb.group({
+            process: this.fb.array(processConfigControl),
+            reserved: this.fb.array(reservedConfigControl),
+            system: this.fb.array(systemConfigControl)
+          })
+
+          this.form.setControl('config', configControl)
+
+        }
+
 
         this.LOADING = false
-
-
-
+        this.cdr.markForCheck()
 
 
       })

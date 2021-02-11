@@ -36,44 +36,8 @@ export class LogStreamComponent implements OnInit {
 
 
     },
-    {
-      title: 'Products II',
-      desc: 'Dummy Description',
-      loaded: false,
-      initiated: false,
-
-      loading: new Subject(),
-      collapsed: true,
-      content: [],
-
-      content$: new Subject(),
-      pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME)
 
 
-
-
-
-
-    },
-    {
-      title: 'Products III',
-      desc: 'Dummy Description',
-      loaded: false,
-      initiated: false,
-
-      loading: new BehaviorSubject(false),
-
-      collapsed: true,
-      content: [],
-
-      content$: new Subject(),
-      pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME)
-
-
-
-
-
-    }
   ]
 
   constructor(
@@ -104,7 +68,7 @@ export class LogStreamComponent implements OnInit {
 
 
       }
-      this.topics.push(newObject)
+      // this.topics.push(newObject)
     }
 
     {
@@ -121,7 +85,7 @@ export class LogStreamComponent implements OnInit {
         pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME),
 
       }
-      this.topics.push(newObject)
+      // this.topics.push(newObject)
 
       this.collapsedChange(this.topics.length - 1, false, true)
 
@@ -143,7 +107,7 @@ export class LogStreamComponent implements OnInit {
 
     this
       .toolApiService
-      .getLogs(this.log_id, 2, this.topics[index].pauseStreamer$)
+      .getLogs(this.log_id, 20, this.topics[index].pauseStreamer$)
       .pipe(
         delay(THROTTLE_DELAY),
         tap(d => {

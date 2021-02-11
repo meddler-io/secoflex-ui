@@ -43,14 +43,14 @@ export class BuildListComponent implements OnInit {
       .subscribe(id => {
 
         this.builds$ = this.toolApiService.getBuilds(id)
-        // .pipe(delay(THROTTLE_DELAY))
-        .pipe(tap((data: []) => {
-          if (data.length < 1) {
+          // .pipe(delay(THROTTLE_DELAY))
+          .pipe(tap((data: []) => {
+            if (data.length < 1) {
 
-            this.openDrawer(this.buildCreateTemplate)
+              this.openDrawer(this.buildCreateTemplate)
 
-          }
-        }))
+            }
+          }))
 
 
 
@@ -64,8 +64,10 @@ export class BuildListComponent implements OnInit {
 
 
 
-  openDrawer(template, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
+  openDrawer(template, context?: any, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
 
+    if (!context)
+      context = {}
     const zIndex = 1000;
     const cssClass = 'backdrop_color'
     // const cssClass = 'cdk-overlay-2'
@@ -75,7 +77,7 @@ export class BuildListComponent implements OnInit {
       direction,
       template,
       // size,
-      context: 'Alert Everyone!',
+      context: context,
       closeOnOutsideClick,
       parentContainer,
       isRoot,

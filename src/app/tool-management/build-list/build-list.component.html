@@ -5,7 +5,7 @@
 
 
 
-    <div  fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
 
       <div fxLayout="row" fxLayoutAlign="start center">
 
@@ -24,7 +24,7 @@
 
 
 
-      <div  [style.marginRight]=" '0.5rem' " fxFlex fxLayout="row" fxLayoutAlign="end center">
+      <div [style.marginRight]=" '0.5rem' " fxFlex fxLayout="row" fxLayoutAlign="end center">
 
         <button (click)="openDrawer(buildCreateTemplate)" class="newBtn" shape="round" nbButton>
 
@@ -80,7 +80,8 @@
           </nb-card-body>
           <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
-            <button (click)="openDrawer(buildconfigTemplate)" status="basic" ghost size="small" nbButton>
+            <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )" status="basic" ghost
+              size="small" nbButton>
 
               <nb-icon icon="file-text-outline"></nb-icon>
               Config
