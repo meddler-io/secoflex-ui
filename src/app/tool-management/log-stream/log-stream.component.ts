@@ -13,6 +13,10 @@ import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
 
 })
 export class LogStreamComponent implements OnInit {
+
+  LOG_STREAM_STATUS$ = LOG_STREAM_STATUS
+
+
   testLogs = ''
 
   @Input('log_id')
@@ -42,6 +46,7 @@ export class LogStreamComponent implements OnInit {
 
   constructor(
     private toolApiService: ToolApiService,
+    private cdr: ChangeDetectorRef
 
 
   ) {
@@ -107,7 +112,7 @@ export class LogStreamComponent implements OnInit {
 
     this
       .toolApiService
-      .getLogs(this.log_id, 20, this.topics[index].pauseStreamer$)
+      .getLogs(this.log_id, 20, this.topics[index].pauseStreamer$, THROTTLE_DELAY)
       .pipe(
         delay(THROTTLE_DELAY),
         tap(d => {
@@ -119,6 +124,13 @@ export class LogStreamComponent implements OnInit {
 
 
         this.topics[index].content.push(data);
+
+        this.cdr.markForCheck()
+
+      }, (error => { }), () => {
+        console.log('complete')
+        this.topics[index].pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
+
       })
   }
 
@@ -136,13 +148,14 @@ export class LogStreamComponent implements OnInit {
 
   pause(index) {
     this.topics[index].pauseStreamer$.next(LOG_STREAM_STATUS.PAUSE);
+    this.cdr.markForCheck()
 
 
   }
 
   resume(index) {
-    this.topics[index].pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
-
+    this.topics[index].pauseStreamer$.next(LOG_STREAM_STATUS.RESUME);
+    this.cdr.markForCheck()
 
   }
 }

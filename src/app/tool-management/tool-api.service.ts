@@ -35,7 +35,7 @@ export class ToolApiService {
   }
 
 
-  getLogs(identifier: string, lines: number, pauseEventSubject$: BehaviorSubject<LOG_STREAM_STATUS>) {
+  getLogs(identifier: string, lines: number, pauseEventSubject$: BehaviorSubject<LOG_STREAM_STATUS>, throttleDelay: number) {
 
     let count = 5
     let seek: number = 0
@@ -52,7 +52,7 @@ export class ToolApiService {
 
 
         let apiReq = of(EMPTY).pipe(
-          delay(2000)
+          delay(throttleDelay)
           ,
           switchMap(_ => {
 

@@ -1,35 +1,126 @@
- <nb-accordion   fxFill>
-   <nb-accordion-item [expanded]="index == topics.length - 1" *ngFor="let topic of topics ; index as index"
-     (collapsedChange)="collapsedChange(index, $event)">
-     <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
-       {{topic?.title}} {{log_id}}
+<ng-container *ngFor="let topic of topics ; index as index">
 
-     </nb-accordion-item-header>
+  <div fxFill fxLayout="column" class="log-container">
 
-
-     <!-- <ng-container *ngIf="topic?.content$ | async as content "> -->
-
-     <nb-accordion-item-body class="marginBody">
+    <div fxLayout="row">
+      <div fxFlex class="subtitle text-hint">
 
 
-       <button (click)="pause(index)" nbButton size="small">Pause {{_pause}}</button>
-       <button (click)="resume(index)" nbButton size="small">Resume {{_pause}}</button>
+        {{topic?.title}} {{log_id}}
+
+      </div>
 
 
-       <div class="code">
 
-         <div *ngFor="let content of topic?.content">
-           <code fxFlex>
-             <pre [innerHTML]="content">   </pre>
-           </code>
-         </div>
-       </div>
+      <div class="overlay-button">
+
+        <ng-template #actionBtns let-status="pauseStatus">
 
 
-     </nb-accordion-item-body>
 
-     <!-- </ng-container> -->
+          <button hero status="danger" *ngIf=" ( status == LOG_STREAM_STATUS$.START  || status == LOG_STREAM_STATUS$.RESUME  ) "
+            (click)="pause(index)" nbButton size="small">
 
-   </nb-accordion-item>
+            <nb-icon icon="pause-circle">
 
- </nb-accordion>
+            </nb-icon>
+            Pause
+
+
+          </button>
+
+          <button hero status="primary"  *ngIf=" ( status == LOG_STREAM_STATUS$.PAUSE   )  "
+            (click)="resume(index)" nbButton size="small">
+
+
+
+            <nb-icon icon="play-circle">
+
+            </nb-icon>
+            Resume
+
+
+          </button>
+
+        </ng-template>
+
+        <ng-container *ngTemplateOutlet="actionBtns; context:{pauseStatus: topic.pauseStreamer$ | async }">
+        </ng-container>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="code">
+
+      <div *ngFor="let content of topic?.content">
+        <code fxFlex>
+          <pre [innerHTML]="content">   </pre>
+        </code>
+      </div>
+    </div>
+
+  </div>
+
+
+</ng-container>
+
+
+<nb-accordion fxFill *ngIf="false">
+  <nb-accordion-item [expanded]="index == topics.length - 1" *ngFor="let topic of topics ; index as index"
+    (collapsedChange)="collapsedChange(index, $event)">
+    <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
+      <div fxFlex>
+        {{topic?.title}} {{log_id}}
+
+      </div>
+
+      <div>
+
+        <button hero status="success" (click)="pause(index)" nbButton size="small">
+          <nb-icon icon="pause-circle">
+
+          </nb-icon>
+
+        </button>
+
+        <button hero status="success"  (click)="resume(index)" nbButton size="small">
+          <nb-icon icon="play-circle">
+
+          </nb-icon>
+
+        </button>
+
+      </div>
+
+    </nb-accordion-item-header>
+
+
+    <!-- <ng-container *ngIf="topic?.content$ | async as content "> -->
+
+    <nb-accordion-item-body class="marginBody">
+
+
+      <button (click)="pause(index)" nbButton size="small">Pause {{_pause}}</button>
+      <button (click)="resume(index)" nbButton size="small">Resume {{_pause}}</button>
+
+
+      <div class="code">
+
+        <div *ngFor="let content of topic?.content">
+          <code fxFlex>
+            <pre [innerHTML]="content">   </pre>
+          </code>
+        </div>
+      </div>
+
+
+    </nb-accordion-item-body>
+
+    <!-- </ng-container> -->
+
+  </nb-accordion-item>
+
+</nb-accordion>
