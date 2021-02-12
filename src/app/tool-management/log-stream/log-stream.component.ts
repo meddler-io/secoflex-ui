@@ -118,18 +118,23 @@ export class LogStreamComponent implements OnInit {
         tap(d => {
           this.topics[index].initiated = true;
         }))
-      .subscribe(data => {
+      .subscribe((data => {
         this.topics[index].loaded = true;
         this.topics[index].loading.next(false);
 
 
         this.topics[index].content.push(data);
-
+        console.log('log loaded')
         this.cdr.markForCheck()
 
-      }, (error => { }), () => {
-        console.log('complete')
+      }), (error => {
+        console.log('error',error)
+
+
+      }), () => {
+        console.log('completed')
         this.topics[index].pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
+        this.cdr.markForCheck()
 
       })
   }

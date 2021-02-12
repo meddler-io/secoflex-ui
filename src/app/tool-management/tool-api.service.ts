@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpEventType, HttpResponse } from '@angular/c
 import { Injectable } from '@angular/core';
 
 
+
 import { BehaviorSubject, defer, EMPTY, from, Observable, of, Subject, Subscription } from 'rxjs';
 import { delay, expand, filter, finalize, flatMap, map, repeat, share, switchMap, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { API_SERVICE_URL, LOG_SERVICE_URL } from '../reusable-components/common/shared/Constants';
@@ -70,6 +71,13 @@ export class ToolApiService {
               tap(d => {
                 let x_file_range = d.headers.get('X-File-Range')
                 let x_file_size = d.headers.get('X-File-Size')
+
+                if (x_file_range == null || x_file_size == null) {
+                  throw ("Error processing")
+                  return
+
+                }
+
                 let offset = x_file_range.split('-')[1]
                 seek = parseInt(offset)
                 fileSize = parseInt(x_file_size)
@@ -101,6 +109,8 @@ export class ToolApiService {
             )
             .subscribe(d => {
 
+              logStramSubject.next(d)
+
               if (fileSize != -1) {
                 if (seek >= fileSize) {
                   console.log('closing')
@@ -109,7 +119,8 @@ export class ToolApiService {
                   return
                 }
               }
-              logStramSubject.next(d)
+
+
 
 
             })
