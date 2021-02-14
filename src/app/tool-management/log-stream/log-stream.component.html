@@ -1,71 +1,168 @@
-<ng-container *ngFor="let topic of topics ; index as index">
+<div class="head" fxLayoutAlign="space-between center">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
+      <nb-icon class="text-alternate" icon="arrow-back-outline">
+      </nb-icon>
+    </button>
 
-  <div fxFill fxLayout="column" class="log-container">
-
-    <div fxLayout="row">
-      <div fxFlex class="subtitle text-hint">
-
-
-        {{topic?.title}} {{log_id}}
-
-      </div>
-
-
-
-      <div class="overlay-button">
-
-        <ng-template #actionBtns let-status="pauseStatus">
-
-
-
-          <button hero status="danger" *ngIf=" ( status == LOG_STREAM_STATUS$.START  || status == LOG_STREAM_STATUS$.RESUME  ) "
-            (click)="pause(index)" nbButton size="small">
-
-            <nb-icon icon="pause-circle">
-
-            </nb-icon>
-            Pause
-
-
-          </button>
-
-          <button hero status="primary"  *ngIf=" ( status == LOG_STREAM_STATUS$.PAUSE   )  "
-            (click)="resume(index)" nbButton size="small">
-
-
-
-            <nb-icon icon="play-circle">
-
-            </nb-icon>
-            Resume
-
-
-          </button>
-
-        </ng-template>
-
-        <ng-container *ngTemplateOutlet="actionBtns; context:{pauseStatus: topic.pauseStreamer$ | async }">
-        </ng-container>
-      </div>
-
-
+    <div class="subtitle text-alternate">
+      Logs
     </div>
 
-
-
-    <div class="code">
-
-      <div *ngFor="let content of topic?.content">
-        <code fxFlex>
-          <pre [innerHTML]="content">   </pre>
-        </code>
-      </div>
-    </div>
 
   </div>
 
 
-</ng-container>
+  <dic fxLayout="row" fxLayoutAlign="center center">
+
+
+
+    <!-- <button ghost class="action " size="small" nbButton>
+      <nb-icon class="text-alternate" icon="minus-outline">
+
+      </nb-icon>
+    </button> -->
+
+
+    <button ghost class="action " size="medium" nbButton>
+      <nb-icon class="text-alternate" icon="external-link-outline">
+
+      </nb-icon>
+    </button>
+
+    <nb-select (selectedChange)="onSelectionChange($event)" [selected]="0" *ngIf="topics.length > 0"
+      placeholder="Success" size="small" hero status="basic">
+      <nb-option *ngFor="let topic of topics ; index as index" [value]="index">{{topic?.log_id}} </nb-option>
+
+    </nb-select>
+
+  </dic>
+
+</div>
+<div class="content">
+
+
+  <ng-template #logTemplate let-topic="topic">
+
+    <ng-container>
+
+      <div fxFill fxLayout="column" class="log-container">
+
+
+
+
+
+
+
+        <ng-scrollbar [style.pointerEvents]=" tailing ? 'none' : 'all' " track="all" [scrollAuditTime]="20">
+          <div class="code">
+
+            <div *ngFor="let content of topic?.content">
+              <code fxFlex>
+                <pre [innerText]="content">   </pre>
+              </code>
+            </div>
+          </div>
+
+        </ng-scrollbar>
+
+
+        <div class="overlay-button">
+
+          <ng-template #actionBtns let-status="pauseStatus">
+
+            <div class="row" fxFlex fxLayoutAlign="center center" fxLayoutGap="1rem">
+
+
+              <nb-button-group size="small" shape="round" multiple>
+
+                <button hero status="danger"
+                  *ngIf=" ( status == LOG_STREAM_STATUS$.START  || status == LOG_STREAM_STATUS$.RESUME  ) "
+                  (click)="pause(index)" nbButtonToggle size="small">
+                  <nb-icon icon="pause-circle">
+                  </nb-icon>
+                  Pause
+                </button>
+
+                <button hero status="primary"  
+                  [(pressed)]="!streaming " (pressedChange)="toggleStreamingLogs($event)" (click)="resume(index)"
+                  nbButtonToggle size="small">
+                  <nb-icon icon="play-circle">
+                  </nb-icon>
+
+                  {{  ( status == LOG_STREAM_STATUS$.PAUSE   )  ? 'Resume' : 'Pause'  }}
+                </button>
+
+                <button [(pressed)]="tailing" (pressedChange)="toggleTail($event)" nbButtonToggle size="small">
+                  <nb-icon icon="arrowhead-down-outline"></nb-icon>
+                  Follow
+                </button>
+              </nb-button-group>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+          </ng-template>
+
+          <ng-container *ngTemplateOutlet="actionBtns; context:{pauseStatus: topic.pauseStreamer$ | async }">
+          </ng-container>
+        </div>
+
+
+
+
+      </div>
+
+
+    </ng-container>
+
+
+  </ng-template>
+
+  <div class="log-container" fxFlex>
+
+    <ng-container *ngIf="topic">
+      <ng-container *ngTemplateOutlet="logTemplate; context: { 'topic': topic } ">
+      </ng-container>
+    </ng-container>
+
+  </div>
+
+
+
+  <nb-accordion *ngIf="false" fxFill>
+
+    <nb-accordion-item *ngFor="let topic of topics ; index as index" (collapsedChange)="collapsedChange(index, $event)">
+      <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
+
+        {{topic?.title}} {{topic?.log_id}}
+
+
+      </nb-accordion-item-header>
+
+      <nb-accordion-item-body class="marginBody">
+        <ng-container *ngTemplateOutlet="logTemplate; context: { 'topic': topic } ">
+        </ng-container>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+
+  </nb-accordion>
+
+
+
+</div>
 
 
 <nb-accordion fxFill *ngIf="false">
@@ -86,7 +183,7 @@
 
         </button>
 
-        <button hero status="success"  (click)="resume(index)" nbButton size="small">
+        <button hero status="success" (click)="resume(index)" nbButton size="small">
           <nb-icon icon="play-circle">
 
           </nb-icon>
@@ -111,7 +208,7 @@
 
         <div *ngFor="let content of topic?.content">
           <code fxFlex>
-            <pre [innerHTML]="content">   </pre>
+            <pre [innerText]="content">   </pre>
           </code>
         </div>
       </div>

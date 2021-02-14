@@ -87,3 +87,45 @@
 
   }
 }
+
+
+
+
+.head {
+
+  // position: fixed;
+  // top: 0;
+  height: 4rem;
+
+  background: nb-theme(background-alternative-color-2);
+  box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.16), 2px 2px 3px rgba(255, 255, 255, 0.23);
+
+  color: #fff;
+
+
+}
+
+.content {
+
+  height: calc(100% - 4rem);
+  overflow: auto;
+
+}
+
+.action {
+  margin-left: 5px;
+
+  &:hover {
+    nb-icon {
+      color: nb-theme(color-alternate-500);
+
+    }
+
+  }
+
+}
+
+
+.code {
+  padding: 1rem;
+}

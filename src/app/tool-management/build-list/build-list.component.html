@@ -80,8 +80,8 @@
           </nb-card-body>
           <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
-            <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )" status="basic" ghost
-              size="small" nbButton>
+            <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )" status="basic"
+              ghost size="small" nbButton>
 
               <nb-icon icon="file-text-outline"></nb-icon>
               Config
@@ -131,41 +131,9 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-  <div class="head" fxLayoutAlign="space-between center">
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
-        <nb-icon class="text-alternate" icon="arrow-back-outline">
-        </nb-icon>
-      </button>
 
-      <div class="subtitle text-alternate">
-        Logs
-      </div>
-    </div>
+  <app-log-stream [log_id]="context?.id"></app-log-stream>
 
-
-    <dic fxLayout="row">
-
-      <button ghost class="action " size="giant" nbButton>
-        <nb-icon class="text-alternate" icon="minus-outline">
-
-        </nb-icon>
-      </button>
-
-
-      <button ghost class="action " size="giant" nbButton>
-        <nb-icon class="text-alternate" icon="external-link-outline">
-
-        </nb-icon>
-      </button>
-
-    </dic>
-
-  </div>
-
-  <div class="content">
-    <app-log-stream [log_id]="context?.id"></app-log-stream>
-  </div>
 
 </ng-template>
 

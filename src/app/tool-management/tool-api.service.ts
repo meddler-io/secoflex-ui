@@ -186,5 +186,9 @@ export class ToolApiService {
     return this.http.get(`${url}/build/${refrence_id}`)
   }
 
+  getBuildExecoturs(refrence_id: string) {
+    return this.http.get(`${url}/build/executors/${refrence_id}`)
+  }
+
 
 }

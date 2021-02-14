@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ToolManagementRoutingModule } from './tool-management-routing.module';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
-import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetComponent, NbTabsetModule, NbThemeModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetComponent, NbTabsetModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -26,7 +26,7 @@ import { ProgressSpinnerModule } from '../progress-spinner/progress-spinner.modu
 import {A11yModule} from '@angular/cdk/a11y';
 import { HttpClientModule } from '@angular/common/http';
 import { BuildConfigComponent } from './build-config/build-config.component';
-
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [ToolHomeComponent,
@@ -74,7 +74,11 @@ import { BuildConfigComponent } from './build-config/build-config.component';
 
 
     HttpClientModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+
+    NgScrollbarModule,
+    NbToggleModule,
+    NbButtonGroupModule
 
 
   ],

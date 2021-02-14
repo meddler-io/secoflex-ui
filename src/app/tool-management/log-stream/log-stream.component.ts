@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { BehaviorSubject, Subject, timer } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NgScrollbar } from 'ngx-scrollbar';
+import { BehaviorSubject, interval, Subject, Subscription, timer } from 'rxjs';
 import { delay, repeat, repeatWhen, retry, retryWhen, switchMap, tap } from 'rxjs/operators';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
@@ -22,27 +23,16 @@ export class LogStreamComponent implements OnInit {
   @Input('log_id')
   log_id = 'npop3'
 
+  topic
 
   topics = [
 
-    {
-      title: 'Products',
-      desc: 'Dummy Description',
-      loaded: false,
-      initiated: false,
-      loading: new Subject(),
-      collapsed: true,
-      content: [],
-      content$: new Subject(),
-      pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME)
-
-
-
-
-    },
-
-
   ]
+
+  tailing = false
+  streaming = true
+
+  @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
 
   constructor(
     private toolApiService: ToolApiService,
@@ -53,52 +43,50 @@ export class LogStreamComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    for (let i = 0; i < 30; i++) {
-      let newObject = {
-        title: 'Products II',
-        desc: 'Dummy Description',
-        loaded: false,
-        initiated: false,
-
-        loading: new BehaviorSubject(false),
-        collapsed: true,
-        content: [],
-
-        content$: new Subject(),
-        pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME)
+  toggleTail(tailing) {
 
 
-
-
-
-      }
-      // this.topics.push(newObject)
+    if (tailing == true) {
+      this.resumeKeepAtBottom()
+    } else {
+      this.pauseKeepAtBottom()
     }
-
-    {
-      let newObject = {
-        title: 'Products II',
-        desc: 'Dummy Description',
-        loaded: false,
-        initiated: false,
-
-        loading: new BehaviorSubject(true),
-        collapsed: false,
-        content: [],
-        content$: new Subject(),
-        pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME),
-
-      }
-      // this.topics.push(newObject)
-
-      this.collapsedChange(this.topics.length - 1, false, true)
-
-    }
-
 
   }
 
+  toggleStreamingLogs(val, index) {
+
+    if (val) {
+      this.pause(index)
+    } else {
+      this.resume(val)
+    }
+
+  }
+
+  ngOnInit(): void {
+
+    this.getExecutors(this.log_id)
+
+  }
+
+
+  scrollSubscruption = Subscription.EMPTY
+  resumeKeepAtBottom() {
+    this.scrollSubscruption.unsubscribe()
+    this.scrollSubscruption = interval(300).subscribe(_ => {
+      this.scrollbarRef.scrollTo({ bottom: 0, duration: 150 })
+
+    });
+
+  }
+
+  pauseKeepAtBottom() {
+    this.scrollSubscruption.unsubscribe()
+    this.scrollbarRef.scrollTo({ bottom: 0, duration: 0 })
+
+
+  }
 
 
 
@@ -110,9 +98,10 @@ export class LogStreamComponent implements OnInit {
     this.topics[index].loading.next(true);
 
 
+
     this
       .toolApiService
-      .getLogs(this.log_id, 20, this.topics[index].pauseStreamer$, THROTTLE_DELAY)
+      .getLogs(this.topics[index].log_id, 20, this.topics[index].pauseStreamer$, THROTTLE_DELAY)
       .pipe(
         delay(THROTTLE_DELAY),
         tap(d => {
@@ -126,15 +115,19 @@ export class LogStreamComponent implements OnInit {
         this.topics[index].content.push(data);
         console.log('log loaded')
         this.cdr.markForCheck()
+        // this.scrollbarRef.scrollToElement('#target', {duration: 300})
 
       }), (error => {
-        console.log('error',error)
+        console.log('error', error)
 
 
       }), () => {
         console.log('completed')
         this.topics[index].pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
         this.cdr.markForCheck()
+
+
+
 
       })
   }
@@ -149,6 +142,62 @@ export class LogStreamComponent implements OnInit {
     this.streamLogs(index, forceRender)
   }
 
+  onSelectionChange(index) {
+    this.streamLogs(index, false)
+
+    this.topic = this.topics[index]
+
+    // this.resumeKeepAtBottom()
+
+  }
+
+
+  getExecutors(build_id: string) {
+
+    this
+      .toolApiService
+      .getBuildExecoturs(build_id)
+      .subscribe((data: []) => {
+
+
+        data.forEach((val, index) => {
+
+          let pauseStreamer = new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME)
+          // if (index == 0)
+          // pauseStreamer = new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.PAUSE)
+
+          let data = {
+            log_id: val['_id'],
+            title: val['_id'],
+            desc: 'Dummy Description',
+            loaded: false,
+            initiated: false,
+            loading: new Subject(),
+            collapsed: true,
+            content: [],
+            content$: new Subject(),
+            pauseStreamer$: pauseStreamer
+
+
+          }
+
+          this.topics.push(data)
+
+
+          this.cdr.markForCheck()
+          if (index == 0) {
+            this.onSelectionChange(index)
+
+          }
+
+
+        })
+
+
+
+
+      })
+  }
 
 
   pause(index) {
