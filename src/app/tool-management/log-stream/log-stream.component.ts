@@ -99,7 +99,7 @@ export class LogStreamComponent implements OnInit {
 
 
 
-    this
+    this.topics[index].subscription = this
       .toolApiService
       .getLogs(this.topics[index].log_id, 20, this.topics[index].pauseStreamer$, THROTTLE_DELAY)
       .pipe(
@@ -145,6 +145,14 @@ export class LogStreamComponent implements OnInit {
   onSelectionChange(index) {
     this.streamLogs(index, false)
 
+
+    if (this.topic) {
+      this.topic.subscription.unsubscribe()
+      this.topic.content$.complete()
+
+      
+    }
+
     this.topic = this.topics[index]
 
     // this.resumeKeepAtBottom()
@@ -176,7 +184,8 @@ export class LogStreamComponent implements OnInit {
             collapsed: true,
             content: [],
             content$: new Subject(),
-            pauseStreamer$: pauseStreamer
+            pauseStreamer$: pauseStreamer,
+            subscription: Subscription.EMPTY
 
 
           }
