@@ -30,9 +30,9 @@
       </nb-icon>
     </button>
 
-    <nb-select (selectedChange)="onSelectionChange($event)" [selected]="0" *ngIf="topics.length > 0"
+    <nb-select (selectedChange)="onSelectionChange($event)" [selected]="0" *ngIf="build_list.length > 0"
       placeholder="Success" size="small" hero status="basic">
-      <nb-option *ngFor="let topic of topics ; index as index" [value]="index">{{topic?.log_id}} </nb-option>
+      <nb-option *ngFor="let topic of build_list ; index as index" [value]="index">{{topic?.log_id}} </nb-option>
 
     </nb-select>
 
@@ -78,14 +78,14 @@
 
                 <button hero status="danger"
                   *ngIf=" ( status == LOG_STREAM_STATUS$.START  || status == LOG_STREAM_STATUS$.RESUME  ) "
-                  (click)="pause(index)" nbButtonToggle size="small">
+                  (click)="pause()" nbButtonToggle size="small">
                   <nb-icon icon="pause-circle">
                   </nb-icon>
                   Pause
                 </button>
 
                 <button hero status="primary"  
-                  [(pressed)]="!streaming " (pressedChange)="toggleStreamingLogs($event)" (click)="resume(index)"
+                  [(pressed)]="!streaming " (pressedChange)="toggleStreamingLogs($event)" (click)="resume()"
                   nbButtonToggle size="small">
                   <nb-icon icon="play-circle">
                   </nb-icon>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
@@ -71,19 +71,19 @@ export class BuildCreateComponent implements OnInit {
 
 
   form = new FormGroup({
-    tool_tag: new FormControl(''),
-    tool_name: new FormControl(''),
+    tool_tag: new FormControl('', [Validators.required]),
+    tool_name: new FormControl('', [Validators.required]),
     build_type: new FormControl('registry_public'),
 
     registry_public: new FormGroup({
 
 
-      authentication: new FormControl('token'),
-      image_name: new FormControl(''),
-      image_tag: new FormControl(''),
-      username: new FormControl(''),
-      password: new FormControl(''),
-      auth_token: new FormControl(''),
+      authentication: new FormControl('token', [Validators.required]),
+      image_name: new FormControl('', [Validators.required] ),
+      image_tag: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      auth_token: new FormControl('', [Validators.required]),
 
 
 

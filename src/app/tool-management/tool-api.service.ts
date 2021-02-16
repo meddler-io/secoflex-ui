@@ -145,12 +145,8 @@ export class ToolApiService {
   }
 
 
-  createTool(alias, name, description) {
-    return this.http.post(`${url}/tool`, {
-      alias: alias,
-      name: name,
-      description: description
-    })
+  createTool(data) {
+    return this.http.post(`${url}/tool`,data)
   }
 
 

@@ -5,6 +5,7 @@ import { ToolStoreService } from '../tool-store.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 
 import { NbDialogService } from '@nebular/theme';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tool-home',
@@ -16,6 +17,7 @@ import { NbDialogService } from '@nebular/theme';
 
 })
 export class ToolHomeComponent implements OnInit {
+
 
 
 
@@ -43,16 +45,17 @@ export class ToolHomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createTool(alias , name, desc) {
-    this.toolApiService.createTool(alias , name, desc).subscribe()
+  createTool(alias, name, desc) {
+    this.toolApiService.createTool(alias, name, desc).subscribe()
   }
 
   open(dialog: TemplateRef<any>) {
     this.dialogService.open(dialog, {
-      
+
       dialogClass: 'test',
       // backdropClass: 'test2',
-      closeOnBackdropClick: false, context: 'this is some additional data passed to dialog' });
+      closeOnBackdropClick: false, context: 'this is some additional data passed to dialog'
+    });
   }
 
 

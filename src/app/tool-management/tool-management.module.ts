@@ -27,11 +27,12 @@ import {A11yModule} from '@angular/cdk/a11y';
 import { HttpClientModule } from '@angular/common/http';
 import { BuildConfigComponent } from './build-config/build-config.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToolCreateComponent } from './tool-create/tool-create.component';
 
 @NgModule({
   declarations: [ToolHomeComponent,
 
-    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent
+    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent
   ],
   imports: [
 

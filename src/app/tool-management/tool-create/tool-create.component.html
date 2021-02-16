@@ -1,0 +1,42 @@
+<nb-card style="width: 100%;   " class="dialog">
+  <nb-card-header>
+    <span class="h6 text-hint">
+      Create new tool
+
+    </span>
+  </nb-card-header>
+  <nb-card-body [formGroup]="form">
+
+    <div style="margin: 1rem;">
+      <nb-form-field fieldSize="small">
+        <nb-icon icon="at" nbPrefix></nb-icon>
+        <input [status]="form.controls['alias'].valid ? 'primary' : 'basic' " formControlName="alias" fullWidth nbInput
+          placeholder="Alias">
+
+      </nb-form-field>
+    </div>
+    <div style="margin: 1rem;">
+      <nb-form-field>
+
+        <input [status]="form.controls['name'].valid ? 'primary' : 'basic' " formControlName="name" fullWidth nbInput fieldSize="large"
+          placeholder="Name">
+      </nb-form-field>
+    </div>
+    <div style="margin: 1rem;">
+      <nb-form-field>
+
+        <textarea [status]="form.controls['desc'].valid ? 'primary' : 'basic' " formControlName="desc" style="resize: none;" fullWidth
+          nbInput fieldSize="medium" placeholder="Description (Optional) "></textarea>
+      </nb-form-field>
+    </div>
+  </nb-card-body>
+
+
+  <nb-card-footer fxLayoutAlign="end" fxLayoutGap="1rem">
+    <!-- <button hero status="basic" nbButton (click)="ref.close()">Go Back</button> -->
+
+    <button
+    [disabled]="form.invalid"
+    (click)="createTool()" filled status="success" nbButton  >Save</button>
+  </nb-card-footer>
+</nb-card>
