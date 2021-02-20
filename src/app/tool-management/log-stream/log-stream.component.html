@@ -1,44 +1,38 @@
-<div class="head" fxLayoutAlign="space-between center">
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
-      <nb-icon class="text-alternate" icon="arrow-back-outline">
-      </nb-icon>
-    </button>
+<div class="head" fxLayout="row" fxLayoutAlign="start center">
+  <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
+    <nb-icon class="text-alternate" icon="arrow-back-outline">
+    </nb-icon>
+  </button>
 
-    <div class="subtitle text-alternate">
-      Logs
-    </div>
+  <div fxFlex class="subtitle text-alternate">
+    Logs
+  </div>
 
+  <div>
 
+    <nb-select  [style.marginRight]="'1rem'" (selectedChange)="onSelectionChange($event)" [selected]="0"
+      *ngIf="build_list.length > 0" placeholder="Success" size="small" status="danger" 
+      filled
+      >
+      <nb-option *ngFor="let topic of build_list ; index as index" [value]="index">123{{topic?.log_id}} </nb-option>
+
+    </nb-select>
   </div>
 
 
-  <dic fxLayout="row" fxLayoutAlign="center center">
+</div>
 
 
 
-    <!-- <button ghost class="action " size="small" nbButton>
+<!-- <button ghost class="action " size="small" nbButton>
       <nb-icon class="text-alternate" icon="minus-outline">
 
       </nb-icon>
     </button> -->
 
 
-    <button ghost class="action " size="medium" nbButton>
-      <nb-icon class="text-alternate" icon="external-link-outline">
 
-      </nb-icon>
-    </button>
 
-    <nb-select (selectedChange)="onSelectionChange($event)" [selected]="0" *ngIf="build_list.length > 0"
-      placeholder="Success" size="small" hero status="basic">
-      <nb-option *ngFor="let topic of build_list ; index as index" [value]="index">{{topic?.log_id}} </nb-option>
-
-    </nb-select>
-
-  </dic>
-
-</div>
 <div class="content">
 
 
@@ -48,6 +42,10 @@
 
       <div fxFill fxLayout="column" class="log-container">
 
+
+        <div *ngIf=" topic?.content == undefined ||  topic?.content?.length < 1" fxLayoutAlign="center center">
+          <ngx-progress-spinner></ngx-progress-spinner>
+        </div>
 
 
 
@@ -84,9 +82,8 @@
                   Pause
                 </button>
 
-                <button hero status="primary"  
-                  [(pressed)]="!streaming " (pressedChange)="toggleStreamingLogs($event)" (click)="resume()"
-                  nbButtonToggle size="small">
+                <button hero status="primary" [(pressed)]="!streaming " (pressedChange)="toggleStreamingLogs($event)"
+                  (click)="resume()" nbButtonToggle size="small">
                   <nb-icon icon="play-circle">
                   </nb-icon>
 
@@ -97,9 +94,11 @@
                   <nb-icon icon="arrowhead-down-outline"></nb-icon>
                   Follow
                 </button>
+
+
+
+
               </nb-button-group>
-
-
 
 
             </div>

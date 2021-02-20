@@ -46,8 +46,6 @@ export class ToolApiService {
 
     return defer(() => {
 
-
-
       pauseEventSubject$.pipe().subscribe((pause: LOG_STREAM_STATUS) => {
 
 
@@ -73,7 +71,8 @@ export class ToolApiService {
                 let x_file_size = d.headers.get('X-File-Size')
 
                 if (x_file_range == null || x_file_size == null) {
-                  throw ("Error processing")
+                  // throw ("Error processing")
+
                   return
 
                 }
@@ -85,6 +84,7 @@ export class ToolApiService {
 
               }),
               // map(d => `${count}: ${d.body}`),
+
               map(d => `${d.body}`),
 
 
@@ -114,8 +114,8 @@ export class ToolApiService {
               if (fileSize != -1) {
                 if (seek >= fileSize) {
                   console.log('closing')
-                  logStramSubject.complete()
-                  apiSubscription.unsubscribe()
+                  // logStramSubject.complete()
+                  // apiSubscription.unsubscribe()
                   return
                 }
               }
@@ -135,6 +135,9 @@ export class ToolApiService {
         } else if (pause == LOG_STREAM_STATUS.STOP) {
           console.log('stopped')
           logStramSubject.complete()
+          apiSubscription.unsubscribe()
+          // logStramSubject.complete()
+          return
         }
 
       })
@@ -146,7 +149,7 @@ export class ToolApiService {
 
 
   createTool(data) {
-    return this.http.post(`${url}/tool`,data)
+    return this.http.post(`${url}/tool`, data)
   }
 
 
@@ -164,8 +167,13 @@ export class ToolApiService {
     return this.http.get(`${url}/tool`)
   }
 
-  buildTool(build_type: string, data) {
+  createBuild(build_type: string, data: {}) {
     return this.http.post(`${url}/build/${build_type}`, data
+    )
+  }
+
+  editBuild(build_id: string, build_type: string, data: {}) {
+    return this.http.put(`${url}/build/${build_type}/${build_id}`, data
     )
   }
 
@@ -174,16 +182,93 @@ export class ToolApiService {
     )
   }
 
+
+  getBuild(tool_id: string, build_id: string) {
+    return this.http.get(`${url}/build/${tool_id}/${build_id}`)
+  }
+
   getBuildConfig(build_id: string) {
     return this.http.get(`${url}/build/config/${build_id}`)
   }
 
   getBuilds(refrence_id: string) {
-    return this.http.get(`${url}/build/${refrence_id}`)
+    return this.http.get(`${url}/builds/${refrence_id}`)
   }
 
   getBuildExecoturs(refrence_id: string) {
     return this.http.get(`${url}/build/executors/${refrence_id}`)
+  }
+
+  getBuildUploadUrl(refrence_id: string, file_name: string) {
+    return this.http.post(`${url}/build/upload/init`, {
+      id: refrence_id,
+      filename: file_name
+    })
+  }
+
+  getBuildDownloadUrl(data: {}) {
+    return this.http.post(`${url}/build/download/init`, data)
+  }
+
+  // 
+
+  public uploadWithUrl(file: File, url: string): Observable<{
+    status: boolean, progress: number, fileData?: any
+  }> {
+
+
+    // this will be the our resulting map
+    let status: Observable<{
+      status: boolean, progress: number, fileData?: any
+    }>
+    // create a new multipart-form for every file
+    const formData: FormData = new FormData();
+    console.log('file_debug', file.name)
+    console.log('file_debug', file.size)
+    formData.append('files', file);
+    // formData.append('data', 'fileUploading');
+
+
+    // create a http-post request and pass the form
+    // tell it to report the upload progress
+
+    let headers = new HttpHeaders();
+    // headers = headers.append('content-type', "multipart/form-data");
+
+
+    let req = this.http.put(url, file, {
+      reportProgress: true,
+      observe: 'events',
+      headers: headers
+    })
+
+    // create a new progress-subject for every file
+    const progress = new Subject<{
+      status: boolean, progress: number, fileData?: any
+    }>()
+
+    // send the http-request and subscribe for progress-updates
+    req.pipe(finalize(() => console.log('complete...'))).subscribe(event => {
+
+      if (event.type === HttpEventType.UploadProgress) {
+        // calculate the progress percentage
+        const percentDone = Math.round(100 * event.loaded / event.total);
+        // pass the percentage into the progress-stream
+        progress.next({ status: false, progress: percentDone });
+      } else if (event instanceof HttpResponse) {
+        // Close the progress-stream if we get an answer form the API
+        // The upload is complete
+        progress.next({ status: true, progress: 100, fileData: event.body })
+        progress.complete();
+      }
+
+    });
+
+    // Save every progress-observable in a map of all observables
+    status = progress.asObservable()
+
+    // return the map of progress.observables
+    return status;
   }
 
 

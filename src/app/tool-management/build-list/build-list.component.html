@@ -108,6 +108,14 @@
 
 
 
+          </nb-card-footer>
+
+          <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+
+            <button (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )" status="basic" size="small" nbButton>Edit</button>
+
+            <button (click)="runTask( build?._id ) " status="primary" size="small" nbButton>Build</button>
 
             <button (click)="runTask( build?._id ) " status="danger" size="small" nbButton>Run</button>
           </nb-card-footer>
@@ -137,11 +145,21 @@
 
 </ng-template>
 
+<ng-template let-close="close" let-context="context"  #buildEditTemplate>
+
+  <app-build-create [edit_mode]="context.edit_mode" [close]="close" 
+  [build_id]="context.build_id"
+  [refrence_id]="refrence_id"></app-build-create>
+
+</ng-template>
+
 <ng-template let-close="close" #buildCreateTemplate>
 
   <app-build-create [close]="close" [refrence_id]="refrence_id"></app-build-create>
 
 </ng-template>
+
+
 
 
 <ng-template let-close="close" let-context="context" #buildconfigTemplate>

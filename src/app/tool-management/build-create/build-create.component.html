@@ -1,3 +1,506 @@
+<!-- File:  Dockerfile -->
+<ng-template #dockerfile [formGroup]="config_form">
+
+  <ng-container formGroupName="dockerfile">
+
+    <div formGroupName="data" fxLayout="column">
+
+      <div>
+        <p class="subtitle-2 text-hint">
+          Dockerfile
+        </p>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="1rem">
+
+        <nb-form-field fxFlex>
+          <textarea formControlName="dockerfile" fullWidth nbInput placeholder=" Dockerfile">
+
+          </textarea>
+
+        </nb-form-field>
+
+
+      </div>
+
+
+
+    </div>
+
+    <app-divider></app-divider>
+
+
+  </ng-container>
+
+</ng-template>
+
+<!-- Image:  Docker Hub -->
+<ng-template #registry_public [formGroup]="config_form">
+
+  <ng-container formGroupName="registry_public">
+
+    <div formGroupName="data" fxLayout="column">
+
+      <div>
+        <p class="subtitle-2 text-hint">
+          Docker Image
+        </p>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="1rem">
+
+        <nb-form-field>
+          <input formControlName="image_name" fullWidth nbInput placeholder="Image Name">
+
+        </nb-form-field>
+
+        <nb-form-field>
+          <input formControlName="image_tag" fullWidth nbInput placeholder="Tag Name">
+        </nb-form-field>
+      </div>
+
+
+
+    </div>
+
+    <app-divider></app-divider>
+
+    <div fxLayout="column">
+
+      <div>
+        <p class="subtitle-2 text-hint">
+          Credentials
+        </p>
+      </div>
+      <div>
+
+        <nb-select size="medium" status="primary" formControlName="authentication" filled placeholder="Authentication">
+
+          <nb-option value="none">
+            No Auth
+          </nb-option>
+          <nb-option value="credentials">
+            Credentials
+          </nb-option>
+
+
+        </nb-select>
+      </div>
+
+    </div>
+
+    <app-divider></app-divider>
+
+    <ng-container formGroupName="auth_mode">
+
+      <ng-container formGroupName="credentials"
+        *ngIf="config_form.value.registry_public.authentication == 'credentials' ">
+
+        <!-- <div class="subtitle text-hint container label-text">
+          Username
+        </div> -->
+
+        <div fxLayout="row" class="container">
+          <nb-form-field>
+            <nb-icon icon="at-outline" nbPrefix></nb-icon>
+            <input formControlName="username" fullWidth nbInput placeholder="Username">
+          </nb-form-field>
+        </div>
+
+        <div fxLayout="row" class="container">
+
+          <nb-form-field>
+            <nb-icon icon="hash-outline" nbPrefix></nb-icon>
+
+            <input formControlName="password" fullWidth nbInput placeholder="Password">
+          </nb-form-field>
+        </div>
+
+      </ng-container>
+
+      <ng-container formGroupName="token" *ngIf="config_form.value.registry_public.authentication == 'token' ">
+
+        <div fxLayout="row" class="container">
+          <nb-form-field fxFlex>
+            <textarea formControlName="auth_token" fullWidth nbInput placeholder="Auth token"></textarea>
+          </nb-form-field>
+
+        </div>
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-container>
+
+</ng-template>
+
+
+<!-- Image: Private Repository -->
+<ng-template #registry_private [formGroup]="config_form">
+
+  <ng-container formGroupName="registry_private">
+
+    <div formGroupName="data" fxLayout="column">
+
+
+
+      <div>
+        <p class="subtitle-2 text-hint">
+          Private Docker Registry
+        </p>
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="1rem">
+
+        <nb-form-field>
+          <input formControlName="registry_url" fullWidth nbInput placeholder="Registry Url">
+
+        </nb-form-field>
+
+
+      </div>
+      <div fxLayout="row" fxLayoutGap="1rem">
+
+        <nb-form-field>
+          <input formControlName="image_name" fullWidth nbInput placeholder="Image Name">
+
+        </nb-form-field>
+
+        <nb-form-field>
+          <input formControlName="image_tag" fullWidth nbInput placeholder="Tag Name">
+        </nb-form-field>
+      </div>
+
+
+
+    </div>
+
+    <app-divider></app-divider>
+
+    <div fxLayout="column">
+
+      <div>
+        <p class="subtitle-2 text-hint">
+          Credentials
+        </p>
+      </div>
+      <div>
+
+        <nb-select size="medium" status="primary" formControlName="authentication" filled placeholder="Authentication">
+
+          <nb-option value="none">
+            No Auth
+          </nb-option>
+          <nb-option value="credentials">
+            Credentials
+          </nb-option>
+
+
+        </nb-select>
+      </div>
+
+    </div>
+
+    <app-divider></app-divider>
+
+    <ng-container formGroupName="auth_mode">
+
+      <ng-container formGroupName="credentials"
+        *ngIf="config_form.value.registry_private.authentication == 'credentials' ">
+
+        <!-- <div class="subtitle text-hint container label-text">
+          Username
+        </div> -->
+
+        <div fxLayout="row" class="container">
+          <nb-form-field>
+            <nb-icon icon="at-outline" nbPrefix></nb-icon>
+            <input formControlName="username" fullWidth nbInput placeholder="Username">
+          </nb-form-field>
+        </div>
+
+        <div fxLayout="row" class="container">
+
+          <nb-form-field>
+            <nb-icon icon="hash-outline" nbPrefix></nb-icon>
+
+            <input formControlName="password" fullWidth nbInput placeholder="Password">
+          </nb-form-field>
+        </div>
+
+      </ng-container>
+
+      <ng-container formGroupName="token" *ngIf="config_form.value.registry_private.authentication == 'token' ">
+
+        <div fxLayout="row" class="container">
+          <nb-form-field fxFlex>
+            <textarea formControlName="auth_token" fullWidth nbInput placeholder="Auth token"></textarea>
+          </nb-form-field>
+
+        </div>
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-container>
+
+</ng-template>
+
+
+<!-- Bundle: Git Repository -->
+<ng-template #bundle_git [formGroup]="config_form">
+
+
+  <ng-container formGroupName="bundle_git">
+
+    <div fxLayoutGap="1rem" formGroupName="data" fxLayout="column">
+
+
+      <div fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="1rem">
+
+
+        <div fxFlex>
+          <p class="subtitle-2 text-hint">
+            Repository
+          </p>
+        </div>
+
+        <nb-select size="small" status="primary" formControlName="repository" outline placeholder="Repository">
+
+          <nb-option *ngFor="let repo of gitRepositories" [value]="repo.id">
+            {{repo?.name}}
+          </nb-option>
+
+
+        </nb-select>
+      </div>
+
+      <div fxLayout="row">
+
+        <nb-form-field fxFlex>
+          <span nbPrefix>
+            Url
+          </span>
+
+          <input formControlName="repository_url" fullWidth nbInput placeholder="Repository URL">
+
+        </nb-form-field>
+
+      </div>
+
+
+
+    </div>
+
+    <app-divider></app-divider>
+
+    <div fxLayout="column">
+
+      <div fxLayoutAlign="center center" fxLayout="row">
+
+        <div fxFlex>
+          <p class="subtitle-2 text-hint">
+            Credentials
+          </p>
+        </div>
+        <div>
+
+          <nb-select size="small" status="primary" outline formControlName="authentication"
+            placeholder="Authentication">
+
+            <nb-option value="none">
+              No Auth
+            </nb-option>
+            <nb-option value="credentials">
+              Credentials
+            </nb-option>
+            <nb-option value="token">
+              Auth Token
+            </nb-option>
+            <nb-option value="ssh">
+              SSH Key
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+
+    </div>
+
+    <app-divider></app-divider>
+
+    <ng-container formGroupName="auth_mode">
+
+      <ng-container formGroupName="credentials" *ngIf="config_form.value.bundle_git.authentication == 'credentials' ">
+
+        <!-- <div class="subtitle text-hint container label-text">
+          Username
+        </div> -->
+
+        <div fxLayout="row" class="container" fxLayoutGap="1rem">
+          <nb-form-field fxFlex>
+            <nb-icon icon="at-outline" nbPrefix></nb-icon>
+            <input fieldSize="small" formControlName="username" fullWidth nbInput placeholder="Username">
+          </nb-form-field>
+
+          <nb-form-field fxFlex>
+            <nb-icon icon="hash-outline" nbPrefix></nb-icon>
+
+            <input fieldSize="small" formControlName="password" fullWidth nbInput placeholder="Password">
+          </nb-form-field>
+        </div>
+
+
+      </ng-container>
+
+      <ng-container formGroupName="token" *ngIf="config_form.value.bundle_git.authentication == 'token' ">
+
+        <div fxLayout="row" class="container">
+          <nb-form-field fxFlex>
+            <textarea fieldSize="small" formControlName="auth_token" fullWidth nbInput
+              placeholder="Auth token"></textarea>
+          </nb-form-field>
+
+        </div>
+
+      </ng-container>
+
+      <ng-container formGroupName="ssh" *ngIf="config_form.value.bundle_git.authentication == 'ssh' ">
+
+        <div fxLayout="row" class="container">
+          <nb-form-field fxFlex>
+            <textarea fieldSize="small" formControlName="ssh_key" fullWidth nbInput placeholder="SSH Key"></textarea>
+          </nb-form-field>
+
+        </div>
+
+      </ng-container>
+
+    </ng-container>
+
+  </ng-container>
+
+
+</ng-template>
+
+
+<!-- Bundle: Url  -->
+<ng-template #bundle_url [formGroup]="config_form">
+  <ng-container formGroupName="bundle_url">
+
+
+
+
+    <div formGroupName="data" fxLayout="column" fxLayoutGap="1rem">
+
+
+
+      <nb-select size="small" status="primary" formControlName="type" filled placeholder="Repository">
+
+        <nb-option *ngFor="let bundle of bundleType" [value]="bundle.id">
+          {{bundle?.name}}
+        </nb-option>
+
+
+      </nb-select>
+
+      <nb-form-field>
+
+        <input fieldSize="small" formControlName="url" fullWidth nbInput placeholder="Url">
+
+      </nb-form-field>
+    </div>
+
+
+
+
+  </ng-container>
+
+
+</ng-template>
+
+<!-- Bundle: Upload  -->
+<ng-template #bundle_upload [formGroup]="config_form">
+
+  <ng-container formGroupName="bundle_upload">
+
+
+    <ng-container formGroupName="data">
+
+
+      <div fxLayout="column" fxLayoutGap="1rem">
+
+        <div fxLayout="row">
+
+          <nb-select size="small" status="primary" formControlName="type" filled placeholder="Repository">
+
+            <nb-option *ngFor="let bundle of bundleType" [value]="bundle.id">
+              {{bundle?.name}}
+            </nb-option>
+
+
+          </nb-select>
+
+
+        </div>
+
+
+
+
+        <div fxLayout="row" fxLayoutGap="1rem">
+          <input type="file" #file style="display: none"
+            (change)="upload( $event.target.files[0] ,  config_form.get(  'bundle_upload').get('data') )">
+
+
+          <button *ngIf=" config_form.get('bundle_upload').get('data').invalid " (click)="file.click()" nbButton
+            size="small">
+            Upload
+
+          </button>
+
+          <button status="primary" [disabled]=" config_form.get('bundle_upload').get('data').invalid "
+            (click)="download( config_form.get('bundle_upload').get('data').value )" nbButton size="small">
+            Download
+
+          </button>
+
+
+          <button (click)=" config_form.get('bundle_upload').get('data').get('url').setValue('') " nbButton
+            size="small">
+            Reset
+
+          </button>
+
+        </div>
+
+        <div fxLayout="row">
+
+          <ng-container *ngIf="bundke_upload_progress | async as bundke_upload_progress">
+
+            <div fxFlex fxLayout="row">
+
+              <nb-progress-bar *ngIf="bundke_upload_progress?.uploading" size="tiny" fxFlex
+                [value]="bundke_upload_progress?.progress" status="success" [displayValue]="true">
+              </nb-progress-bar>
+            </div>
+          </ng-container>
+        </div>
+
+      </div>
+
+
+    </ng-container>
+
+
+  </ng-container>
+
+
+</ng-template>
+
+
+
 <ng-container [formGroup]="form">
 
 
@@ -57,13 +560,13 @@
 
           <nb-form-field>
 
-            <input cdkFocusInitial [status]="form.controls['tool_name'].valid ? 'primary' : 'basic' " formControlName="tool_name"
-              nbInput placeholder="Tool Name">
+            <input cdkFocusInitial [status]="form.controls['tool_name'].valid ? 'primary' : 'basic' "
+              formControlName="tool_name" nbInput placeholder="Tool Name">
 
           </nb-form-field>
           <nb-form-field fieldSize="small">
-            <input [status]="form.controls['tool_tag'].valid ? 'primary' : 'basic' " 
-              formControlName="tool_tag" nbInput placeholder="Tool tag">
+            <input [status]="form.controls['tool_tag'].valid ? 'primary' : 'basic' " formControlName="tool_tag" nbInput
+              placeholder="Tool tag">
           </nb-form-field>
         </div>
       </div>
@@ -81,7 +584,7 @@
         <div fxLayout="row">
 
           <nb-form-field fxFlex>
-            <textarea fullWidth nbInput placeholder="Description"></textarea>
+            <textarea formControlName="desc" fullWidth nbInput placeholder="Description"></textarea>
           </nb-form-field>
 
         </div>
@@ -91,41 +594,28 @@
 
 
       <div fxLayoutAlign="space-between center" fxLayout="row" fxLayoutGap="1rem">
-        <p class="subtitle text-basic">
+        <p fxFlex class="subtitle text-basic">
           Tools Source
         </p>
 
-        <button shape="round" ghost nbButton>
-          <nb-icon icon="info"></nb-icon>
-        </button>
+
+        <nb-select size="small" #buildTypeSelect hero [status]="  form?.value?.build_type ? 'primary' : 'danger' "
+          formControlName="build_type" placeholder="Select Build Type">
+          <nb-option-group *ngFor="let group of buildTypes" [title]="group.name">
+            <nb-option [disabled]="!option?.active" *ngFor="let option of group.children " [value]="option.id">
+              {{option?.name}}
+            </nb-option>
+          </nb-option-group>
+        </nb-select>
+
+
+
       </div>
 
       <app-divider></app-divider>
 
 
-      <div fxLayout="column">
 
-        <div>
-          <p class="subtitle-2 text-hint">
-            Tools Source
-          </p>
-        </div>
-
-
-        <div>
-
-          <nb-select size="medium" #buildTypeSelect hero [status]="  form?.value?.build_type ? 'primary' : 'danger' "
-            formControlName="build_type" placeholder="Select Build Type">
-            <nb-option-group *ngFor="let group of buildTypes" [title]="group.name">
-              <nb-option *ngFor="let option of group.children " [value]="option.id">
-                {{option?.name}}
-              </nb-option>
-            </nb-option-group>
-          </nb-select>
-        </div>
-      </div>
-
-      <app-divider></app-divider>
 
 
       <!-- <div class="subtitle text-hint container label-text">
@@ -133,339 +623,41 @@
       </div> -->
 
 
-      <!-- Image:  Docker Hub -->
-      <ng-container *ngIf="form.value.build_type == 'registry_public'  " formGroupName="registry_public">
 
-        <div fxLayout="column">
+      <ng-container [ngSwitch]="form.value.build_type">
 
-
-
-          <div>
-            <p class="subtitle-2 text-hint">
-              Docker Image
-            </p>
-          </div>
-
-          <div fxLayout="row" fxLayoutGap="1rem">
-
-            <nb-form-field>
-              <input
-              formControlName="image_name" fullWidth nbInput placeholder="Image Name">
-              dsad {{form.get('registry_public').get('image_name').valid}}
-              registry_public.controls['image_name']
-            </nb-form-field>
-
-            <nb-form-field>
-              <input formControlName="image_tag" fullWidth nbInput placeholder="Tag Name">
-            </nb-form-field>
-          </div>
-
-
-
-        </div>
-
-        <app-divider></app-divider>
-
-        <div fxLayout="column">
-
-          <div>
-            <p class="subtitle-2 text-hint">
-              Credentials
-            </p>
-          </div>
-          <div>
-
-            <nb-select size="medium" status="primary" formControlName="authentication" filled
-              placeholder="Authentication">
-
-              <nb-option value="none">
-                No Auth
-              </nb-option>
-              <nb-option value="credentials">
-                Credentials
-              </nb-option>
-              <nb-option value="token">
-                Auth Token
-              </nb-option>
-
-            </nb-select>
-          </div>
-
-        </div>
-
-        <app-divider></app-divider>
-
-        <ng-container *ngIf="form.value.registry_public.authentication == 'credentials' ">
-
-          <!-- <div class="subtitle text-hint container label-text">
-            Username
-          </div> -->
-
-          <div fxLayout="row" class="container">
-            <nb-form-field>
-              <nb-icon icon="at-outline" nbPrefix></nb-icon>
-              <input formControlName="username" fullWidth nbInput placeholder="Username">
-            </nb-form-field>
-          </div>
-
-          <div fxLayout="row" class="container">
-
-            <nb-form-field>
-              <nb-icon icon="hash-outline" nbPrefix></nb-icon>
-
-              <input formControlName="password" fullWidth nbInput placeholder="Password">
-            </nb-form-field>
-          </div>
-
+        <ng-container *ngSwitchCase="'dockerfile'">
+          <ng-template *ngTemplateOutlet="dockerfile"> </ng-template>
         </ng-container>
 
-        <ng-container *ngIf="form.value.registry_public.authentication == 'token' ">
-
-          <div fxLayout="row" class="container">
-            <nb-form-field fxFlex>
-              <textarea formControlName="auth_token" fullWidth nbInput placeholder="Auth token"></textarea>
-            </nb-form-field>
-
-          </div>
-
+        <ng-container *ngSwitchCase="'registry_public'">
+          <ng-template *ngTemplateOutlet="registry_public"> </ng-template>
         </ng-container>
 
-      </ng-container>
-
-      <!-- Image: Private Repository -->
-      <ng-container *ngIf="form.value.build_type == 'registry_private'  " formGroupName="registry_private">
-
-
-        <div>
-          <nb-form-field>
-            <input formControlName="registry_url" fullWidth nbInput placeholder="Registry Url">
-          </nb-form-field>
-        </div>
-
-
-        <div class="container" fxLayoutAlign="space-between" fxLayout="row">
-
-
-
-          <div fxLayout="row">
-
-            <nb-form-field>
-              <input formControlName="image_name" fullWidth nbInput placeholder="Image Name">
-            </nb-form-field>
-
-            <nb-form-field>
-              <input formControlName="image_tag" fullWidth nbInput placeholder="Tag Name">
-            </nb-form-field>
-          </div>
-
-
-          <div fxLayoutAlign="end center">
-
-            <nb-select size="small" formControlName="authentication" filled placeholder="Authentication">
-
-              <nb-option value="none">
-                No Auth
-              </nb-option>
-              <nb-option value="credentials">
-                Credentials
-              </nb-option>
-              <nb-option value="token">
-                Auth Token
-              </nb-option>
-
-            </nb-select>
-          </div>
-        </div>
-
-
-
-        <ng-container *ngIf="form.value.registry_private.authentication == 'credentials' ">
-
-
-
-          <!-- <div class="subtitle text-hint container label-text">
-            Username
-          </div> -->
-
-          <div fxLayout="row" class="container">
-            <nb-form-field>
-              <nb-icon icon="at-outline" nbPrefix></nb-icon>
-              <input formControlName="username" fullWidth nbInput placeholder="Username">
-            </nb-form-field>
-          </div>
-
-          <div fxLayout="row" class="container">
-
-            <nb-form-field>
-              <nb-icon icon="hash-outline" nbPrefix></nb-icon>
-
-              <input formControlName="password" fullWidth nbInput placeholder="Password">
-            </nb-form-field>
-          </div>
-
-        </ng-container>
-
-        <ng-container *ngIf="form.value.registry_private.authentication == 'token' ">
-
-          <div fxLayout="row" class="container">
-            <nb-form-field fxFlex>
-              <textarea formControlName="auth_token" fullWidth nbInput placeholder="Auth token"></textarea>
-            </nb-form-field>
-
-          </div>
-
-        </ng-container>
-
-      </ng-container>
-
-
-      <!-- Bundle: Git Repository -->
-      <ng-container *ngIf="form.value.build_type == 'bundle_git'  " formGroupName="bundle_git">
-
-
-
-
-
-        <nb-card-body fxLayout="row">
-
-
-
-          <nb-select status="primary" formControlName="repository" filled placeholder="Repository">
-
-            <nb-option *ngFor="let repo of gitRepositories" [value]="repo.id">
-              {{repo?.name}}
-            </nb-option>
-
-
-          </nb-select>
-
-          <nb-form-field fxFlex>
-
-            <input formControlName="repository_url" fullWidth nbInput placeholder="Registry Url">
-
-          </nb-form-field>
-        </nb-card-body>
-
-        <nb-card-body>
-
-          <div fxLayoutAlign="start">
-
-            <nb-select size="small" formControlName="authentication" filled placeholder="Authentication">
-
-              <nb-option value="none">
-                No Auth
-              </nb-option>
-              <nb-option value="credentials">
-                Credentials
-              </nb-option>
-              <nb-option value="token">
-                Access Token
-              </nb-option>
-              <nb-option value="ssh">
-                SSH Public Key
-              </nb-option>
-
-            </nb-select>
-          </div>
-        </nb-card-body>
-
-
-        <ng-container *ngIf="form.value.bundle_git.authentication == 'credentials' ">
-          <nb-card-body fxLayout="row">
-            <nb-form-field>
-              <input formControlName="username" fullWidth nbInput placeholder="Username">
-            </nb-form-field>
-          </nb-card-body>
-          <nb-card-body fxLayout="row">
-
-            <nb-form-field>
-              <input formControlName="password" fullWidth nbInput placeholder="Password">
-            </nb-form-field>
-          </nb-card-body>
-
+        <ng-container *ngSwitchCase="'registry_private'">
+          <ng-template *ngTemplateOutlet="registry_private"> </ng-template>
         </ng-container>
 
 
-        <ng-container *ngIf="form.value.bundle_git.authentication == 'token' ">
-          <nb-card-body fxLayout="row">
-            <nb-form-field>
-              <input formControlName="token" fullWidth nbInput placeholder="Auth token">
-            </nb-form-field>
-
-          </nb-card-body>
-
+        <ng-container *ngSwitchCase="'bundle_git'">
+          <ng-template *ngTemplateOutlet="bundle_git"> </ng-template>
         </ng-container>
 
-        <ng-container *ngIf="form.value.bundle_git.authentication == 'ssh' ">
-          <nb-card-body fxLayout="row">
-            <nb-form-field>
-              <input formControlName="ssh" fullWidth nbInput placeholder="SSH Key">
-            </nb-form-field>
 
-          </nb-card-body>
-
+        <ng-container *ngSwitchCase="'bundle_url'">
+          <ng-template *ngTemplateOutlet="bundle_url"> </ng-template>
         </ng-container>
-      </ng-container>
 
 
-      <!-- Bundle: Url  -->
-      <ng-container *ngIf="form.value.build_type == 'bundle_url'  " formGroupName="bundle_url">
-
-
-
-
-        <nb-card-body fxLayout="row">
-
-
-
-          <nb-select status="primary" formControlName="type" filled placeholder="Repository">
-
-            <nb-option *ngFor="let bundle of bundleType" [value]="bundle.id">
-              {{bundle?.name}}
-            </nb-option>
-
-
-          </nb-select>
-
-          <nb-form-field fxFlex>
-
-            <input formControlName="url" fullWidth nbInput placeholder="Url">
-
-          </nb-form-field>
-        </nb-card-body>
+        <ng-container *ngSwitchCase="'bundle_upload'">
+          <ng-template *ngTemplateOutlet="bundle_upload"> </ng-template>
+        </ng-container>
 
 
 
 
       </ng-container>
 
-      <!-- Bundle: Upload  -->
-      <ng-container *ngIf="form.value.build_type == 'bundle_upload'  " formGroupName="bundle_upload">
-
-
-
-
-
-        <nb-card-body fxLayout="row">
-
-
-
-          <nb-select status="primary" formControlName="type" filled placeholder="Repository">
-
-            <nb-option *ngFor="let bundle of bundleType" [value]="bundle.id">
-              {{bundle?.name}}
-            </nb-option>
-
-
-          </nb-select>
-
-
-        </nb-card-body>
-
-
-
-
-      </ng-container>
 
 
 
@@ -475,16 +667,22 @@
 
 
 
-    <nb-card-footer (click)="createBuild()">
+    <nb-card-footer (click)="saveChanges()">
 
-      <button 
-      [disabled]="form.invalid"
-      class="buildBtn" fxLayoutAlign="space-between center" size="giant" status="success" filled fullWidth
-        nbButton>
+      <button [disabled]="
+
+      config_form?.get( form.get('build_type').value )?.get('data')?.invalid 
+      ||
+      config_form?.get( form.get('build_type').value )?.get('auth_mode')?.get(  config_form?.get( form.get('build_type').value )?.get('authentication')?.value ).invalid
+
+      
+      " class="buildBtn" fxLayoutAlign="space-between center" size="giant" status="success" filled fullWidth nbButton>
 
         <span>
-          Build
 
+
+
+          Build
         </span>
         <nb-icon icon="play-circle"></nb-icon>
 

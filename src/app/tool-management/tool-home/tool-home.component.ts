@@ -45,9 +45,7 @@ export class ToolHomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createTool(alias, name, desc) {
-    this.toolApiService.createTool(alias, name, desc).subscribe()
-  }
+
 
   open(dialog: TemplateRef<any>) {
     this.dialogService.open(dialog, {

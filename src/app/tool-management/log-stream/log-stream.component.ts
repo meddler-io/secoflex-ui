@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { BehaviorSubject, interval, Subject, Subscription, timer } from 'rxjs';
 import { delay, repeat, repeatWhen, retry, retryWhen, switchMap, tap } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
   // encapsulation: ViewEncapsulation.None
 
 })
-export class LogStreamComponent implements OnInit {
+export class LogStreamComponent implements OnInit, OnDestroy {
 
   LOG_STREAM_STATUS$ = LOG_STREAM_STATUS
 
@@ -44,6 +44,14 @@ export class LogStreamComponent implements OnInit {
   ) {
 
   }
+  ngOnDestroy(): void {
+
+    console.log('unsubscribe')
+    this.topic.subscription.unsubscribe()
+    this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
+
+  }
+
 
   toggleTail(tailing) {
 
@@ -98,6 +106,8 @@ export class LogStreamComponent implements OnInit {
     if (this.topic)
       if (this.topic.loaded)
         return
+
+    console.log(this.topic)
     this.topic.loading.next(true);
 
 
@@ -110,10 +120,13 @@ export class LogStreamComponent implements OnInit {
         tap(d => {
           this.topic.initiated = true;
         }))
-      .subscribe((data => {
+      .subscribe(((data: string) => {
         this.topic.loaded = true;
         this.topic.loading.next(false);
 
+
+        if (data == null || data == undefined || data.length == 0)
+          return
 
         this.topic.content.push(data);
         console.log('log loaded')
@@ -126,6 +139,7 @@ export class LogStreamComponent implements OnInit {
 
       }), () => {
         console.log('completed')
+
         this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
         this.cdr.markForCheck()
 
@@ -146,11 +160,13 @@ export class LogStreamComponent implements OnInit {
   }
 
   onSelectionChange(index) {
-    this.streamLogs(index, false)
 
 
     if (this.topic) {
+      console.log('onSelectioChange', index)
+
       this.topic.subscription.unsubscribe()
+      this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
       this.topic.content$.complete()
 
     }
@@ -160,7 +176,7 @@ export class LogStreamComponent implements OnInit {
 
     this.topic = {
 
-      log_id: `val['_id']`,
+      log_id: this.build_list[index].log_id,
       title: `val['_id']`,
       desc: 'Dummy Description',
       loaded: false,
@@ -174,7 +190,9 @@ export class LogStreamComponent implements OnInit {
 
 
     }
+    this.streamLogs(index, false)
 
+    console.log('this.topic', this.topic)
     // this.topic = this.topics[index]
 
     // this.resumeKeepAtBottom()
@@ -212,7 +230,7 @@ export class LogStreamComponent implements OnInit {
 
           // }
 
-          let data = this.build_list.push({
+          this.build_list.push({
             log_id: val['_id'],
             title: val['_id'],
             desc: 'Dummy Description',
@@ -222,7 +240,7 @@ export class LogStreamComponent implements OnInit {
 
           })
 
-          this.build_list.push(data)
+
 
 
           this.cdr.markForCheck()

@@ -19,6 +19,7 @@ export class BuildListComponent implements OnInit {
 
 
   @ViewChild('buildCreateTemplate', { static: false }) buildCreateTemplate: TemplateRef<any>;
+  @ViewChild('logsTemplate', { static: false }) logTemplate: TemplateRef<any>;
 
 
   refrence_id
@@ -71,6 +72,9 @@ export class BuildListComponent implements OnInit {
 
     if (!context)
       context = {}
+
+
+    console.log('context', context)
     const zIndex = 1000;
     const cssClass = 'backdrop_color'
     // const cssClass = 'cdk-overlay-2'
@@ -127,6 +131,10 @@ export class BuildListComponent implements OnInit {
       TraceId: id,
       fprocess: 'echo hello world'
     }
-    this.toolApiService.runTool(id, data).subscribe()
+    this.toolApiService.runTool(id, data).subscribe(_ => {
+      console.log(_)
+      this.openLogs( this.logTemplate, id  )
+
+    })
   }
 }

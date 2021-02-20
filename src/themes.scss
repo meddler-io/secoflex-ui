@@ -62,6 +62,8 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
     input-basic-hover-border-color: nb-theme(color-basic-600),
 
 
+    option-list-border-width: 0rem,
+    // option-list-adjacent-border-width: 0rem,
     
   ), default, default);
 
