@@ -177,6 +177,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
     this.topic = {
 
       log_id: this.build_list[index].log_id,
+      exec_status: this.build_list[index].exec_status,
       title: `val['_id']`,
       desc: 'Dummy Description',
       loaded: false,
@@ -233,6 +234,8 @@ export class LogStreamComponent implements OnInit, OnDestroy {
           this.build_list.push({
             log_id: val['_id'],
             title: val['_id'],
+            exec_status: val['exec_status'],
+
             desc: 'Dummy Description',
             loaded: false,
             initiated: false,

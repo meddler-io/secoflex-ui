@@ -14,7 +14,9 @@
       *ngIf="build_list.length > 0" placeholder="Success" size="small" status="danger" 
       filled
       >
-      <nb-option *ngFor="let topic of build_list ; index as index" [value]="index">123{{topic?.log_id}} </nb-option>
+      <nb-option *ngFor="let topic of build_list ; index as index" [value]="index">{{topic?.log_id}}
+      {{topic?.exec_status}}  
+      </nb-option>
 
     </nb-select>
   </div>

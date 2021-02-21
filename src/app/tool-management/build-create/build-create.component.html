@@ -556,17 +556,15 @@
           </p>
         </div>
 
-        <div fxLayout="row" fxLayoutGap="1rem">
+        <div formGroupName="tool" fxLayout="row" fxLayoutGap="1rem">
 
           <nb-form-field>
 
-            <input cdkFocusInitial [status]="form.controls['tool_name'].valid ? 'primary' : 'basic' "
-              formControlName="tool_name" nbInput placeholder="Tool Name">
+            <input cdkFocusInitial formControlName="name" nbInput placeholder="Tool Name">
 
           </nb-form-field>
           <nb-form-field fieldSize="small">
-            <input [status]="form.controls['tool_tag'].valid ? 'primary' : 'basic' " formControlName="tool_tag" nbInput
-              placeholder="Tool tag">
+            <input formControlName="alias" nbInput placeholder="Tool tag">
           </nb-form-field>
         </div>
       </div>

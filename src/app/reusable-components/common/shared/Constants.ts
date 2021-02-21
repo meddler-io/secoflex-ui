@@ -5,7 +5,7 @@ export const LOG_SERVICE_URL = 'http://192.168.29.5:8082/'
 
 
 export const THROTTLE = false;
-export const THROTTLE_DELAY = 300;
+export const THROTTLE_DELAY = 1000;
 
 // export const 
 export const ColorPallete = [

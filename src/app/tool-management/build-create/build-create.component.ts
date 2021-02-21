@@ -305,6 +305,22 @@ export class BuildCreateComponent implements OnInit {
 
   form = new FormGroup({
 
+    tool: new FormGroup({
+      name: new FormControl(
+        {
+          value: 'tool_name', disabled: true
+        }
+        , [Validators.required]),
+
+      alias: new FormControl(
+        {
+          value: 'tool_name', disabled: true
+        }
+        , [Validators.required]),
+
+
+
+    }),
 
 
     tool_name: new FormControl(
@@ -344,6 +360,7 @@ export class BuildCreateComponent implements OnInit {
           let build = d['build']
           let build_type = build['type']
           let auth = d['auth']
+          let tool = d['tool']
           let auth_mode = auth['mode']
           auth = auth['auth']
 
@@ -389,6 +406,14 @@ export class BuildCreateComponent implements OnInit {
 
           if (build_type)
             this.form.get('build_type').setValue(build_type)
+
+          if (tool) {
+            if (tool.name)
+              this.form.get('tool').get('name').setValue(tool.name)
+              if (tool.alias)
+              this.form.get('tool').get('alias').setValue(tool.alias)
+
+          }
 
         })
     }
