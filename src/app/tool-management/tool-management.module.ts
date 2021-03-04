@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ToolManagementRoutingModule } from './tool-management-routing.module';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
-import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbProgressBarModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetComponent, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbProgressBarModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetComponent, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -28,11 +28,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { BuildConfigComponent } from './build-config/build-config.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ToolCreateComponent } from './tool-create/tool-create.component';
+import { BuiltImageListComponent } from './built-image-list/built-image-list.component';
+import { DeploymentUiComponent } from './deployment-ui/deployment-ui.component';
+import { JobListComponent } from './job-list/job-list.component';
+import { JobConfigComponent } from './job-config/job-config.component';
 
 @NgModule({
   declarations: [ToolHomeComponent,
 
-    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent
+    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent
   ],
   imports: [
 
@@ -82,7 +86,9 @@ import { ToolCreateComponent } from './tool-create/tool-create.component';
     NbButtonGroupModule,
 
     NbTagModule,
-    NbProgressBarModule
+    NbProgressBarModule,
+    NbContextMenuModule,
+    NbButtonGroupModule
 
 
   ],

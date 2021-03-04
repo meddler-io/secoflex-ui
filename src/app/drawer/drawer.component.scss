@@ -7,6 +7,8 @@
   text-align: left;
   z-index: 998;
   background: $color-blue-grey-800;
+  min-width: 50%;
+  width: 50%;
 
   &.left-drawer {
     top: 4rem ;

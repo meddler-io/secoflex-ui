@@ -13,8 +13,8 @@ $nb-enable-css-custom-properties: true; // <-- enable css custom properties
 $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
     // text-disabled-color: color-basic-600,
 
-    tabset-tab-underline-width: 0.1rem,
-    tabset-divider-width: 5px,
+    tabset-tab-underline-width: 3px,
+    tabset-divider-width: 3px,
     route-tabset-tab-text-font-size: 0.5rem,
     route-tabset-tab-text-font-weight: 300,
     header-height: 4rem,
@@ -63,6 +63,8 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
 
 
     option-list-border-width: 0rem,
+
+    
     // option-list-adjacent-border-width: 0rem,
     
   ), default, default);

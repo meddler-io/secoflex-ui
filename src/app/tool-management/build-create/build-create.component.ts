@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NbTagComponent, NbTagInputDirective } from '@nebular/theme';
+import { NbTagComponent, NbTagInputAddEvent, NbTagInputDirective } from '@nebular/theme';
 import { BehaviorSubject } from 'rxjs';
 
 import { map, flatMap, mergeMap, filter, tap } from 'rxjs/operators';
@@ -22,6 +22,21 @@ export class BuildCreateComponent implements OnInit {
   @Input('edit_mode') edit_mode = false
   @Input('build_id') build_id = undefined
 
+  // Tags
+  meta_tags: Set<string> = new Set();
+
+  onTagRemove(tagToRemove: NbTagComponent): void {
+    this.meta_tags.delete(tagToRemove.text);
+  }
+
+  onTagAdd({ value, input }: NbTagInputAddEvent): void {
+    if (value) {
+      this.meta_tags.add(value)
+    }
+    input.nativeElement.value = '';
+  }
+  // 
+
 
   bundke_upload_progress = new BehaviorSubject<{
 
@@ -33,23 +48,7 @@ export class BuildCreateComponent implements OnInit {
     uploading: false
   })
 
-  tags: Set<string> = new Set<string>();
-  options: string[] = [];
 
-  @ViewChild(NbTagInputDirective, { read: ElementRef }) tagInput: ElementRef<HTMLInputElement>;
-
-  onTagRemove(tagToRemove: NbTagComponent): void {
-    this.tags.delete(tagToRemove.text);
-    this.options.push(tagToRemove.text);
-  }
-
-  onTagAdd(value: string): void {
-    if (value) {
-      this.tags.add(value);
-      this.options = this.options.filter(o => o !== value);
-    }
-    this.tagInput.nativeElement.value = '';
-  }
 
   // End
 
@@ -223,11 +222,12 @@ export class BuildCreateComponent implements OnInit {
     bundle_git: new FormGroup({
 
 
-      authentication: new FormControl('ssh', []),
+      authentication: new FormControl('credentials', []),
 
       data: new FormGroup({
         repository: new FormControl('github', [Validators.required]),
         repository_url: new FormControl('', [Validators.required, Validators.pattern(REGEX_GIT_REPO)]),
+        repository_context: new FormControl('', []),
       }),
 
       auth_mode: new FormGroup({
@@ -331,8 +331,8 @@ export class BuildCreateComponent implements OnInit {
     tool_tag: new FormControl({
       value: 'tool_tag', disabled: true
     }, [Validators.required]),
-    build_type: new FormControl('bundle_url'),
-    desc: new FormControl('Description'),
+    build_type: new FormControl('bundle_git'),
+    desc: new FormControl(''),
 
 
 
@@ -358,6 +358,9 @@ export class BuildCreateComponent implements OnInit {
         .subscribe(d => {
 
           let build = d['build']
+          let meta = d['meta'] || { tags: [] }
+          let meta_tags = meta['tags'] || []
+          this.meta_tags = new Set(meta_tags)
           let build_type = build['type']
           let auth = d['auth']
           let tool = d['tool']
@@ -410,7 +413,7 @@ export class BuildCreateComponent implements OnInit {
           if (tool) {
             if (tool.name)
               this.form.get('tool').get('name').setValue(tool.name)
-              if (tool.alias)
+            if (tool.alias)
               this.form.get('tool').get('alias').setValue(tool.alias)
 
           }
@@ -527,6 +530,10 @@ export class BuildCreateComponent implements OnInit {
         'type': _build_type,
 
       },
+      'meta': {
+        'tags': Array.from(this.meta_tags.values())
+      },
+
       'refrence_id': this.refrence_id
     }
 
@@ -563,6 +570,10 @@ export class BuildCreateComponent implements OnInit {
         'config': config,
         'type': _build_type,
 
+      },
+
+      'meta': {
+        'tags': Array.from(this.meta_tags.values())
       },
       'refrence_id': this.refrence_id
     }

@@ -1,8 +1,13 @@
 @import '../../../themes';
 
+nb-accordion{
+  margin: 0  !important;
+
+}
 nb-accordion-item {
   margin-top: 0.4rem;
-  margin-bottom: 0.4rem;
+  // margin-bottom: 0.4rem;
+  
 
   nb-accordion-item-header {
     &:hover {
@@ -27,6 +32,9 @@ input {
 nb-card {
   margin-bottom: 0;
   border: 0;
+
+  height: 96%;
+  
 }
 
 nb-accordion {
@@ -107,4 +115,13 @@ button.newBtn {
 
   }
 
+}
+
+
+nb-tab{
+  padding: 0px;
+}
+
+.nopad{
+  // padding: 0;
 }

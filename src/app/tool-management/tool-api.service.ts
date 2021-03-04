@@ -153,6 +153,11 @@ export class ToolApiService {
   }
 
 
+  editTool(tool_id, data) {
+    return this.http.put(`${url}/tool/${tool_id}`, data)
+  }
+
+
 
 
   runTool(id, data) {
@@ -197,6 +202,16 @@ export class ToolApiService {
 
   getBuildExecoturs(refrence_id: string) {
     return this.http.get(`${url}/build/executors/${refrence_id}`)
+  }
+
+
+  getToolImages(tool_id: string) {
+    return this.http.get(`${url}/deployment/images/${tool_id}`)
+  }
+
+
+  getToolImageTags(tool_id: string) {
+    return this.http.get(`${url}/deployment/images/tags/${tool_id}`)
   }
 
   getBuildUploadUrl(refrence_id: string, file_name: string) {
@@ -269,6 +284,56 @@ export class ToolApiService {
 
     // return the map of progress.observables
     return status;
+  }
+
+
+  // Depluments
+
+
+  getDeployment(deployment_id: string) {
+    // id = encodeURIComponent(id)
+    return this.http.post(`${url}/deployment/service`, {
+      deployment_id: deployment_id
+    })
+  }
+
+  runDeployment(job_id: string) {
+    // id = encodeURIComponent(id)
+    return this.http.post(`${url}/deployment/run`,
+      {
+        job_id: job_id
+      }
+    )
+
+  }
+
+  execJob(id: string, config) {
+    return this.http.post(`${url}/job/exec/${id}`,
+      config
+    )
+  }
+
+  stopDeployment(job_id: string) {
+    // id = encodeURIComponent(id)
+    return this.http.delete(`${url}/deployment/service`, {
+      params: {
+        job_id: job_id
+      }
+    })
+  }
+
+  purgeDeployment() {
+    // id = encodeURIComponent(id)
+    return this.http.delete(`${url}/deployment/purge`)
+  }
+
+
+  getDeployments(tool_id: string) {
+    return this.http.get(`${url}/deployment/services/${tool_id}`)
+  }
+
+  createDeployment(image_id: string) {
+    return this.http.post(`${url}/deployment/service/${image_id}`, {})
   }
 
 

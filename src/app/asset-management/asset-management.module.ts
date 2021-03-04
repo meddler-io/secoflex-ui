@@ -9,6 +9,9 @@ import { CommonDirectivesModule } from '../common-directives/common-directives.m
 import { AssetConfigurationComponent } from './asset-configuration/asset-configuration.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DelayInterceptor } from '../reusable-components/common/services/DelayHttpInterceptor';
+import { AssetApiService } from './asset-api.service';
 
 
 
@@ -37,7 +40,7 @@ import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.com
 
     NbDialogModule.forChild(),
 
-    // HttpClientModule
+    HttpClientModule,
 
 
     // NbCardModule,
@@ -47,6 +50,12 @@ import { NavbarListItemComponent } from './navbar-list-item/navbar-list-item.com
 
 
 
+
+  ] , 
+  providers: [
+    HttpClientModule,
+    AssetApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: DelayInterceptor, multi: true },
 
   ]
 })

@@ -20,6 +20,9 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   testLogs = ''
 
+  @Input('deep_link') deep_link = false
+
+
   @Input('log_id')
   log_id = 'npop3'
 
@@ -31,7 +34,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   build_list = []
 
-  tailing = false
+  tailing = true
   streaming = true
 
   @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
@@ -76,7 +79,42 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.getExecutors(this.log_id)
+    if (this.deep_link == true)
+      this.deepLinkLoadLog()
+    else
+      this.getExecutors(this.log_id)
+
+  }
+
+  deepLinkLoadLog() {
+    console.log('deep_link')
+
+
+    this.topic = {
+
+      log_id: this.log_id,
+      exec_status: 'SUCCESS',
+      title: `val['_id']`,
+      desc: 'Dummy Description',
+      loaded: false,
+      initiated: false,
+      collapsed: true,
+      loading: new Subject(),
+      content: [],
+      content$: new Subject(),
+      pauseStreamer$: new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME),
+      subscription: Subscription.EMPTY
+
+
+    }
+
+    this.streamLogs(0, true)
+
+
+    // this.topics_ = [this.topic]
+
+    // this.onSelectionChange(0)
+
 
   }
 
@@ -114,7 +152,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
     this.topic.subscription = this
       .toolApiService
-      .getLogs(this.topic.log_id, 20, this.topic.pauseStreamer$, THROTTLE_DELAY)
+      .getLogs(this.topic.log_id, 200, this.topic.pauseStreamer$, THROTTLE_DELAY)
       .pipe(
         delay(THROTTLE_DELAY),
         tap(d => {

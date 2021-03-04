@@ -1,0 +1,139 @@
+<div fxLayout="column">
+  <ng-container *ngFor="let deploy of deployments  ; index as index">
+
+    <nb-card *ngIf="deploy.details | async as details">
+      <nb-card-header>
+        <!-- Name -->
+        <div class="row">
+          <div fxFlex class="text-hint">
+
+            @{{ details?.Name  }}
+
+          </div>
+          <div fxFlex class="subtitle-2">
+            {{details?.Status}}
+
+
+            <!-- @{{ details?.BuildDetails | json  }} -->
+
+
+          </div>
+        </div>
+
+      </nb-card-header>
+
+      <nb-card-body>
+
+
+        <!-- Namespace -->
+        <div class="row">
+          <div fxFlex class="subtitle">
+            Namespace
+
+          </div>
+          <div fxFlex class="subtitle-2">
+            {{ details?.Namespace  }}
+
+          </div>
+        </div>
+
+
+
+        <!-- Status -->
+        <div class="row">
+          <div fxFlex class="subtitle">
+            Status
+
+          </div>
+          <div fxFlex class="subtitle-2">
+            {{ details?.Status  }}
+
+          </div>
+        </div>
+
+
+        <!-- Submitted On -->
+        <div class="row">
+          <div fxFlex class="subtitle">
+            SubmitTime
+
+          </div>
+          <div fxFlex class="subtitle-2">
+            {{ details?.SubmitTime / 1000000  | date:"dd-MM-YY , HH:mm:ss" }}
+
+          </div>
+        </div>
+
+
+
+
+
+      </nb-card-body>
+
+
+      <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+        
+
+        <button (click)="purge(  )" status="primary" ghost size="small" nbButton>
+
+          <nb-icon icon="settings-2-outline"></nb-icon>
+          Purge
+        </button>
+
+
+        <button (click)="execJob( deploy?.id )" status="primary" ghost size="small" nbButton>
+
+          <nb-icon icon="settings-2-outline"></nb-icon>
+          Exec
+        </button>
+
+        <button (click)="openDrawer(jobConfigTemplate , context =  { config: details?.JobConfig , id : deploy?.id }  ) "
+          status="success" ghost size="small" nbButton>
+
+          <nb-icon icon="settings-2-outline"></nb-icon>
+          Run
+        </button>
+
+
+        <button (click)="stopJob( deploy?.id )" status="basic" ghost size="small" nbButton>
+
+          <nb-icon icon="settings-2-outline"></nb-icon>
+          Stop
+        </button>
+
+        <button (click)="openDrawer(logsTemplate)" status="danger" ghost size="small" nbButton>
+
+          <nb-icon icon="settings-2-outline"></nb-icon>
+          Logs
+        </button>
+
+
+        <button status="basic" ghost size="small" nbButton>
+
+          <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+
+          {{details?.Status}}
+        </button>
+
+
+
+      </nb-card-footer>
+    </nb-card>
+  </ng-container>
+
+</div>
+
+
+<ng-template #logsTemplate let-close="close" let-context="context">
+
+  <app-log-stream [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+
+</ng-template>
+
+
+<ng-template let-close="close" let-context="context" #jobConfigTemplate>
+
+  <app-job-config [config]="context?.config" [id]="context?.id"></app-job-config>
+
+</ng-template>

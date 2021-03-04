@@ -121,7 +121,8 @@ const routes: Routes = [
     NbAccordionModule,
     RouterModule.forChild(routes),
 
-    NbThemeModule
+    NbThemeModule.forRoot({ name: 'dark' }),
+    
 
 
   ],

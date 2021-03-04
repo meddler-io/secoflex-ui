@@ -78,3 +78,13 @@ Assets:
             Watchdog would also be respinsible for cleaning the file system.
             
         2. Func. Call
+
+<!--  -->
+deployment:
+    images
+    builds
+
+
+
+<!-- Tokens -->
+c6b841967bf316f67ac0ddc312cf6aad8625359b

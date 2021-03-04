@@ -2,7 +2,7 @@
 
 
 
-  <nb-card *ngIf="false" >
+  <nb-card *ngIf="false">
     <nb-card-header>
 
 
@@ -37,10 +37,14 @@
         <div>
 
 
-          <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+
+
+          <button (click)="openDrawer(toolEditTemplate  , context =  { 'tool_id':  tool?._id , 'edit_mode': true } )"
+            status="basic" ghost size="small" nbButton>
 
             <nb-icon icon="settings-2-outline"></nb-icon>
-            Edit
+            Edits
           </button>
 
 
@@ -51,8 +55,7 @@
           </button>
 
 
-          <button [routerLink]="[ 'builds' , tool?._id ]  " status="success" size="small"
-            nbButton>Explore</button>
+          <button [routerLink]="[ 'builds' , tool?._id ]  " status="success" size="small" nbButton>Explore</button>
         </div>
 
 
@@ -84,7 +87,7 @@
 
 
 
-  <nb-accordion   >
+  <nb-accordion>
     <nb-accordion-item [expanded]="index == 0" *ngFor="let tool of tools   ; index as index ">
       <nb-accordion-item-header fxLayoutAlign="space-between">
 
@@ -100,35 +103,54 @@
       </nb-accordion-item-header>
       <nb-accordion-item-body>
 
-        <div>
+        <nb-card>
+          <nb-card-body>
+            <div>
 
-          <div class="text-hint">
-            {{ tool?.description || 'Tool Description' }}
-          </div>
+              <div class="text-hint">
+                {{ tool?.description || 'Tool Description' }}
+              </div>
 
-          <div fxLayoutAlign="end center">
+            </div>
+          </nb-card-body>
+          <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
-
-            <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
-
-              <nb-icon icon="settings-2-outline"></nb-icon>
-              Edit
-            </button>
-
-
-            <button status="basic" ghost size="small" nbButton>
-
-              <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
-              Fork
-            </button>
+            <div fxLayoutGap="0.5rem" fxLayoutAlign="end center">
 
 
-            <button [routerLink]="[  '/tools'  , 'builds', tool?._id ]  " status="success" size="small"
-              nbButton>Explore</button>
-          </div>
+              <nb-button-group multiple status="primary" size="small" appearance="filled">
 
-        </div>
+                <button
+                  (click)="openDrawer(toolEditTemplate  , context =  { 'tool_id':  tool?._id , 'edit_mode': true } )"
+                  nbButton>
 
+                  <nb-icon icon="settings-2-outline"></nb-icon>
+                  Edit
+                </button>
+                <button (click)="openDrawer(logsTemplate)" nbButton>
+
+                  <nb-icon icon="flip-2-outline"></nb-icon>
+                  Deployments
+                </button>
+
+
+                <button [routerLink]="[  '/tools'  , 'builds', tool?._id ]  " nbButton>
+                  <nb-icon icon="expand-outline"></nb-icon>
+
+                  Explore
+                </button>
+
+              </nb-button-group>
+
+
+
+
+
+            </div>
+
+          </nb-card-footer>
+
+        </nb-card>
 
       </nb-accordion-item-body>
     </nb-accordion-item>
@@ -143,4 +165,10 @@
     <ngx-progress-spinner></ngx-progress-spinner>
   </div>
 
+</ng-template>
+
+
+
+<ng-template #toolEditTemplate let-close="close" let-context="context" let-ref="dialogRef">
+  <app-tool-create [edit_mode]="context.edit_mode" [close]="close" [tool_id]="context.tool_id"></app-tool-create>
 </ng-template>

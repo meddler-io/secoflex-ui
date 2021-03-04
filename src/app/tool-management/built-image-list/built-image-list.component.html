@@ -1,0 +1,86 @@
+<nb-accordion >
+  <nb-accordion-item [expanded]="index == 0" *ngFor="let build of images  ; index as index">
+    <nb-accordion-item-header fxLayoutAlign="space-between">
+
+      <span>
+        {{ build?.name || 'Build Name' }}
+
+      </span>
+
+      <span class="text-hint">
+        {{ '@' +  ( build?.tool?.alias || 'Alias' ) }}
+      </span>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+
+      <nb-card>
+        <nb-card-body>
+          <div class="text-hint">
+            {{ build?.description || 'Build Description' }}
+
+          </div>
+
+          <div class="text-hint">
+            {{ build?.doc || date }}
+
+          </div>
+
+        </nb-card-body>
+        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+          <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )" status="basic"
+            ghost size="small" nbButton>
+
+            <nb-icon icon="file-text-outline"></nb-icon>
+            Config
+          </button>
+
+          <button (click)="openDrawer(logsTemplate, context = {
+            'id': build?._id
+
+          }  )" status="basic" ghost size="small" nbButton>
+
+            <nb-icon icon="file-text-outline"></nb-icon>
+            Logs
+          </button>
+
+
+
+
+
+
+        </nb-card-footer>
+
+        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+
+          <nb-select [style.marginRight]="'1rem'" [selected]="0" *ngIf="build?.executors?.length > 0"
+            placeholder="Success" size="small" status="danger" filled>
+            <nb-option status="success" *ngFor="let topic of build?.executors ; index as index" [value]="index">
+              {{topic?._id}}
+
+            </nb-option>
+
+          </nb-select>
+
+          <button (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
+            status="basic" size="small" nbButton>Edit</button>
+
+          <button (click)="runTask( build?._id ) " status="primary" size="small" nbButton>Build</button>
+
+          <button (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy</button>
+        </nb-card-footer>
+      </nb-card>
+
+
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+</nb-accordion>
+
+<ng-template #logsTemplate let-close="close" let-context="context">
+
+  <app-log-stream [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+
+
+</ng-template>

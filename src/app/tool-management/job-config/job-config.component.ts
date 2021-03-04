@@ -1,13 +1,17 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { of } from 'rxjs';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
-  selector: 'app-build-config',
-  templateUrl: './build-config.component.html',
-  styleUrls: ['./build-config.component.scss']
+  selector: 'app-job-config',
+  templateUrl: './job-config.component.html',
+  styleUrls: ['./job-config.component.scss']
 })
-export class BuildConfigComponent implements OnInit {
+export class JobConfigComponent implements OnInit {
+
+  @Input('id') id
+  @Input('config') config
 
   LOADING = false
 
@@ -63,7 +67,14 @@ export class BuildConfigComponent implements OnInit {
     id: new FormControl(''),
 
     entrypoint: this.fb.array([
-      new FormControl('/bin/entrypoint'),
+      new FormControl(
+        {
+          value: '',
+          disabled: true,
+
+        }
+
+      ),
     ]),
 
 
@@ -104,18 +115,15 @@ export class BuildConfigComponent implements OnInit {
 
       reserved: new FormArray([
         new FormGroup({
-          key: new FormControl('key'),
-          value: new FormControl('value'),
+
         })
       ]),
       _reserved: new FormGroup({
-        message_queue_topic: new FormControl(''),
+
       }),
 
       system: new FormArray([
         new FormGroup({
-          key: new FormControl('key'),
-          value: new FormControl('value'),
         })
       ]),
 
@@ -263,10 +271,9 @@ export class BuildConfigComponent implements OnInit {
 
     this.LOADING = true
 
-    this
-      .toolApiService
-      .getBuildConfig(this.build_id)
+    of(this.config)
       .subscribe(data => {
+        console.log('config', data)
 
         if (!data)
           data = {}
@@ -275,7 +282,6 @@ export class BuildConfigComponent implements OnInit {
         if (data['id'])
           this.form.setControl('id', this.fb.control(data['id']))
 
- 
         if (data['cmd']) {
 
           let cmdControl = []
@@ -288,21 +294,29 @@ export class BuildConfigComponent implements OnInit {
 
         }
 
-
         if (data['entrypoint']) {
 
-          let entrypointControl = []
+          let entrypointControl = this.fb.array([])
 
 
           data['entrypoint'].forEach(element => {
-            entrypointControl.push(this.fb.control(element))
+            entrypointControl.push(this.fb.control(
+
+
+              {
+                value: element,
+                disabled: true,
+              }
+            ))
+
+
           });
 
 
-          this.form.setControl('entrypoint', this.fb.array(entrypointControl))
+          this.form.setControl('entrypoint', entrypointControl)
         }
 
-        if (data['args']) {
+        if (data['entrypoint']) {
 
           let argsControl = []
 
@@ -388,4 +402,17 @@ export class BuildConfigComponent implements OnInit {
 
       })
   }
+
+  run() {
+
+
+    this
+      .toolApiService
+      .execJob(this.id, this.formToJson())
+      .subscribe()
+
+
+  }
+
+
 }

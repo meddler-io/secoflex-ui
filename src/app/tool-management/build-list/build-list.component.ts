@@ -68,7 +68,7 @@ export class BuildListComponent implements OnInit {
 
 
 
-  openDrawer(template, context?: any, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
+  openDrawer(template, context?: any, direction = DrawerDirection.Left, size = '50', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
 
     if (!context)
       context = {}
@@ -83,7 +83,7 @@ export class BuildListComponent implements OnInit {
     this.drawerMngr.create({
       direction,
       template,
-      // size,
+      size,
       context: context,
       closeOnOutsideClick,
       parentContainer,

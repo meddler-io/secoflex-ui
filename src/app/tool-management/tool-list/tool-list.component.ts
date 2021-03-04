@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { FormControl } from '@angular/forms';
@@ -6,6 +6,9 @@ import { delay, map, startWith } from 'rxjs/operators';
 import { ToolApiService } from '../tool-api.service';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
+import { DOCUMENT } from '@angular/common';
+import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
+import { DrawerService } from 'src/app/drawer/drawer.service';
 
 export interface Group {
   name: string;
@@ -27,7 +30,9 @@ export class ToolListComponent implements OnInit {
   tools$ = this.toolApiService.getTools() // .pipe(delay(THROTTLE_DELAY))
 
   constructor(
-    private toolApiService: ToolApiService
+    private toolApiService: ToolApiService,
+    private drawerMngr: DrawerService,
+    @Inject(DOCUMENT) private document: Document,
 
   ) {
 
@@ -38,6 +43,8 @@ export class ToolListComponent implements OnInit {
   inputFormControl: FormControl;
 
   ngOnInit() {
+    
+
 
     this.groups = [
       {
@@ -84,5 +91,35 @@ export class ToolListComponent implements OnInit {
     return item.name;
   }
 
+  openDrawer(template, context?: any, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
+
+    if (!context)
+      context = {}
+
+
+    console.log('context', context)
+    const zIndex = 1000;
+    const cssClass = 'backdrop_color'
+    // const cssClass = 'cdk-overlay-2'
+    this.document.body.classList.add('cdk-global-scrollblock')
+
+    this.drawerMngr.create({
+      direction,
+      template,
+      // size,
+      context: context,
+      closeOnOutsideClick,
+      parentContainer,
+      isRoot,
+      zIndex,
+      cssClass,
+
+
+    }).onDestroy(() => {
+
+      this.document.body.classList.remove('cdk-global-scrollblock')
+
+    });
+  }
 
 }

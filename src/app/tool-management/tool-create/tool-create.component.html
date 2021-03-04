@@ -1,33 +1,93 @@
-<nb-card style="width: 100%;   " class="dialog">
-  <nb-card-header>
-    <span class="h6 text-hint">
-      Create new tool
+<nb-card fxFill class="dialog">
+  <nb-card-header fxLayoutAlign="space-between center">
 
-    </span>
+    <div fxLayoutAlign="start center" fxLayout="row">
+
+      <button (click)="close.next(true)" shape="round" ghost status="basic" class="action" size="large" nbButton>
+        <nb-icon icon="arrow-back-outline">
+
+        </nb-icon>
+      </button>
+
+      <span class="subtitle text-hint lineV">
+        Create Tool
+      </span>
+
+    </div>
+
+    <button (click)="close.next(true)" shape="round" ghost status="basic" class="action" size="large" nbButton>
+      <nb-icon icon="info">
+
+      </nb-icon>
+    </button>
+
+
   </nb-card-header>
   <nb-card-body [formGroup]="form">
+    <div fxLayout="column" fxLayoutGap="1rem">
 
-    <div style="margin: 1rem;">
-      <nb-form-field fieldSize="small">
-        <nb-icon icon="at" nbPrefix></nb-icon>
-        <input [status]="form.controls['alias'].valid ? 'primary' : 'basic' " formControlName="alias" fullWidth nbInput
-          placeholder="Alias">
 
-      </nb-form-field>
-    </div>
-    <div style="margin: 1rem;">
-      <nb-form-field>
+      <!-- -->
 
-        <input [status]="form.controls['name'].valid ? 'primary' : 'basic' " formControlName="name" fullWidth nbInput fieldSize="large"
-          placeholder="Name">
-      </nb-form-field>
-    </div>
-    <div style="margin: 1rem;">
-      <nb-form-field>
 
-        <textarea [status]="form.controls['desc'].valid ? 'primary' : 'basic' " formControlName="desc" style="resize: none;" fullWidth
-          nbInput fieldSize="medium" placeholder="Description (Optional) "></textarea>
-      </nb-form-field>
+
+
+
+      <!--  -->
+      <div>
+
+        <div>
+          <p class="subtitle-2 text-hint">
+            Alias
+          </p>
+        </div>
+
+        <nb-form-field>
+          <nb-icon icon="at" nbPrefix></nb-icon>
+          <input fieldSize="small" [status]="form.controls['alias'].valid ? 'primary' : 'basic' "
+            formControlName="alias" fullWidth nbInput placeholder="Alias">
+
+        </nb-form-field>
+
+      </div>
+      <app-divider></app-divider>
+
+      <div s>
+        <div>
+          <p class="subtitle-2 text-hint">
+            Name
+          </p>
+        </div>
+
+
+        <nb-form-field>
+
+          <input fieldSize="small" [status]="form.controls['name'].valid ? 'primary' : 'basic' " formControlName="name"
+            fullWidth nbInput placeholder="Name">
+        </nb-form-field>
+
+
+      </div>
+      <app-divider></app-divider>
+      <div>
+
+        <div>
+          <p class="subtitle-2 text-hint">
+            Description
+          </p>
+        </div>
+
+
+        <nb-form-field>
+
+          <textarea fieldSize="small" [status]="form.controls['description'].valid ? 'primary' : 'basic' "
+            formControlName="description" style="resize: none;" fullWidth nbInput
+            placeholder="Description (Optional) "></textarea>
+        </nb-form-field>
+
+
+      </div>
+      <app-divider></app-divider>
     </div>
   </nb-card-body>
 
@@ -35,8 +95,6 @@
   <nb-card-footer fxLayoutAlign="end" fxLayoutGap="1rem">
     <!-- <button hero status="basic" nbButton (click)="ref.close()">Go Back</button> -->
 
-    <button
-    [disabled]="form.invalid"
-    (click)="createTool()" filled status="success" nbButton  >Save</button>
+    <button fullWidth [disabled]="form.invalid" (click)="createTool()" filled status="success" nbButton>Save</button>
   </nb-card-footer>
 </nb-card>
