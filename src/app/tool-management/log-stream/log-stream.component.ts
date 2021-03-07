@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgScrollbar } from 'ngx-scrollbar';
-import { BehaviorSubject, interval, Subject, Subscription, timer } from 'rxjs';
-import { delay, repeat, repeatWhen, retry, retryWhen, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, interval, pipe, Subject, Subscription, timer } from 'rxjs';
+import { delay, repeat, repeatWhen, retry, retryWhen, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
 
@@ -14,6 +14,10 @@ import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
 
 })
 export class LogStreamComponent implements OnInit, OnDestroy {
+
+  STATUS
+
+  @Input('close') close
 
   LOG_STREAM_STATUS$ = LOG_STREAM_STATUS
 
@@ -52,6 +56,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
     console.log('unsubscribe')
     this.topic.subscription.unsubscribe()
     this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
+    this.pollJobStatusSubscription$.unsubscribe()
 
   }
 
@@ -77,12 +82,44 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   }
 
+
+  pollJobStatusSubscription$ = Subscription.EMPTY
+
+  pollJobStatus() {
+    let enough$ = new Subject()
+
+
+
+    this.pollJobStatusSubscription$ = this.toolApiService
+      .getJobStatus(this.log_id)
+      .pipe(
+        tap(_ => {
+          if (_['poll_again'] == false) {
+            enough$.next('')
+          }
+
+          this.STATUS = _['exec_status']
+          console.log('tap_1', _)
+        }),
+        delay(1000),
+        repeat(),
+        takeUntil(enough$),
+
+      )
+      .subscribe(_ => {
+
+      })
+  }
+
   ngOnInit(): void {
 
     if (this.deep_link == true)
       this.deepLinkLoadLog()
     else
       this.getExecutors(this.log_id)
+
+
+    this.pollJobStatus()
 
   }
 
@@ -154,7 +191,6 @@ export class LogStreamComponent implements OnInit, OnDestroy {
       .toolApiService
       .getLogs(this.topic.log_id, 200, this.topic.pauseStreamer$, THROTTLE_DELAY)
       .pipe(
-        delay(THROTTLE_DELAY),
         tap(d => {
           this.topic.initiated = true;
         }))
@@ -185,6 +221,10 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
 
       })
+  }
+
+  getStatus() {
+
   }
 
   collapsedChange(index, collapsed, forceRender = false) {

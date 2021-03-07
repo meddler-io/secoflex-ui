@@ -37,6 +37,7 @@ export class DrawerService extends InjectionRegistryService<DrawerComponent> {
   }
 
   create(options: DrawerOptions) {
+    
     const component = super.create(options);
     this.createSubscriptions(component, options.isRoot, options.parentContainer);
     return component;

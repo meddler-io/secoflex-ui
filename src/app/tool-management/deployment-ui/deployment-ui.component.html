@@ -71,9 +71,8 @@
       </nb-card-body>
 
 
-      <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+      <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="start">
 
-        
 
         <button (click)="purge(  )" status="primary" ghost size="small" nbButton>
 
@@ -127,7 +126,7 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-  <app-log-stream [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+  <app-log-stream [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
 
 </ng-template>
 
@@ -137,3 +136,11 @@
   <app-job-config [config]="context?.config" [id]="context?.id"></app-job-config>
 
 </ng-template>
+
+
+<ng-container #loading *ngIf="!deployments || deployments.length == 0">
+  <div fxLayoutAlign="center center">
+    <ngx-progress-spinner></ngx-progress-spinner>
+  </div>
+
+</ng-container>

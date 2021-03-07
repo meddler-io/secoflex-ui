@@ -35,7 +35,7 @@
  
 
   <nb-sidebar
-  *ngIf="false"
+*ngIf="false"
   right fxLayout="column">
 
 
@@ -93,6 +93,6 @@
 
 
 
-<ng-template #dialog let-data let-ref="dialogRef">
-  <app-tool-create></app-tool-create>
+<ng-template #dialog let-close="close" let-data let-ref="dialogRef">
+  <app-tool-create [close]="close"></app-tool-create>
 </ng-template>

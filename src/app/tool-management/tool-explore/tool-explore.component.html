@@ -1,0 +1,28 @@
+<nb-card fxFill>
+
+  <nb-card-header>
+
+    <div fxLayout="row">
+
+      <button shape="round" [routerLink]="['/tools' ]" ghost status="basic" class="action" size="large" nbButton>
+        <nb-icon icon="arrow-back-outline">
+        </nb-icon>
+      </button>
+      <nb-route-tabset fxFlex [tabs]="tabs"></nb-route-tabset>
+
+
+    </div>
+
+
+  </nb-card-header>
+
+
+  <nb-card-body>
+
+
+    <router-outlet name="view">
+
+    </router-outlet>
+  </nb-card-body>
+
+</nb-card>

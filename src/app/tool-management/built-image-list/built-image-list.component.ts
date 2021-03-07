@@ -1,7 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { tap, map, filter } from 'rxjs/operators';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
+import { SharedDataService } from '../shared-data-service.service';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
@@ -9,7 +13,7 @@ import { ToolApiService } from '../tool-api.service';
   templateUrl: './built-image-list.component.html',
   styleUrls: ['./built-image-list.component.scss']
 })
-export class BuiltImageListComponent implements OnInit {
+export class BuiltImageListComponent implements OnInit, OnDestroy {
 
   @Input('tool_id') tool_id
   images = []
@@ -19,15 +23,45 @@ export class BuiltImageListComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private drawerMngr: DrawerService,
     @Inject(DOCUMENT) private document: Document,
+    private activatedRoute: ActivatedRoute,
+    private sharedDataService: SharedDataService,
+
+
 
 
   ) { }
 
+
+  sharedServiceSubscription$ = Subscription.EMPTY
+
+  ngOnDestroy(): void {
+
+    this.sharedServiceSubscription$.unsubscribe()
+  }
+
+
+
   ngOnInit(): void {
+
+    this.sharedServiceSubscription$ = this.sharedDataService.ToolId
+      .pipe(tap(id => {
+        this.tool_id = id
+      }))
+      .subscribe(() => { this.loadData() })
+
+
+
+  }
+
+  loadData() {
+
+
     this.toolApiService.getToolImageTags(this.tool_id).subscribe((_: []) => {
       this.images = _
+
       this.cdr.markForCheck()
     })
+
   }
 
 

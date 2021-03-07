@@ -1,13 +1,51 @@
 @import '../../../themes';
 
-nb-accordion{
-  margin: 0  !important;
+:host ::ng-deep {
+
+
+  nb-route-tabset {
+
+
+
+
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    .tab {
+      margin-right: 0.5rem;
+    }
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.2rem !important;
+    // box-sizing: content-box;
+    // height: auto;
+
+
+    // -ms-overflow-style: none;
+    /* IE and Edge */
+    // scrollbar-width: none;
+    /* Firefox */
+
+
+
+  }
+
 
 }
+
+nb-accordion {
+  margin: 0 !important;
+
+}
+
 nb-accordion-item {
   margin-top: 0.4rem;
   // margin-bottom: 0.4rem;
-  
+
 
   nb-accordion-item-header {
     &:hover {
@@ -26,15 +64,15 @@ nb-accordion-item {
 nb-layout-header {}
 
 input {
-  height: 100%;
+  // height: 100%;
 }
 
 nb-card {
   margin-bottom: 0;
   border: 0;
 
-  height: 96%;
-  
+  // height: 96%;
+
 }
 
 nb-accordion {
@@ -118,10 +156,32 @@ button.newBtn {
 }
 
 
-nb-tab{
+nb-tab {
   padding: 0px;
 }
 
-.nopad{
+.nopad {
   // padding: 0;
+}
+
+
+nb-card {
+  max-height: calc(100vh - 7rem);
+  margin: 0;
+
+  .container {
+    margin-top: 1rem;
+  }
+
+  textarea {
+
+    resize: none;
+  }
+
+
+  nb-card-header {
+    padding: 0.4rem;
+  }
+
+
 }

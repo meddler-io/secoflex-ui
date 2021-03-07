@@ -1,1 +1,39 @@
-<p>job-list works!</p>
+<nb-accordion>
+  <nb-accordion-item *ngFor="let job of jobs | async ;  let i=index  ">
+
+    <nb-accordion-item-header fxLayoutAlign="space-between">
+
+      <span>
+
+        Job {{i + 1}}
+
+
+      </span>
+
+      <span class="text-hint">
+        {{ '@' +  ( job?.exec_status || 'Unknown' ) }}
+      </span>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+
+
+      <button (click)="openDrawer(logsTemplate, context = {
+        'id': job?._id
+
+      }  )" status="basic" filled size="small" nbButton>
+
+        <nb-icon icon="file-text-outline"></nb-icon>
+        Logs
+      </button>
+
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
+
+
+<ng-template #logsTemplate let-close="close" let-context="context">
+
+  <app-log-stream [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+
+
+</ng-template>

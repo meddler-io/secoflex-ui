@@ -143,6 +143,8 @@
 
               <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
                 <nb-form-field fxFlex fieldSize="small">
+
+
                   <input fullWidth [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
 
 
@@ -200,6 +202,8 @@
 
 
               <nb-form-field fxFlex fieldSize="small">
+                <span nbPrefix>$</span>
+
                 <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
@@ -244,17 +248,27 @@
       <!-- Substitute Variables -->
       <div fxLayout="column">
 
-        <div>
-          <p class="subtitle-2 text-hint">
+
+
+
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
             Substitute Variables
+
           </p>
+
+
+
+
+          <nb-toggle formControlName="substitute_var"></nb-toggle>
+
+
+
         </div>
 
-        <div fxLayout="row" fxLayoutGap="1rem">
-
-          <nb-checkbox formControlName="substitute_var">Substitute Variables </nb-checkbox>
-
-        </div>
+        <!--  -->
+   
+  
       </div>
 
 
@@ -329,6 +343,8 @@
 
 
               <nb-form-field fxFlex fieldSize="small">
+                <span nbPrefix>$</span>
+
                 <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
@@ -397,6 +413,8 @@
 
 
               <nb-form-field fxFlex fieldSize="small">
+                <span nbPrefix>$</span>
+
                 <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
@@ -463,6 +481,8 @@
 
 
               <nb-form-field fxFlex fieldSize="small">
+                <span nbPrefix>$</span>
+
                 <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
@@ -531,5 +551,12 @@
   <div fxLayoutAlign="center center">
     <ngx-progress-spinner></ngx-progress-spinner>
   </div>
+
+</ng-template>
+
+<ng-template #logsTemplate let-close="close" let-context="context">
+
+  <app-log-stream  [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+
 
 </ng-template>

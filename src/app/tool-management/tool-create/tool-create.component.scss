@@ -1,41 +1,57 @@
-.dialog {
-  nb-card {
-    width: 50rem !important;
-    box-shadow: 0 4px 8px 0 rgba(60, 64, 67, 0.302), 0 4px 8px 1px rgba(60, 64, 67, 0.149) !important;
-
-  }
-}
-
-
-
-
-.create {
-  margin: 1rem !important;
-
-}
-
-
-nb-card-header {
-  padding: 0.4rem;
-  // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.16), 2px 2px 3px rgba(0, 0, 0, 0.23);
-}
-
-nb-card-footer {
-  padding: 0;
-
-
-}
-
+@import '../../../themes';
 
 nb-card {
   max-height: calc(100vh - 7rem);
   margin: 0;
+
   .container {
     margin-top: 1rem;
   }
 
   textarea {
+
     resize: none;
   }
+
+
+
+}
+
+.label-text {
+
+  border-left: 2px nb-theme(text-hint-color) solid !important;
+  margin-bottom: 1rem;
+  padding-left: 4px;
+}
+
+.lineV {
+  // border-left: 2px nb-theme(text-basic-color) solid !important;
+  // color: nb-theme(text-hint-color) !important;
+  // padding-left: 5px;
+
+}
+
+.subtitle {
+  margin: 0;
+  // border-left: 2px nb-theme(text-basic-color) solid !important;
+  padding-left: 4px;
+}
+
+nb-card-header{
+  padding: 0.4rem;
+  // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.16), 2px 2px 3px rgba(0,0,0,0.23);
+}
+nb-card-footer{
+  padding: 0;
+  
+
+}
+
+nb-card{
+  border: 0;
+}
+
+.buildBtn{
+  border-radius: 0;
 }

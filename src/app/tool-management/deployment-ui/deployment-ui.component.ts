@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, of, Subscription } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
+import { SharedDataService } from '../shared-data-service.service';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ToolApiService } from '../tool-api.service';
   templateUrl: './deployment-ui.component.html',
   styleUrls: ['./deployment-ui.component.scss']
 })
-export class DeploymentUiComponent implements OnInit {
+export class DeploymentUiComponent implements OnInit, OnDestroy {
 
   @Input('tool_id') tool_id
 
@@ -22,12 +23,38 @@ export class DeploymentUiComponent implements OnInit {
     private toolApiService: ToolApiService,
     private drawerMngr: DrawerService,
     @Inject(DOCUMENT) private document: Document,
+    private activatedRoute: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private sharedDataService: SharedDataService,
+
 
 
   ) { }
 
+  sharedServiceSubscription$ = Subscription.EMPTY
+
+  ngOnDestroy(): void {
+
+    this.sharedServiceSubscription$.unsubscribe()
+  }
+
+
   ngOnInit(): void {
 
+
+
+    this.sharedServiceSubscription$ = this.sharedDataService.ToolId
+      .pipe(tap(id => {
+        this.tool_id = id
+      }))
+      .subscribe(() => { this.loadData() })
+
+
+
+  }
+
+  loadData() {
+    console.log('ngOnInit')
 
     // return
     this
@@ -56,8 +83,10 @@ export class DeploymentUiComponent implements OnInit {
 
       .subscribe(_ => {
         this.deployments = _
-      })
 
+        this.cdr.markForCheck()
+
+      })
 
   }
 

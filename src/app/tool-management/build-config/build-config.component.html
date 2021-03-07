@@ -99,34 +99,34 @@
           </p>
         </div>
 
-        <div fxFlex>
-
-
-          <ng-container formArrayName="cmd">
-
-            <ng-container *ngFor="let _cmd of this.form.get('cmd').controls ; let i=index ">
-
-
-              <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
-
-                <div fxLayout="row" fxLayoutGap="1rem">
-                  <nb-form-field fxFlex fieldSize="small">
-                    <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
-                  </nb-form-field>
-                </div>
 
 
 
+        <ng-container formArrayName="cmd">
 
-              </div>
+          <ng-container *ngFor="let _cmd of this.form.get('cmd').controls ; let i=index ">
 
 
-            </ng-container>
+            <!-- <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem"> -->
+
+            <div fxFlex  fxLayoutGap="1rem">
+              <nb-form-field  fieldSize="small">
+                <input cdkFocusInitial fullWidth [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
+              </nb-form-field>
+            </div>
+
+
+
+
+            <!-- </div> -->
 
 
           </ng-container>
 
-        </div>
+
+        </ng-container>
+
+
       </div>
 
       <app-divider></app-divider>

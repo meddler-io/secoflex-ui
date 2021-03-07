@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ToolManagementRoutingModule } from './tool-management-routing.module';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
-import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbProgressBarModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetComponent, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbDialogConfig, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbProgressBarModule, NbRouteTabsetModule, NbSearchModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonDirectivesModule } from '../common-directives/common-directives.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -23,7 +23,7 @@ import { DrawerModule } from '../drawer/drawer.module';
 import { DividerComponent } from './divider/divider.component';
 import { ProgressSpinnerModule } from '../progress-spinner/progress-spinner.module';
 // 
-import {A11yModule} from '@angular/cdk/a11y';
+import { A11yModule } from '@angular/cdk/a11y';
 import { HttpClientModule } from '@angular/common/http';
 import { BuildConfigComponent } from './build-config/build-config.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -32,11 +32,13 @@ import { BuiltImageListComponent } from './built-image-list/built-image-list.com
 import { DeploymentUiComponent } from './deployment-ui/deployment-ui.component';
 import { JobListComponent } from './job-list/job-list.component';
 import { JobConfigComponent } from './job-config/job-config.component';
+import { ToolExploreComponent } from './tool-explore/tool-explore.component';
+import { SharedDataService } from './shared-data-service.service';
 
 @NgModule({
   declarations: [ToolHomeComponent,
 
-    HeadbarComponent , NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent
+    HeadbarComponent, NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent, ToolExploreComponent
   ],
   imports: [
 
@@ -66,13 +68,14 @@ import { JobConfigComponent } from './job-config/job-config.component';
     NbFormFieldModule,
     NbAutocompleteModule,
     ReactiveFormsModule,
-    NbDialogModule.forChild( ),
+    NbDialogModule.forChild(),
     NbSelectModule,
     NbListModule,
     NbSpinnerModule,
     NbCheckboxModule,
     ProgressSpinnerModule,
     NbTabsetModule,
+    NbRouteTabsetModule,
 
     CommonDirectivesModule,
     A11yModule,
@@ -88,12 +91,15 @@ import { JobConfigComponent } from './job-config/job-config.component';
     NbTagModule,
     NbProgressBarModule,
     NbContextMenuModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
+
+    NbSearchModule
 
 
   ],
   providers: [
-    ToolApiService
+    ToolApiService,
+    SharedDataService
   ]
 })
 export class ToolManagementModule { }

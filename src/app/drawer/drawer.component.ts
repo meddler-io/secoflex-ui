@@ -18,6 +18,10 @@ import { DRAWER_ANIMATION } from './drawer.animation';
 import { DrawerDirection } from './drawer-direction.enum';
 import { DrawerPosition } from './drawer-position.enum';
 import { NbFocusTrap, NbFocusTrapFactoryService } from '@nebular/theme';
+import { MediaChange, MediaObserver, ScreenTypes } from '@angular/flex-layout';
+
+import { Subscription } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Component({
   exportAs: 'ngxDrawer',
@@ -97,6 +101,45 @@ export class DrawerComponent implements OnInit, OnDestroy {
   protected focusTrap: NbFocusTrap;
 
   ngOnInit() {
+
+
+    this.screenSizeChangeSubscription = this.mediaObserver.asObservable()
+
+      .pipe(
+
+        // tap(changes_ => {
+
+        //   console.debug('changeALias', changes_,)
+
+        // }),
+        filter((changes: MediaChange[]) => changes.length > 0),
+        map((changes: MediaChange[]) => changes[0])
+      )
+      .subscribe((change: MediaChange) => {
+        // this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+
+
+
+        if (change.mqAlias == 'xs') {
+          this.widthSize = '100%'
+        } else if (change.mqAlias == 'sm') {
+          this.widthSize = '100%'
+        } else if (change.mqAlias == 'md') {
+          this.widthSize = '50%'
+        } else if (change.mqAlias == 'lg') {
+          this.widthSize = '50%'
+        }
+        else if (change.mqAlias == 'xl') {
+          this.widthSize = '50%'
+        }
+
+        console.log('changeALias', change.mqAlias, this.widthSize)
+
+
+      });
+
+
+
     this.position = this.isRoot ? DrawerPosition.fixed : DrawerPosition.absolute;
     this.setDimensions(this.size);
 
@@ -110,6 +153,9 @@ export class DrawerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+
+    this.screenSizeChangeSubscription.unsubscribe()
+
     this.close.emit(true);
 
     // 
@@ -121,7 +167,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   }
 
   setDimensions(size: number | string): void {
-    this.heightSize = `${this.isBottom && size ? size : 'auto'}`;
+    this.heightSize = `${this.isBottom && size ? size : '100%'}`;
 
     if (size === 0)
       this.widthSize = `${this.isLeft && size ? size : '50%'}`;
@@ -138,9 +184,14 @@ export class DrawerComponent implements OnInit, OnDestroy {
 
 
 
+  screenSizeChangeSubscription = Subscription.EMPTY
+
   constructor(
     protected elementRef: ElementRef,
-    protected focusTrapFactory: NbFocusTrapFactoryService) {
+    protected focusTrapFactory: NbFocusTrapFactoryService,
+    public mediaObserver: MediaObserver
+  ) {
+
   }
 
 

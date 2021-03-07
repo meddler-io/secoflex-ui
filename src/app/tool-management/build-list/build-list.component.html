@@ -1,7 +1,7 @@
 <ng-container *ngIf=" builds$ | async as builds ; else loading">
 
 
-  <nb-layout-header @init subHeader>
+  <!-- <nb-layout-header *ngIf="false" @init subHeader>
 
 
 
@@ -41,138 +41,97 @@
 
     </div>
 
-  </nb-layout-header>
+  </nb-layout-header> -->
 
 
 
-  <nb-card   >
-    <nb-card-body  class="nopad">
+  <nb-accordion @init>
+    <nb-accordion-item [expanded]="index == 0" *ngFor="let build of builds  ; index as index">
+      <nb-accordion-item-header fxLayoutAlign="space-between">
+
+        <span>
+          {{ build?.name || 'Build Name' }}
+
+        </span>
+
+        <span class="text-hint">
+          {{ '@' +  ( build?.tool?.alias || 'Alias' ) }}
+        </span>
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+
+        <nb-card>
+          <nb-card-body>
+            <div class="text-hint">
+              {{ build?.description || 'Build Description' }}
+
+            </div>
+
+            <div class="text-hint">
+              {{ build?.doc || date }}
+
+            </div>
+
+          </nb-card-body>
+          <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
+
+            <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )" status="basic"
+              ghost size="small" nbButton>
+
+              <nb-icon icon="file-text-outline"></nb-icon>
+              Config
+            </button>
+
+            <button (click)="openLogs(logsTemplate, build?._id)" status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="file-text-outline"></nb-icon>
+              Logs
+            </button>
+
+            <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
+
+              <nb-icon icon="settings-2-outline"></nb-icon>
+              Monitor
+            </button>
 
 
-      <nb-tabset>
+            <button status="basic" ghost size="small" nbButton>
 
-
-
-        <nb-tab
-        badgeDot
-        badgePosition="center start"
-        badgeStatus="primary"
-
-        tabTitle="Deployments">
-
-          <app-deployment-ui [tool_id]="refrence_id" >
-
-          </app-deployment-ui>
-
-        </nb-tab>
-
-
-
-        <nb-tab tabTitle="Images">
-          <app-built-image-list [tool_id]="refrence_id"></app-built-image-list>
-        </nb-tab>
-
-        <nb-tab 
- 
-        tabTitle="Builds">
-
-
-          <nb-accordion @init>
-            <nb-accordion-item [expanded]="index == 0" *ngFor="let build of builds  ; index as index">
-              <nb-accordion-item-header fxLayoutAlign="space-between">
-
-                <span>
-                  {{ build?.name || 'Build Name' }}
-
-                </span>
-
-                <span class="text-hint">
-                  {{ '@' +  ( build?.tool?.alias || 'Alias' ) }}
-                </span>
-              </nb-accordion-item-header>
-              <nb-accordion-item-body>
-
-                <nb-card>
-                  <nb-card-body>
-                    <div class="text-hint">
-                      {{ build?.description || 'Build Description' }}
-
-                    </div>
-
-                    <div class="text-hint">
-                      {{ build?.doc || date }}
-
-                    </div>
-
-                  </nb-card-body>
-                  <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
-
-                    <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )"
-                      status="basic" ghost size="small" nbButton>
-
-                      <nb-icon icon="file-text-outline"></nb-icon>
-                      Config
-                    </button>
-
-                    <button (click)="openLogs(logsTemplate, build?._id)" status="basic" ghost size="small" nbButton>
-
-                      <nb-icon icon="file-text-outline"></nb-icon>
-                      Logs
-                    </button>
-
-                    <button (click)="openDrawer(logsTemplate)" status="basic" ghost size="small" nbButton>
-
-                      <nb-icon icon="settings-2-outline"></nb-icon>
-                      Monitor
-                    </button>
-
-
-                    <button status="basic" ghost size="small" nbButton>
-
-                      <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
-                      Fork
-                    </button>
+              <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+              Fork
+            </button>
 
 
 
-                  </nb-card-footer>
+          </nb-card-footer>
 
-                  <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
-
-
-                    <nb-select [style.marginRight]="'1rem'" [selected]="0" *ngIf="build?.executors?.length > 0"
-                      placeholder="Success" size="small" status="danger" filled>
-                      <nb-option status="success" *ngFor="let topic of build?.executors ; index as index"
-                        [value]="index">
-                        {{topic?._id}}
-
-                      </nb-option>
-
-                    </nb-select>
-
-                    <button
-                      (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
-                      status="basic" size="small" nbButton>Edit</button>
-
-                    <button (click)="runTask( build?._id ) " status="primary" size="small" nbButton>Build</button>
-
-                    <button (click)="runTask( build?._id ) " status="danger" size="small" nbButton>Run</button>
-                  </nb-card-footer>
-                </nb-card>
+          <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
 
-              </nb-accordion-item-body>
-            </nb-accordion-item>
+            <nb-select [style.marginRight]="'1rem'" [selected]="0" *ngIf="build?.executors?.length > 0"
+              placeholder="Success" size="small" status="danger" filled>
+              <nb-option status="success" *ngFor="let topic of build?.executors ; index as index" [value]="index">
+                {{topic?._id}}
 
-          </nb-accordion>
+              </nb-option>
 
-        </nb-tab>
+            </nb-select>
 
-      </nb-tabset>
+            <button
+              (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
+              status="basic" size="small" nbButton>Edit</button>
+
+            <button (click)="runTask( build?._id ) " status="primary" size="small" nbButton>Build</button>
+
+            <button (click)="runTask( build?._id ) " status="danger" size="small" nbButton>Run</button>
+          </nb-card-footer>
+        </nb-card>
 
 
-    </nb-card-body>
-  </nb-card>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+
+  </nb-accordion>
 
 
 </ng-container>
@@ -187,8 +146,7 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-
-  <app-log-stream [log_id]="context?.id"></app-log-stream>
+  <app-log-stream [close]="close" [log_id]="context?.id"></app-log-stream>
 
 
 </ng-template>

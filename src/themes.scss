@@ -13,10 +13,26 @@ $nb-enable-css-custom-properties: true; // <-- enable css custom properties
 $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
     // text-disabled-color: color-basic-600,
 
-    tabset-tab-underline-width: 3px,
-    tabset-divider-width: 3px,
-    route-tabset-tab-text-font-size: 0.5rem,
-    route-tabset-tab-text-font-weight: 300,
+    layout-small-padding: 0em,
+
+    route-tabset-tab-text-transform: capitalize,
+    route-tabset-tab-underline-width: 2px,
+
+    // route-tabset-tab-hover-underline-color: nb-theme(color-basic-600),
+    // route-tabset-tab-hover-text-color: nb-theme(color-basic-800),
+
+    route-tabset-divider-width: 1px,
+    route-tabset-scrollbar-width: 0em,
+    route-tabset-tab-padding: 0.5rem,
+    route-tabset-content-padding: 1rem,
+
+    route-tabset-content-text-line-height: 2rem,
+    route-tabset-tab-text-line-height: 2rem,
+
+
+
+    route-route-tabset-tab-text-font-size: 0.5rem,
+    route-route-tabset-tab-text-font-weight: 300,
     header-height: 4rem,
     header-padding: 0rem,
     card-header-text-font-weight: 500,
@@ -52,7 +68,7 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
     accordion-header-text-color: nb-theme(color-basic-800),
     // accordion-item-background-color:  nb-theme(color-basic-400),
 
-    
+
 
 
 
@@ -64,9 +80,16 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
 
     option-list-border-width: 0rem,
 
-    
+
+    toggle-height: 1.2rem,
+    toggle-width: 2rem,
+    toggle-switcher-size: 1rem,
+    toggle-switcher-icon-size: 0.3rem,
+
+
+
     // option-list-adjacent-border-width: 0rem,
-    
+
   ), default, default);
 
 
@@ -74,10 +97,11 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
 $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
 
 
-    tabset-tab-underline-width: 0.1rem,
-    tabset-divider-width: 5px,
-    route-tabset-tab-text-font-size: 0.5rem,
-    route-tabset-tab-text-font-weight: 300,
+    route-tabset-tab-underline-width: 0.1rem,
+
+    route-tabset-divider-width: 0.2rem,
+    route-route-tabset-tab-text-font-size: 0.5rem,
+    route-route-tabset-tab-text-font-weight: 300,
     header-height: 4rem,
     header-padding: 0rem,
     card-header-text-font-weight: 500,
@@ -117,7 +141,7 @@ $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some st
   ), dark, dark);
 
 
-  
+
 :root {
   --small-checkbox: 16px
 }
@@ -129,7 +153,7 @@ $nb-themes: nb-register-theme(( // add your variables here like:
 
 @mixin gradient-selected-background() {
   background: linear-gradient(to right, #5b86e5, #36d1dc);
-  
+
 }
 
 @mixin gradient-hover-background() {
@@ -145,7 +169,7 @@ $nb-themes: nb-register-theme(( // add your variables here like:
 }
 
 
-@mixin add-new-action-button()  {
+@mixin add-new-action-button() {
 
   padding: 0.3rem !important;
 

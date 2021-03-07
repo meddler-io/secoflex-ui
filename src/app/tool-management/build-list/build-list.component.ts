@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { ToolApiService } from '../tool-api.service';
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { delay, filter, map, tap } from 'rxjs/operators';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
+import { SharedDataService } from '../shared-data-service.service';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-build-list',
@@ -15,14 +17,14 @@ import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Consta
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [...basicAnimations]
 })
-export class BuildListComponent implements OnInit {
+export class BuildListComponent implements OnInit, OnDestroy {
 
 
   @ViewChild('buildCreateTemplate', { static: false }) buildCreateTemplate: TemplateRef<any>;
   @ViewChild('logsTemplate', { static: false }) logTemplate: TemplateRef<any>;
 
 
-  refrence_id
+  refrence_id = 'refrence_id'
 
   builds$
 
@@ -33,38 +35,52 @@ export class BuildListComponent implements OnInit {
     private toolApiService: ToolApiService,
     private drawerMngr: DrawerService,
     @Inject(DOCUMENT) private document: Document,
+    private sharedDataService: SharedDataService,
+
     private activatedRoute: ActivatedRoute
 
   ) { }
+
+
+  sharedServiceSubscription$ = Subscription.EMPTY
+
+  ngOnDestroy(): void {
+
+    this.sharedServiceSubscription$.unsubscribe()
+  }
+
+
+
   ngOnInit(): void {
 
-    this.activatedRoute.params
-      .pipe(map(_ => _.id))
-      .pipe(filter(_ => _))
+
+    this.sharedServiceSubscription$ = this.sharedDataService.ToolId
       .pipe(tap(id => {
         this.refrence_id = id
       }))
-      .subscribe(id => {
-
-        this.builds$ = this.toolApiService.getBuilds(id)
-          // .pipe(delay(THROTTLE_DELAY))
-          .pipe(tap((data: []) => {
-            if (data.length < 1) {
-
-              this.openDrawer(this.buildCreateTemplate)
-
-            }
-          }))
+      .subscribe(() => { this.loadData() })
 
 
 
-
-      })
 
 
   }
 
 
+
+  loadData() {
+
+    this.builds$ = this.toolApiService.getBuilds(this.refrence_id)
+      // .pipe(delay(THROTTLE_DELAY))
+      .pipe(tap((data: []) => {
+        if (data.length < 1) {
+
+          this.openDrawer(this.buildCreateTemplate)
+
+        }
+      }))
+
+  }
 
 
 
@@ -79,6 +95,8 @@ export class BuildListComponent implements OnInit {
     const cssClass = 'backdrop_color'
     // const cssClass = 'cdk-overlay-2'
     this.document.body.classList.add('cdk-global-scrollblock')
+
+
 
     this.drawerMngr.create({
       direction,
@@ -133,8 +151,12 @@ export class BuildListComponent implements OnInit {
     }
     this.toolApiService.runTool(id, data).subscribe(_ => {
       console.log(_)
-      this.openLogs( this.logTemplate, id  )
+      this.openLogs(this.logTemplate, id)
 
     })
   }
+
+  // 
+
+  tabs: any[] = []
 }

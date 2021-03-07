@@ -97,7 +97,6 @@ export class ToolListComponent implements OnInit {
       context = {}
 
 
-    console.log('context', context)
     const zIndex = 1000;
     const cssClass = 'backdrop_color'
     // const cssClass = 'cdk-overlay-2'
@@ -106,7 +105,7 @@ export class ToolListComponent implements OnInit {
     this.drawerMngr.create({
       direction,
       template,
-      // size,
+      size,
       context: context,
       closeOnOutsideClick,
       parentContainer,

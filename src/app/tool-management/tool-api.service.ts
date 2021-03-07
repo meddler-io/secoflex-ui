@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 
 
-import { BehaviorSubject, defer, EMPTY, from, Observable, of, Subject, Subscription } from 'rxjs';
-import { delay, expand, filter, finalize, flatMap, map, repeat, share, switchMap, takeUntil, takeWhile, tap } from 'rxjs/operators';
+import { BehaviorSubject, defer, EMPTY, from, interval, Observable, of, Subject, Subscription } from 'rxjs';
+import { delay, delayWhen, expand, filter, finalize, flatMap, map, repeat, repeatWhen, retryWhen, share, switchMap, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { API_SERVICE_URL, LOG_SERVICE_URL } from '../reusable-components/common/shared/Constants';
 
 
@@ -36,13 +36,38 @@ export class ToolApiService {
   }
 
 
+  getDelay(throttleDelay) {
+    console.log('getDelay')
+    return interval(throttleDelay)
+
+  }
+
   getLogs(identifier: string, lines: number, pauseEventSubject$: BehaviorSubject<LOG_STREAM_STATUS>, throttleDelay: number) {
+
+
+
+
+
 
     let count = 5
     let seek: number = 0
     let fileSize: number = -1
     let logStramSubject = new Subject();
     let apiSubscription: Subscription;
+
+    let ThrottleDelay = 0
+
+
+    let getDelay = () => {
+      // console.log('getDelay', ThrottleDelay)
+
+      let delatFunc = interval(ThrottleDelay)
+
+      ThrottleDelay = throttleDelay
+      return delatFunc
+
+    }
+
 
     return defer(() => {
 
@@ -51,9 +76,14 @@ export class ToolApiService {
 
 
         let apiReq = of(EMPTY).pipe(
-          delay(throttleDelay)
-          ,
+          delayWhen(() => {
+            return getDelay()
+
+          }),
+
+
           switchMap(_ => {
+
 
             let headers = new HttpHeaders({
               "X-Id": identifier,
@@ -65,32 +95,36 @@ export class ToolApiService {
               "headers": headers,
               observe: 'response',
               responseType: 'text',
-            }).pipe(
-              tap(d => {
-                let x_file_range = d.headers.get('X-File-Range')
-                let x_file_size = d.headers.get('X-File-Size')
-
-                if (x_file_range == null || x_file_size == null) {
-                  // throw ("Error processing")
-
-                  return
-
-                }
-
-                let offset = x_file_range.split('-')[1]
-                seek = parseInt(offset)
-                fileSize = parseInt(x_file_size)
-                console.log(offset, fileSize,)
-
-              }),
-              // map(d => `${count}: ${d.body}`),
-
-              map(d => `${d.body}`),
+            })
 
 
-            )
+              .pipe(
+                tap(d => {
+                  let x_file_range = d.headers.get('X-File-Range')
+                  let x_file_size = d.headers.get('X-File-Size')
+
+                  if (x_file_range == null || x_file_size == null) {
+                    // throw ("Error processing")
+
+                    return
+
+                  }
+
+                  let offset = x_file_range.split('-')[1]
+                  seek = parseInt(offset)
+                  fileSize = parseInt(x_file_size)
+                  // console.log(offset, fileSize,)
+
+                }),
+                // map(d => `${count}: ${d.body}`),
+
+                map(d => `${d.body}`),
+
+
+              )
           }
           )
+
         )
 
 
@@ -113,7 +147,7 @@ export class ToolApiService {
 
               if (fileSize != -1) {
                 if (seek >= fileSize) {
-                  console.log('closing')
+                  // console.log('closing')
                   // logStramSubject.complete()
                   // apiSubscription.unsubscribe()
                   return
@@ -320,6 +354,17 @@ export class ToolApiService {
         job_id: job_id
       }
     })
+  }
+
+
+  // 
+  getJobStatus(id: string) {
+    return this.http.get(`${url}/job/status/${id}`)
+
+  }
+  getJobs(id: string) {
+    return this.http.get(`${url}/jobs/${id}`)
+
   }
 
   purgeDeployment() {

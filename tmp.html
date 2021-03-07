@@ -1,0 +1,87 @@
+
+<!-- log -->
+
+<nb-accordion fxFill *ngIf="false">
+    <nb-accordion-item [expanded]="index == topics.length - 1" *ngFor="let topic of topics ; index as index"
+      (collapsedChange)="collapsedChange(index, $event)">
+      <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
+        <div fxFlex>
+          {{topic?.title}} {{log_id}}
+  
+        </div>
+  
+        <div>
+  
+          <button hero status="success" (click)="pause(index)" nbButton size="small">
+            <nb-icon icon="pause-circle">
+  
+            </nb-icon>
+  
+          </button>
+  
+          <button hero status="success" (click)="resume(index)" nbButton size="small">
+            <nb-icon icon="play-circle">
+  
+            </nb-icon>
+  
+          </button>
+  
+        </div>
+  
+      </nb-accordion-item-header>
+  
+  
+      <!-- <ng-container *ngIf="topic?.content$ | async as content "> -->
+  
+      <nb-accordion-item-body class="marginBody">
+  
+  
+        <button (click)="pause(index)" nbButton size="small">Pause {{_pause}}</button>
+        <button (click)="resume(index)" nbButton size="small">Resume {{_pause}}</button>
+  
+  
+        <div class="code">
+  
+          <div *ngFor="let content of topic?.content">
+            <code fxFlex>
+              <pre [innerText]="content">   </pre>
+            </code>
+          </div>
+        </div>
+  
+  
+      </nb-accordion-item-body>
+  
+      <!-- </ng-container> -->
+  
+    </nb-accordion-item>
+  
+  </nb-accordion>
+
+  
+  <!-- Log -->
+
+
+  <!-- Accordion -->
+
+
+  <nb-accordion *ngIf="false" fxFill>
+
+    <nb-accordion-item *ngFor="let topic of topics ; index as index"
+      (collapsedChange)="collapsedChange(index, $event)">
+      <nb-accordion-item-header [nbSpinner]="topic?.loading | async">
+
+        {{topic?.title}} {{topic?.log_id}}
+
+
+      </nb-accordion-item-header>
+
+      <nb-accordion-item-body class="marginBody">
+        <ng-container *ngTemplateOutlet="logTemplate; context: { 'topic': topic } ">
+        </ng-container>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+
+  </nb-accordion>
+
+  <!-- Accordion -->

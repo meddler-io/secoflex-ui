@@ -1,6 +1,9 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
+import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
+import { DrawerService } from 'src/app/drawer/drawer.service';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
@@ -9,6 +12,9 @@ import { ToolApiService } from '../tool-api.service';
   styleUrls: ['./job-config.component.scss']
 })
 export class JobConfigComponent implements OnInit {
+
+  @ViewChild('logsTemplate', { static: false }) logsTemplate: TemplateRef<any>;
+
 
   @Input('id') id
   @Input('config') config
@@ -91,10 +97,7 @@ export class JobConfigComponent implements OnInit {
     substitute_var: new FormControl(true),
 
     variables: new FormArray([
-      new FormGroup({
-        key: new FormControl('key'),
-        value: new FormControl('value'),
-      })
+
     ])
     ,
 
@@ -105,26 +108,20 @@ export class JobConfigComponent implements OnInit {
     config: new FormGroup({
 
       process: new FormArray([
-        new FormGroup({
-          key: new FormControl('key'),
-          value: new FormControl('value'),
-        })
+
       ]),
 
 
 
       reserved: new FormArray([
-        new FormGroup({
 
-        })
       ]),
       _reserved: new FormGroup({
 
       }),
 
       system: new FormArray([
-        new FormGroup({
-        })
+
       ]),
 
 
@@ -159,7 +156,12 @@ export class JobConfigComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toolApiService: ToolApiService,
-    protected cdr: ChangeDetectorRef
+    protected cdr: ChangeDetectorRef,
+
+
+    private drawerMngr: DrawerService,
+    @Inject(DOCUMENT) private document: Document,
+
   ) { }
   ngOnInit(): void {
 
@@ -229,6 +231,8 @@ export class JobConfigComponent implements OnInit {
       variables[element.key] = element.value
     });
 
+    data['variables'] = variables
+
 
     let config = {
 
@@ -257,13 +261,17 @@ export class JobConfigComponent implements OnInit {
 
   }
 
+
   save() {
 
 
     this
       .toolApiService
       .updateBuildConfig(this.build_id, this.formToJson())
-      .subscribe()
+      .subscribe(d => {
+
+
+      })
   }
 
 
@@ -379,8 +387,15 @@ export class JobConfigComponent implements OnInit {
             Object.keys(data['config']['reserved']).forEach(element => {
               reservedConfigControl.push(this.fb.group({
 
-                key: this.fb.control(element),
-                value: this.fb.control(data['config']['reserved'][element]),
+                key: this.fb.control({ value: element, disabled: true }),
+                value: this.fb.control(
+
+                  {
+                    value: data['config']['reserved'][element]
+                    , disabled: true
+                  }
+
+                ),
               }))
             });
 
@@ -409,10 +424,42 @@ export class JobConfigComponent implements OnInit {
     this
       .toolApiService
       .execJob(this.id, this.formToJson())
-      .subscribe()
+      .subscribe(d => {
+
+        let _id = d['_id']
+        this.openLogs(this.logsTemplate, _id)
+
+      })
 
 
   }
 
+
+  openLogs(template, id: string, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
+
+    const zIndex = 1000;
+    const cssClass = 'backdrop_color'
+    // const cssClass = 'cdk-overlay-2'
+    this.document.body.classList.add('cdk-global-scrollblock')
+    this.drawerMngr.create({
+      direction,
+      template,
+      size,
+      closeOnOutsideClick,
+      parentContainer,
+      isRoot,
+      zIndex,
+      cssClass,
+      context: {
+        id: id
+      }
+    }
+
+    )
+      .onDestroy(() => {
+        this.document.body.classList.remove('cdk-global-scrollblock')
+
+      });
+  }
 
 }

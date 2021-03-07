@@ -1,4 +1,4 @@
-<nb-accordion >
+<nb-accordion>
   <nb-accordion-item [expanded]="index == 0" *ngFor="let build of images  ; index as index">
     <nb-accordion-item-header fxLayoutAlign="space-between">
 
@@ -80,7 +80,16 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-  <app-log-stream [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+  <app-log-stream [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
 
 
 </ng-template>
+
+
+
+<ng-container #loading *ngIf="!images || images.length == 0">
+  <div fxLayoutAlign="center center">
+    <ngx-progress-spinner></ngx-progress-spinner>
+  </div>
+
+</ng-container>
