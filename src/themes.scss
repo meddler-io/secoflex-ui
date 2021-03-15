@@ -13,6 +13,25 @@ $nb-enable-css-custom-properties: true; // <-- enable css custom properties
 $nb-themes: nb-register-theme(( // text-basic-color: color-basic-800, // some styles we changed
     // text-disabled-color: color-basic-600,
 
+    list-scrollbar-color: #000,
+    list-scrollbar-background-color: #000,
+
+    layout-scrollbar-color: #000,
+    layout-scrollbar-background-color: #000,
+
+    // layout-scrollbar-width: 4rem,
+    sidebar-padding: 0,
+    option-selected-background-color: nb-theme(color-basic-800),
+    option-selected-focus-background-color: nb-theme(color-basic-800),
+    option-active-background-color: nb-theme(color-basic-300),
+
+    option-selected-hover-background-color: nb-theme(color-basic-800),
+
+    option-background-color:  nb-theme(color-basic-200),
+    // 
+
+
+    tag-text-transform: 'none',
     layout-small-padding: 0em,
 
     route-tabset-tab-text-transform: capitalize,

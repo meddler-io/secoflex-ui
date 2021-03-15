@@ -6,7 +6,7 @@
       <span>
 
         Job {{i + 1}}
-
+{{ job | json }}
 
       </span>
 
@@ -33,7 +33,8 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-  <app-log-stream [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+
+  <app-log-stream [logsource]="context?.logsource" [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
 
 
 </ng-template>

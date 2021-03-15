@@ -1,0 +1,56 @@
+<nb-list>
+
+
+  <nb-list-item *ngFor="let job of jobs  ;  let i=index ">
+    <nb-card fxFlex status="basic">
+      <nb-card-header>
+
+        Job {{job?._id}}
+
+
+
+      </nb-card-header>
+
+
+      <nb-card-body>
+
+        <nb-tag-list>
+
+          <nb-tag appearance="outline" status="warning" size="small"
+            [text]="job?.request?.job_config?.entrypoint?.join(' ')">
+          </nb-tag>
+
+          <nb-tag appearance="outline" status="primary" size="small" [text]="job?.request?.job_config?.cmd?.join(' ')">
+          </nb-tag>
+
+          <nb-tag appearance="outline" status="basic" size="small" *ngFor="let arg of job?.request?.job_config?.args"
+            [text]="arg"></nb-tag>
+
+          <!-- <input type="text" nbTagInput [disabled]="true" [value]="job?.request?.job_config?.args.join(' ')" fullWidth> -->
+
+        </nb-tag-list>
+      </nb-card-body>
+      <!-- 
+      <nb-card-body>
+        {{job | json}}
+
+      </nb-card-body> -->
+
+
+      <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end">
+
+
+        <button outline size="small" nbButton>
+          Logs {{stateSyncService.SelectedJobId | async}}
+        </button>
+
+        <button outline status="primary" size="small" nbButton>
+          Response
+        </button>
+
+      </nb-card-footer>
+    </nb-card>
+
+
+  </nb-list-item>
+</nb-list>

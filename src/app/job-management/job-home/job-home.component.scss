@@ -1,0 +1,75 @@
+// @import '../../styles/colors/colors';
+
+@import '../../../themes';
+
+
+.list {
+  max-height: calc(100vh - 4rem);
+  overflow: scroll;
+}
+
+nb-layout-column {
+  padding: 0 !important;
+}
+
+// 
+
+
+.ngx-drawer {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  text-align: left;
+  z-index: 998;
+  //   background: $color-blue-grey-800;
+  min-width: 50%;
+  width: 50%;
+
+  &.left-drawer {
+    top: 4rem;
+    right: 0;
+    height: 100%;
+  }
+
+  &.bottom-drawer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: calc(100vh - 4rem);
+
+  }
+
+  .ngx-drawer-content {
+    height: calc(100% - 4rem);
+    overflow: auto;
+
+  }
+}
+
+
+:host ::ng-deep nb-layout-header {
+  nav {
+    flex: 1 !important;
+  }
+}
+
+button.newBtn {
+  @include add-new-action-button()
+}
+
+nb-route-tabset {
+  overflow-x: scroll !important;
+  vertical-align: bottom;
+
+  padding-bottom: nb-theme(layout-scrollbar-width);
+
+}
+
+nb-layout-header {
+  // overflow: hidden;
+}
+
+.header {
+  overflow: hidden;
+
+}

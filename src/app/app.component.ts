@@ -35,33 +35,33 @@ export class AppComponent implements OnInit, OnDestroy {
 
       if (event instanceof NavigationStart) {
 
-        console.log("NavigationStart")
+        console.info("NavigationStart", event.url)
         this.loadingService.reset()
         this.loadingService.start()
 
       } else if (event instanceof NavigationEnd) {
 
-        console.log("NavigationEnd")
+        console.info("NavigationEnd", event.url)
         this.loadingService.complete(true)
 
 
       }
       else if (event instanceof NavigationCancel) {
 
-        console.log("NavigationCancel")
+        console.info("NavigationCancel")
         this.loadingService.stop()
 
       }
       else if (event instanceof NavigationError) {
 
-        console.log("NavigationError")
+        console.info("NavigationError")
         this.loadingService.stop()
 
 
       }
       else if (event instanceof RoutesRecognized) {
 
-        console.log("RoutesRecognized")
+        console.info("RoutesRecognized")
         // this.loadingService.complete()
 
       }

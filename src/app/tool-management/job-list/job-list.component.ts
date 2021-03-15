@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
+import { LogSource } from '../log-stream/log-stream.component';
 import { SharedDataService } from '../shared-data-service.service';
 import { ToolApiService } from '../tool-api.service';
 
@@ -50,6 +51,7 @@ export class JobListComponent implements OnInit {
     if (!context)
       context = {}
 
+    context['logsource'] = LogSource.JOB
 
     console.log('context', context)
     const zIndex = 1000;

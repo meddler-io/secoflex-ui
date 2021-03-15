@@ -1,51 +1,13 @@
-<nb-card fxFill >
+<nb-card fxFill>
 
 
   <nb-card-header fxLayoutAlign="space-between center">
 
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <button (click)="close.emit(true)" ghost status="basic" class="action" size="giant" nbButton>
-        <nb-icon class="text-alternate" icon="arrow-back-outline">
-        </nb-icon>
-      </button>
 
-      <div fxFlex>
-
-
-        <div fxLayout="column">
-          <div fxFlex class="subtitle text-alternate">
-            Logs  {{logsource | json}} {{STATUS}} 
-          </div>
-          <div class="overflowFix">
-
-
-            <nb-select [style.marginRight]="'1rem'" (selectedChange)="onSelectionChange($event)" [selected]="0"
-              *ngIf="build_list.length > 0" placeholder="Success" size="tiny" status="danger" filled>
-              <nb-option *ngFor="let topic of build_list ; index as index" [value]="index">{{topic?.log_id}}
-              </nb-option>
-
-            </nb-select>
-          </div>
-        </div>
-      </div>
-
-
-
-    </div>
-
-
+    <nb-route-tabset fxFlex [tabs]="tabs"></nb-route-tabset>
   </nb-card-header>
 
   <nb-card-body fxLayoutAlign="center center" fxLayout="column" class="content log-container">
-
-
-
-
-
-
-
-
-
 
     <ng-template #logTemplate let-topic="topic">
 
@@ -53,24 +15,15 @@
 
         <div fxFill fxLayout="column" class="log-container">
 
-
           <div fxFlexAlign="center" *ngIf=" topic?.content == undefined ||  topic?.content?.length < 1"
             fxLayoutAlign="center center">
             <ngx-progress-spinner></ngx-progress-spinner>
           </div>
 
-
-
-
-
-
           <ng-scrollbar [style.pointerEvents]=" tailing ? 'none' : 'all' " track="all" [scrollAuditTime]="20">
 
             <div fxFlex>
-
-
               <div class="code">
-
                 <div *ngFor="let content of topic?.content">
                   <code fxFlex>
                     <pre [innerText]="content">   </pre>
@@ -78,26 +31,13 @@
                 </div>
               </div>
 
-
-
-
             </div>
-
 
           </ng-scrollbar>
 
-
-
-
-
         </div>
-
-
       </ng-container>
-
-
     </ng-template>
-
 
 
     <ng-container *ngIf="topic">

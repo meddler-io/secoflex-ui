@@ -1,0 +1,30 @@
+<div (click)="onClick()" [class.selected]="selectedId == data?._id" class="container" fxLayoutAlign="center center"
+  fxLayout="row">
+
+  <div [style.padding]="'0.2rem'" fxFlex.md="30px" fxFlex.sm="25px" fxFlex="30px" fxFlex.gt-md="30px">
+
+    <nb-icon status="basic" class="icon" icon="behance-outline"></nb-icon>
+  </div>
+
+
+  <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+    <div>
+      {{data?._id}}
+    </div>
+    <div>
+      <nb-tag status="basic" appearance="outline" size="tiny" [text]="data?.exec_status"></nb-tag>
+
+    </div>
+
+
+
+  </div>
+
+
+  <div fxFill fxFlex.md="30px" fxFlex.sm="25px" fxFlex="30px" fxFlex.gt-md="30px">
+
+    <nb-icon status="basic" class="icon" icon="chevron-right-outline"></nb-icon>
+  </div>
+
+
+</div>

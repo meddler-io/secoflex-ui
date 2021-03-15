@@ -1,33 +1,79 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
-import { BehaviorSubject, interval, pipe, Subject, Subscription, timer } from 'rxjs';
-import { delay, repeat, repeatWhen, retry, retryWhen, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
+import { delay, first, repeat, takeUntil, tap } from 'rxjs/operators';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
-import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
-
-
-
-export enum LogSource {
-  IMAGE_BUILDER = 'image_builder',
-  JOB = 'job'
-}
-
+import { JobApiService, LogSource, LOG_STREAM_STATUS } from '../job-api.service';
+import { SidePannelState, StateSyncService } from '../state-sync.service';
 
 @Component({
-  selector: 'app-log-stream',
-  templateUrl: './log-stream.component.html',
-  styleUrls: ['./log-stream.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  // encapsulation: ViewEncapsulation.None
-
+  selector: 'app-job-logs',
+  templateUrl: './job-logs.component.html',
+  styleUrls: ['./job-logs.component.scss']
 })
-export class LogStreamComponent implements OnInit, OnDestroy {
+export class JobLogsComponent implements OnInit {
 
 
+
+  tabs = [
+
+    {
+      title: 'Request',
+      route: [{
+        outlets: {
+          view: ['logs']
+        }
+      }],
+      responsive: true,
+
+    }, {
+      title: 'Logs',
+      route: [{
+        outlets: {
+          view: ['logs']
+        }
+      }],
+      responsive: true,
+
+    },
+    {
+      title: 'Result',
+      route: [{
+        outlets: {
+          view: ['logs']
+        }
+      }],
+      responsive: true,
+
+    },
+    {
+      title: 'Settings',
+      route: [{
+        outlets: {
+          view: ['logs']
+        }
+      }],
+      responsive: true,
+
+    },
+    {
+      title: 'Scratchpad',
+      route: [{
+        outlets: {
+          view: ['logs']
+        }
+      }],
+      responsive: true,
+
+    },
+
+
+  ];
 
   STATUS
 
-  @Input('logsource') logSource: LogSource = LogSource.IMAGE_BUILDER
+  @Input('logsource') logSource: LogSource = LogSource.JOB
   @Input('close') close
 
   LOG_STREAM_STATUS$ = LOG_STREAM_STATUS
@@ -39,7 +85,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
 
   @Input('log_id')
-  log_id = 'npop3'
+  log_id
 
   topic = undefined
 
@@ -55,8 +101,12 @@ export class LogStreamComponent implements OnInit, OnDestroy {
   @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
 
   constructor(
-    private toolApiService: ToolApiService,
-    private cdr: ChangeDetectorRef
+    private jobApiService: JobApiService,
+    private cdr: ChangeDetectorRef,
+    private stateSyncService: StateSyncService,
+    private activatedRoute: ActivatedRoute
+
+
 
 
   ) {
@@ -64,11 +114,18 @@ export class LogStreamComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
 
-    console.log('unsubscribe')
-    this.topic.subscription.unsubscribe()
-    this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
-    this.pollJobStatusSubscription$.unsubscribe()
+    this.unsubscribeAll()
 
+  }
+
+  unsubscribeAll() {
+
+    if (this.topic) {
+
+      this.topic.subscription.unsubscribe()
+      this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.STOP);
+    }
+    this.pollJobStatusSubscription$.unsubscribe()
   }
 
 
@@ -99,24 +156,24 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   getSource(id) {
 
-    console.log('logsource', this.logSource)
+
     switch (this.logSource) {
 
       case LogSource.IMAGE_BUILDER:
 
         return this
-          .toolApiService
+          .jobApiService
           .getBuildExecutorStatus(id)
 
       case LogSource.JOB:
 
         return this
-          .toolApiService
+          .jobApiService
           .getJobStatus(id)
 
       default:
         return this
-          .toolApiService
+          .jobApiService
           .getBuildExecutorStatus(id)
     }
   }
@@ -132,10 +189,11 @@ export class LogStreamComponent implements OnInit, OnDestroy {
         tap(_ => {
           if (_['poll_again'] == false) {
             enough$.next('')
+            this.tailing = false
           }
 
           this.STATUS = _['exec_status']
-          console.log('tap_1', _)
+
         }),
         delay(1000),
         repeat(),
@@ -149,17 +207,27 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    if (this.deep_link == true)
-      this.deepLinkLoadLog()
-    else
-      this.getExecutors(this.log_id)
+
+    this
+      .stateSyncService
+      .SelectedJobId
+      .subscribe(jobid => {
+
+        this.log_id = jobid
+        this.deepLinkLoadLog()
+
+
+      })
+
 
 
 
   }
 
   deepLinkLoadLog() {
-    console.log('deep_link')
+
+    this.unsubscribeAll()
+
 
 
     this.topic = {
@@ -197,6 +265,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
   resumeKeepAtBottom() {
     this.scrollSubscruption.unsubscribe()
     this.scrollSubscruption = interval(300).subscribe(_ => {
+      return
       this.scrollbarRef.scrollTo({ bottom: 0, duration: 150 })
 
     });
@@ -219,13 +288,13 @@ export class LogStreamComponent implements OnInit, OnDestroy {
       if (this.topic.loaded)
         return
 
-    console.log(this.topic)
+
     this.topic.loading.next(true);
 
 
 
     this.topic.subscription = this
-      .toolApiService
+      .jobApiService
       .getLogs(this.topic.log_id, 200, this.topic.pauseStreamer$, THROTTLE_DELAY)
       .pipe(
         tap(d => {
@@ -319,65 +388,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
   }
 
 
-  getExecutors(build_id: string) {
 
-    this
-      .toolApiService
-      .getBuildExecoturs(build_id)
-      .subscribe((data: []) => {
-
-
-        data.forEach((val, index) => {
-
-          // let pauseStreamer = new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.RESUME)
-          // if (index == 0)
-          // pauseStreamer = new BehaviorSubject<LOG_STREAM_STATUS>(LOG_STREAM_STATUS.PAUSE)
-
-          // let data = {
-          //   log_id: val['_id'],
-          //   title: val['_id'],
-          //   desc: 'Dummy Description',
-          //   loaded: false,
-          //   initiated: false,
-          //   loading: new Subject(),
-          //   collapsed: true,
-          //   content: [],
-          //   content$: new Subject(),
-          //   pauseStreamer$: pauseStreamer,
-          //   subscription: Subscription.EMPTY
-
-
-          // }
-
-          this.build_list.push({
-            log_id: val['_id'],
-            title: val['_id'],
-            exec_status: val['exec_status'],
-
-            desc: 'Dummy Description',
-            loaded: false,
-            initiated: false,
-            collapsed: true,
-
-          })
-
-
-
-
-          this.cdr.markForCheck()
-          if (index == 0) {
-            this.onSelectionChange(index)
-
-          }
-
-
-        })
-
-
-
-
-      })
-  }
 
 
   pause(index) {
@@ -391,5 +402,11 @@ export class LogStreamComponent implements OnInit, OnDestroy {
     this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.RESUME);
     this.cdr.markForCheck()
 
+  }
+
+
+  toggle() {
+
+    this.stateSyncService.toggle()
   }
 }

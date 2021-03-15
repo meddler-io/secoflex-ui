@@ -1,0 +1,38 @@
+<nb-card fxFill>
+
+
+  <nb-card-header fxLayoutAlign="space-between center">
+    <nb-route-tabset fxFlex [tabs]="tabs"></nb-route-tabset>
+  </nb-card-header>
+
+  <nb-card-body fxFlex fxLayout="column" class="content log-container">
+
+
+    <router-outlet
+    
+    name="sub_comp"
+
+    ></router-outlet>
+
+    <!-- <ngx-stepper position="0" [readonly]="false">
+      <ngx-step label="step.title" completeIcon="step.icon" active="1" trackBar="false" step="1">
+      </ngx-step>
+      <ngx-step progress="true" label="step.title" completeIcon="step.icon" step="2">
+      </ngx-step>
+      <ngx-step label="step.title" completeIcon="step.icon">
+      </ngx-step>
+    </ngx-stepper>
+ -->
+
+
+  </nb-card-body>
+
+
+  <nb-card-footer fxLayoutAlign="start center" (click)="save()">
+
+
+
+
+  </nb-card-footer>
+
+</nb-card>

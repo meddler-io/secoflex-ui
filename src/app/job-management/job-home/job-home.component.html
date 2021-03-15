@@ -1,0 +1,75 @@
+<nb-layout>
+
+
+  <nb-layout-header>
+
+    <div class="header" fxFlex fxLayoutAlign="space-between">
+
+
+
+      <div fxFlex="300px" fxLayoutAlign="start center">
+
+        <button fxFlex (click)="toggle()" class="newBtn" shape="round" nbButton>
+          <div class="icon" icon="plus"></div>
+          <span>
+            Choose Job
+          </span>
+        </button>
+      </div>
+
+      <!-- <div fxFlex fxLayoutAlign="end center"> -->
+
+      <nb-route-tabset [activeLinkOptions]="{exact:
+        false}" [tabs]="tabs"></nb-route-tabset>
+
+      <!-- </div> -->
+    </div>
+
+
+
+  </nb-layout-header>
+
+
+
+  <!-- <nb-sidebar
+  fixed
+  @openClose [fxShow]="slideState | async" class="list">
+    <router-outlet name="tool_list">
+    </router-outlet>
+  </nb-sidebar> -->
+
+
+  <nb-layout-column  fxFlex.gt-sm="300px" fxFlex @openClose [fxShow]="slideState | async" class="list">
+
+    <router-outlet name="tool_list">
+    </router-outlet>
+  </nb-layout-column>
+
+
+  <!-- <nb-layout-column @openClose class="list">
+    <app-job-list></app-job-list>
+  </nb-layout-column> -->
+
+  <nb-layout-column
+  
+
+  [fxHide.lt-md]="slideState | async" 
+  @openClose fxFlex class="list">
+
+
+    <router-outlet name="view">
+
+    </router-outlet>
+
+
+
+    <!-- <app-job-logs log_id="60453f148473b4c0c7d54852"></app-job-logs> -->
+    <!-- <router-outlet>
+
+    </router-outlet> -->
+
+
+  </nb-layout-column>
+
+
+</nb-layout>

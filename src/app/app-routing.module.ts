@@ -28,7 +28,11 @@ const routes: Routes = [
       {
         path: 'tools',
         loadChildren: () => import('./tool-management/tool-management.module').then(m => m.ToolManagementModule)
+      },
 
+      {
+        path: 'jobs',
+        loadChildren: () => import('./job-management/job-management.module').then(m => m.JobManagementModule)
       },
 
 
@@ -48,7 +52,7 @@ const routes: Routes = [
         loadChildren: () => import('./reusable-components/reusable-components.module').then(m => m.ReusableComponentsModule)
       },
 
-      { path: "**", redirectTo: "tools", pathMatch: "full" },
+      { path: "**", redirectTo: "jobs", pathMatch: "full" },
 
 
 

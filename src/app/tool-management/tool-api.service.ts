@@ -238,6 +238,9 @@ export class ToolApiService {
     return this.http.get(`${url}/build/executors/${refrence_id}`)
   }
 
+  getBuildExecutorStatus(refrence_id: string) {
+    return this.http.get(`${url}/build/executors/status/${refrence_id}`)
+  }
 
   getToolImages(tool_id: string) {
     return this.http.get(`${url}/deployment/images/${tool_id}`)

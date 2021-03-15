@@ -1,0 +1,39 @@
+@import '../../../../themes';
+
+.icon {
+  width: 100%;
+  height: 100%;
+}
+
+nb-tag {
+  text-transform: capitalize;
+}
+
+.selected {
+  color: nb-theme(navitem-selected-text);
+
+}
+
+
+.container {
+  background-color: nb-theme(color-basic-200);
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+
+  margin-right: nb-theme(layout-scrollbar-width);
+
+
+  &:hover {
+    background-color: nb-theme(color-basic-300);
+
+  }
+
+  &.selected {
+    background-color: nb-theme(color-primary-400);
+    // color: nb-theme(background-alternative-color-2);
+
+  }
+
+
+
+}

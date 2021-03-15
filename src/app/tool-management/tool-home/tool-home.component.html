@@ -2,7 +2,7 @@
 
 
   <nb-layout-header fixed>
-    <div  fxFlex fxLayoutAlign="space-between center">
+    <div fxFlex fxLayoutAlign="space-between center">
       <div class="imageContainer" fxLayoutAlign="center center">
         <img src="/assets/logo.png">
       </div>
@@ -11,15 +11,6 @@
       <div>
 
 
-        <button class="newBtn" (click)="open(dialog)" shape="round" nbButton>
-
-          <div class="icon" icon="plus"></div>
-
-          <span>
-            New
-
-          </span>
-        </button>
 
 
 
@@ -32,11 +23,9 @@
 
   </nb-layout-header>
 
- 
 
-  <nb-sidebar
-*ngIf="false"
-  right fxLayout="column">
+
+  <nb-sidebar *ngIf="false" right fxLayout="column">
 
 
 
@@ -47,9 +36,7 @@
 
         <div fxFlex fxLayout="row">
 
-          <button
-          (click)="openDrawer(dialog)"
-          fullWidth class="newBtn" shape="round" nbButton>
+          <button (click)="openDrawer(dialog)" fullWidth class="newBtn" shape="round" nbButton>
 
             <div class="icon" icon="plus"></div>
 
@@ -79,14 +66,21 @@
 
 
 
+ 
+
+
   <nb-layout-column>
     <router-outlet>
-
     </router-outlet>
     <!-- <app-tool-screen></app-tool-screen> -->
 
   </nb-layout-column>
 
+  <!-- <nb-layout-column>
+
+    <app-tool-screen></app-tool-screen>
+
+  </nb-layout-column> -->
 
 </nb-layout>
 

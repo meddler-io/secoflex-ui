@@ -18,6 +18,11 @@
           Tools
 
         </div>
+
+
+
+
+
       </div>
     </nb-card-header>
     <nb-list>
@@ -68,7 +73,7 @@
 
   <nb-layout-header subHeader>
 
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxFlex fxLayoutAlign="start center">
 
       <button shape="round" [routerLink]="['/'  ]" ghost status="basic" class="action" size="large" nbButton>
         <nb-icon icon="arrow-back-outline">
@@ -76,10 +81,20 @@
         </nb-icon>
       </button>
 
-      <div class="h6 text-hint">
+      <div fxFlex class="h6 text-hint">
         Tools
 
       </div>
+
+      <button (click)="openDrawer(toolEditTemplate)"   class="newBtn" shape="round" nbButton>
+
+        <div class="icon" icon="plus"></div>
+
+        <span>
+          Create Tool
+
+        </span>
+      </button>
     </div>
 
   </nb-layout-header>

@@ -1,0 +1,60 @@
+<nb-card fxFill>
+
+
+  <nb-card-header fxLayoutAlign="end">
+
+
+    <nb-select [formControl]="selectedTool" status="success" appearance="filled"
+      (selectedChange)="onToolSelectionChange($event)" size="small" placeholder="Tools">
+      <!-- <nb-option value="1">None</nb-option> -->
+
+
+      <!-- <nb-option-group title="Group 1"> -->
+
+      <nb-option value="">All tools</nb-option>
+      <!-- </nb-option-group> -->
+
+      <nb-option-group title="Tools">
+
+
+        <nb-option *ngFor="let tool of tools | async ; let index=index" [value]="tool?._id">
+          {{ tool?.alias }}
+        </nb-option>
+
+
+      </nb-option-group>
+
+    </nb-select>
+
+  </nb-card-header>
+
+
+
+  <nb-list>
+    <nb-list-item *ngFor="let job of jobs | async">
+      <!-- Hello World {{ job | json }} -->
+      <app-list-item
+      [selectedId]="SelectedJobId | async" 
+      (click)="onClick(job?._id)" fxFlex [data]="job">
+        </app-list-item>
+    </nb-list-item>
+  </nb-list>
+
+
+  <nb-card-footer fxLayoutAlign="end">
+
+
+    <nb-select [multiple]="false" appearance="hero" size="small" placeholder="Tools">
+      <!-- <nb-option value="1">None</nb-option> -->
+
+      <nb-option *ngFor="let tool of tools | async ; let index=index" [value]="tool?._id">
+        {{ tool?.alias }}
+      </nb-option>
+
+    </nb-select>
+
+
+
+  </nb-card-footer>
+
+</nb-card>
