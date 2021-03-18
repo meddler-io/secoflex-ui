@@ -22,6 +22,31 @@ import { DrawerService } from 'src/app/drawer/drawer.service';
 export class ToolHomeComponent implements OnInit {
 
 
+  tabs = [
+
+    {
+      title: 'Logs',
+      route: [{
+       
+      }],
+      // responsive: true,
+    },
+
+    {
+      title: 'Result',
+      route: [{
+     
+      }],
+      // responsive: true,
+    },
+    {
+      title: 'Deployments',
+      route: [],
+      // responsive: true,
+    }
+
+
+  ]
 
 
   testLogs = ""

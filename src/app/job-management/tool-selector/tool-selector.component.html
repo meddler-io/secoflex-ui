@@ -1,0 +1,44 @@
+<nb-card fxFill>
+  <nb-card-header fxLayout="row" fxLayoutAlign="start center">
+    <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="medium" nbButton>
+      <nb-icon icon="arrow-back-outline">
+      </nb-icon>
+    </button>
+    <div class="subtitle-2">
+      Choose Tool
+    </div>
+
+
+    <button shape="round"
+    (click)="closeToolSelection()"
+ 
+    
+    ghost status="basic" class="action" size="medium" nbButton>
+      <nb-icon icon="close-circle-outline">
+      </nb-icon>
+    </button>
+  </nb-card-header>
+
+
+
+  <nb-list>
+    <nb-list-item (click)="onSelectTool(tool)" *ngFor="let tool of tools | async">
+
+      <div class="container" fxLayoutAlign="center center" fxLayout="row">
+
+        <div fxLayoutAlign="start center">
+          <span class="dot text-primary">&#183;</span>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
+          <div fxFlex class="subtitle-2 ">
+            {{tool?.alias}}
+          </div>
+        </div>
+      </div>
+
+    </nb-list-item>
+  </nb-list>
+
+
+</nb-card>

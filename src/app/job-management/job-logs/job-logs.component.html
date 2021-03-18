@@ -1,4 +1,80 @@
-<nb-card fxFill>
+<ng-template #logTemplate let-topic="topic">
+
+  <ng-container>
+
+    <div class="container">
+
+      <div fxFill class="log-container">
+
+        <div fxFlexAlign="center" *ngIf=" topic?.content == undefined ||  topic?.content?.length < 1"
+          fxLayoutAlign="center center">
+          <ngx-progress-spinner></ngx-progress-spinner>
+        </div>
+
+        <ng-scrollbar [style.pointerEvents]=" tailing ? 'none' : 'all' " track="all" [scrollAuditTime]="20">
+
+          <div fxFlex>
+            <div class="code">
+              <div *ngFor="let content of topic?.content">
+                <code fxFlex>
+                  <pre [innerText]="content">   </pre>
+                </code>
+              </div>
+            </div>
+
+          </div>
+
+        </ng-scrollbar>
+
+      </div>
+
+
+      <div class="overlay-button">
+
+        <ng-template #actionBtns let-status="pauseStatus">
+
+          <div class="row" fxFlex fxLayoutAlign="end center">
+
+
+            <nb-button-group style="margin-right: 1rem;" size="small" shape="round" multiple>
+
+              <button hero status="danger" (click)="toggleStreamingLogs($event)" nbButtonToggle size="small">
+                <nb-icon icon="pause-circle">
+                </nb-icon>
+
+                {{  ( status == LOG_STREAM_STATUS$.PAUSE   )  ? 'Resume' : 'Pause'  }}
+
+              </button>
+
+
+
+              <button [(pressed)]="tailing" (pressedChange)="toggleTail($event)" nbButtonToggle size="small">
+                <nb-icon icon="arrowhead-down-outline"></nb-icon>
+                Follow
+              </button>
+            </nb-button-group>
+          </div>
+        </ng-template>
+
+        <ng-container *ngTemplateOutlet="actionBtns; context:{pauseStatus: topic?.pauseStreamer$ | async }">
+        </ng-container>
+      </div>
+    </div>
+
+
+  </ng-container>
+</ng-template>
+
+
+<ng-container *ngIf="topic">
+  <ng-container *ngTemplateOutlet="logTemplate; context: { 'topic': topic } ">
+  </ng-container>
+
+
+</ng-container>
+
+
+<nb-card *ngIf="false" fxFill>
 
 
   <nb-card-header fxLayoutAlign="space-between center">

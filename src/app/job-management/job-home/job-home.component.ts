@@ -1,8 +1,8 @@
 import { trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbRouteTabsetComponent } from '@nebular/theme';
-import { tap } from 'rxjs/operators';
+import { share, tap } from 'rxjs/operators';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DRAWER_ANIMATION } from 'src/app/drawer/drawer.animation';
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
@@ -27,11 +27,12 @@ export class JobHomeComponent implements OnInit {
 
   slideState = this.stateSyncService.toolSidePannelState.asObservable()
 
-
+  SelectedJobId = this.stateSyncService.SelectedJobId //.pipe(share())
 
   constructor(
     private stateSyncService: StateSyncService,
-    private activatedRoute: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     let dsa: NbRouteTabsetComponent
 
@@ -40,7 +41,7 @@ export class JobHomeComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.stateSyncService.SelectedJobId.subscribe(_ => {
+    this.SelectedJobId.subscribe(_ => {
       console.log('loffer', _)
 
       if (!!!_)
@@ -51,14 +52,16 @@ export class JobHomeComponent implements OnInit {
 
 
 
-    this.activatedRoute.paramMap.subscribe(_ => {
+    this.route.paramMap.subscribe(_ => {
 
       if (_.has('jobid')) {
 
         let jobid = _.get('jobid')
+        console.log('selectedJobs_push', jobid)
         this.stateSyncService.selectedJobId.next(jobid)
 
       } else {
+        console.log('selectedJobs_push')
         this.stateSyncService.selectedJobId.next(undefined)
 
       }
@@ -74,10 +77,10 @@ export class JobHomeComponent implements OnInit {
   tabs = [
 
     {
-      title: 'Logs',
+      title: 'Jobs',
       route: [{
         outlets: {
-          view: ['logs']
+          view: ['job']
 
 
         }
@@ -98,12 +101,8 @@ export class JobHomeComponent implements OnInit {
       // responsive: true,
     },
     {
-      title: 'Settings',
-      route: [{
-        outlets: {
-          view: ['settings']
-        }
-      }],
+      title: 'Deployments',
+      route: ['/tools'],
       // responsive: true,
     }
 
@@ -111,5 +110,20 @@ export class JobHomeComponent implements OnInit {
   ]
 
 
+  goToToolsSelection() {
+
+    console.log('route', this.route)
+    // return
+    this.router.navigate([
+
+      {
+        outlets: {
+          tool_list: ['tools']
+        }
+      }
+    ]
+    , { relativeTo: this.route }
+    )
+  }
 
 }

@@ -5,7 +5,7 @@ nb-card {
   margin: 0;
 
   .container {
-    margin-top: 1rem;
+    // margin-top: 1rem;
   }
 
   textarea {
@@ -17,15 +17,15 @@ nb-card {
 
 }
 
-
 nb-card-header {
   padding: 0rem;
+  height: 4rem;
 
 }
 
 nb-card-footer {
   padding: 0.3rem;
-  background: nb-theme(background-alternative-color-2);
+  // background: nb-theme(background-alternative-color-2);
   border: 0em;
 
 }
@@ -164,13 +164,16 @@ nb-card-body {
 
 .content {
 
-  height: calc(100% - 4rem);
+  // height: calc(100% - 4rem);
   // overflow: auto;
 
 }
 
 .action {
-  margin-left: 5px;
+  // margin-left: 5px;
+
+  margin-left: -20px;
+
 
   &:hover {
     nb-icon {

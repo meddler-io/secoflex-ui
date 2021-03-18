@@ -2,17 +2,65 @@
 
 
   <nb-card-header fxLayoutAlign="space-between center">
-    <nb-route-tabset fxFlex [tabs]="tabs"></nb-route-tabset>
+
+
+
+
+    <ng-container *ngIf="slideState | async ; else rightBtnTemplate ">
+
+      <button shape="round" (click)="toggleJobSelector()" outline class="action" size="medium" nbButton>
+        <nb-icon icon="chevron-left-outline">
+
+        </nb-icon>
+      </button>
+
+    </ng-container>
+
+
+
+
+
+    <ng-template #rightBtnTemplate>
+      <button shape="round" (click)="toggleJobSelector()" outline class="action" size="medium" nbButton>
+
+        <nb-icon icon="chevron-right-outline">
+
+        </nb-icon>
+
+      </button>
+    </ng-template>
+
+
+    <div fxFlex fxLayoutAlign="space-between">
+
+      <!--  -->
+      <div *ngIf="SelectedJob | async as SelectedJob">
+
+        <button (click)="openToToolsSelection()" ghost status="primary" shape="round" class="title" nbButton
+          size="medium">
+          {{( SelectedJob )?.tool?.alias}}
+
+        </button>
+
+        <button (click)="openToToolsSelection( SelectedJob?.tool?._id )" ghost shape="round" class="title" nbButton
+          size="medium">
+          {{( SelectedJob )?._id}}
+        </button>
+      </div>
+    </div>
+
+    <!--  -->
+
+    <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+
+
+
   </nb-card-header>
 
-  <nb-card-body fxFlex fxLayout="column" class="content log-container">
+  <nb-card-body fxFlex>
 
 
-    <router-outlet
-    
-    name="sub_comp"
-
-    ></router-outlet>
+    <router-outlet name="sub_comp"></router-outlet>
 
     <!-- <ngx-stepper position="0" [readonly]="false">
       <ngx-step label="step.title" completeIcon="step.icon" active="1" trackBar="false" step="1">
@@ -27,12 +75,9 @@
 
   </nb-card-body>
 
+  <!-- <nb-card-footer>
+    <nb-route-tabset fxFlex [tabs]="tabs"></nb-route-tabset>
+  </nb-card-footer> -->
 
-  <nb-card-footer fxLayoutAlign="start center" (click)="save()">
-
-
-
-
-  </nb-card-footer>
 
 </nb-card>

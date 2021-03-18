@@ -24,18 +24,33 @@ export class JobSelectorComponent implements OnInit {
   constructor(
     private jobApiService: JobApiService,
     private router: Router,
+    private route: ActivatedRoute,
     public stateSyncService: StateSyncService
 
   ) { }
 
   ngOnInit(): void {
 
+    this.route.paramMap.subscribe(params => {
+      let tool_id = params.get('tool_id')
+      console.log('tool_id', tool_id)
+      this.onToolSelectionChange(tool_id)
+
+      if (tool_id) {
+
+      } else {
+
+      }
+    })
+
+
+
     // TODO: Need to unsubscrbe
     this.selectedTool.valueChanges.subscribe(val => {
       this.onToolSelectionChange(val)
     })
 
-    this.onToolSelectionChange(this.selectedTool.value)
+    // this.onToolSelectionChange(this.selectedTool.value)
 
 
 
@@ -52,17 +67,44 @@ export class JobSelectorComponent implements OnInit {
 
   }
 
+  goToToolsSelection() {
+
+    console.log('route', this.route)
+    // return
+    this.router.navigate([
+
+      {
+        outlets: {
+          tool_list: ['tools']
+        }
+      }
+    ], { relativeTo: this.route.parent })
+  }
   onClick(jobId) {
 
+    console.log('doom',
+      `/jobs/job/${jobId}`,
+
+    )
+    // return
+    // this.router.navigateByUrl(
+
+    //   `/jobs/job/${jobId}`
+
+    // )
+
+    // return
+
     this.router.navigate([
+
 
       '/jobs',
       'job',
       jobId,
+  
+  
+
     ])
-
-
-
   }
 
 }

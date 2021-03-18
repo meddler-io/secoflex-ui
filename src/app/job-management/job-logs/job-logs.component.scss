@@ -1,34 +1,7 @@
 @import '../../../themes';
 
-nb-card {
-  max-height: calc(100vh - 7rem);
-  margin: 0;
-
-  .container {
-    margin-top: 1rem;
-  }
-
-  textarea {
-
-    resize: none;
-  }
 
 
-
-}
-
-
-nb-card-header {
-  padding: 0rem;
-
-}
-
-nb-card-footer {
-  padding: 0.3rem;
-  background: nb-theme(background-alternative-color-2);
-  border: 0em;
-
-}
 
 
 .subtitle {
@@ -41,15 +14,7 @@ nb-card-footer {
   // font-family: neue-haas-unica,sans-serif;
 }
 
-nb-card {
-  border: 0;
-}
 
-nb-card-body {
-  border: 0;
-  padding: 0rem;
-
-}
 
 .buildBtn {
   border-radius: 0;
@@ -58,9 +23,11 @@ nb-card-body {
 }
 
 
+
 .log-container {
   background: nb-theme(background-alternative-color-1);
   color: nb-theme(text-alternate-color);
+  // height: 100%;
 
   // margin: 1px;
   // border-radius: 3px;
@@ -77,11 +44,19 @@ nb-card-body {
   }
 
 }
+.container{
+  position: relative;
+  height: 100%;
 
+}
 .overlay-button {
-  position: sticky;
+  position: absolute;
   bottom: 1rem;
-  right: 1rem;
+  left: 1rem;
+  // top: 100%;
+  vertical-align: bottom;
+  // bottom: -1rem;
+  // right: 1rem;
   // -webkit-backface-visibility: hidden;
   // background: nb-theme(background-alternative-color-2);
 
@@ -152,7 +127,7 @@ nb-card-body {
 
   // position: fixed;
   // top: 0;
-  height: 4rem;
+  // height: 4rem;
 
   background: nb-theme(background-alternative-color-2);
   box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.16), 2px 2px 3px rgba(255, 255, 255, 0.23);
@@ -164,7 +139,7 @@ nb-card-body {
 
 .content {
 
-  height: calc(100% - 4rem);
+  // height: calc(100% - 4rem);
   // overflow: auto;
 
 }

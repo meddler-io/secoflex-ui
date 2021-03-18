@@ -36,6 +36,11 @@ export class JobApiService {
     return this.http.get(`${url}/job/status/${id}`)
 
   }
+  getJob(id: string) {
+    return this.http.get(`${url}/job/${id}`)
+
+  }
+
   getJobs(id: string) {
     return this.http.get(`${url}/jobs/${id}`)
 
@@ -184,6 +189,10 @@ export class JobApiService {
       // console.log('sibome subscribed')
       return logStramSubject;
     });
+  }
+
+  getTool(tool_id) {
+    return this.http.get(`${url}/tool/${tool_id}`)
   }
 
   getTools() {
