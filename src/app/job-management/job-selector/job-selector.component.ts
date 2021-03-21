@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, share, tap } from 'rxjs/operators';
 import { JobApiService } from '../job-api.service';
-import { StateSyncService } from '../state-sync.service';
+import { StateSyncService, StatusPipe } from '../state-sync.service';
 
 @Component({
   selector: 'app-job-selector',
@@ -11,6 +11,8 @@ import { StateSyncService } from '../state-sync.service';
   styleUrls: ['./job-selector.component.scss']
 })
 export class JobSelectorComponent implements OnInit {
+
+  sub_comp_route: string
 
   tools = this.jobApiService.getTools()
 
@@ -31,11 +33,19 @@ export class JobSelectorComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    this.stateSyncService.MainContainerActiveTab.subscribe(_ => {
+      this.sub_comp_route = _
+    })
+
+
     this.route.paramMap.subscribe(params => {
       let tool_id = params.get('tool_id')
       console.log('tool_id', tool_id)
       this.onToolSelectionChange(tool_id)
 
+
+      this.selectedTool.setValue(tool_id)
       if (tool_id) {
 
       } else {
@@ -59,9 +69,10 @@ export class JobSelectorComponent implements OnInit {
   onToolSelectionChange(event) {
 
     if (event)
-      this.jobs = this.jobApiService.getJobs(event)
+      this.jobs = this.jobApiService.getJobs(event).pipe(
+        StatusPipe)
     else
-      this.jobs = this.jobApiService.getAllJobs()
+      this.jobs = this.jobApiService.getAllJobs().pipe(StatusPipe)
 
 
 
@@ -69,8 +80,8 @@ export class JobSelectorComponent implements OnInit {
 
   goToToolsSelection() {
 
-    console.log('route', this.route)
-    // return
+    console.log('route', this.route.root)
+    return
     this.router.navigate([
 
       {
@@ -79,32 +90,58 @@ export class JobSelectorComponent implements OnInit {
         }
       }
     ], { relativeTo: this.route.parent })
+
+
+
   }
   onClick(jobId) {
 
-    console.log('doom',
-      `/jobs/job/${jobId}`,
-
-    )
+    // console.log('ekkkk', this.selectedTool.value)
+    // console.log('route', this.route.snapshot)
     // return
-    // this.router.navigateByUrl(
 
-    //   `/jobs/job/${jobId}`
 
-    // )
 
-    // return
 
     this.router.navigate([
 
 
-      '/jobs',
+      'jobs',
       'job',
       jobId,
-  
-  
+      {
+        outlets: {
 
-    ])
+          tool_list: [
+            'tool',
+            this.selectedTool.value,
+
+         
+
+          ],
+
+          view: [
+            'job',
+            {
+              outlets: {
+                sub_comp: [
+                  this.sub_comp_route
+                ]
+              }
+            }
+          ]
+
+        }
+      }
+
+
+
+
+    ],
+      {
+        // relativeTo: this.route.parent.parent
+      }
+    )
   }
 
 }

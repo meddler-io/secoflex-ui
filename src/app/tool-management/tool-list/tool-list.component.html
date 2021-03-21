@@ -86,7 +86,7 @@
 
       </div>
 
-      <button (click)="openDrawer(toolEditTemplate)"   class="newBtn" shape="round" nbButton>
+      <button (click)="openDrawer(toolEditTemplate)" class="newBtn" shape="round" nbButton>
 
         <div class="icon" icon="plus"></div>
 
@@ -185,5 +185,6 @@
 
 
 <ng-template #toolEditTemplate let-close="close" let-context="context" let-ref="dialogRef">
+
   <app-tool-create [edit_mode]="context.edit_mode" [close]="close" [tool_id]="context.tool_id"></app-tool-create>
 </ng-template>

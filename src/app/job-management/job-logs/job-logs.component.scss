@@ -25,9 +25,11 @@
 
 
 .log-container {
-  background: nb-theme(background-alternative-color-1);
-  color: nb-theme(text-alternate-color);
+  // color: nb-theme(text-alternate-color);
   // height: 100%;
+  // position: absolute;
+
+  // margin: 1rem;
 
   // margin: 1px;
   // border-radius: 3px;
@@ -41,20 +43,43 @@
 
   pre {
     margin: 0;
+    word-wrap: break-word;
+    white-space: initial;
+    hyphens: auto;
+    padding: 1rem;
+
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.8rem;
+    color: #9e9e9e;
+    color: nb-theme(text-hint-color);
+
   }
 
 }
-.container{
-  // position: relative;
+
+:host{
+  
+}
+
+.container {
+  // background: nb-theme(background-alternative-color-1);
+  position: relative;
   // height: 100%;
 
+  // overflow:auto ;
 }
+
 .overlay-button {
-  position: absolute;
+  position: sticky;
+  // bottom: 1rem;
+  // right: 1rem;
   bottom: 1rem;
-  left: 1rem;
+  right: 1rem;
+  // margin-bottom: 1rem;
+  // margin-right: 1rem;
   // top: 100%;
-  vertical-align: bottom;
+  // vertical-align: top;
   // bottom: -1rem;
   // right: 1rem;
   // -webkit-backface-visibility: hidden;
@@ -63,64 +88,19 @@
 
 }
 
-:host ::ng-deep nb-accordion {
-  // background: nb-theme(background-alternative-color-1);
-
-  nb-accordion-item {
-    // margin-bottom: 0.4rem;
-
-    nb-accordion-item-header {
-
-      // margin-left: 1px;
-      // margin-right: 1px;
-      // margin-bottom: 1px;
-      // margin: 1px;
-
-      // border-bottom-left-radius: 2px;
-      // border-bottom-right-radius: 2px;
-
-      &:hover {
-        background: nb-theme(background-alternative-color-1);
-        color: nb-theme(text-alternate-color);
-
-
-      }
-
-      &.accordion-item-header-expanded {
-        background: nb-theme(background-alternative-color-2);
-        color: nb-theme(text-alternate-color);
-
-
-
-      }
-    }
-
-
-    nb-accordion-item-body.marginBody {
-      overflow: scroll;
-      background: nb-theme(background-alternative-color-1);
-      color: nb-theme(text-alternate-color);
-
-      // margin: 1px;
-      // border-radius: 3px;
-
-      .ng-trigger-accordionItemBody {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      pre {
-        margin: 0;
-      }
-
-    }
-
-  }
+.container {
+  border-bottom-left-radius: var(--card-border-radius);
+  border-bottom-right-radius: var(--card-border-radius);
 }
 
+:host ::ng-deep {
 
+  .ng-scroll-content {
+    display: block;
+
+  }
+
+}
 
 
 .head {
@@ -174,4 +154,12 @@ nb-route-tabset {
   vertical-align: bottom;
 
   padding-bottom: nb-theme(layout-scrollbar-width);
+}
+
+
+.progressBar {
+
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
 }

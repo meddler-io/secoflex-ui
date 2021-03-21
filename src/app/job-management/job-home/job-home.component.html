@@ -1,14 +1,14 @@
 <nb-layout>
 
 
-  <nb-layout-header fixed>
+  <nb-layout-header>
 
     <div class="header" fxFlex fxLayoutAlign="space-between">
 
 
       <div fxLayout="row">
 
-        <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="large" nbButton>
+        <button shape="round" [routerLink]="['/tools' ]" ghost status="basic" class="action" size="large" nbButton>
           <nb-icon icon="arrow-back-outline">
 
           </nb-icon>
@@ -19,16 +19,6 @@
 
       </div>
 
-      <div fxFlex="230px" fxLayoutAlign="start center">
-
-        <button fxFlex (click)="toggle()" class="newBtn" shape="round" nbButton>
-          <div class="icon" icon="plus"></div>
-          <span>
-            Choose Job
-
-          </span>
-        </button>
-      </div>
 
     </div>
 
@@ -38,9 +28,11 @@
 
 
 
-  <nb-layout-column fxFill>
+  <nb-layout-column
+  fxLayoutGap="1rem"
+  >
 
-    <div  id="side" fxFlex.gt-xs="1 1 400px" fxFlex @openClose [fxShow]="true" [fxShow.lt-md]="slideState | async">
+    <div id="side" fxFlex.gt-xs="1 1 400px" fxFlex @openClose [fxShow]="true" [fxShow.lt-md]="slideState | async">
 
       <!-- <nb-card fxFill>
         <nb-card-header fxLayoutAlign="start center">
@@ -56,9 +48,9 @@
         </nb-card-header>
 
         <nb-card-body> -->
-          <router-outlet name="tool_list">
-          </router-outlet>
-        <!-- </nb-card-body>
+      <router-outlet name="tool_list">
+      </router-outlet>
+      <!-- </nb-card-body>
       </nb-card> -->
 
 

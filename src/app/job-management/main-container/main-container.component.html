@@ -1,63 +1,46 @@
 <nb-card fxFill>
 
 
-  <nb-card-header fxLayoutAlign="space-between center">
+  <nb-card-header fxLayoutAlign="start center">
 
 
+    <div fxFlex fxLayout="row">
 
+      <ng-template #rightBtnTemplate>
+        <button shape="round" (click)="toggleJobSelector()" outline class="action" size="medium" nbButton>
 
-    <ng-container *ngIf="slideState | async ; else rightBtnTemplate ">
+          <nb-icon icon="chevron-right-outline">
 
-      <button shape="round" (click)="toggleJobSelector()" outline class="action" size="medium" nbButton>
-        <nb-icon icon="chevron-left-outline">
-
-        </nb-icon>
-      </button>
-
-    </ng-container>
-
-
-
-
-
-    <ng-template #rightBtnTemplate>
-      <button shape="round" (click)="toggleJobSelector()" outline class="action" size="medium" nbButton>
-
-        <nb-icon icon="chevron-right-outline">
-
-        </nb-icon>
-
-      </button>
-    </ng-template>
-
-
-    <div fxFlex fxLayoutAlign="space-between">
-
-      <!--  -->
-      <div *ngIf="SelectedJob | async as SelectedJob">
-
-        <button (click)="openToToolsSelection()" ghost status="primary" shape="round" class="title" nbButton
-          size="medium">
-          {{( SelectedJob )?.tool?.alias}}
+          </nb-icon>
 
         </button>
+      </ng-template>
 
-        <button (click)="openToToolsSelection( SelectedJob?.tool?._id )" ghost shape="round" class="title" nbButton
-          size="medium">
-          {{( SelectedJob )?._id}}
-        </button>
-      </div>
+
+
+      <app-selected-job></app-selected-job>
+
+
+
+
     </div>
 
     <!--  -->
 
-    <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+
+
+
+    <nb-route-tabset
+    
+    [fxHide.lt-md]="true" [fxShow]="true"
+    [tabs]="tabs"></nb-route-tabset>
+
 
 
 
   </nb-card-header>
 
-  <nb-card-body fxFlex>
+  <nb-card-body fxFlex style="overflow: hidden; border: none;">
 
 
     <router-outlet name="sub_comp"></router-outlet>
@@ -75,9 +58,10 @@
 
   </nb-card-body>
 
-  <!-- <nb-card-footer>
-    <nb-route-tabset fxFlex [tabs]="tabs"></nb-route-tabset>
-  </nb-card-footer> -->
+  <nb-card-header [fxShow.lt-md]="true" [fxHide]="true">
+    <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
+
+  </nb-card-header>
 
 
 </nb-card>

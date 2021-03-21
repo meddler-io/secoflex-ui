@@ -10,23 +10,16 @@ import { StateSyncService } from '../state-sync.service';
 export class MainContainerComponent implements OnInit {
 
 
+
+
   tabs = [
 
     {
-      title: 'Request_',
+      title: 'Request',
       route: [{
         outlets: {
 
-          sub_comp: ['logs1']
-        }
-      }],
-      responsive: true,
-
-    }, {
-      title: 'Logs',
-      route: [{
-        outlets: {
-          sub_comp: ['logs2'],
+          sub_comp: ['request']
         }
       }],
       responsive: true,
@@ -36,35 +29,24 @@ export class MainContainerComponent implements OnInit {
       title: 'Result',
       route: [{
         outlets: {
-          sub_comp: ['logs3']
+          sub_comp: ['result']
 
         }
       }],
       responsive: true,
 
-    },
-    {
-      title: 'Settings',
+    }, {
+      title: 'Logs',
       route: [{
         outlets: {
-          sub_comp: ['logs4']
-
+          sub_comp: ['logs'],
         }
       }],
       responsive: true,
 
     },
-    {
-      title: 'Scratchpad',
-      route: [{
-        outlets: {
-          sub_comp: ['logs6']
 
-        }
-      }],
-      responsive: true,
 
-    },
 
 
   ];
@@ -83,6 +65,8 @@ export class MainContainerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    
   }
 
   toggleJobSelector() {

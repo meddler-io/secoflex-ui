@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { JobBootstrapComponent } from './job-bootstrap/job-bootstrap.component';
 import { JobHomeComponent } from './job-home/job-home.component';
 import { JobLogsComponent } from './job-logs/job-logs.component';
+import { JobRequestComponent } from './job-request/job-request.component';
+import { JobResultComponent } from './job-result/job-result.component';
 import { JobSelectorComponent } from './job-selector/job-selector.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { TestComponent } from './test/test.component';
@@ -25,14 +27,14 @@ const routes: Routes = [
 
 
           // { path: '', component: JobSelectorComponent, outlet: 'tool_list' },
-          // { path: '', redirectTo: 'tools', outlet: 'tool_list' },
+          { path: '', redirectTo: 'tools', outlet: 'tool_list' },
           { path: 'tools', component: ToolSelectorComponent, outlet: 'tool_list' },
           { path: 'jobs', component: JobSelectorComponent, outlet: 'tool_list' },
           { path: 'test', component: TestComponent, outlet: 'tool_list' },
 
           { path: 'tool/:tool_id', component: JobSelectorComponent, outlet: 'tool_list' },
           // { path: '**', component: JobSelectorComponent, outlet: 'tool_list' },
-          // { path: '**', redirectTo: 'tools', outlet: 'tool_list' },
+          { path: '**', redirectTo: 'tools', outlet: 'tool_list' },
 
 
 
@@ -56,12 +58,17 @@ const routes: Routes = [
             children: [
 
               // { path: '', component: JobLogsComponent, outlet: 'sub_comp' },
-              { path: '', redirectTo: 'logs1', outlet: 'sub_comp' },
-              { path: 'logs1', component: JobLogsComponent, outlet: 'sub_comp' },
-              { path: 'logs2', component: JobLogsComponent, outlet: 'sub_comp' },
+              // { path: '', component: JobLogsComponent, outlet: 'sub_comp' },
+              { path: '', redirectTo: 'request', outlet: 'sub_comp' },
+              { path: 'request', component: JobRequestComponent, outlet: 'sub_comp' },
+              { path: 'logs', component: JobLogsComponent, outlet: 'sub_comp' },
+              { path: 'result', component: JobResultComponent, outlet: 'sub_comp' },
+              { path: 'settings', component: JobLogsComponent, outlet: 'sub_comp' },
+              { path: 'scratchpad', component: JobLogsComponent, outlet: 'sub_comp' },
               // { path: '**', component: JobLogsComponent, outlet: 'sub_comp' },
-              { path: '**', redirectTo: 'logs1', outlet: 'sub_comp' },
+              { path: '**', redirectTo: 'request', outlet: 'sub_comp' },
 
+              
 
 
             ]
@@ -77,7 +84,11 @@ const routes: Routes = [
             children: [
 
               { path: '', component: JobLogsComponent, outlet: 'sub_comp' },
+              { path: 'request', component: JobRequestComponent, outlet: 'sub_comp' },
               { path: 'logs', component: JobLogsComponent, outlet: 'sub_comp' },
+              { path: 'result', component: JobResultComponent, outlet: 'sub_comp' },
+              { path: 'settings', component: JobLogsComponent, outlet: 'sub_comp' },
+              { path: 'scratchpad', component: JobLogsComponent, outlet: 'sub_comp' },
               { path: '**', component: JobLogsComponent, outlet: 'sub_comp' },
               // { path: '**', redirectTo: 'logs' ,  outlet: 'sub_comp' },
 

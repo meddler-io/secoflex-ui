@@ -1,18 +1,18 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { BehaviorSubject, interval, Subject, Subscription } from 'rxjs';
-import { delay, first, repeat, takeUntil, tap } from 'rxjs/operators';
+import { delay, filter, first, repeat, takeUntil, tap } from 'rxjs/operators';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 import { JobApiService, LogSource, LOG_STREAM_STATUS } from '../job-api.service';
-import { SidePannelState, StateSyncService } from '../state-sync.service';
+import { MainContainerTabs, SidePannelState, StateSyncService } from '../state-sync.service';
 
 @Component({
   selector: 'app-job-logs',
   templateUrl: './job-logs.component.html',
   styleUrls: ['./job-logs.component.scss']
 })
-export class JobLogsComponent implements OnInit {
+export class JobLogsComponent implements OnInit, AfterViewInit {
 
 
 
@@ -96,9 +96,9 @@ export class JobLogsComponent implements OnInit {
   build_list = []
 
   tailing = true
-  streaming = true
+  streaming = false
 
-  @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
+  @ViewChild('ngScrollbar', { static: false }) scrollbarRef: NgScrollbar;
 
   constructor(
     private jobApiService: JobApiService,
@@ -112,8 +112,18 @@ export class JobLogsComponent implements OnInit {
   ) {
 
   }
+  ngAfterViewInit(): void {
+
+    this.toggleTail(this.tailing)
+
+  }
+
   ngOnDestroy(): void {
 
+    this.stateSyncService.mainContainerActiveTab.next(
+      MainContainerTabs.UNDEFINED
+    )
+    
     this.unsubscribeAll()
 
   }
@@ -189,7 +199,7 @@ export class JobLogsComponent implements OnInit {
         tap(_ => {
           if (_['poll_again'] == false) {
             enough$.next('')
-            this.tailing = false
+            // this.tailing = false
           }
 
           this.STATUS = _['exec_status']
@@ -205,21 +215,26 @@ export class JobLogsComponent implements OnInit {
       })
   }
 
+
+
+
+
   ngOnInit(): void {
+
+    this.stateSyncService.mainContainerActiveTab.next(
+      MainContainerTabs.LOG
+    )
 
 
     this
       .stateSyncService
       .SelectedJobId
+      .pipe(filter(_ => !!_))
       .subscribe(jobid => {
-
         this.log_id = jobid
+        console.log('logger', this.log_id)
         this.deepLinkLoadLog()
-
-
       })
-
-
 
 
   }
@@ -227,7 +242,6 @@ export class JobLogsComponent implements OnInit {
   deepLinkLoadLog() {
 
     this.unsubscribeAll()
-
 
 
     this.topic = {
@@ -262,11 +276,17 @@ export class JobLogsComponent implements OnInit {
 
 
   scrollSubscruption = Subscription.EMPTY
+
+
+  scrollToBottom() {
+
+  }
+
   resumeKeepAtBottom() {
     this.scrollSubscruption.unsubscribe()
     this.scrollSubscruption = interval(300).subscribe(_ => {
-      return
-      this.scrollbarRef.scrollTo({ bottom: 0, duration: 150 })
+      // return
+      // this.scrollbarRef.scrollTo({ bottom: 0, duration: 150 })
 
     });
 
@@ -274,7 +294,8 @@ export class JobLogsComponent implements OnInit {
 
   pauseKeepAtBottom() {
     this.scrollSubscruption.unsubscribe()
-    this.scrollbarRef.scrollTo({ bottom: 0, duration: 0 })
+
+    // this.scrollbarRef.scrollTo({ bottom: 0, duration: 0 })
 
 
   }

@@ -1,0 +1,54 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+
+  <button shape="round" (click)="openToToolsSelection(  )" ghost status="basic" class="action" size="large" nbButton>
+    <nb-icon icon="menu-outline">
+
+    </nb-icon>
+  </button>
+
+  <div (click)="openToToolsSelection( SelectedJob?.tool?._id )" fxLayout="column"
+    *ngIf="SelectedJob | async as SelectedJob" class="container">
+
+    <div fxLayoutAlign="start center " fxLayout="row" id="primeContainer">
+
+      <div id="tool_name" class="caption-2">
+        {{SelectedJob?.tool?.alias }}
+      </div>
+
+      <div id="slash">
+        /
+      </div>
+      <div id="job_name" class="caption">
+        {{SelectedJob?._id}}
+      </div>
+
+    </div>
+
+    <div fxLayoutAlign="start start " fxLayout="row" id="secContainer">
+
+      <div id="date" class="caption">
+        <nb-tag id="status" size="tiny" appearance="filled" status="primary" [text]="SelectedJob?.doc | date">
+          <!-- {{SelectedJob?.exec_status | titlecase}} -->
+        </nb-tag>
+        <!-- {{SelectedJob?.doc | date}} -->
+      </div>
+
+      <div id="slash">
+
+      </div>
+
+
+      <div class="caption-2">
+        <nb-tag id="status" size="tiny" appearance="outline" 
+        [status]="SelectedJob?._status"
+        
+        [text]="SelectedJob?.exec_status">
+          <!-- {{SelectedJob?.exec_status | titlecase}} -->
+        </nb-tag>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>

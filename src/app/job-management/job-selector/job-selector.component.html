@@ -1,65 +1,16 @@
 <nb-card fxFill>
 
 
-  <nb-card-header
-
-  fxLayoutAlign="start center">
+  <nb-card-header fxLayoutAlign="start center">
 
 
-
-
-
-    <!-- <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="medium" nbButton>
-      <nb-icon icon="arrow-back-outline">
-
-      </nb-icon>
-    </button> -->
-
-
-    <button
-    (click)="goToToolsSelection()"
-    ghost
-    status="primary"
-    shape="round"
-    class="title" nbButton size="medium">
+    <button (click)="goToToolsSelection()" ghost status="primary" shape="round" class="title" nbButton size="medium">
       nmap
     </button>
     <nb-icon icon="chevron-right-outline"></nb-icon>
-    <button
-    ghost
-    shape="round"
-    class="title" nbButton size="medium">
+    <button ghost shape="round" class="title" nbButton size="medium">
       {{SelectedJobId | async}}
     </button>
-
-
-    <nb-select
-    *ngIf="false"
-    [formControl]="selectedTool" status="basic" appearance="outline"
-      (selectedChange)="onToolSelectionChange($event)" size="small" placeholder="Tools">
-      <!-- <nb-option value="1">None</nb-option> -->
-
-
-      <!-- <nb-option-group title="Group 1"> -->
-
-      <nb-option value="">All tools</nb-option>
-      <!-- </nb-option-group> -->
-
-      <nb-option-group title="Tools">
-
-
-        <nb-option *ngFor="let tool of tools | async ; let index=index" [value]="tool?._id">
-          {{ tool?.alias }}
-        </nb-option>
-
-
-      </nb-option-group>
-
-    </nb-select>
-
-
-
-
 
   </nb-card-header>
 

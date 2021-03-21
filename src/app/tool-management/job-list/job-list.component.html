@@ -6,7 +6,7 @@
       <span>
 
         Job {{i + 1}}
-{{ job | json }}
+        {{ job | json }}
 
       </span>
 
@@ -16,6 +16,12 @@
     </nb-accordion-item-header>
     <nb-accordion-item-body>
 
+
+      <button [routerLink]="[ '/jobs' , 'job' , job?._id ]" status="basic" filled size="small" nbButton>
+
+        <nb-icon icon="file-text-outline"></nb-icon>
+        Details
+      </button>
 
       <button (click)="openDrawer(logsTemplate, context = {
         'id': job?._id
@@ -34,7 +40,8 @@
 <ng-template #logsTemplate let-close="close" let-context="context">
 
 
-  <app-log-stream [logsource]="context?.logsource" [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+  <app-log-stream [logsource]="context?.logsource" [close]="close" [deep_link]="true" [log_id]="context?.id">
+  </app-log-stream>
 
 
 </ng-template>

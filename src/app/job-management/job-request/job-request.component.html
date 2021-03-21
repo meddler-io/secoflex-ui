@@ -1,0 +1,57 @@
+<div>
+
+  <div class="h6 text-hint">
+    Entrypoint
+  </div>
+
+  <div class="subtitle text-hint">
+    {{ (SelectedJob | async)?.request?.job_config?.entrypoint}}
+  </div>
+
+</div>
+
+<div>
+
+  <div class="h6 text-hint">
+
+    Command
+  </div>
+
+  <div class="subtitle text-hint">
+
+    {{ (SelectedJob | async)?.request?.job_config?.cmd}}
+  </div>
+
+</div>
+
+<div>
+
+  <div class="h6 text-hint">
+
+    Arguments
+  </div>
+
+  <div class="subtitle text-hint">
+
+    {{ (SelectedJob | async)?.request?.job_config?.args.join(' ')}}
+  </div>
+
+</div>
+
+<code>
+  <pre>{{ ( (SelectedJob | async)?.request | json ).trim() }}</pre>
+</code>
+
+
+<button status="success" size="small" nbButton>
+  Re Run
+</button>
+
+
+
+<button (click)="open(testTemplate)" status="success" size="small" nbButton>
+  Drawer
+</button>
+<ng-template #testTemplate>
+  <h1>Hello World</h1>
+</ng-template>

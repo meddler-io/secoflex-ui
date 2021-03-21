@@ -78,13 +78,18 @@ export class JobHomeComponent implements OnInit {
 
     {
       title: 'Jobs',
-      route: [{
-        outlets: {
-          view: ['job']
+      route: [
+        // 'jobs',
+        // 'job',
+        {
+
+          outlets: {
+            // tool_list: ['tools']
+            view: ['job']
 
 
-        }
-      }],
+          }
+        }],
       // responsive: true,
     },
 
@@ -122,7 +127,7 @@ export class JobHomeComponent implements OnInit {
         }
       }
     ]
-    , { relativeTo: this.route }
+      , { relativeTo: this.route }
     )
   }
 

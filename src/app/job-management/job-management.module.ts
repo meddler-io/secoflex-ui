@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobManagementRoutingModule } from './job-management-routing.module';
 import { JobHomeComponent } from './job-home/job-home.component';
-import { NbAccordionModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbIconModule, NbLayoutModule, NbListModule, NbMenuModule, NbRouteTabsetComponent, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbContextMenuModule, NbIconModule, NbLayoutModule, NbListModule, NbMenuModule, NbRouteTabsetComponent, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToolApiService } from '../tool-management/tool-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +22,9 @@ import { ListItemComponent } from './subcomp/list-item/list-item.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { StepperModule } from '../stepper/stepper.module';
 import { ToolSelectorComponent } from './tool-selector/tool-selector.component';
+import { JobResultComponent } from './job-result/job-result.component';
+import { JobRequestComponent } from './job-request/job-request.component';
+import { SelectedJobComponent } from './selected-job/selected-job.component';
 
 
 
@@ -36,6 +39,9 @@ import { ToolSelectorComponent } from './tool-selector/tool-selector.component';
     ListItemComponent,
     MainContainerComponent,
     ToolSelectorComponent,
+    JobResultComponent,
+    JobRequestComponent,
+    SelectedJobComponent,
 
   ],
   imports: [
@@ -62,10 +68,12 @@ import { ToolSelectorComponent } from './tool-selector/tool-selector.component';
     NbTabsetModule,
     NbRouteTabsetModule,
     ReactiveFormsModule,
-
     StepperModule,
-
     NbMenuModule,
+    NbActionsModule,
+    
+    NbContextMenuModule,
+
 
 
 

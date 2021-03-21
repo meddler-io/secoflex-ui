@@ -48,6 +48,7 @@ nb-card {
 nb-card-body {
   border: 0;
   padding: 0rem;
+  overflow-y: scroll !important;
 
 }
 
@@ -202,4 +203,10 @@ nb-route-tabset {
   vertical-align: bottom;
 
   padding-bottom: nb-theme(layout-scrollbar-width);
+}
+
+
+#selectedJob{
+  max-width: 120px;
+  overflow: hidden;
 }

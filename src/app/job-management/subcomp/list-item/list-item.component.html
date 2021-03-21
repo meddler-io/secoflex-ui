@@ -2,7 +2,7 @@
   fxLayout="row">
 
   <div fxLayoutAlign="start center">
-    <span class="dot text-primary">&#183;</span>
+    <span class="dot " [ngClass]="'text-'+data?._status">&#183;</span>
   </div>
 
   <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
@@ -14,11 +14,12 @@
     <div style="width: '100%' " fxFlex="1 1 100%" fxLayoutAlign="space-between"
       [class.selected]="selectedId == data?._id">
 
-  
+
       <div fxFlex class="caption-2">
-       
+
 
         {{data?.tool?.alias}}
+
       </div>
       <div class="caption ">
         {{data?.doc | date}}
