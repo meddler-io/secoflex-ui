@@ -64,7 +64,7 @@ export class ToolCreateComponent implements OnInit {
 
       tap(_ => {
 
-        this.close.next()
+        this.close.next(undefined)
       }))
       .subscribe()
 

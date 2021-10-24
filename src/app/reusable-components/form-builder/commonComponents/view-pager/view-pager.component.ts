@@ -12,12 +12,11 @@ import { Datastore } from 'src/app/reusable-components/common/services/datastore
 import { Properties } from 'src/app/reusable-components/unittest/MockDataset';
 import { FieldEditorComponent } from '../field-editor/field-editor.component';
 import { ActiveFormFieldService } from 'src/app/reusable-components/common/services/active-form-field.service';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { strict } from 'assert';
 import { SimpleChange } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
 import { ColorPallete } from 'src/app/reusable-components/common/shared/Constants';
 
+// import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 
 @Component({
@@ -205,26 +204,28 @@ export class ViewPagerComponent implements OnInit, AfterContentChecked {
         .subscribe((field: string) => {
 
 
-          setTimeout((_ => {
+          // setTimeout((_ => {
 
 
-            let id = field
-            const config: ScrollToConfigOptions = {
-              target: id,
-              container: 'field_container',
+          //   let id = field
+          //   const config: ScrollToConfigOptions = {
+          //     target: id,
+          //     container: 'field_container',
 
-            };
+          //   };
 
-            this.scrollToService.scrollTo(config).subscribe(val => {
-
-
-            },
-              error => {
+          //   this.scrollToService.scrollTo(config).subscribe(val => {
 
 
-              }
-            );
-          }), 0)
+          //   },
+          //     error => {
+
+
+          //     }
+          //   );
+          // }), 0)
+
+
         })
 
     }
@@ -241,7 +242,7 @@ export class ViewPagerComponent implements OnInit, AfterContentChecked {
   constructor(private apiService: ApiService, private activateRoute: ActivatedRoute,
     private cd: ChangeDetectorRef,
     private activeFormFieldService: ActiveFormFieldService,
-    private scrollToService: ScrollToService
+    // private scrollToService: ScrollToService
   ) { }
 
 

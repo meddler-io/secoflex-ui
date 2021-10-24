@@ -25,7 +25,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UploadComponent } from './common/shared/upload/upload.component';
 import { UploadService } from './common/services/upload.service';
 import { ApiService } from './common/services/api.service';
-import { NgxFileDropModule } from 'ngx-file-drop';
+
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AttachmentComponent } from './form-builder/commonComponents/attachment/attachment.component';
 import { DelayInterceptor } from './common/services/DelayHttpInterceptor';
@@ -47,7 +47,7 @@ import { ActiveFormFieldService } from './common/services/active-form-field.serv
 
 
 
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+
 
 import { BusinessComponent } from './management/business/business.component';
 import { IconSelectorComponent } from './property/icon-selector/icon-selector.component';

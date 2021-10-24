@@ -14,9 +14,9 @@ import { BASIC_PROPERTIES } from 'src/app/reusable-components/common/shared/Conf
 import { BaseFieldComponent, BaseFormCommonProperties } from 'src/app/reusable-components/common/abstract/BaseFormComponent';
 import { ThrowStmt } from '@angular/compiler';
 import { ActiveFormFieldService } from 'src/app/reusable-components/common/services/active-form-field.service';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 
+// import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 
 
@@ -107,7 +107,7 @@ export class TestComponentComponent implements OnInit {
     private apiService: ApiService,
     private dialogService: NbDialogService,
     private activeFormFieldService: ActiveFormFieldService,
-    private scrollToService: ScrollToService
+    // private scrollToService: ScrollToService
   ) { }
 
   openDialog(dialog: TemplateRef<any>) {
@@ -117,12 +117,12 @@ export class TestComponentComponent implements OnInit {
 
   triggerScrollTo() {
 
-    const config: ScrollToConfigOptions = {
-      // target: 'destination',
-      offset: 200
-    };
+    // const config: ScrollToConfigOptions = {
+    //   // target: 'destination',
+    //   offset: 200
+    // };
 
-    this.scrollToService.scrollTo(config);
+    // this.scrollToService.scrollTo(config);
   }
 
   ngOnInit() {
