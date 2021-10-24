@@ -102,7 +102,7 @@ const routes: Routes = [
     NbActionsModule,
     NbAutocompleteModule,
     NbSidebarModule.forRoot(), //if this is your app.module
-    ScrollToModule.forRoot(),
+    // ScrollToModule.forRoot(),
     NbMenuModule.forRoot(),
     NbDialogModule.forChild(),
     RouterModule,
