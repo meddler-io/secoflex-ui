@@ -52,7 +52,7 @@ export class JobApiService {
   }
 
   getBuildExecutorStatus(refrence_id: string) {
-    return this.http.get(`${url}/build/executors/status/${refrence_id}`)
+    return this.http.get(`${url}/job/status/${refrence_id}`)
   }
 
 

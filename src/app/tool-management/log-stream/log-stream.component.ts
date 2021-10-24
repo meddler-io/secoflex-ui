@@ -23,13 +23,15 @@ export enum LogSource {
 })
 export class LogStreamComponent implements OnInit, OnDestroy {
 
+  @Input('source') _source 
 
 
-  STATUS
 
   @Input('logsource') logSource: LogSource = LogSource.IMAGE_BUILDER
   @Input('close') close
 
+
+  STATUS
   LOG_STREAM_STATUS$ = LOG_STREAM_STATUS
 
 

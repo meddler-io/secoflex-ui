@@ -556,7 +556,9 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-  <app-log-stream  [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+  <app-log-stream
+  [logsource]="logsource"
+  [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
 
 
 </ng-template>

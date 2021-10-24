@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
+import { LogSource } from '../log-stream/log-stream.component';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
@@ -12,6 +13,9 @@ import { ToolApiService } from '../tool-api.service';
   styleUrls: ['./job-config.component.scss']
 })
 export class JobConfigComponent implements OnInit {
+
+
+  logsource = LogSource.JOB
 
   @ViewChild('logsTemplate', { static: false }) logsTemplate: TemplateRef<any>;
 
