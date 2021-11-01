@@ -1,0 +1,59 @@
+@import '../../../themes';
+
+:host {
+
+
+ 
+
+
+
+
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+
+  margin-bottom: 2px;
+  // margin-left: 2px;
+  // margin-right: 2px;
+  // margin-right: nb-theme(layout-scrollbar-width);
+
+  // background: nb-theme(background-alternative-color-1);
+  background-color: nb-theme(color-basic-100);
+  // border-radius: 0.2rem;
+  border-top-right-radius: 1.2rem;
+  border-bottom-right-radius: 1.2rem;
+  margin-right: 1rem;
+
+  &:hover {
+    background-color: nb-theme(color-basic-400);
+
+  }
+
+  &.selected {
+    // background-color: nb-theme(color-success-200);
+    // color: nb-theme(navitem-selected-text);
+  }
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+}
+
+nb-tag {
+  text-transform: capitalize;
+}
+
+
+
+
+
+
+
+.dot {
+  font-size: 60px;
+  margin-right: 1rem;
+  margin-left: 0.3rem;
+}

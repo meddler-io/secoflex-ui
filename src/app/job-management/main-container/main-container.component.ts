@@ -35,7 +35,19 @@ export class MainContainerComponent implements OnInit {
       }],
       responsive: true,
 
-    }, {
+    },
+    {
+      title: 'Files',
+      route: [{
+        outlets: {
+          sub_comp: ['files'],
+        }
+      }],
+      responsive: true,
+
+    },
+    
+    {
       title: 'Logs',
       route: [{
         outlets: {

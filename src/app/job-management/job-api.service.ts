@@ -199,5 +199,35 @@ export class JobApiService {
     return this.http.get(`${url}/tool`)
   }
 
+  getListOfObjects(bucket, prefix = '', offset = "", limit = 100) {
+    return this.http.get(`${url}/job/files/list/${bucket}`
+      ,
+      {
+        params: {
+          offset: offset,
+          prefix: prefix,
+          limit: limit,
+        }
+      }
+    )
+  }
+
+  downloadFile(bucket, object) {
+
+    let _url = `${url}/job/files/download/${bucket}?object=${object}`
+    window.open(_url, '_blank');
+
+    // return this.http.get(_url
+    //   , {
+    //     params: {
+    //       object: object,
+    //     }
+    //   }
+    // ).pipe(
+    //   tap()
+    // )
+  }
+
+
 }
 

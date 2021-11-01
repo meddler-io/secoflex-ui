@@ -1,0 +1,51 @@
+<div (click)="onClick()" [class.selected]="selectedId == data?._id" class="container" fxLayoutAlign="center center"
+    fxLayout="row">
+
+    <div fxLayoutAlign="start center">
+        <span class="dot " [ngClass]="'text-'+data?._status">&#183;</span>
+    </div>
+
+    <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
+        <div fxFlex class="subtitle-2 ">
+            {{data?._object_name | filename}}
+
+        </div>
+
+        <div style="width: '100%' " fxFlex="1 1 100%" fxLayoutAlign="space-between"
+            [class.selected]="selectedId == data?._id">
+
+
+            <div fxFlex class="caption-2">
+                <!-- {{data?._bucket_name}} -->
+                {{data?._size | filesize }}
+
+            </div>
+
+
+            <div class="caption ">
+                {{data?._last_modified | date}}
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div *ngIf="false">
+        <nb-tag status="basic" appearance="outline" size="tiny" [text]="data?.exec_status"></nb-tag>
+        <nb-tag status="basic" appearance="outline" size="tiny" [text]="data?.tool?.alias"></nb-tag>
+
+    </div>
+
+
+
+
+    <!-- <div fxFill fxFlex.md="30px" fxFlex.sm="25px" fxFlex="30px" fxFlex.gt-md="30px">
+    <nb-icon status="basic" class="icon" icon="chevron-right-outline"></nb-icon>
+  </div> -->
+
+
+</div>

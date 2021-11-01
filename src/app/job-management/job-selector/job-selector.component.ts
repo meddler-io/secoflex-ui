@@ -5,6 +5,13 @@ import { filter, share, tap } from 'rxjs/operators';
 import { JobApiService } from '../job-api.service';
 import { StateSyncService, StatusPipe } from '../state-sync.service';
 
+enum ComponentStates{
+  SELECTED_TOOL_BUILD_LIST,
+  EXPLORE_TOOLS,
+  SEARCH_LIST,
+  
+}
+
 @Component({
   selector: 'app-job-selector',
   templateUrl: './job-selector.component.html',
@@ -12,13 +19,26 @@ import { StateSyncService, StatusPipe } from '../state-sync.service';
 })
 export class JobSelectorComponent implements OnInit {
 
+  ComponentStates = ComponentStates;
+  componentState = ComponentStates.SELECTED_TOOL_BUILD_LIST
+  searchToolField = new FormControl('')
+
+
+
+
   sub_comp_route: string
 
   tools = this.jobApiService.getTools()
 
   selectedTool = new FormControl('')
 
+
+
+
   jobs
+
+
+
 
 
   SelectedJobId = this.stateSyncService.SelectedJobId
@@ -31,6 +51,13 @@ export class JobSelectorComponent implements OnInit {
 
   ) { }
 
+  changeState(componentState: ComponentStates){
+    this.componentState = componentState;
+  }
+
+  trackByFnSearch(item){
+    return item?._id;
+  }
   ngOnInit(): void {
 
 
@@ -70,9 +97,15 @@ export class JobSelectorComponent implements OnInit {
 
     if (event)
       this.jobs = this.jobApiService.getJobs(event).pipe(
-        StatusPipe)
+        
+        StatusPipe,
+        share(),
+        )
     else
-      this.jobs = this.jobApiService.getAllJobs().pipe(StatusPipe)
+      this.jobs = this.jobApiService.getAllJobs().pipe(
+        StatusPipe,
+        share(),
+        )
 
 
 

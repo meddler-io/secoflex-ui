@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { JobBootstrapComponent } from './job-bootstrap/job-bootstrap.component';
+import { JobFileViewerComponent } from './job-file-viewer/job-file-viewer.component';
 import { JobHomeComponent } from './job-home/job-home.component';
 import { JobLogsComponent } from './job-logs/job-logs.component';
 import { JobRequestComponent } from './job-request/job-request.component';
@@ -61,6 +62,7 @@ const routes: Routes = [
               // { path: '', component: JobLogsComponent, outlet: 'sub_comp' },
               { path: '', redirectTo: 'request', outlet: 'sub_comp' },
               { path: 'request', component: JobRequestComponent, outlet: 'sub_comp' },
+              { path: 'files', component: JobFileViewerComponent, outlet: 'sub_comp' },
               { path: 'logs', component: JobLogsComponent, outlet: 'sub_comp' },
               { path: 'result', component: JobResultComponent, outlet: 'sub_comp' },
               { path: 'settings', component: JobLogsComponent, outlet: 'sub_comp' },

@@ -1,0 +1,13 @@
+
+<nb-list
+*ngIf="bucketname | async as bucketname"
+
+>
+{{bucketname | json}}dsd
+    <nb-list-item *ngFor="let file of files ">
+        <app-file-list-item
+        (click)="onClick( bucketname ,  file?._object_name)" fxFlex [selectedId]="null" [data]="file">
+
+        </app-file-list-item>
+    </nb-list-item>
+</nb-list>
