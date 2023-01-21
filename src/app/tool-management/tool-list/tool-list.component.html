@@ -133,7 +133,9 @@
             <div fxLayoutGap="0.5rem" fxLayoutAlign="end center">
 
 
-              <nb-button-group multiple status="primary" size="small" appearance="filled">
+              <nb-button-group
+              fxLayoutGap="2px"
+              multiple status="primary" size="small" appearance="filled">
 
                 <button
                   (click)="openDrawer(toolEditTemplate  , context =  { 'tool_id':  tool?._id , 'edit_mode': true } )"

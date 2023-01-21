@@ -8,18 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class LandingPageComponent implements OnInit {
 
 
-  title = `Automated Security Platform `
-  description = `Next Gen. Platform aims to provide extensible plug-n-play tools to integrate with your CI/CD, Ad-Hoc & On Demand tasks & aims to provide a complete SaaS based Security Platform. `
+  title = `Cyclops : Plug-n-Play Devsecops`
+  description = `Next Gen. Platform aims to provide extensible plug-n-play tools to integrate with your CI/CD, Ad-Hoc & On Demand security scans & provides a SaaS devsecops sollution . `
 
   work_process = {
     title: 'How it works?',
     caption: 'Each tool itslef is a sandboxed image which runs in an isolated environment.',
-    desc: 'Meddler provides built-in tools that can easily be installed, customized and extended as per the requirement, and smoothly integrates with your CI/CD pipeline. ',
+    desc: 'Cyclops provides built-in tools that can easily be installed, customized and extended as per the requirement, and smoothly integrates with your CI/CD pipeline. ',
     icon: '/assets/images/coverimage.svg'
 
   }
 
-  copyrightTitle = '©2021 Meddler, a Product of Failaan Media Ventures Pvt. Ltd.  Proudly built in India.'
+  copyrightTitle = '©2022 Meddler, a Product of Failaan Media Ventures Pvt. Ltd.  Proudly built in India.'
 
   platforms = {
     title: 'Features',

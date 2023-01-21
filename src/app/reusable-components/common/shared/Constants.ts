@@ -1,9 +1,12 @@
 
-export const HOST = `192.168.29.185`
+// export const HOST = `192.168.29.185`
+export const HOST = `localhost`
 
 export const API_SERVICE_URL = `http://${HOST}:8000/`
-export const TOOL_SERVICE_URL = `http://${HOST}:8001/`
-export const LOG_SERVICE_URL = `http://${HOST}:8082/`
+// export const TOOL_SERVICE_URL = `http://${HOST}:8001/`
+export const TOOL_SERVICE_URL = `http://${API_SERVICE_URL}iaas/`
+// export const LOG_SERVICE_URL = `http://${HOST}:8082/`
+export const LOG_SERVICE_URL = `https://cyclops-logs.meddler.io/`
 
 
 

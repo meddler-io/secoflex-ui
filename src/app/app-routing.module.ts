@@ -20,10 +20,24 @@ const routes: Routes = [
     children: [
 
       // Landing Module (Mostly static content)
+      // {
+      //   path: 'landing-page',
+      //   loadChildren: () => import('./lander/lander.module').then(m => m.LanderModule),
+      // },
+
+
+      // {
+      //   path: '',
+      //   loadChildren: () => import('./tool-management/tool-management.module').then(m => m.ToolManagementModule)
+      // },
+
       {
-        path: 'home',
-        loadChildren: () => import('./lander/lander.module').then(m => m.LanderModule),
-      },
+        path: '',
+        redirectTo: 'tools'
+        ,
+        pathMatch: 'full'
+      }
+      ,
 
       {
         path: 'tools',
@@ -65,7 +79,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, { 
+    // relativeLinkResolution: 'legacy' 
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
