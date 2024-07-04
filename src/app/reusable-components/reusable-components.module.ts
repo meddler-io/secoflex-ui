@@ -25,7 +25,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UploadComponent } from './common/shared/upload/upload.component';
 import { UploadService } from './common/services/upload.service';
 import { ApiService } from './common/services/api.service';
-import { NgxFileDropModule } from 'ngx-file-drop';
+
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AttachmentComponent } from './form-builder/commonComponents/attachment/attachment.component';
 import { DelayInterceptor } from './common/services/DelayHttpInterceptor';
@@ -40,7 +40,7 @@ import { ViewPagerComponent } from './form-builder/commonComponents/view-pager/v
 import { PlaygroundComponent } from './playground/playground.component';
 import { PropertyComponent } from './property/property.component';
 // import { NgxInputSwitchModule } from '@ngx-lite/input-switch';
-import { NgxInputTagModule } from '@ngx-lite/input-tag';
+// import { NgxInputTagModule } from '@ngx-lite/input-tag';
 import { FieldViewerComponent } from './form-builder/commonComponents/field-viewer/field-viewer.component';
 import { FieldEditorComponent } from './form-builder/commonComponents/field-editor/field-editor.component';
 import { ActiveFormFieldService } from './common/services/active-form-field.service';
@@ -114,7 +114,7 @@ const routes: Routes = [
     NbUserModule,
 
     NbRadioModule,
-    NgxInputTagModule.forRoot(),
+    // NgxInputTagModule.forRoot(),
 
     // NgxUIModule,
     NbMenuModule,
