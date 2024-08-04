@@ -41,6 +41,11 @@ export class JobApiService {
 
   }
 
+  getJobResult(id: string) {
+    return this.http.get(`${url}/job/result/${id}`)
+
+  }
+
   getJobs(id: string) {
     return this.http.get(`${url}/jobs/${id}`)
 
@@ -199,5 +204,13 @@ export class JobApiService {
     return this.http.get(`${url}/tool`)
   }
 
+
+  getJobResultContent(id: string , filename: string) {
+    return this.http.get(`${url}/job/result/content/${id}` , {
+      params: {
+        filename
+      }
+    })
+  }
 }
 

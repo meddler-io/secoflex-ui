@@ -12,6 +12,9 @@ import { ToolBuildVariantsComponent } from './tool-build-variants/tool-build-var
 import { ToolExploreComponent } from './tool-explore/tool-explore.component';
 import { ToolHomeComponent } from './tool-home/tool-home.component';
 import { ToolListComponent } from './tool-list/tool-list.component';
+import { ScannersUiComponent } from './tool-explore/scanners/scanners.component';
+import { FileCreateComponent } from './file-create/file-create.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 const routes: Routes = [
 
@@ -22,9 +25,12 @@ const routes: Routes = [
     component: ToolHomeComponent,
     children: [
 
+      
+
       {
         path: 'test',
-        component: BuildConfigComponent
+        component: FileListComponent
+        // component: FileCreateComponent
 
       },
       {
@@ -36,12 +42,13 @@ const routes: Routes = [
         path: 'builds/:id',
         component: ToolExploreComponent,
         children: [
-          { path: "", redirectTo: 'builds', outlet: "view" },
+          { path: "", redirectTo: 'builds', outlet: "view", pathMatch: 'full' },
           { path: "deployments", component: DeploymentUiComponent, outlet: "view" },
+          { path: "scanners", component: ScannersUiComponent, outlet: "view" },
           { path: "images", component: BuiltImageListComponent, outlet: "view" },
           { path: "builds", component: BuildListComponent, outlet: "view" },
           { path: "jobs", component: JobListComponent, outlet: "view" },
-          { path: "**", redirectTo: 'builds', outlet: "view" },
+          { path: "**", redirectTo: 'builds', outlet: "view", pathMatch: 'full' },
 
         ]
 

@@ -1,20 +1,23 @@
 <div fxLayout="column">
-  <ng-container *ngFor="let deploy of deployments  ; index as index">
+  <ng-container *ngFor="let deploy of deployments | async  ; index as index">
 
-    <nb-card *ngIf="deploy.details | async as details">
+    
+    <!-- *ngIf="deploy.details | async as details" -->
+    <nb-card 
+    >
       <nb-card-header>
         <!-- Name -->
         <div class="row">
           <div fxFlex class="text-hint">
 
-            &#64;{{ details?.Name  }}
+            &#64;{{ deploy?.Name  }}
 
           </div>
           <div fxFlex class="subtitle-2">
-            {{details?.Status}}
+            {{deploy?.Status}}
 
 
-            <!-- @{{ details?.BuildDetails | json  }} -->
+            <!-- @{{ deploy?.BuildDetails | json  }} -->
 
 
           </div>
@@ -32,7 +35,7 @@
 
           </div>
           <div fxFlex class="subtitle-2">
-            {{ details?.Namespace  }}
+            {{ deploy?.Namespace  }}
 
           </div>
         </div>
@@ -46,7 +49,7 @@
 
           </div>
           <div fxFlex class="subtitle-2">
-            {{ details?.Status  }}
+            {{ deploy?.Status  }}
 
           </div>
         </div>
@@ -59,7 +62,7 @@
 
           </div>
           <div fxFlex class="subtitle-2">
-            {{ details?.SubmitTime / 1000000  | date:"dd-MM-YY , HH:mm:ss" }}
+            {{ deploy?.SubmitTime / 1000000  | date:"dd-MM-YY , HH:mm:ss" }}
 
           </div>
         </div>
@@ -87,7 +90,7 @@
           Exec
         </button>
 
-        <button (click)="openDrawer(jobConfigTemplate , context =  { config: details?.JobConfig , id : deploy?.id }  ) "
+        <button (click)="openDrawer(jobConfigTemplate , context =  { config: deploy?.JobConfig , id : deploy?.id }  ) "
           status="success" ghost size="small" nbButton>
 
           <nb-icon icon="settings-2-outline"></nb-icon>
@@ -112,7 +115,7 @@
 
           <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
 
-          {{details?.Status}}
+          {{deploy?.Status}}
         </button>
 
 
@@ -133,14 +136,13 @@
 
 <ng-template let-close="close" let-context="context" #jobConfigTemplate>
 
-  <app-job-config [config]="context?.config" [id]="context?.id"></app-job-config>
+
+  <app-job-config 
+  [build_id]="context?.id?.split(':')[1]"
+  
+  [config]="context?.config" [id]="context?.id"></app-job-config>
 
 </ng-template>
 
 
-<ng-container #loading *ngIf="!deployments || deployments.length == 0">
-  <div fxLayoutAlign="center center">
-    <ngx-progress-spinner></ngx-progress-spinner>
-  </div>
 
-</ng-container>

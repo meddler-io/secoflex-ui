@@ -93,11 +93,19 @@
       <!-- Command -->
       <div fxLayout="column">
 
-        <div>
-          <p class="subtitle-2 text-hint">
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
             Command
           </p>
+
+          <button (click)="addCmd()" ghost nbButton status="danger">
+            Add
+          </button>
+
         </div>
+
+   
+        
 
 
 
@@ -109,11 +117,20 @@
 
             <!-- <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem"> -->
 
-            <div fxFlex  fxLayoutGap="1rem">
-              <nb-form-field  fieldSize="small">
-                <input cdkFocusInitial fullWidth [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
-              </nb-form-field>
-            </div>
+              <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
+                <nb-form-field fxFlex fieldSize="small">
+                  <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
+
+
+                </nb-form-field>
+
+
+                <button ghost nbSuffix nbButton (click)="deleteCmd(i)">
+                  <nb-icon icon="trash-outline">
+                  </nb-icon>
+                </button>
+
+              </div>
 
 
 
@@ -126,6 +143,11 @@
 
         </ng-container>
 
+        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
+          <p class="subtitle-2 text-hint">
+            No Commands Defined
+          </p>
+        </div>
 
       </div>
 

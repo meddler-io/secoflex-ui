@@ -1,3 +1,11 @@
+<ng-template #configMapTemplate let-data>
+  <app-file-list
+
+  [id]="id.split(':')[1] "
+  
+  ></app-file-list>
+</ng-template>
+
 <ng-container *ngIf=" LOADING == false ; else loading">
 
 
@@ -34,9 +42,109 @@
 
 
 
+      <!-- Entrypoint -->
+      <div fxLayout="column">
+
+        <div>
+          <p class="subtitle-2 text-hint">
+            Identifier
+          </p>
+        </div>
 
 
-      <div fxLayoutAlign="space-between center" fxLayout="row" fxLayoutGap="1rem">
+        <nb-form-field fxFlex fieldSize="small">
+          <input fullWidth formControlName="identifier" nbInput placeholder="Scanner name">
+        </nb-form-field>
+
+      </div>
+
+      <app-divider></app-divider>
+
+      <!-- Scanner Input -->
+      <div fxLayout="column">
+
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
+            Scanner Input
+          </p>
+
+
+
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="1rem">
+
+          <ng-container *ngFor="let scannerInput$ of scannerInput">
+
+
+            <div fxLayout="row" fxLayoutGap="1rem">
+
+              <nb-form-field fxFlex fieldSize="small">
+                <input [value]="toggle?.checked ? scannerInput$?.placeholder : '' " [readonly]="true" fullWidth nbInput
+                  [placeholder]="scannerInput$?.placeholder">
+
+
+                <div nbSuffix>
+                  <nb-toggle
+                  (checkedChange)="checkedChangeScannerInput(  $event ,  scannerInput$ )"
+                  #toggle></nb-toggle>
+
+                </div>
+              </nb-form-field>
+            </div>
+          </ng-container>
+
+
+          
+        </div>
+
+
+
+
+
+
+
+
+        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
+          <p class="subtitle-2 text-hint">
+            No Input Defined
+          </p>
+        </div>
+      </div>
+
+
+      <app-divider></app-divider>
+
+      <!-- Configs -->
+      <div fxLayout="column">
+
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
+            Configs
+          </p>
+
+
+          
+
+          
+          <button (click)="openLogs(configMapTemplate  )" ghost nbButton status="danger">
+            Manage
+          </button>
+        </div>
+
+  
+      
+
+        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
+          <p class="subtitle-2 text-hint">
+            No Input Defined
+          </p>
+        </div>
+      </div>
+      <app-divider></app-divider>
+
+
+      <!-- <div fxLayoutAlign="space-between center" fxLayout="row" fxLayoutGap="1rem">
         <p class="subtitle text-basic">
           Job Configuration
         </p>
@@ -45,7 +153,7 @@
           <nb-icon icon="info"></nb-icon>
         </button>
       </div>
-      <app-divider></app-divider>
+      <app-divider></app-divider> -->
 
 
 
@@ -63,6 +171,7 @@
 
           <ng-container *ngFor="let entrypoint of this.form.get('entrypoint').controls ; let i=index ">
 
+
             <div fxLayout="row" fxLayoutGap="1rem">
               <nb-form-field fxFlex fieldSize="small">
                 <input fullWidth [formControlName]="i" nbInput placeholder="/bin/watchdog">
@@ -79,41 +188,62 @@
       <!-- Command -->
       <div fxLayout="column">
 
-        <div>
-          <p class="subtitle-2 text-hint">
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
             Command
           </p>
+
+          <button (click)="addCmd()" ghost nbButton status="danger">
+            Add
+          </button>
+
         </div>
 
-        <div fxFlex>
-
-
-          <ng-container formArrayName="cmd">
-
-            <ng-container *ngFor="let _cmd of this.form.get('cmd').controls ; let i=index ">
-
-
-              <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
-
-                <div fxLayout="row" fxLayoutGap="1rem">
-                  <nb-form-field fxFlex fieldSize="small">
-                    <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
-                  </nb-form-field>
-                </div>
 
 
 
 
-              </div>
 
 
-            </ng-container>
+        <ng-container formArrayName="cmd">
+
+          <ng-container *ngFor="let _cmd of this.form.get('cmd').controls ; let i=index ">
+
+
+            <!-- <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem"> -->
+
+            <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
+
+
+              </nb-form-field>
+
+
+              <button ghost nbSuffix nbButton (click)="deleteCmd(i)">
+                <nb-icon icon="trash-outline">
+                </nb-icon>
+              </button>
+
+            </div>
+
+
+
+
+            <!-- </div> -->
 
 
           </ng-container>
 
-        </div>
 
+        </ng-container>
+
+
+        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
+          <p class="subtitle-2 text-hint">
+            No Commands Defined
+          </p>
+        </div>
       </div>
 
       <app-divider></app-divider>
@@ -267,8 +397,8 @@
         </div>
 
         <!--  -->
-   
-  
+
+
       </div>
 
 
@@ -345,7 +475,9 @@
               <nb-form-field fxFlex fieldSize="small">
                 <span nbPrefix>$</span>
 
-                <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+                <input
+                [readonly]="true"
+                fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
 
@@ -525,9 +657,22 @@
     </nb-card-body>
 
 
+    <nb-card-footer (click)="createScanner()">
+
+      <button class="buildBtn" fxLayoutAlign="space-between center" size="large" status="warning" filled fullWidth
+        nbButton>
+
+        <span>
+          Save
+
+        </span>
+        <nb-icon icon="play-circle"></nb-icon>
+
+      </button>
+    </nb-card-footer>
     <nb-card-footer (click)="run()">
 
-      <button class="buildBtn" fxLayoutAlign="space-between center" size="giant" status="danger" filled fullWidth
+      <button class="buildBtn" fxLayoutAlign="space-between center" size="large" status="danger" filled fullWidth
         nbButton>
 
         <span>
@@ -556,7 +701,7 @@
 
 <ng-template #logsTemplate let-close="close" let-context="context">
 
-  <app-log-stream  [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+  <app-log-stream [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
 
 
 </ng-template>

@@ -63,7 +63,7 @@ export class RepositoryAddComponent implements OnInit {
   tmp$ = 1
 
 
-  myForm = new FormGroup({
+  myForm : any = new FormGroup({
     name: new FormControl('', [Validators.required ]),
     url: new FormControl('', validations),
     credential_type: new FormControl('none'),

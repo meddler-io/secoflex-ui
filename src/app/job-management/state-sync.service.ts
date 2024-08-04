@@ -122,6 +122,7 @@ export class StateSyncService {
     // filter(_ => !!_),
     tap(_ => {
 
+      
       console.log('selectedJobs', _)
       if (_ != undefined)
         this.selectedJob.next(
@@ -154,7 +155,7 @@ export class StateSyncService {
 
   constructor(
 
-    private jobApiService: JobApiService
+    public jobApiService: JobApiService
   ) {
 
     console.log('constructir', 'dadsa')

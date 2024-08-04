@@ -18,16 +18,7 @@ export class FormIpaddressComponent extends BaseFieldComponent implements OnInit
   ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
 
-  _properties = {
-    ...super._properties,
-    ...{
-      required: false,
-      allow_user_to_add: true,
-      size: 'small',
-      placeholder: '127.0.0.1'
-    }
 
-  }
 
   formGroup: FormGroup = this.fb.group({
 
@@ -52,11 +43,24 @@ export class FormIpaddressComponent extends BaseFieldComponent implements OnInit
 
 
 
+
   constructor(private fb: FormBuilder,
     private activeFormFieldService: ActiveFormFieldService
   ) {
 
     super()
+
+
+    this._properties = {
+      ...this._properties,
+      ...{
+        required: false,
+        allow_user_to_add: true,
+        size: 'small',
+        placeholder: '127.0.0.1'
+      }
+
+    }
 
   }
 

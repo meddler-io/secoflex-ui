@@ -1,0 +1,178 @@
+<div fxLayout="column">
+    <ng-container *ngFor="let deploy of deployments | async  ; index as index">
+  
+      <nb-card >
+        <nb-card-header>
+          <!-- Name -->
+          <div class="row">
+            <div fxFlex class="text-hint">
+  
+              {{ deploy?.identifier  }}
+  
+            </div>
+            <div fxFlex class="subtitle-2">
+              {{deploy?.Status}}
+  
+  
+              <!-- @{{ deploy?.BuildDetails | json  }} -->
+  
+  
+            </div>
+          </div>
+  
+        </nb-card-header>
+  
+        <nb-card-body>
+  
+  
+          <!-- Namespace -->
+          <div class="row">
+            <div fxFlex class="subtitle">
+              Image
+  
+            </div>
+            <div fxFlex class="subtitle-2">
+
+              {{ deploy?.image_id  }}
+
+  
+            </div>
+          </div>
+  
+  
+  
+          <!-- Status -->
+          <div class="row">
+            <div fxFlex class="subtitle">
+              Tool Id
+  
+            </div>
+            <div fxFlex class="subtitle-2">
+              {{ deploy?.tool_id  }}
+
+  
+            </div>
+          </div>
+  
+  
+          <!-- Submitted On -->
+          <div class="row">
+            <div fxFlex class="subtitle">
+              SubmitTime
+  
+            </div>
+            <div fxFlex class="subtitle-2">
+              {{ deploy?.config?.identifier }}
+  
+            </div>
+          </div>
+  
+  
+  
+  
+  
+        </nb-card-body>
+  
+  
+        <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="start">
+  
+  
+         
+          
+          <button
+
+          *ngIf="!!!deploy?.job?.Status"
+          (click)="deployJob( deploy?.image_id  ) "
+          status="primary" filled size="small" nbButton>
+  
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Deploy 
+          </button>
+  
+  
+          <button
+          (click)="openDrawer(taskExecTemplate , context =  { config: deploy?.JobConfig , id : deploy?._id }  ) "
+          status="primary" ghost size="small" nbButton>
+  
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Exec 
+          </button>
+  
+          <button (click)="openDrawer(taskConfigTemplate , context =  { config: deploy?.JobConfig , id : deploy?._id }  ) "
+            status="success" ghost size="small" nbButton>
+  
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Config
+          </button>
+  
+  
+          <button (click)="deleteScanner( deploy?._id )" status="basic" ghost size="small" nbButton>
+  
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Delete
+          </button>
+  
+          <button (click)="openDrawer(logsTemplate)" status="danger" ghost size="small" nbButton>
+  
+            <nb-icon icon="settings-2-outline"></nb-icon>
+            Logs
+          </button>
+  
+  
+          <button status="basic" ghost size="small" nbButton>
+  
+            <nb-icon icon="diagonal-arrow-left-down-outline"></nb-icon>
+  
+            {{deploy?.job?.Status}}
+          </button>
+  
+  
+  
+        </nb-card-footer>
+      </nb-card>
+    </ng-container>
+  
+  </div>
+  
+  
+  <ng-template #logsTemplate let-close="close" let-context="context">
+  
+    <app-log-stream [close]="close" [deep_link]="true" [log_id]="context?.id"></app-log-stream>
+  
+  </ng-template>
+  
+  
+  <ng-template let-close="close" let-context="context" #taskConfigTemplate>
+  
+  
+    <app-task-config 
+    [saveAction]="true"
+
+    [build_id]="context?.id?.split(':')[1]"
+    
+    [config]="context?.config" [id]="context?.id">
+    </app-task-config>
+  
+  </ng-template>
+
+   
+  <ng-template let-close="close" let-context="context" #taskExecTemplate>
+  
+  
+    <app-task-config 
+    [runAction]="true"
+    [build_id]="context?.id?.split(':')[1]"
+    
+    [config]="context?.config" [id]="context?.id">
+    </app-task-config>
+  
+  </ng-template>
+  
+  
+  <!-- <ng-container #loading *ngIf="!deployments || deployments.length == 0">
+    <div fxLayoutAlign="center center">
+      <ngx-progress-spinner></ngx-progress-spinner>
+    </div>
+  
+  </ng-container> -->
+  

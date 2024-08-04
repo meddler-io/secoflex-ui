@@ -34,14 +34,24 @@ import { JobListComponent } from './job-list/job-list.component';
 import { JobConfigComponent } from './job-config/job-config.component';
 import { ToolExploreComponent } from './tool-explore/tool-explore.component';
 import { SharedDataService } from './shared-data-service.service';
+import { ScannersUiComponent } from './tool-explore/scanners/scanners.component';
+import { TaskConfigComponent } from './task-config/task-config.component';
+import { FileCreateComponent } from './file-create/file-create.component';
+import {AutosizeModule} from 'ngx-autosize';
+import { FileListComponent } from './file-list/file-list.component';
 
 @NgModule({
   declarations: [ToolHomeComponent,
 
-    HeadbarComponent, NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent, ToolExploreComponent
+    FileListComponent,
+    FileCreateComponent,
+    HeadbarComponent, NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent, ToolExploreComponent, ScannersUiComponent,
+TaskConfigComponent
+
   ],
   imports: [
 
+    AutosizeModule,
     DrawerModule,
 
     NbLayoutModule,

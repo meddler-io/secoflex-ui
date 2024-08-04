@@ -1,0 +1,104 @@
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card size="tiny">
+        <nb-card-header
+        class="h5"
+        >{{data?.title}}</nb-card-header>
+        <nb-card-body>
+            
+            <div class="subtitle-2">
+            
+                {{ data?.message }}
+            </div>
+        </nb-card-body>
+        <nb-card-footer fxLayoutAlign="end" >
+            <button nbButton (click)="ref.close()">Cancel</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<nb-card fxFill [nbSpinner]="loading">
+
+
+    <nb-card-header fxLayoutAlign="space-between center">
+
+        <div fxLayoutAlign="start center" fxLayout="row">
+
+            <button (click)="close.next(true)" shape="round" ghost status="basic" class="action" size="large" nbButton>
+                <nb-icon icon="arrow-back-outline">
+
+                </nb-icon>
+            </button>
+
+            <span class="subtitle text-hint lineV">
+                Config Management
+            </span>
+
+        </div>
+
+        <button (click)="saveContent()" shape="round" ghost status="basic" class="action" size="large" nbButton>
+            Save
+        </button>
+
+
+    </nb-card-header>
+
+
+    <nb-card-header>
+
+
+
+        <div fxLayout="column">
+
+            <div>
+                <p class="subtitle-2 text-hint">
+                    File Name
+                </p>
+            </div>
+
+
+            <nb-form-field fxFlex fieldSize="small">
+                <input [readonly]="create == false" [(ngModel)]="filename" fullWidth nbInput placeholder="Filename">
+
+                <button *ngIf="false" nbButton nbSuffix size="small" control status="info">
+                    <nb-icon icon="settings-2-outline">
+                    </nb-icon>
+                </button>
+            </nb-form-field>
+
+        </div>
+
+        <app-divider></app-divider>
+
+        <div>
+            <p class="subtitle-2 text-hint">
+                Content
+            </p>
+        </div>
+
+    </nb-card-header>
+
+    <nb-card-body>
+
+
+
+
+
+
+        <!-- File name -->
+        <div fxLayout="column">
+
+
+
+            <nb-form-field fxFlex fieldSize="small">
+                <textarea [(ngModel)]="tempData" autosize nbInput fullWidth placeholder="Textarea"></textarea>
+            </nb-form-field>
+
+        </div>
+
+    </nb-card-body>
+
+
+
+
+
+</nb-card>

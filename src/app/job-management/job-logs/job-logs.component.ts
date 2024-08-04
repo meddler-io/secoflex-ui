@@ -316,7 +316,7 @@ export class JobLogsComponent implements OnInit, AfterViewInit {
 
     this.topic.subscription = this
       .jobApiService
-      .getLogs(this.topic.log_id, 200, this.topic.pauseStreamer$, THROTTLE_DELAY)
+      .getLogs(this.topic.log_id, 2000, this.topic.pauseStreamer$, THROTTLE_DELAY)
       .pipe(
         tap(d => {
           this.topic.initiated = true;

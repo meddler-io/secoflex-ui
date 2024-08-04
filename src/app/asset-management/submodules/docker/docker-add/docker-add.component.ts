@@ -63,7 +63,7 @@ export class DockerAddComponent implements OnInit {
   tmp$ = 1
 
 
-  myForm = new FormGroup({
+  myForm : any = new FormGroup({
     name: new FormControl('', [Validators.required ]),
     url: new FormControl('http://localhost/asset/repository/add.git', validations),
     credential_type: new FormControl('none'),

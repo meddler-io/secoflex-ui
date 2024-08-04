@@ -11,36 +11,44 @@ export abstract class BaseFormComponent {
 
 export class BaseFormCommonProperties {
 
-    constructor( 
+    constructor(
 
         public identifier: string = '',
         public title: string = '',
         public description: string = '',
         public instructions: string = '',
-        public icon: string = ''
+        public icon: string = '',
+        public required: boolean = true,
+        public allow_user_to_add: boolean = true,
+        public placeholder: string = ''
 
-     ){
+    ) {
 
-     }
+    }
 
-   
-} 
+
+}
 
 export class BaseFieldComponent {
 
     propertyDataModel: { [id: string]: any; } = {};
 
-    _properties : BaseFormCommonProperties = {
-        identifier: '',
-        title: '',
-        description: '',
-        instructions: '',
-        icon: '',
-    }
+
+    public _properties: BaseFormCommonProperties;
 
     constructor() {
 
-   
+        this._properties = {
+            identifier: '',
+            title: '',
+            description: '',
+            instructions: '',
+            icon: '',
+            allow_user_to_add: true,
+            placeholder: '',
+            required: true
+        }
+
     }
 
     getProperties(): PropertySchema[] {
@@ -83,7 +91,7 @@ export class BaseFieldComponent {
         }
 
 
-      
+
 
         let instructionsProperty: PropertySchema = {
             property_identifier: 'instructions',
@@ -112,7 +120,7 @@ export class BaseFieldComponent {
 
         }
 
-        
+
 
         return customProperties;
     }

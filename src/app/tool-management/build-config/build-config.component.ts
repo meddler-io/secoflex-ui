@@ -20,9 +20,16 @@ export class BuildConfigComponent implements OnInit {
   getArgs(): FormArray {
     return this.form.get('args') as FormArray
   }
+  getCmd(): FormArray {
+    return this.form.get('cmd') as FormArray
+  }
 
   deleteArg(index: number) {
     this.getArgs().removeAt(index)
+  }
+
+  deleteCmd(index: number) {
+    this.getCmd().removeAt(index)
   }
 
   getVariables(): FormArray {
@@ -58,7 +65,7 @@ export class BuildConfigComponent implements OnInit {
 
 
 
-  form = new FormGroup({
+  form: any = new FormGroup({
 
     id: new FormControl(''),
 
@@ -166,6 +173,14 @@ export class BuildConfigComponent implements OnInit {
     )
   }
 
+  addCmd() {
+    this.getCmd().push(
+
+      this.fb.control(''),
+
+    )
+  }
+
 
 
   addVar() {
@@ -214,7 +229,7 @@ export class BuildConfigComponent implements OnInit {
   }
 
   formToJson(): any {
-    let data = this.form.getRawValue()
+    let data : any = this.form.getRawValue()
 
     let variables = {}
     data['variables'].forEach(element => {
@@ -266,7 +281,8 @@ export class BuildConfigComponent implements OnInit {
     this
       .toolApiService
       .getBuildConfig(this.build_id)
-      .subscribe(data => {
+      .subscribe( ( config: any) => {
+        let data = config?.config;
 
         if (!data)
           data = {}

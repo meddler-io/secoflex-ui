@@ -27,7 +27,7 @@ const routes: Routes = [
 
 
           // { path: '', component: JobSelectorComponent, outlet: 'tool_list' },
-          { path: '', redirectTo: 'tools', outlet: 'tool_list' },
+          { path: '', redirectTo: 'tools', outlet: 'tool_list',pathMatch: 'full' },
           { path: 'tools', component: ToolSelectorComponent, outlet: 'tool_list' },
           { path: 'jobs', component: JobSelectorComponent, outlet: 'tool_list' },
           { path: 'test', component: TestComponent, outlet: 'tool_list' },
@@ -46,7 +46,9 @@ const routes: Routes = [
         component: JobHomeComponent,
         path: 'job/:jobid',
         children: [
-          { path: '', redirectTo: 'job', outlet: 'view' },
+          { 
+            pathMatch: 'full',
+            path: '', redirectTo: 'job', outlet: 'view' },
 
 
           {
@@ -59,7 +61,7 @@ const routes: Routes = [
 
               // { path: '', component: JobLogsComponent, outlet: 'sub_comp' },
               // { path: '', component: JobLogsComponent, outlet: 'sub_comp' },
-              { path: '', redirectTo: 'request', outlet: 'sub_comp' },
+              { path: '', redirectTo: 'request', outlet: 'sub_comp', pathMatch: 'full' },
               { path: 'request', component: JobRequestComponent, outlet: 'sub_comp' },
               { path: 'logs', component: JobLogsComponent, outlet: 'sub_comp' },
               { path: 'result', component: JobResultComponent, outlet: 'sub_comp' },
@@ -103,7 +105,7 @@ const routes: Routes = [
 
 
           // { path: '', component: JobSelectorComponent, outlet: 'tool_list' },
-          { path: '', redirectTo: 'tools', outlet: 'tool_list' },
+          { path: '', redirectTo: 'tools', outlet: 'tool_list' ,pathMatch: 'full'},
           { path: 'test', component: TestComponent, outlet: 'tool_list' },
           { path: 'tools', component: ToolSelectorComponent, outlet: 'tool_list' },
           { path: 'jobs', component: JobSelectorComponent, outlet: 'tool_list' },

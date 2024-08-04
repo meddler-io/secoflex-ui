@@ -1,0 +1,94 @@
+<ng-template #fileManageTemplate let-close="close" let-context="context">
+
+<app-file-create
+[file_id]="context?.id"
+[filename]="context?.filename"
+[create]="context?.create"
+>
+
+</app-file-create>
+  
+  </ng-template>
+
+<nb-card
+[nbSpinner]="loading"
+fxFill>
+
+
+
+
+        <nb-card-header fxLayoutAlign="space-between center">
+
+            <div fxLayoutAlign="start center" fxLayout="row">
+    
+                <button   shape="round" ghost status="basic" class="action" size="large" nbButton>
+                    <nb-icon icon="arrow-back-outline">
+    
+                    </nb-icon>
+                </button>
+    
+                <span class="subtitle text-hint lineV">
+                    Config Management
+                </span>
+    
+            </div>
+    
+            <button (click)="openDrawer(  fileManageTemplate , { id: id , create: true} ) " shape="round" ghost status="basic" class="action" size="large" nbButton>
+             Create
+            </button>
+    
+    
+
+     
+        
+
+
+
+    </nb-card-header>
+
+    <nb-card-body>
+        <nb-list>
+            <nb-list-item *ngFor="let file of  fileList | async">
+
+
+
+
+
+
+                <nb-form-field fxFlex fieldSize="small">
+                    <!-- [value]="toggle?.checked ? file?.filename : '' "  -->
+
+                    <input fullWidth [value]="file?.filename  " [readonly]="true" nbInput
+                        [placeholder]="file?.filename">
+
+                        
+                        <!-- (click)="copyToClipboard(  file?.filename )" -->
+
+                        <button
+                        (click)="copyText(  file?.variable )"
+                        nbButton nbPrefix size="small" control status="basic">
+                            <nb-icon icon="copy-outline">
+                            </nb-icon>
+                        </button>
+                        <button
+                        (click)="removeObject(  file?.filename )"
+                        nbButton nbSuffix size="small" control status="basic">
+                            <nb-icon icon="trash-outline">
+                            </nb-icon>
+                        </button>
+                        
+                    <button
+                    (click)="openDrawer(  fileManageTemplate , { id: id , filename: file?.filename , create: false })"
+                    nbButton nbSuffix size="small" control status="basic">
+                        <nb-icon icon="diagonal-arrow-right-up-outline">
+                        </nb-icon>
+                    </button>
+                </nb-form-field>
+
+
+
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+
+</nb-card>

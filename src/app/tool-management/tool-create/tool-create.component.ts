@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { EMPTY, of, pipe } from 'rxjs';
+import { EMPTY, Subject, of, pipe } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { ToolApiService } from '../tool-api.service';
 
@@ -11,7 +11,7 @@ import { ToolApiService } from '../tool-api.service';
 })
 export class ToolCreateComponent implements OnInit {
 
-  @Input('close') close : EventEmitter<any>;
+  @Input('close') close : Subject<any>;
   @Input('edit_mode') edit_mode = false
   @Input('tool_id') tool_id
 
@@ -64,7 +64,7 @@ export class ToolCreateComponent implements OnInit {
 
       tap(_ => {
 
-        this.close.next()
+        this.close.next(true)
       }))
       .subscribe()
 

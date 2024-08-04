@@ -1,3 +1,4 @@
+
 <nb-accordion>
   <nb-accordion-item [expanded]="index == 0" *ngFor="let build of images  ; index as index">
     <nb-accordion-item-header fxLayoutAlign="space-between">
@@ -28,7 +29,7 @@
         </nb-card-body>
         <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
-          <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id } )" status="basic"
+          <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id , data: build } )" status="basic"
             ghost size="small" nbButton>
 
             <nb-icon icon="file-text-outline"></nb-icon>
@@ -66,7 +67,7 @@
           <button (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
             status="basic" size="small" nbButton>Edit</button>
 
-          <button (click)="runTask( build?._id ) " status="primary" size="small" nbButton>Build</button>
+          <button (click)="runRebuildTask( build?.refrence_id ,   build?._id ) " status="primary" size="small" nbButton>Re-Build</button>
 
           <button (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy</button>
         </nb-card-footer>
@@ -93,3 +94,10 @@
   </div>
 
 </ng-container>
+
+<ng-template let-close="close" let-context="context" #buildconfigTemplate>
+
+
+  <app-build-config [close]="close" [build_id]="context?.build_id"></app-build-config>
+
+</ng-template>

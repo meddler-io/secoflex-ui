@@ -11,6 +11,6 @@ import { InjectionService } from '../injection/injection.service';
   providers: [LoadingService, InjectionService],
   exports: [LoadingComponent],
   imports: [CommonModule],
-  entryComponents: [LoadingComponent]
+  // entryComponents: [LoadingComponent]
 })
 export class LoadingModule {}

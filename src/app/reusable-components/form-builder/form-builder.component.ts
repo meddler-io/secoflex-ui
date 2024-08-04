@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver, OnDestroy, ViewChild, ElementRef, ViewContainerRef, Input, ReflectiveInjector } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, OnDestroy, ViewChild, ElementRef, ViewContainerRef, Input } from '@angular/core';
 import { MockDataset } from '../unittest/MockDataset';
 import { FormFieldComponents } from '../common/abstract/FormFieldComponents';
 import { FieldType } from '../common/schemas/FieldSchema';
@@ -74,12 +74,6 @@ export class FormBuilderComponent implements OnInit, OnDestroy {
   }
   render(field_id: string) {
 
-    const injector: Injector = ReflectiveInjector.resolveAndCreate(
-      [{
-        provide: 'config', useValue: {
-          value: 'Any value or object here'
-        }
-      }]);
 
 
 

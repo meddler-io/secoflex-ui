@@ -34,7 +34,7 @@ export class FormRichTextComponent extends BaseFieldComponent implements OnInit,
 
 
   _properties = {
-    ...super._properties,
+    ...this._properties,
     ...{
       value: 'This is the value',
       editable: true,

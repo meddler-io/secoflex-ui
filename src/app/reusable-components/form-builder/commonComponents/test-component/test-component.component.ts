@@ -3,16 +3,15 @@ import { of, combineLatest, merge, Subject, Subscription, Observable, pipe, Beha
 import { delay, mergeMapTo, first, tap, map, filter, reduce } from 'rxjs/operators';
 
 import { basicAnimations } from 'src/app/reusable-components/common/animations/basic-animations';
-import { FieldType } from 'src/app/reusable-components/common/schemas/FieldSchema';
+
 import { FormFieldComponents } from 'src/app/reusable-components/common/abstract/FormFieldComponents';
-import { FormIpaddressComponent } from '../../form-ipaddress/form-ipaddress.component';
+
 import { ApiService } from 'src/app/reusable-components/common/services/api.service';
 import { NbDialogService } from '@nebular/theme';
 import { PropertySchema } from 'src/app/reusable-components/common/schemas/PropertySchema';
-import { Properties } from 'src/app/reusable-components/unittest/MockDataset';
-import { BASIC_PROPERTIES } from 'src/app/reusable-components/common/shared/Configuration';
+
 import { BaseFieldComponent, BaseFormCommonProperties } from 'src/app/reusable-components/common/abstract/BaseFormComponent';
-import { ThrowStmt } from '@angular/compiler';
+
 import { ActiveFormFieldService } from 'src/app/reusable-components/common/services/active-form-field.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';

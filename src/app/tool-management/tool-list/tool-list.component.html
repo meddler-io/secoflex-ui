@@ -86,6 +86,12 @@
 
       </div>
 
+      
+      <div fxLayout="row" >
+        <button [routerLink]=" [ '/jobs' ] " fullWidth class="newBtn" shape="round" nbButton>
+          Jobs
+        </button>
+
       <button (click)="openDrawer(toolEditTemplate)" class="newBtn" shape="round" nbButton>
 
         <div class="icon" icon="plus"></div>
@@ -95,6 +101,10 @@
 
         </span>
       </button>
+
+
+    </div>
+
     </div>
 
   </nb-layout-header>

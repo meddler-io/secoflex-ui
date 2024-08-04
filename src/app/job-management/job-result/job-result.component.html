@@ -1,4 +1,68 @@
+<ng-template #fileManageTemplate let-close="close" let-context="context">
 
-<code>
-  <pre>{{ ( (SelectedJob | async)?.response | json ).trim() }}</pre>
-</code>
+  <app-job-result-content [file_id]="jobId" [filename]="context?.filename" [create]="context?.create">
+
+  </app-job-result-content>
+
+</ng-template>
+
+
+
+<nb-list [nbSpinner]="loading">
+  <nb-list-item *ngFor="let file of files | async">
+    <!-- Hello World {{ job | json }} -->
+    <!-- (click)="onClick(   file?.filename )" -->
+    <div fxFlex
+    (click)="openDrawer(  fileManageTemplate , { id: id , filename: file?.filename , create: false })"
+     class="container item" fxLayoutAlign="center center"
+      fxLayout="row">
+
+      <div fxLayoutAlign="start center">
+        <span class="dot " [ngClass]="'text-'+data?._status">&#183;</span>
+      </div>
+
+      <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
+        <div fxFlex class="subtitle-2 ">
+          {{file?.filename}}
+
+        </div>
+
+        <div style="width: '100%' " fxFlex="1 1 100%" fxLayoutAlign="space-between"
+          [class.selected]="selectedId == data?._id">
+
+
+          <div fxFlex class="caption-2">
+
+
+            {{
+            file?.object_size + ' bytes'
+            }}
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+      </div>
+
+
+
+
+
+
+      <!-- <div fxFill fxFlex.md="30px" fxFlex.sm="25px" fxFlex="30px" fxFlex.gt-md="30px">
+    <nb-icon status="basic" class="icon" icon="chevron-right-outline"></nb-icon>
+  </div> -->
+
+
+    </div>
+
+
+
+
+  </nb-list-item>
+</nb-list>

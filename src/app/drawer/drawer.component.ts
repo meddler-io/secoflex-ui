@@ -9,7 +9,8 @@ import {
   ChangeDetectionStrategy,
   TemplateRef,
   OnInit,
-  ElementRef
+  ElementRef,
+  Inject
 } from '@angular/core';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { trigger } from '@angular/animations';
@@ -18,7 +19,7 @@ import { DRAWER_ANIMATION } from './drawer.animation';
 import { DrawerDirection } from './drawer-direction.enum';
 import { DrawerPosition } from './drawer-position.enum';
 import { NbFocusTrap, NbFocusTrapFactoryService } from '@nebular/theme';
-import { MediaChange, MediaObserver, ScreenTypes } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 
 import { Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
@@ -189,7 +190,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
   constructor(
     protected elementRef: ElementRef,
     protected focusTrapFactory: NbFocusTrapFactoryService,
-    public mediaObserver: MediaObserver
+    @Inject(MediaObserver) public mediaObserver: MediaObserver
   ) {
 
   }

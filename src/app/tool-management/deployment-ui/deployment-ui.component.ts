@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EMPTY, of, Subscription } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { SharedDataService } from '../shared-data-service.service';
@@ -13,157 +13,177 @@ import { ToolApiService } from '../tool-api.service';
   templateUrl: './deployment-ui.component.html',
   styleUrls: ['./deployment-ui.component.scss']
 })
-export class DeploymentUiComponent implements OnInit, OnDestroy {
+export class DeploymentUiComponent implements OnInit, OnDestroy , AfterViewInit {
+
+
+  @ViewChild('jobConfigTemplate') jobConfigTemplate;
 
   @Input('tool_id') tool_id
 
-  deployments
+  deployments = this.sharedDataService.ToolId
+    .pipe(
+      map(
+        (id => {
+        return id;
+      }
+      )
+    )
+  ).pipe(
 
-  constructor(
-    private toolApiService: ToolApiService,
-    private drawerMngr: DrawerService,
-    @Inject(DOCUMENT) private document: Document,
-    private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-    private sharedDataService: SharedDataService,
+switchMap(tool_id=>{
 
+return  this
+.toolApiService
+.getDeployments(tool_id)
+.pipe(map((deployments: [string]) => {
 
+let _deployments = []
 
-  ) { }
+deployments.map((deployment : any, index) => {
 
-  sharedServiceSubscription$ = Subscription.EMPTY
+  deployment.id = deployment?.ID;
+  return deployment;
 
-  ngOnDestroy(): void {
-
-    this.sharedServiceSubscription$.unsubscribe()
+  let id = deployment
+  let _deployment = {
+    id: id,
+    details: this.toolApiService.getDeployment(id),
   }
 
-
-  ngOnInit(): void {
-
+  _deployments.push(_deployment)
 
 
-    this.sharedServiceSubscription$ = this.sharedDataService.ToolId
-      .pipe(tap(id => {
-        this.tool_id = id
-      }))
-      .subscribe(() => { this.loadData() })
+})
+
+_deployments = deployments;
+
+console.log('_deployments', _deployments)
+return _deployments
+
+}))
+
+
+})
+
+
+  )
 
 
 
+
+constructor(
+  private toolApiService: ToolApiService,
+  private drawerMngr: DrawerService,
+  @Inject(DOCUMENT) private document: Document,
+  private activatedRoute: ActivatedRoute,
+  private cdr: ChangeDetectorRef,
+  private sharedDataService: SharedDataService,
+
+
+
+) { }
+  ngAfterViewInit(): void {
+
+    return;
+    this.openDrawer(this.jobConfigTemplate , 
+      {
+        'config': {},
+        'id':    '669961ed8b2955d7f6f94172:66a0e05dc1756beee40d4736'
+      }
+      
+    )
   }
 
-  loadData() {
-    console.log('ngOnInit')
+sharedServiceSubscription$ = Subscription.EMPTY
 
-    // return
-    this
-      .toolApiService
-      .getDeployments(this.tool_id)
-      .pipe(map((deployments: [string]) => {
+ngOnDestroy(): void {
 
-        let _deployments = []
-
-        deployments.forEach((deployment, index) => {
-
-          let id = deployment
-          let _deployment = {
-            id: id,
-            details: this.toolApiService.getDeployment(id),
-          }
-
-          _deployments.push(_deployment)
+  this.sharedServiceSubscription$.unsubscribe()
+}
 
 
-        })
-
-        return _deployments
-
-      }))
-
-      .subscribe(_ => {
-        this.deployments = _
-
-        this.cdr.markForCheck()
-
-      })
-
-  }
-
-  deploy() {
-    this
-      .toolApiService
-      .createDeployment('123')
-      .subscribe()
-
-  }
-
-  stopJob(job_id) {
-    this
-      .toolApiService
-      .stopDeployment(job_id)
-      .subscribe()
-  }
-
-  purge() {
-    this
-      .toolApiService
-      .purgeDeployment()
-      .subscribe()
-
-  }
-
-
-  runJob(job_id) {
-
-
-    console.log('runJob', job_id)
-    return
-
-    this
-      .toolApiService
-      .runDeployment(job_id)
-      .subscribe()
-  }
-
-  execJob(id) {
-
-    this
-      .toolApiService
-      .execJob(id, {})
-      .subscribe()
-  }
+ngOnInit(): void {
 
 
 
-  openDrawer(template, context?: any, direction = DrawerDirection.Left, size = '50', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
-
-    if (!context)
-      context = {}
+}
 
 
-    console.log('context', context)
-    const zIndex = 1000;
-    const cssClass = 'backdrop_color'
-    // const cssClass = 'cdk-overlay-2'
-    this.document.body.classList.add('cdk-global-scrollblock')
 
-    this.drawerMngr.create({
-      direction,
-      template,
-      size,
-      context: context,
-      closeOnOutsideClick,
-      parentContainer,
-      isRoot,
-      zIndex,
-      cssClass,
+deploy() {
+  this
+    .toolApiService
+    .createDeployment('123')
+    .subscribe()
+
+}
+
+stopJob(job_id) {
+  this
+    .toolApiService
+    .stopDeployment(job_id)
+    .subscribe()
+}
+
+purge() {
+  this
+    .toolApiService
+    .purgeDeployment()
+    .subscribe()
+
+}
 
 
-    }).onDestroy(() => {
+runJob(job_id) {
 
-      this.document.body.classList.remove('cdk-global-scrollblock')
 
-    });
-  }
+  console.log('runJob', job_id)
+  return
+
+  this
+    .toolApiService
+    .runDeployment(job_id)
+    .subscribe()
+}
+
+execJob(id) {
+
+  this
+    .toolApiService
+    .execJob(id, {})
+    .subscribe()
+}
+
+
+
+openDrawer(template, context ?: any, direction = DrawerDirection.Left, size = '50', closeOnOutsideClick = true, isRoot = true, parentContainer ?: any) {
+
+  if (!context)
+    context = {}
+
+
+  console.log('context', context)
+  const zIndex = 1000;
+  const cssClass = 'backdrop_color'
+  // const cssClass = 'cdk-overlay-2'
+  this.document.body.classList.add('cdk-global-scrollblock')
+
+  this.drawerMngr.create({
+    direction,
+    template,
+    size,
+    context: context,
+    closeOnOutsideClick,
+    parentContainer,
+    isRoot,
+    zIndex,
+    cssClass,
+
+
+  }).onDestroy(() => {
+
+    this.document.body.classList.remove('cdk-global-scrollblock')
+
+  });
+}
 }

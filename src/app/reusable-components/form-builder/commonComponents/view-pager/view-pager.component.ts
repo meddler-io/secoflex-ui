@@ -13,7 +13,7 @@ import { Properties } from 'src/app/reusable-components/unittest/MockDataset';
 import { FieldEditorComponent } from '../field-editor/field-editor.component';
 import { ActiveFormFieldService } from 'src/app/reusable-components/common/services/active-form-field.service';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { strict } from 'assert';
+
 import { SimpleChange } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
 import { ColorPallete } from 'src/app/reusable-components/common/shared/Constants';

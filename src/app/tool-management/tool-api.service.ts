@@ -100,9 +100,11 @@ export class ToolApiService {
 
               .pipe(
                 tap(d => {
-                  let x_file_range = d.headers.get('X-File-Range')
-                  let x_file_size = d.headers.get('X-File-Size')
-
+                  
+                  let x_file_range = d.headers.get('x-file-range')
+                  let x_file_size = d.headers.get('x-file-size')
+                  
+                  console.log('seeking', x_file_range , x_file_size )
                   if (x_file_range == null || x_file_size == null) {
                     // throw ("Error processing")
 
@@ -198,6 +200,10 @@ export class ToolApiService {
     return this.http.post(`${url}/build/run/${id}`, data)
   }
 
+
+  runRebuild(id, tag, data) {
+    return this.http.post(`${url}/rebuild/run/${id}/${tag}`, data)
+  }
   getTool(id: string) {
     return this.http.get(`${url}/tool/${id}`)
   }
@@ -350,6 +356,51 @@ export class ToolApiService {
     )
   }
 
+  deleteJob(id: string) {
+    return this.http.delete(`${url}/task/${id}`)
+  }
+
+  createTask(tool_id: string , image_id: string, config) {
+    
+    return this.http.post(`${url}/task/${tool_id}/${image_id}`,
+      config
+    )
+  }
+
+  runTask(id : string, data) {
+    
+    return this.http.post(`${url}/task/trigger/${id}`,data
+    )
+  }
+
+  updateTask(id : string, config) {
+    
+    return this.http.put(`${url}/task/${id}`,
+      config
+    )
+  }
+  getTaskForTools(tool_id: string ) {
+    
+    return this.http.get(`${url}/tasks/${tool_id}`,
+
+    )
+  }
+
+
+  getTaskForToolsImages(tool_id: string , image_id: string) {
+    
+    return this.http.get(`${url}/tasks/${tool_id}/${image_id}`,
+
+    )
+  }
+
+  getTaskById( id: string) {
+    
+    return this.http.get(`${url}/task/${id}`,
+
+    )
+  }
+
   stopDeployment(job_id: string) {
     // id = encodeURIComponent(id)
     return this.http.delete(`${url}/deployment/service`, {
@@ -380,8 +431,56 @@ export class ToolApiService {
     return this.http.get(`${url}/deployment/services/${tool_id}`)
   }
 
+  getTasks(tool_id: string) {
+    return this.http.get(`${url}/deployment/services/${tool_id}`)
+  }
   createDeployment(image_id: string) {
     return this.http.post(`${url}/deployment/service/${image_id}`, {})
+  }
+
+
+
+  // Create config files in minio
+  getConfigMapList(id: string) {
+    return this.http.get(`${url}/config-map/${id}`)
+  }
+
+  getConfigMapContent(id: string , filename: string) {
+    return this.http.get(`${url}/config-map/${id}` , {
+      params: {
+        filename
+      }
+    })
+  }
+
+  removeConfigMap(id: string , filename: string) {
+    return this.http.delete(`${url}/config-map/${id}` , {
+      params: {
+        filename
+      }
+    })
+  }
+
+  getConfigMapVariable(id: string , filename: string) {
+    return this.http.get(`${url}/config-map/get-variable/${id}` , {
+      params: {
+        filename
+      }
+    })
+  }
+
+
+
+  
+
+  createConfigMap(id: string, filename: string , content: string , overwrite = false) {
+    return this.http.post(`${url}/config-map/${id}`, {
+      
+        "filename": filename,
+        "content": content,
+        "force_overwrite": overwrite
+    
+    })
   }
 
 

@@ -15,6 +15,6 @@ import { InjectionService } from '../injection/injection.service';
   providers: [OverlayService, InjectionService, OverlayService],
   exports: [OverlayComponent, ResizeOverlayComponent],
   imports: [CommonModule, LayoutModule],
-  entryComponents: [OverlayComponent, ResizeOverlayComponent]
+  // entryComponents: [OverlayComponent, ResizeOverlayComponent]
 })
 export class OverlayModule {}

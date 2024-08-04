@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, share, tap } from 'rxjs/operators';
+import { filter, share, shareReplay, tap } from 'rxjs/operators';
 import { JobApiService } from '../job-api.service';
 import { StateSyncService, StatusPipe } from '../state-sync.service';
 
@@ -21,7 +21,11 @@ export class JobSelectorComponent implements OnInit {
   jobs
 
 
-  SelectedJobId = this.stateSyncService.SelectedJobId
+  SelectedJob = this.stateSyncService.SelectedJob.pipe(
+    shareReplay({refCount: true , bufferSize: 1 })
+  )
+
+
 
   constructor(
     private jobApiService: JobApiService,
@@ -80,8 +84,8 @@ export class JobSelectorComponent implements OnInit {
 
   goToToolsSelection() {
 
-    console.log('route', this.route.root)
-    return
+    // console.log('route', this.route.root)
+    // return
     this.router.navigate([
 
       {

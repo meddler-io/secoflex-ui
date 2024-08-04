@@ -226,7 +226,7 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
     this.topic.subscription = this
       .toolApiService
-      .getLogs(this.topic.log_id, 200, this.topic.pauseStreamer$, THROTTLE_DELAY)
+      .getLogs(this.topic.log_id, 10, this.topic.pauseStreamer$, THROTTLE_DELAY)
       .pipe(
         tap(d => {
           this.topic.initiated = true;

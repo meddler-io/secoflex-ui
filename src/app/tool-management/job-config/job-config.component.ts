@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { ToolApiService } from '../tool-api.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-job-config',
@@ -31,8 +32,14 @@ export class JobConfigComponent implements OnInit {
     return this.form.get('args') as FormArray
   }
 
+  getCmd(): FormArray {
+    return this.form.get('cmd') as FormArray
+  }
   deleteArg(index: number) {
     this.getArgs().removeAt(index)
+  }
+  deleteCmd(index: number) {
+    this.getCmd().removeAt(index)
   }
 
   getVariables(): FormArray {
@@ -68,25 +75,32 @@ export class JobConfigComponent implements OnInit {
 
 
 
-  form = new FormGroup({
+  form: FormGroup = new FormGroup({
 
     id: new FormControl(''),
 
     entrypoint: this.fb.array([
-      new FormControl(
-        {
-          value: '',
-          disabled: true,
+      // new FormControl(
+      //   {
+      //     value: '',
+      //     disabled: true,
 
-        }
+      //   }
 
-      ),
+      // ),
     ]),
 
 
     cmd: this.fb.array([
       this.fb.control('/bin/cmd'),
     ]),
+
+    scanner_input: this.fb.array([])
+    ,
+
+    identifier:
+      this.fb.control('', [Validators.required , Validators.minLength(2)  ]) ,
+
 
     args: this.fb.array([
       this.fb.control('hello'),
@@ -170,6 +184,13 @@ export class JobConfigComponent implements OnInit {
 
   addArg() {
     this.getArgs().push(
+
+      this.fb.control(''),
+
+    )
+  }
+  addCmd() {
+    this.getCmd().push(
 
       this.fb.control(''),
 
@@ -264,7 +285,12 @@ export class JobConfigComponent implements OnInit {
 
   save() {
 
+    if (!this.form.valid) {
+      console.log('in valid form')
+      return
+    }
 
+   
     this
       .toolApiService
       .updateBuildConfig(this.build_id, this.formToJson())
@@ -274,13 +300,50 @@ export class JobConfigComponent implements OnInit {
       })
   }
 
+  scannerInput = [];
+
+  checkedChangeScannerInput(add, data) {
+
+    let formValue = new Set(  (this.form.get('scanner_input') as FormArray).value );
+    if (add) {
+
+      formValue.add(data?.id)
+    } else{
+      formValue.delete(data?.id)
+
+    }
+
+    let newControlValue =     Array.from(formValue).map(_=>this.fb.control(_)  );
+
+
+    console.log('checkedChangeScannerInput', add, data, newControlValue);
+
+
+
+    this.form.setControl('scanner_input',
+   this.fb.array(newControlValue)
+      // []
+
+    )
+    
+    this.cdr.markForCheck()
+
+    console.log('form-value', this.form.get('scanner_input').value)
+
+  }
 
   loadConfig() {
 
     this.LOADING = true
 
-    of(this.config)
-      .subscribe(data => {
+    // of(this.config)
+    this
+      .toolApiService
+      .getBuildConfig(this.build_id)
+      .subscribe((config: any) => {
+
+        let data = config?.config;
+        this.scannerInput = config?.parameters?.scanner_input || [];
         console.log('config', data)
 
         if (!data)
@@ -308,23 +371,28 @@ export class JobConfigComponent implements OnInit {
 
 
           data['entrypoint'].forEach(element => {
+
+
             entrypointControl.push(this.fb.control(
 
 
-              {
-                value: element,
-                disabled: true,
-              }
+              // {
+              // value:
+              element,
+              // disabled: true,
+              // }
             ))
 
 
           });
 
 
-          this.form.setControl('entrypoint', entrypointControl)
+          this.form.setControl('entrypoint', entrypointControl);
+          console.log('setting entrypoint', entrypointControl)
+
         }
 
-        if (data['entrypoint']) {
+        if (data['args']) {
 
           let argsControl = []
 
@@ -434,6 +502,7 @@ export class JobConfigComponent implements OnInit {
 
   }
 
+  
 
   openLogs(template, id: string, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
 
@@ -462,4 +531,25 @@ export class JobConfigComponent implements OnInit {
       });
   }
 
+
+  createScanner() {
+
+
+    let _ = this.id.split(':')
+
+    let toolId = _[0];
+    let imageId = _[1];
+
+
+    this
+      .toolApiService
+      .createTask(toolId , imageId, this.formToJson())
+      .subscribe(d => {
+
+        let _id = d['_id']
+        // this.openLogs(this.logsTemplate, _id)
+
+      })
+
+  }
 }

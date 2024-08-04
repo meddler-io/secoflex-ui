@@ -1,0 +1,90 @@
+
+
+
+<nb-card fxFill [nbSpinner]="loading">
+
+
+    <nb-card-header fxLayoutAlign="space-between center">
+
+        <div fxLayoutAlign="start center" fxLayout="row">
+
+            <button (click)="close.next(true)" shape="round" ghost status="basic" class="action" size="large" nbButton>
+                <nb-icon icon="arrow-back-outline">
+
+                </nb-icon>
+            </button>
+
+            <span class="subtitle text-hint lineV">
+                Job Result
+            </span>
+
+        </div>
+
+   
+        
+
+
+    </nb-card-header>
+
+
+    <nb-card-header>
+
+
+
+        <div fxLayout="column">
+
+            <div>
+                <p class="subtitle-2 text-hint">
+                    File Name
+                </p>
+            </div>
+
+
+            <nb-form-field fxFlex fieldSize="small">
+                <input [readonly]="true" [(ngModel)]="filename" fullWidth nbInput placeholder="Filename">
+
+                <button *ngIf="false" nbButton nbSuffix size="small" control status="info">
+                    <nb-icon icon="settings-2-outline">
+                    </nb-icon>
+                </button>
+            </nb-form-field>
+
+        </div>
+
+
+
+        <div>
+            <p class="subtitle-2 text-hint">
+                Content
+            </p>
+        </div>
+
+    </nb-card-header>
+
+    <nb-card-body>
+
+
+
+
+
+
+        <!-- File name -->
+        <div fxLayout="column">
+
+
+
+            <nb-form-field fxFlex fieldSize="small">
+                <textarea
+                [readonly]="true" 
+                [(ngModel)]="tempData" autosize nbInput fullWidth placeholder="Textarea"></textarea>
+            </nb-form-field>
+
+        </div>
+
+    </nb-card-body>
+
+
+
+
+
+</nb-card>

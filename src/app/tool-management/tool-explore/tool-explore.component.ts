@@ -51,6 +51,14 @@ export class ToolExploreComponent implements OnInit {
         this.tabs = [
 
           {
+            title: 'Scanners',
+            // icon: 'person',
+            // route: [{ outlets: { view: `deployments/${id}` } }],
+            route: [{ outlets: { view: `scanners` } }],
+            responsive: true,
+
+          },
+          {
             title: 'Deployments',
             // icon: 'person',
             // route: [{ outlets: { view: `deployments/${id}` } }],

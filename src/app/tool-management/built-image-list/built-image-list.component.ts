@@ -31,6 +31,10 @@ export class BuiltImageListComponent implements OnInit, OnDestroy {
 
   ) { }
 
+  runRebuildTask(id , tag){
+    this.toolApiService.runRebuild(id , tag, {}).subscribe()
+  }
+
 
   sharedServiceSubscription$ = Subscription.EMPTY
 

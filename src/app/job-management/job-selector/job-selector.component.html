@@ -5,11 +5,13 @@
 
 
     <button (click)="goToToolsSelection()" ghost status="primary" shape="round" class="title" nbButton size="medium">
-      nmap
+      {{ ( SelectedJob | async )?.tool?.alias}}
+      
+    
     </button>
     <nb-icon icon="chevron-right-outline"></nb-icon>
     <button ghost shape="round" class="title" nbButton size="medium">
-      {{SelectedJobId | async}}
+      {{ ( SelectedJob | async )?._id}}
     </button>
 
   </nb-card-header>
@@ -19,7 +21,7 @@
   <nb-list>
     <nb-list-item *ngFor="let job of jobs | async">
       <!-- Hello World {{ job | json }} -->
-      <app-list-item [selectedId]="SelectedJobId | async" (click)="onClick(job?._id)" fxFlex [data]="job">
+      <app-list-item [selectedId]=" ( SelectedJob | async )?._id" (click)="onClick(job?._id)" fxFlex [data]="job">
       </app-list-item>
     </nb-list-item>
   </nb-list>

@@ -20,7 +20,7 @@ export class FormCodeComponent extends BaseFieldComponent implements OnInit {
     'console'
   ]
   _properties = {
-    ...super._properties,
+    ...this._properties,
     ...{
       editable: true,
 

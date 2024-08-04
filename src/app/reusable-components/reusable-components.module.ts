@@ -137,12 +137,12 @@ const routes: Routes = [
 
   ],
 
-  entryComponents: [
+  // entryComponents: [
 
-    FormBuilderComponent, FormTextComponent, FormRichTextComponent, FormBooleanComponent, FormEnumComponent, FormFileComponent, FormImageComponent, FormVideoComponent, FormSelectComponent, FormListComponent, FormCodeComponent, FormUrlComponent, TestComponentComponent, FormIpaddressComponent,
-    FieldEditorComponent
+  //   FormBuilderComponent, FormTextComponent, FormRichTextComponent, FormBooleanComponent, FormEnumComponent, FormFileComponent, FormImageComponent, FormVideoComponent, FormSelectComponent, FormListComponent, FormCodeComponent, FormUrlComponent, TestComponentComponent, FormIpaddressComponent,
+  //   FieldEditorComponent
 
 
-  ]
+  // ]
 })
 export class ReusableComponentsModule { }

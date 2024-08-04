@@ -13,7 +13,7 @@ export class FormBooleanComponent extends BaseFieldComponent implements OnInit {
 
 
   _properties = {
-    ...super._properties,
+    ...this._properties,
     ...{
 
       label: 'Click here to toggle?',
