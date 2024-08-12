@@ -1,5 +1,5 @@
 <nb-card fxFill>
-  <nb-card-header  fxLayoutAlign="start center">
+  <nb-card-header fxLayoutAlign="start center">
     <!-- <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="medium" nbButton>
       <nb-icon icon="arrow-back-outline">
       </nb-icon>
@@ -9,11 +9,7 @@
     </div>
 
 
-    <button shape="round"
-    (click)="closeToolSelection()"
- 
-    
-    ghost status="basic" class="action" size="medium" nbButton>
+    <button shape="round" (click)="closeToolSelection()" ghost status="basic" class="action" size="medium" nbButton>
       <nb-icon icon="close-circle-outline">
       </nb-icon>
     </button>
@@ -22,17 +18,30 @@
 
 
   <nb-list>
-    <nb-list-item (click)="onSelectTool(tool)" *ngFor="let tool of tools | async">
+    <nb-list-item (click)="onSelectTool(task?.tool)" *ngFor="let task of tools | async">
 
       <div class="container" fxLayoutAlign="center center" fxLayout="row">
 
         <div fxLayoutAlign="start center">
-          <span class="dot text-primary">&#183;</span>
+          <span [class.text-primary]="task?.job?.ID" class="dot ">&#183;</span>
         </div>
 
         <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
-          <div fxFlex class="subtitle-2 ">
-            {{tool?.alias}}
+          <div fxFlex fxLayout="row"
+          
+          fxLayoutAlign="center center"
+          >
+            <p class="subtitle-2 ">
+              {{task?.tool?.alias}}
+
+            </p>
+
+            <nb-icon icon="chevron-right-outline"></nb-icon>
+
+            <p class="subtitle-2 text-hint ">
+
+              {{task?.config?.identifier}}
+            </p>
           </div>
         </div>
       </div>

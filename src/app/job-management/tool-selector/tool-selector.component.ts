@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobApiService } from '../job-api.service';
+import { ToolApiService } from 'src/app/tool-management/tool-api.service';
 
 @Component({
   selector: 'app-tool-selector',
@@ -9,10 +10,10 @@ import { JobApiService } from '../job-api.service';
 })
 export class ToolSelectorComponent implements OnInit {
 
-  tools = this.jobApiService.getTools()
+  tools = this.toolApiService.getAllTasks()
 
   constructor(
-    private jobApiService: JobApiService,
+    private toolApiService: ToolApiService,
     private route: ActivatedRoute,
     private router: Router
   ) { }

@@ -16,6 +16,19 @@ nb-card {
   font-size: 60px;
   margin-right: 1rem;
   margin-left: 0.3rem;
+
+  color: nb-theme(color-danger-600) ;
+
+
+  &.text-primary{
+    // background-color: nb-theme(color-success-200);
+  color: nb-theme(color-primary-600) ;
+
+
+
+  }
+
+  
 }
 
 nb-list {
@@ -52,4 +65,6 @@ nb-list-item {
     background-color: nb-theme(color-success-200);
     color: nb-theme(navitem-selected-text);
   }
+
+ 
 }

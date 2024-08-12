@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { ToolApiService } from '../tool-api.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { ToolApiService } from '../tool-api.service';
 })
 export class ToolsListForInputComponent {
 
+
+  @Input('id') id;
 
   exportedToolsList = this.toolApiService.getAllTasks();
 
@@ -36,6 +38,6 @@ export class ToolsListForInputComponent {
   save(){
     console.log('save dependency ', );
 
-    this.toolApiService.updateTaskToAddIngestedResults('66b626dc91bfa6c153dbd068', Array.from(this.selectedIds )).subscribe()
+    this.toolApiService.updateTaskToAddIngestedResults(this.id, Array.from(this.selectedIds )).subscribe()
   }
 }

@@ -90,7 +90,8 @@ import { AutosizeModule } from 'ngx-autosize';
 
   providers: [
     JobApiService,
-    StateSyncService
+    StateSyncService,
+    ToolApiService
   ]
 })
 export class JobManagementModule { }

@@ -4,6 +4,13 @@
 </ng-template>
 
 
+<ng-template #manageDependencyInputTool let-context="context">
+
+  <app-tools-list-for-input [id]="context?.id">
+  </app-tools-list-for-input>
+
+</ng-template>
+
 <ng-container *ngIf=" LOADING == false ; else loading">
 
 
@@ -149,7 +156,7 @@
 
 
 
-          <button (click)="openLogs(configMapTemplate , image_id  )" ghost nbButton status="danger">
+          <button (click)="openLogs(manageDependencyInputTool , id  )" ghost nbButton status="danger">
             Manage
           </button>
         </div>
