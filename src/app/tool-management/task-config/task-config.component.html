@@ -7,7 +7,7 @@
 <ng-container *ngIf=" LOADING == false ; else loading">
 
 
-  
+
 
 
   <nb-card fxFill [formGroup]="form">
@@ -63,6 +63,7 @@
       <!-- Scanner Input -->
       <div fxLayout="column">
 
+
         <div fxLayout="row">
           <p fxFlex class="subtitle-2 text-hint">
             Scanner Input
@@ -78,23 +79,244 @@
 
           <ng-container *ngFor="let scannerInput$ of scannerInput">
 
-
-            <div fxLayout="row" fxLayoutGap="1rem">
-
-              <nb-form-field fxFlex fieldSize="small">
-                <input
-                  [value]="form.get('scanner_input')?.value?.includes( scannerInput$?.id ) ? scannerInput$?.placeholder : '' "
-                  [readonly]="true" fullWidth nbInput [placeholder]="scannerInput$?.placeholder">
+            <ng-container *ngIf=" edit ||  form.get('scanner_input')?.value?.includes( scannerInput$?.id )">
 
 
-                <div nbSuffix>
-                  <nb-toggle [checked]="form.get('scanner_input')?.value?.includes( scannerInput$?.id )"
-                    (checkedChange)="checkedChangeScannerInput(  $event ,  scannerInput$ )" #toggle></nb-toggle>
+
+
+              <div fxLayout="row" fxLayoutGap="1rem">
+
+                <nb-form-field fxFlex fieldSize="small">
+
+
+
+
+                  <button (click)="copyText(  scannerInput$?.variable )" nbButton nbPrefix size="small" control
+                    status="basic">
+                    <nb-icon icon="copy-outline">
+                    </nb-icon>
+                  </button>
+
+
+                  <input
+                    [value]="form.get('scanner_input')?.value?.includes( scannerInput$?.id ) ? scannerInput$?.placeholder : '' "
+                    [readonly]="true" fullWidth nbInput [placeholder]="scannerInput$?.placeholder">
+
+
+                  <div nbSuffix *ngIf="edit">
+                    <nb-toggle [checked]="form.get('scanner_input')?.value?.includes( scannerInput$?.id )"
+                      (checkedChange)="checkedChangeScannerInput(  $event ,  scannerInput$ )" #toggle></nb-toggle>
+
+                  </div>
+                </nb-form-field>
+              </div>
+            </ng-container>
+
+          </ng-container>
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
+          <p class="subtitle-2 text-hint">
+            No Input Defined
+          </p>
+        </div>
+      </div>
+
+
+      <app-divider></app-divider>
+
+
+      <!-- Dependency Tool -->
+
+      <div fxLayout="column">
+
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
+            Dependency Tool
+
+          </p>
+
+
+
+
+
+          <button (click)="openLogs(configMapTemplate , image_id  )" ghost nbButton status="danger">
+            Manage
+          </button>
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="1rem">
+
+
+          <ng-container *ngFor="let ingested_result of this.form.get('ingested_results')?.value">
+
+            <div style="padding-left: 1rem;" >
+
+              <p fxFlex class="subtitle-2 text-hint">
+                {{ingested_result?.task_name}}
+                
+              </p>
+            </div>
+
+            <ng-container *ngFor="let result of ingested_result?.result">
+
+             
+
+
+
+              <div style="padding-left: 1rem;" fxLayout="column" fxLayoutGap="1rem">
+
+
+                <div fxLayoutGap="0.5rem" fxLayoutAlign="end" fxLayout="row">
+
+                  <div nbSuffix>
+
+                    <nb-checkbox readonly [checked]="result?.regex">Regex</nb-checkbox>
+                    <!-- <nb-checkbox status="primary">Primary</nb-checkbox> -->
+
+                  </div>
+
+                  <div nbSuffix>
+                    <nb-checkbox readonly [checked]="result?.directory">Directory</nb-checkbox>
+
+
+
+                  </div>
 
                 </div>
-              </nb-form-field>
-            </div>
+
+
+
+
+                <nb-form-field fxFlex fieldSize="small">
+
+                  <button (click)="copyText(  '$' + 'mount_volume_path' + '/' + ingested_result?.task_id + '/' +  result?.value )" nbButton nbPrefix size="small" control status="basic">
+
+                    <span nbPrefix>$</span>
+
+                  </button>
+
+
+                  <!-- <input readonly hidden #variable fullWidth [value]="result?.variable" nbInput placeholder="/bin/watchdog"> -->
+
+                  <input readonly #inp fullWidth [value]="result?.value" nbInput placeholder="/bin/watchdog">
+
+
+
+
+                </nb-form-field>
+              </div>
+
+
+
+            </ng-container>
+
           </ng-container>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+      </div>
+      <app-divider></app-divider>
+
+
+      <!-- Scanner Reult Info -->
+      <div fxLayout="column">
+
+
+
+
+
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
+            Scanner Result
+
+          </p>
+
+          <button (click)="addScannerResult()" ghost nbButton status="danger">
+            Add
+          </button>
+
+        </div>
+
+        <div fxLayout="column" fxLayoutGap="1rem">
+
+          <ng-container formArrayName="result">
+
+            <ng-container *ngFor="let result of this.form.get('result').controls ; let i=index ">
+
+
+
+              <div fxLayout="column" fxLayoutGap="1rem" [formGroupName]="i">
+
+
+                <div fxLayoutGap="0.5rem" fxLayoutAlign="end" fxLayout="row">
+
+                  <div nbSuffix *ngIf="edit">
+
+                    <nb-checkbox formControlName="regex">Regex</nb-checkbox>
+                    <!-- <nb-checkbox status="primary">Primary</nb-checkbox> -->
+
+                  </div>
+
+                  <div nbSuffix *ngIf="edit">
+                    <nb-checkbox formControlName="directory">Directory</nb-checkbox>
+
+
+
+                  </div>
+
+                </div>
+
+
+
+
+                <nb-form-field fxFlex fieldSize="small">
+
+                  <button (click)="copyText(  variable?.value )" nbButton nbPrefix size="small" control status="basic">
+
+                    <span nbPrefix>$</span>
+
+                  </button>
+
+
+                  <input hidden #variable fullWidth formControlName="variable" nbInput placeholder="/bin/watchdog">
+
+                  <input #inp fullWidth formControlName="value" nbInput placeholder="/bin/watchdog">
+
+
+
+
+                </nb-form-field>
+              </div>
+
+            </ng-container>
+          </ng-container>
+
+
+
 
 
 
@@ -137,7 +359,7 @@
 
 
 
-        
+
       </div>
       <app-divider></app-divider>
 
@@ -147,7 +369,7 @@
 
         <div fxLayout="row">
           <p fxFlex class="subtitle-2 text-hint">
-             Configs
+            Configs
           </p>
 
 
@@ -162,8 +384,8 @@
 
 
 
-       
-        
+
+
       </div>
       <app-divider></app-divider>
 
@@ -355,9 +577,16 @@
 
 
               <nb-form-field fxFlex fieldSize="small">
-                <span nbPrefix>$</span>
 
-                <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+
+                <button (click)="copyText(  variable?.value?.value )" nbButton nbPrefix size="small" control
+                  status="basic">
+
+                  <span nbPrefix>$</span>
+
+                </button>
+
+                <input [readonly]="true" fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
 
@@ -366,7 +595,7 @@
 
 
               <nb-form-field fxFlex fieldSize="small">
-                <input fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
+                <input readonly fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
 
@@ -470,12 +699,85 @@
       <app-divider></app-divider>
 
 
+
+
+      <!-- Process Env. Variables -->
+      <div fxLayout="column">
+
+        <div fxLayout="row">
+          <p fxFlex class="subtitle-2 text-hint">
+            Environment Variables
+          </p>
+
+
+
+          <button (click)="addEnv()" ghost nbButton status="danger">
+            Add
+          </button>
+
+
+        </div>
+
+
+        <ng-container formArrayName="environ">
+
+          <ng-container *ngFor="let variable of this.form.get('environ')?.controls ; let i=index ">
+
+            <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
+
+              <nb-form-field fxFlex fieldSize="small">
+                <span nbPrefix>$</span>
+
+                <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+              </nb-form-field>
+
+
+
+
+
+
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth formControlName="value" nbInput placeholder="/usr/bin/mobsf">
+              </nb-form-field>
+
+
+              <button ghost nbButton (click)="deleteConfProcess(i)">
+                <nb-icon icon="trash-outline">
+                </nb-icon>
+              </button>
+
+
+
+
+            </div>
+
+
+          </ng-container>
+
+
+        </ng-container>
+
+
+        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('config').get('process').controls .length"
+          fxFlex>
+          <p class="subtitle-2 text-hint">
+            No Environment Variables Defined
+          </p>
+        </div>
+
+      </div>
+
+      <app-divider></app-divider>
+
+
+
       <!-- Process Env. Variables -->
       <div fxLayout="column" formGroupName="config">
 
         <div fxLayout="row">
           <p fxFlex class="subtitle-2 text-hint">
-            Environment Variables
+            Process Environment Variables
           </p>
 
 
@@ -498,7 +800,7 @@
               <nb-form-field fxFlex fieldSize="small">
                 <span nbPrefix>$</span>
 
-                <input [readonly]="true" fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
+                <input fullWidth formControlName="key" nbInput placeholder="/usr/bin/mobsf">
               </nb-form-field>
 
 
@@ -631,6 +933,7 @@
           <ng-container *ngFor="let variable of this.form.get('config').get('system').controls ; let i=index ">
 
             <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
 
 
               <nb-form-field fxFlex fieldSize="small">

@@ -15,6 +15,7 @@ import { ToolListComponent } from './tool-list/tool-list.component';
 import { ScannersUiComponent } from './tool-explore/scanners/scanners.component';
 import { FileCreateComponent } from './file-create/file-create.component';
 import { FileListComponent } from './file-list/file-list.component';
+import { ToolsListForInputComponent } from './tools-list-for-input/tools-list-for-input.component';
 
 const routes: Routes = [
 
@@ -29,7 +30,8 @@ const routes: Routes = [
 
       {
         path: 'test',
-        component: FileListComponent
+        component: ToolsListForInputComponent
+        // component: FileListComponent
         // component: FileCreateComponent
 
       },

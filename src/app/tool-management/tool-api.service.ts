@@ -379,9 +379,22 @@ export class ToolApiService {
       config
     )
   }
+
+  updateTaskToAddIngestedResults(id : string, data) {
+    
+    return this.http.put(`${url}/task/${id}/ingest_results`,
+      data
+    )
+  }
   getTaskForTools(tool_id: string ) {
     
     return this.http.get(`${url}/tasks/${tool_id}`,
+
+    )
+  }
+  getAllTasks( ) {
+    
+    return this.http.get(`${url}/tasks`,
 
     )
   }

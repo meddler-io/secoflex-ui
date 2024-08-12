@@ -1,0 +1,96 @@
+<nb-card fxFill>
+
+
+
+
+    <nb-card-header fxLayoutAlign="space-between center">
+
+        <div fxLayoutAlign="start center" fxLayout="row">
+
+            <button shape="round" ghost status="basic" class="action" size="large" nbButton>
+                <nb-icon icon="arrow-back-outline">
+
+                </nb-icon>
+            </button>
+
+            <span class="subtitle text-hint lineV">
+                Dependency Selection
+            </span>
+
+        </div>
+
+        <button
+        (click)="save()"
+        shape="round" ghost status="basic" class="action" size="large" nbButton>
+            Save
+        </button>
+
+
+
+
+
+
+
+
+    </nb-card-header>
+
+    <nb-card-body>
+        <nb-list>
+            <nb-list-item [class.selected]="selectedIds.has(file?._id)" (click)="selectResult( file?._id  )"
+                *ngFor="let file of  exportedToolsList | async">
+
+
+                <div fxLayout="column">
+
+
+
+                    <div fxLayout="row">
+
+
+                        <div [class.text-hint]="!selectedIds.has(file?._id)" class="subtitle ">
+
+                            {{
+                            file?.tool?.alias
+                            }}
+                        </div>
+
+                        <nb-icon icon="chevron-right-outline"></nb-icon>
+
+                        <div [class.text-hint]="!selectedIds.has(file?._id)" class="subtitle-2">
+
+                            {{
+                            file?.config?.identifier
+                            }}
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div fxLayout="row">
+
+                        <div class="caption">
+
+
+                            {{
+                            file?.config?.result?.[0]?.value
+                            }}
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+
+</nb-card>

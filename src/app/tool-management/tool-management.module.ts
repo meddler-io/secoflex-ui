@@ -39,9 +39,12 @@ import { TaskConfigComponent } from './task-config/task-config.component';
 import { FileCreateComponent } from './file-create/file-create.component';
 import {AutosizeModule} from 'ngx-autosize';
 import { FileListComponent } from './file-list/file-list.component';
+import { ToolsListForInputComponent } from './tools-list-for-input/tools-list-for-input.component';
 
 @NgModule({
-  declarations: [ToolHomeComponent,
+  declarations: [
+    ToolsListForInputComponent,
+    ToolHomeComponent,
 
     FileListComponent,
     FileCreateComponent,

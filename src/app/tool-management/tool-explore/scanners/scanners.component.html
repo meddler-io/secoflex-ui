@@ -91,14 +91,14 @@
   
   
           <button
-          (click)="openDrawer(taskExecTemplate , context =  { config: deploy?.JobConfig , id : deploy?._id }  ) "
+          (click)="openDrawer(taskExecTemplate , context =  { config: deploy?.JobConfig , id : deploy?._id , edit: false }  ) "
           status="primary" ghost size="small" nbButton>
   
             <nb-icon icon="settings-2-outline"></nb-icon>
             Exec 
           </button>
   
-          <button (click)="openDrawer(taskConfigTemplate , context =  { config: deploy?.JobConfig , id : deploy?._id }  ) "
+          <button (click)="openDrawer(taskConfigTemplate , context =  { config: deploy?.JobConfig , id : deploy?._id , edit: true }  ) "
             status="success" ghost size="small" nbButton>
   
             <nb-icon icon="settings-2-outline"></nb-icon>
@@ -149,6 +149,7 @@
     [saveAction]="true"
 
     [build_id]="context?.id?.split(':')[1]"
+    [edit]="context?.edit"
     
     [config]="context?.config" [id]="context?.id">
     </app-task-config>
@@ -162,6 +163,7 @@
     <app-task-config 
     [runAction]="true"
     [build_id]="context?.id?.split(':')[1]"
+    [edit]="context?.edit"
     
     [config]="context?.config" [id]="context?.id">
     </app-task-config>

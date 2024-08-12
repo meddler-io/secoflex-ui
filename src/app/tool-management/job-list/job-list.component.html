@@ -6,7 +6,7 @@
       <span>
 
         Job {{i + 1}}
-        {{ job | json }}
+
 
       </span>
 
@@ -17,7 +17,7 @@
     <nb-accordion-item-body>
 
 
-      <button [routerLink]="[ '/jobs' , 'job' , job?._id ]" status="basic" filled size="small" nbButton>
+      <button [routerLink]="[ '/jobs' , 'job' , job?._id  ] " status="basic" filled size="small" nbButton>
 
         <nb-icon icon="file-text-outline"></nb-icon>
         Details

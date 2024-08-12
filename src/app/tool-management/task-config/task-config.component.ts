@@ -23,9 +23,20 @@ export class TaskConfigComponent {
 
 
 
+  @Input('edit')
+  edit = false;
+
+
   @Input('id') id
 
 
+  copyText(textToCopy) {
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      console.log('Text copied to clipboard');
+    }).catch(err => {
+      console.error('Could not copy text: ', err);
+    });
+  }
 
   @Input('config') config
 
@@ -54,6 +65,16 @@ export class TaskConfigComponent {
   getVariables(): FormArray {
     return this.form.get('variables') as FormArray
   }
+
+  getResult(): FormArray {
+    return this.form.get('result') as FormArray
+  }
+
+
+  getEnviron(): FormArray {
+    return this.form.get('environ') as FormArray
+  }
+
 
   getConfProcess(): FormArray {
     return this.form.get('config').get('process') as FormArray
@@ -107,6 +128,8 @@ export class TaskConfigComponent {
     scanner_input: this.fb.array([])
     ,
 
+    ingested_results: this.fb.array([]),
+
     identifier:
       this.fb.control('', [Validators.required, Validators.minLength(2)]),
 
@@ -119,7 +142,16 @@ export class TaskConfigComponent {
 
     substitute_var: new FormControl(true),
 
+    environ: new FormArray([
+
+    ])
+    ,
     variables: new FormArray([
+
+    ])
+    ,
+
+    result: new FormArray([
 
     ])
     ,
@@ -198,6 +230,22 @@ export class TaskConfigComponent {
 
     )
   }
+
+  addScannerResult() {
+
+    this.getResult().push(
+
+      new FormGroup({
+
+        value: new FormControl(''),
+        regex: new FormControl(false),
+        directory: new FormControl(false),
+        variable: new FormControl(''),
+      })
+
+    )
+
+  }
   addCmd() {
     this.getCmd().push(
 
@@ -210,6 +258,18 @@ export class TaskConfigComponent {
 
   addVar() {
     this.getVariables().push(
+
+      new FormGroup({
+        key: new FormControl(''),
+        value: new FormControl(''),
+      })
+
+    )
+  }
+
+
+  addEnv() {
+    this.getEnviron().push(
 
       new FormGroup({
         key: new FormControl(''),
@@ -263,6 +323,13 @@ export class TaskConfigComponent {
 
     data['variables'] = variables
 
+
+    let environ = {}
+    data['environ'].forEach(element => {
+      environ[element.key] = element.value
+    });
+
+    data['environ'] = environ
 
     let config = {
 
@@ -364,8 +431,59 @@ export class TaskConfigComponent {
         this.form.setControl('identifier', this.fb.control(data['identifier']))
 
 
+      if (data['ingested_results']){
+
+        console.log('parseAndLoadConfig', data?.ingested_results)
+        this.form.setControl('ingested_results', this.fb.array(data['ingested_results']))
+      }
+
+
       if (data['scanner_input'])
         this.form.setControl('scanner_input', this.fb.array(data['scanner_input']))
+
+
+      // Result data
+      if (data['result']) {
+
+        let result = [];
+        data['result'].forEach((element: { value: string, directory: boolean, regex: boolean, variable: string }) => {
+
+          result.push(this.fb.group({
+            value: this.fb.control(element.value),
+            regex: this.fb.control(element.regex),
+            directory: this.fb.control(element.directory),
+            variable: this.fb.control(element.variable),
+
+          }))
+        });
+
+
+
+        this.form.setControl('result', this.fb.array(result))
+
+
+
+      }
+
+      // Environ variables
+      if (data['environ']) {
+
+        let environ = [];
+        Object.keys(data['environ']).forEach(element => {
+          environ.push(this.fb.group({
+            key: this.fb.control(element),
+            value: this.fb.control(data['environ'][element]),
+          }))
+        });
+
+
+
+        this.form.setControl('environ', this.fb.array(environ))
+
+
+
+      }
+
 
       if (data['cmd']) {
 
@@ -418,6 +536,23 @@ export class TaskConfigComponent {
 
       }
 
+      // Set variables
+      if (data['variables']) {
+
+        let variables = this.getVariables();
+        Object.keys(data['variables']).forEach(element => {
+          variables.push(this.fb.group({
+
+            key: this.fb.control(element),
+            value: this.fb.control(data['variables'][element]),
+          }))
+        });
+
+
+
+      }
+
+
       if (data['substitute_var'])
         this.form.setControl('substitute_var', this.fb.control(data['substitute_var']))
 
@@ -441,8 +576,11 @@ export class TaskConfigComponent {
           Object.keys(data['config']['process']).forEach(element => {
             processConfigControl.push(this.fb.group({
 
-              key: this.fb.control(element),
-              value: this.fb.control(data['config']['process'][element]),
+              // key: this.fb.control(element),
+              // value: this.fb.control(data['config']['process'][element]),
+
+              key: new FormControl({ value: element, disabled: true }),
+              value: new FormControl({ value: data['config']['process'][element], disabled: true }),
             }))
           });
 
@@ -456,9 +594,12 @@ export class TaskConfigComponent {
           Object.keys(data['config']['system']).forEach(element => {
             systemConfigControl.push(this.fb.group({
 
-              key: this.fb.control(element),
-              value: this.fb.control(data['config']['system'][element]),
-            }))
+              key: new FormControl({ value: element, disabled: true }),
+              value: new FormControl({ value: data['config']['system'][element], disabled: true }),
+              // value: this.fb.control(data['config']['system'][element]),
+            }
+
+            ))
           });
 
         }
