@@ -9,6 +9,8 @@ import { JobSelectorComponent } from './job-selector/job-selector.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { TestComponent } from './test/test.component';
 import { ToolSelectorComponent } from './tool-selector/tool-selector.component';
+import { PipelineComponent } from './pipeline/pipeline.component';
+import { PipelineJobsComponent } from './pipeline-jobs/pipeline-jobs.component';
 
 const routes: Routes = [
 
@@ -21,13 +23,47 @@ const routes: Routes = [
 
 
       {
+        // path: 'pipeline',
+
+        path: 'pipeline',
+        redirectTo: 'pipeline/all'
+
+
+
+      },
+
+      {
+        component: JobHomeComponent,
+        path: 'pipeline/:id',
+        children: [
+
+          { path: '', redirectTo: 'pipeline', outlet: 'tool_list', pathMatch: 'full' },
+          { path: 'pipeline', component: PipelineComponent, outlet: 'tool_list' },
+          { path: 'pipeline', component: PipelineComponent, outlet: 'tool_list' },
+
+          { path: '', component: PipelineJobsComponent, outlet: 'view' },
+
+
+          { path: '**', redirectTo: 'tools', outlet: 'tool_list' },
+
+
+        ]
+
+      }
+
+
+
+      ,
+
+
+      {
         component: JobHomeComponent,
         path: 'job/all',
         children: [
 
 
           // { path: '', component: JobSelectorComponent, outlet: 'tool_list' },
-          { path: '', redirectTo: 'tools', outlet: 'tool_list',pathMatch: 'full' },
+          { path: '', redirectTo: 'tools', outlet: 'tool_list', pathMatch: 'full' },
           { path: 'tools', component: ToolSelectorComponent, outlet: 'tool_list' },
           { path: 'jobs', component: JobSelectorComponent, outlet: 'tool_list' },
           { path: 'test', component: TestComponent, outlet: 'tool_list' },
@@ -46,9 +82,10 @@ const routes: Routes = [
         component: JobHomeComponent,
         path: 'job/:jobid',
         children: [
-          { 
+          {
             pathMatch: 'full',
-            path: '', redirectTo: 'job', outlet: 'view' },
+            path: '', redirectTo: 'job', outlet: 'view'
+          },
 
 
           {
@@ -70,7 +107,7 @@ const routes: Routes = [
               // { path: '**', component: JobLogsComponent, outlet: 'sub_comp' },
               { path: '**', redirectTo: 'request', outlet: 'sub_comp' },
 
-              
+
 
 
             ]
@@ -105,7 +142,7 @@ const routes: Routes = [
 
 
           // { path: '', component: JobSelectorComponent, outlet: 'tool_list' },
-          { path: '', redirectTo: 'tools', outlet: 'tool_list' ,pathMatch: 'full'},
+          { path: '', redirectTo: 'tools', outlet: 'tool_list', pathMatch: 'full' },
           { path: 'test', component: TestComponent, outlet: 'tool_list' },
           { path: 'tools', component: ToolSelectorComponent, outlet: 'tool_list' },
           { path: 'jobs', component: JobSelectorComponent, outlet: 'tool_list' },

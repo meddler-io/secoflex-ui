@@ -1,5 +1,68 @@
-<nb-card fxFill>
-  <nb-card-header fxLayoutAlign="start center">
+<ng-template let-close="close" let-context="context" #taskExecTemplate>
+
+
+  <app-task-config [saveAction]="context?.edit" [runAction]="!context?.edit" [edit]="context?.edit"
+    [config]="context?.config" [id]="context?.id">
+  </app-task-config>
+
+</ng-template>
+
+<nb-card fxFill *ngIf="showOnlyGraph">
+
+
+  
+
+  <nb-card-body *ngIf="graph | async as graph">
+
+    <ngx-graph [draggingEnabled]="false" [panningEnabled]="true" [enableZoom]="false" class="chart-container"
+      [links]="graph.links" [nodes]="graph.nodes">
+      <ng-template #nodeTemplate let-node>
+
+        <svg:g (click)="test(node)" class="node" xmlns="http://www.w3.org/2000/xhtml" width="150" height="100">
+          <svg:foreignObject width="150" height="100">
+            <xhtml:div class="cardContainer" xmlns="http://www.w3.org/1999/xhtml">
+              <label class="name">{{ node.label }}</label>
+
+            </xhtml:div>
+          </svg:foreignObject>
+        </svg:g>
+
+      </ng-template>
+    </ngx-graph>
+
+
+
+
+    <!-- <ngx-graph *ngIf="false" class="chart-container" [view]="[800, 200]" [showMiniMap]="true" [links]="[
+    {
+      id: 'a',
+      source: 'first',
+    target: 'second',
+      label: 'is parent of'
+    }, {
+      id: 'b',
+      source: 'first',
+      target: 'third',
+      label: 'custom label'
+    }
+  ]" [nodes]="[
+    {
+      id: 'first',
+      label: 'A'
+    }, {
+      id: 'second',
+      label: 'B'
+    }, {
+      id: 'third',
+      label: 'C'
+    }
+  ]">
+    </ngx-graph> -->
+  </nb-card-body>
+</nb-card>
+
+<nb-card fxFill *ngIf="!showOnlyGraph">
+  <nb-card-header *ngIf="true" fxLayoutAlign="start center">
     <!-- <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="medium" nbButton>
       <nb-icon icon="arrow-back-outline">
       </nb-icon>
@@ -15,39 +78,79 @@
     </button>
   </nb-card-header>
 
+  <nb-card-body style="padding: 0.2rem;">
 
 
-  <nb-list>
-    <nb-list-item (click)="onSelectTool(task?.tool)" *ngFor="let task of tools | async">
+    <nb-list>
+      <nb-list-item *ngFor="let task of tools | async">
 
-      <div class="container" fxLayoutAlign="center center" fxLayout="row">
+        <div class="container" fxLayoutAlign="center center" fxLayout="row">
 
-        <div fxLayoutAlign="start center">
-          <span [class.text-primary]="task?.job?.ID" class="dot ">&#183;</span>
-        </div>
 
-        <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
-          <div fxFlex fxLayout="row"
-          
-          fxLayoutAlign="center center"
-          >
-            <p class="subtitle-2 ">
-              {{task?.tool?.alias}}
+          <button (click)="openDrawer(taskExecTemplate , context =  {  id : task?._id , edit: true }  ) "
+            style="margin: 0; padding: 0;" shape="round" ghost status="basic" class="action" size="medium" nbButton
+            nbTooltip="Edit">
 
-            </p>
+            <nb-icon icon="settings-2">
 
-            <nb-icon icon="chevron-right-outline"></nb-icon>
+            </nb-icon>
+          </button>
 
-            <p class="subtitle-2 text-hint ">
 
-              {{task?.config?.identifier}}
-            </p>
+
+          <div fxLayoutAlign="center center">
+            <span [class.text-primary]="task?.job?.ID" class="dot ">&#183;</span>
           </div>
-        </div>
-      </div>
 
-    </nb-list-item>
-  </nb-list>
+          <div (click)="onSelectTool(task?._id	)" fxFlex fxLayout="column" fxLayoutAlign="space-between start">
+            <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+              <p style="margin: 0;" class="subtitle-2 ">
+                {{task?.tool?.alias}}
+
+              </p>
+
+              <nb-icon icon="chevron-right-outline"></nb-icon>
+
+              <p style="margin: 0;" class="subtitle-2 text-hint ">
+
+                {{task?.config?.identifier}}
+              </p>
+
+              <nb-icon icon="chevron-right-outline"></nb-icon>
+
+
+
+
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <div *ngIf="task?.config?.scanner_input ?.length" fxFlex fxLayoutAlign="end">
+
+
+
+          <button (click)="openDrawer(taskExecTemplate , context =  {  id : task?._id , edit: false }  ) "
+            style="margin: 0; padding: 0;" shape="round" (click)="closeToolSelection()" ghost status="basic"
+            class="action" size="medium" nbButton [nbTooltip]="task?.config?.scanner_input?.concat('\n')">
+
+            <nb-icon icon="play-circle">
+
+            </nb-icon>
+          </button>
+
+
+        </div>
+      </nb-list-item>
+    </nb-list>
+
+  </nb-card-body>
+
+
+
 
 
 </nb-card>

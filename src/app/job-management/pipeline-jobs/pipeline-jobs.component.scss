@@ -1,0 +1,212 @@
+@import '../../../themes';
+
+nb-card {
+  max-height: calc(100vh - 7rem);
+  margin: 0;
+
+  .container {
+    // margin-top: 1rem;
+  }
+
+  textarea {
+
+    resize: none;
+  }
+
+
+
+}
+
+nb-card-header {
+  padding: 0rem;
+  height: 4rem;
+
+}
+
+nb-card-footer {
+  padding: 0.3rem;
+  // background: nb-theme(background-alternative-color-2);
+  border: 0em;
+
+}
+
+
+.subtitle {
+  //   padding: 1rem;
+  //   margin: 0px;
+  color: #a4b1cd !important;
+  font-weight: 600;
+  line-height: 1rem;
+  font-size: 1rem;
+  // font-family: neue-haas-unica,sans-serif;
+}
+
+nb-card {
+  border: 0;
+}
+
+nb-card-body {
+  border: 0;
+  padding: 0rem;
+  overflow-y: scroll !important;
+
+}
+
+.buildBtn {
+  border-radius: 0;
+
+
+}
+
+
+.log-container {
+  background: nb-theme(background-alternative-color-1);
+  color: nb-theme(text-alternate-color);
+
+  // margin: 1px;
+  // border-radius: 3px;
+
+  .ng-trigger-accordionItemBody {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  pre {
+    margin: 0;
+  }
+
+}
+
+.overlay-button {
+  position: sticky;
+  bottom: 1rem;
+  right: 1rem;
+  // -webkit-backface-visibility: hidden;
+  // background: nb-theme(background-alternative-color-2);
+
+
+}
+
+:host ::ng-deep nb-accordion {
+  // background: nb-theme(background-alternative-color-1);
+
+  nb-accordion-item {
+    // margin-bottom: 0.4rem;
+
+    nb-accordion-item-header {
+
+      // margin-left: 1px;
+      // margin-right: 1px;
+      // margin-bottom: 1px;
+      // margin: 1px;
+
+      // border-bottom-left-radius: 2px;
+      // border-bottom-right-radius: 2px;
+
+      &:hover {
+        background: nb-theme(background-alternative-color-1);
+        color: nb-theme(text-alternate-color);
+
+
+      }
+
+      &.accordion-item-header-expanded {
+        background: nb-theme(background-alternative-color-2);
+        color: nb-theme(text-alternate-color);
+
+
+
+      }
+    }
+
+
+    nb-accordion-item-body.marginBody {
+      overflow: scroll;
+      background: nb-theme(background-alternative-color-1);
+      color: nb-theme(text-alternate-color);
+
+      // margin: 1px;
+      // border-radius: 3px;
+
+      .ng-trigger-accordionItemBody {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      pre {
+        margin: 0;
+      }
+
+    }
+
+  }
+}
+
+
+
+
+.head {
+
+  // position: fixed;
+  // top: 0;
+  height: 4rem;
+
+  background: nb-theme(background-alternative-color-2);
+  box-shadow: 2px 2px 3px rgba(255, 255, 255, 0.16), 2px 2px 3px rgba(255, 255, 255, 0.23);
+
+  color: #fff;
+
+
+}
+
+.content {
+
+  // height: calc(100% - 4rem);
+  // overflow: auto;
+
+}
+
+.action {
+  // margin-left: 5px;
+
+  margin-left: -20px;
+
+
+  &:hover {
+    nb-icon {
+      color: nb-theme(color-alternate-500);
+
+    }
+
+  }
+
+}
+
+
+.code {
+  padding: 1rem;
+}
+
+
+.overflowFix {
+  overflow: auto;
+}
+
+
+nb-route-tabset {
+  overflow: scroll !important;
+
+  vertical-align: bottom;
+
+  padding-bottom: nb-theme(layout-scrollbar-width);
+}
+
+
+#selectedJob{
+  max-width: 120px;
+  overflow: hidden;
+}

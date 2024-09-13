@@ -7,6 +7,9 @@ export const API_SERVICE_URL = `http://${HOST}:8000/`
 export const TOOL_SERVICE_URL = `http://${API_SERVICE_URL}iaas/`
 // export const LOG_SERVICE_URL = `http://${HOST}:8082/`
 export const LOG_SERVICE_URL = `https://logs.meddler.io/`
+// export const LOG_SERVICE_URL = `http://172.24.42.39:8082/`
+
+
 
 
 

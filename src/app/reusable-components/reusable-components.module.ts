@@ -34,7 +34,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { PageDividerComponent } from './form-builder/commonComponents/page-divider/page-divider.component';
+
 import { FieldPropertyComponent } from './form-builder/fields/field-property/field-property.component';
 import { ViewPagerComponent } from './form-builder/commonComponents/view-pager/view-pager.component';
 import { PlaygroundComponent } from './playground/playground.component';
@@ -67,7 +67,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    FormBuilderComponent, FormTextComponent, FormRichTextComponent, FormBooleanComponent, FormEnumComponent, FormFileComponent, FormImageComponent, FormVideoComponent, FormSelectComponent, FormListComponent, FormCodeComponent, FormUrlComponent, TestComponentComponent, BootstrapComponent, FormIpaddressComponent, FormCustomizerComponent, UploadComponent, AttachmentComponent, FormCreatorComponent, PageDividerComponent, FieldPropertyComponent, ViewPagerComponent, PlaygroundComponent, PropertyComponent, FieldViewerComponent, FieldEditorComponent, BusinessComponent, IconSelectorComponent, FieldHostComponent, FieldDomainComponent
+    FormBuilderComponent, FormTextComponent, FormRichTextComponent, FormBooleanComponent, FormEnumComponent, FormFileComponent, FormImageComponent, FormVideoComponent, FormSelectComponent, FormListComponent, FormCodeComponent, FormUrlComponent, TestComponentComponent, BootstrapComponent, FormIpaddressComponent, FormCustomizerComponent, UploadComponent, AttachmentComponent, FormCreatorComponent, FieldPropertyComponent, ViewPagerComponent, PlaygroundComponent, PropertyComponent, FieldViewerComponent, FieldEditorComponent, BusinessComponent, IconSelectorComponent, FieldHostComponent, FieldDomainComponent
 
 
   ],

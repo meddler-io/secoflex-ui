@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, share, shareReplay, tap } from 'rxjs/operators';
+import { filter, map, share, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { JobApiService } from '../job-api.service';
-import { StateSyncService, StatusPipe } from '../state-sync.service';
+import { StateSyncService, StatusPipe, statusTransform } from '../state-sync.service';
+import { DrawerService } from 'src/app/drawer/drawer.service';
+import { DOCUMENT } from '@angular/common';
+import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 
 @Component({
   selector: 'app-job-selector',
@@ -18,11 +21,11 @@ export class JobSelectorComponent implements OnInit {
 
   selectedTool = new FormControl('')
 
-  jobs
+  job_response
 
 
   SelectedJob = this.stateSyncService.SelectedJob.pipe(
-    shareReplay({refCount: true , bufferSize: 1 })
+    shareReplay({ refCount: true, bufferSize: 1 })
   )
 
 
@@ -31,7 +34,11 @@ export class JobSelectorComponent implements OnInit {
     private jobApiService: JobApiService,
     private router: Router,
     private route: ActivatedRoute,
-    public stateSyncService: StateSyncService
+    public stateSyncService: StateSyncService,
+
+
+    private drawerMngr: DrawerService,
+    @Inject(DOCUMENT) private document: Document,
 
   ) { }
 
@@ -73,10 +80,23 @@ export class JobSelectorComponent implements OnInit {
   onToolSelectionChange(event) {
 
     if (event)
-      this.jobs = this.jobApiService.getJobs(event).pipe(
-        StatusPipe)
+      this.job_response = this.jobApiService.getTaskJobs(event).pipe(map((_: any) => {
+
+        _.jobs =  statusTransform( _.jobs );
+
+        console.log('_.jobs' , _)
+        return _;
+      }))
     else
-      this.jobs = this.jobApiService.getAllJobs().pipe(StatusPipe)
+      this.job_response = this.jobApiService.getAllJobs().pipe(map((_: any) => {
+
+        console.log('_jobs', _)
+         _.jobs =  statusTransform( _.jobs )
+        console.log('_.jobs' , _)
+
+        return _;
+      }))
+    // .pipe(StatusPipe)
 
 
 
@@ -120,7 +140,7 @@ export class JobSelectorComponent implements OnInit {
             'tool',
             this.selectedTool.value,
 
-         
+
 
           ],
 
@@ -148,4 +168,35 @@ export class JobSelectorComponent implements OnInit {
     )
   }
 
+
+  openDrawer(template, context?: any, direction = DrawerDirection.Left, size = '50', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
+
+    if (!context)
+      context = {}
+
+
+    console.log('context', context)
+    const zIndex = 1000;
+    const cssClass = 'backdrop_color'
+    // const cssClass = 'cdk-overlay-2'
+    this.document.body.classList.add('cdk-global-scrollblock')
+
+    this.drawerMngr.create({
+      direction,
+      template,
+      size,
+      context: context,
+      closeOnOutsideClick,
+      parentContainer,
+      isRoot,
+      zIndex,
+      cssClass,
+
+
+    }).onDestroy(() => {
+
+      this.document.body.classList.remove('cdk-global-scrollblock')
+
+    });
+  }
 }

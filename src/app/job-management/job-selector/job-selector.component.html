@@ -1,25 +1,48 @@
-<nb-card fxFill>
+<ng-template let-close="close" let-context="context" #taskExecTemplate>
+
+
+  <app-task-config [runAction]="true" [build_id]="context?.id?.split(':')[1]" [edit]="context?.edit"
+    [config]="context?.config" [id]="context?.id">
+  </app-task-config>
+
+</ng-template>
+
+<nb-card fxFill *ngIf="job_response | async as job_response">
 
 
   <nb-card-header fxLayoutAlign="start center">
 
+    <div fxFlex>
 
-    <button (click)="goToToolsSelection()" ghost status="primary" shape="round" class="title" nbButton size="medium">
-      {{ ( SelectedJob | async )?.tool?.alias}}
+
+      <button (click)="goToToolsSelection()" ghost status="primary" shape="round" class="title" nbButton size="medium">
+        {{ ( job_response )?.tool?.alias}}
+
+
+      </button>
+      <nb-icon icon="chevron-right-outline"></nb-icon>
+      <button ghost shape="round" class="title" nbButton size="medium">
+        {{ ( job_response?.task)?.config?.identifier}}
+      </button>
+
+    </div>
+
+
+    <div>
+
       
-    
-    </button>
-    <nb-icon icon="chevron-right-outline"></nb-icon>
-    <button ghost shape="round" class="title" nbButton size="medium">
-      {{ ( SelectedJob | async )?._id}}
-    </button>
-
+      <button
+        (click)="openDrawer(taskExecTemplate , context =  {  id : job_response?.task?._id , edit: false }  ) "
+        ghost shape="round" class="title" nbButton size="medium">
+        Run
+      </button>
+    </div>
   </nb-card-header>
 
 
 
   <nb-list>
-    <nb-list-item *ngFor="let job of jobs | async">
+    <nb-list-item *ngFor="let job of job_response?.jobs ">
       <!-- Hello World {{ job | json }} -->
       <app-list-item [selectedId]=" ( SelectedJob | async )?._id" (click)="onClick(job?._id)" fxFlex [data]="job">
       </app-list-item>

@@ -1,3 +1,47 @@
+<ng-template #deployTemplate>
+
+  <nb-card fxFill>
+    <nb-card-header>
+
+      <div fxFlex>
+
+        
+        <span class="subtitle text-hint lineV">
+          Deployment
+        </span>
+      </div>
+
+      <button (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy</button>
+
+    </nb-card-header>
+    <nb-card-body>
+
+      <div fxLayout="column">
+
+
+
+
+        <nb-form-field fxFlex fieldSize="small">
+          <input (keypress)="validateNo($event)" inputmode=”numeric” pattern=”[0–9]*” fullWidth
+            [formControl]="memory_formcontrol" nbInput placeholder="Memory">
+        </nb-form-field>
+
+        <nb-form-field fxFlex fieldSize="small">
+          <input (keypress)="validateNo($event)" inputmode=”numeric” pattern=”[0–9]*” fullWidth
+            [formControl]="scale_formcontrol" nbInput placeholder="Scale">
+        </nb-form-field>
+
+      </div>
+
+
+
+    </nb-card-body>
+
+
+  </nb-card>
+
+</ng-template>
+
 
 <nb-accordion>
   <nb-accordion-item [expanded]="index == 0" *ngFor="let build of images  ; index as index">
@@ -9,7 +53,7 @@
       </span>
 
       <span class="text-hint">
-        {{ '@' +  ( build?.tool?.alias || 'Alias' ) }}
+        {{ '@' + ( build?.tool?.alias || 'Alias' ) }}
       </span>
     </nb-accordion-item-header>
     <nb-accordion-item-body>
@@ -29,8 +73,8 @@
         </nb-card-body>
         <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="end center">
 
-          <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id , data: build } )" status="basic"
-            ghost size="small" nbButton>
+          <button (click)="openDrawer(buildconfigTemplate , context =  { 'build_id':  build?._id , data: build } )"
+            status="basic" ghost size="small" nbButton>
 
             <nb-icon icon="file-text-outline"></nb-icon>
             Config
@@ -67,9 +111,12 @@
           <button (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
             status="basic" size="small" nbButton>Edit</button>
 
-          <button (click)="runRebuildTask( build?.refrence_id ,   build?._id ) " status="primary" size="small" nbButton>Re-Build</button>
+          <button (click)="runRebuildTask( build?.refrence_id ,   build?._id ) " status="primary" size="small"
+            nbButton>Re-Build</button>
 
           <button (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy</button>
+          <button (click)="openDrawer(deployTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
+            (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy NEW</button>
         </nb-card-footer>
       </nb-card>
 

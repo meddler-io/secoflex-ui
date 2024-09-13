@@ -1,3 +1,4 @@
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobApiService } from '../job-api.service';
@@ -8,19 +9,20 @@ import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-tool-selector',
-  templateUrl: './tool-selector.component.html',
-  styleUrls: ['./tool-selector.component.scss']
+  selector: 'app-pipeline',
+  templateUrl: './pipeline.component.html',
+  styleUrl: './pipeline.component.scss'
 })
-export class ToolSelectorComponent implements OnInit {
+export class PipelineComponent {
 
-  showOnlyGraph= false;
 
-  pipelines =   this.toolApiService.getTaskPipelines().pipe(map((_: any) => _?.pipelines 	));
+  showOnlyGraph = false;
 
-  graph =   this.toolApiService.getTaskPipelines();
+  pipelines = this.toolApiService.getTaskPipelines().pipe(map((_: any) => _?.pipelines));
 
-  test(node){
+  graph = this.toolApiService.getTaskPipelines();
+
+  test(node) {
     console.log('click', node)
   }
 
@@ -97,4 +99,23 @@ export class ToolSelectorComponent implements OnInit {
     })
   }
 
+
+  selectPipelineView(pipelines) {
+
+    let pipeline = pipelines?.pipeline	;
+    if (pipeline.length > 0) {
+      let id   = pipeline[0]['_id']['$oid']
+      console.log('selectPipelineView', id);
+
+      this.router.navigate([  '/jobs', 'pipeline' ,   id  ] 
+        , 
+        {
+          relativeTo: this.route.parent.parent,
+          
+           preserveFragment: false}
+
+      )
+
+    }
+  }
 }

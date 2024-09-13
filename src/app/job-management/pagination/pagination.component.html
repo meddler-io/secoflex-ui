@@ -1,0 +1,80 @@
+<ng-container *ngIf="page_count > 1">
+
+    <div fxFlex fxLayoutAlign="space-between">
+
+
+        <div fxFlex fxLayoutGap="1rem" fxLayoutAlign="center center">
+
+            <!-- <button status="info" size="small" ghost nbButton>
+                <nb-icon icon="more-vertical-outline">
+
+                </nb-icon>
+            </button> -->
+
+        
+            <button [disabled]="page_number == 1" (click)="prev()" status="info" size="small" ghost nbButton>
+                <nb-icon icon="chevron-left-outline"></nb-icon>
+                Prev
+            </button>
+
+
+            <!--  -->
+
+            <nb-select s style="margin: 0; padding: 0 ; " size="small" [selected]="page_number" (selectedChange)="goto($event)" placeholder="Go to">
+
+                <nb-select-label>
+
+                    <button  fullWidth status="info" size="tiny" ghost nbButton>
+                        <div fxLayoutAlign="space-around center" fxLayout="row">
+        
+                            <div class="subtitle text-hint">
+                                Go to &nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class=" text-primary subtitle">
+                                {{page_current}}
+                            </div>
+                            <!-- <div>
+                                <nb-icon status="danger" icon="minus-outline"></nb-icon>
+                            </div> -->
+        
+                        </div>
+                    </button>
+
+
+                </nb-select-label>
+
+                <nb-option  style="padding: 0.2rem;" *ngFor="let item of [].constructor(page_count); let i = index" [value]="i + 1">
+                    <div  style="margin: 0.4rem;" class="h6 text-hint">
+                        Page&nbsp;
+                        {{i + 1}}
+
+                    </div>
+               
+                    
+                </nb-option>
+
+
+            </nb-select>
+
+
+            <!--  -->
+
+          
+
+            <button [disabled]="page_number == page_count" (click)="next()" status="info" size="small" ghost nbButton>
+                Next
+                <nb-icon icon="chevron-right-outline"></nb-icon>
+
+            </button>
+        
+
+        </div>
+
+
+
+     
+        
+
+    </div>
+
+</ng-container>

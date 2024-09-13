@@ -6,7 +6,7 @@ import { ToolApiService } from '../tool-management/tool-api.service';
 import { JobApiService } from './job-api.service';
 
 
-export const StatusPipe = map(_data => {
+export const statusTransform = function (_data) {
 
   if (Array.isArray(_data)) {
 
@@ -80,8 +80,15 @@ export const StatusPipe = map(_data => {
 
   }
 
-
   return _data;
+
+}
+
+export const StatusPipe = map(_data => {
+
+
+  
+  return statusTransform(_data);
 })
 
 export enum SidePannelState {
@@ -122,7 +129,7 @@ export class StateSyncService {
     // filter(_ => !!_),
     tap(_ => {
 
-      
+
       console.log('selectedJobs', _)
       if (_ != undefined)
         this.selectedJob.next(

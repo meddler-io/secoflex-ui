@@ -1,11 +1,13 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { ToolApiService } from '../tool-api.service';
 import { element } from 'protractor';
+import { parseArrayOfCommandToRaw, parseRawCommandToArray } from 'src/app/reusable-components/common/services/api.service';
+import { NbToggleComponent } from '@nebular/theme';
 
 
 @Component({
@@ -14,6 +16,13 @@ import { element } from 'protractor';
   styleUrl: './task-config.component.scss'
 })
 export class TaskConfigComponent {
+
+
+
+  toggleCmdViewControl = new FormControl(false)
+
+
+  rawCommandView = new FormControl('hello-world');
 
 
   @ViewChild('logsTemplate', { static: false }) logsTemplate: TemplateRef<any>;
@@ -38,6 +47,79 @@ export class TaskConfigComponent {
     });
   }
 
+
+  importCmd() {
+
+    console.log('ViewChild')
+
+
+    let argsCmd = parseRawCommandToArray(this.rawCommandView.value);
+
+
+    let entrypointControl = new FormArray([]);
+    let cmdControl = new FormArray([]);
+    if (argsCmd.length > 0) {
+      let entrypoint = argsCmd[0];
+      let args = argsCmd.slice(1);
+
+      // this.getEntrypoint().set
+
+      entrypointControl.push(this.fb.control(entrypoint));
+
+      args.forEach(element => {
+        cmdControl.push(this.fb.control(element))
+      });
+
+      this.form.setControl('entrypoint', entrypointControl);
+      this.form.setControl('cmd', cmdControl);
+
+
+
+    }
+
+    this.toggleCmdViewControl.setValue(false)
+
+
+  }
+
+  copyCommandToClipboard() {
+
+
+    let args = this.getEntrypoint().value.concat(this.getCmd().value.concat(
+      this.getArgs().value
+    )
+
+    )
+
+
+    let rawCmd = parseArrayOfCommandToRaw(args);
+    // let argsCmd = parseRawCommandToArray(rawCmd);
+    // console.log('copyCommandToClipboard',
+    //   argsCmd
+    // );
+
+    this.copyText(rawCmd);
+
+  }
+
+
+  switchViewCmd(event) {
+
+    console.log('switchViewCmd', event);
+    let args = this.getEntrypoint().value.concat(this.getCmd().value.concat(
+      this.getArgs().value
+    )
+
+    )
+
+
+    this.rawCommandView.setValue(
+      parseArrayOfCommandToRaw(args)
+
+    )
+  }
+
+
   @Input('config') config
 
   LOADING = false
@@ -52,6 +134,9 @@ export class TaskConfigComponent {
     return this.form.get('args') as FormArray
   }
 
+  getEntrypoint(): FormArray {
+    return this.form.get('entrypoint') as FormArray
+  }
   getCmd(): FormArray {
     return this.form.get('cmd') as FormArray
   }
@@ -220,6 +305,10 @@ export class TaskConfigComponent {
   ) { }
   ngOnInit(): void {
 
+    this.toggleCmdViewControl.valueChanges.subscribe(_=>{
+      console.log('boomboo', _)
+      this.switchViewCmd(_);
+    })
     this.loadConfig()
   }
 
@@ -431,15 +520,18 @@ export class TaskConfigComponent {
         this.form.setControl('identifier', this.fb.control(data['identifier']))
 
 
-      if (data['ingested_results']){
+      if (data['ingested_results']) {
 
         console.log('parseAndLoadConfig', data?.ingested_results)
         this.form.setControl('ingested_results', this.fb.array(data['ingested_results']))
       }
 
 
-      if (data['scanner_input'])
+      if (data['scanner_input']) {
+
         this.form.setControl('scanner_input', this.fb.array(data['scanner_input']))
+        this.form.setControl('scanner_value', this.fb.array(data['scanner_input']?.map(_ => '')))
+      }
 
 
       // Result data
@@ -705,10 +797,24 @@ export class TaskConfigComponent {
 
   runTask() {
 
+    let id = this.form.get('scanner_input')?.value;
+    let val = this.form.get('scanner_value')?.value;
+
+    let scanner_val = id.map((id, index) => ({
+      scanner_id: id,
+      scanner_value: val[index]
+    }));
+
+
     this
       .toolApiService
-      .runTask(this.id, {})
-      .subscribe()
+      .runTask(this.id, scanner_val)
+      .subscribe((_: any) => {
+
+
+        this.openLogs(this.logsTemplate, _?.id)
+
+      })
   }
 
   updateScanner() {

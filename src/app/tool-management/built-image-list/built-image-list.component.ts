@@ -7,6 +7,7 @@ import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { SharedDataService } from '../shared-data-service.service';
 import { ToolApiService } from '../tool-api.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-built-image-list',
@@ -17,6 +18,26 @@ export class BuiltImageListComponent implements OnInit, OnDestroy {
 
   @Input('tool_id') tool_id
   images = []
+
+  scale_formcontrol = new FormControl(1 , [Validators.required
+,
+Validators.min(0),
+
+
+   ])
+  memory_formcontrol = new FormControl(255 , [Validators.required,
+
+    Validators.min(255),
+
+   ])
+
+   validateNo(e): boolean {
+    const charCode = e.which ? e.which : e.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false
+    }
+    return true
+}
 
   constructor(
     private toolApiService: ToolApiService,
@@ -106,7 +127,7 @@ export class BuiltImageListComponent implements OnInit, OnDestroy {
       TraceId: id,
       fprocess: 'echo hello world'
     }
-    this.toolApiService.createDeployment(id).subscribe(_ => {
+    this.toolApiService.createDeployment(id , this.scale_formcontrol.value , this.memory_formcontrol.value ).subscribe(_ => {
       console.log(_)
 
     })

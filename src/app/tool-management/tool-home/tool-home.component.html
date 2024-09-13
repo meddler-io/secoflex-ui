@@ -1,7 +1,7 @@
 <nb-layout withScroll center>
 
 
-  <nb-layout-header fixed>
+  <nb-layout-header style="padding-right: 2rem;" fixed>
     <div fxFlex fxLayoutAlign="space-between center">
       <div class="imageContainer" fxLayoutAlign="center center">
         <img src="/assets/logo.png">
@@ -19,7 +19,23 @@
 
     </div>
 
+    <div fxLayoutGap="0.3rem" fxLayout="row">
 
+      <button outline [routerLink]=" [ '/tools' ] " fullWidth nbButton>
+        Tools
+      </button>
+
+      <button outline [routerLink]=" [ '/jobs' ] " fullWidth nbButton>
+        Jobs
+      </button>
+
+      <button outline [routerLink]=" [ '/jobs' ] " fullWidth nbButton>
+        Data Ingestor
+      </button>
+    </div>
+
+
+    
 
   </nb-layout-header>
 
@@ -38,7 +54,7 @@
 
 
 
-   
+
 
           <button (click)="openDrawer(dialog)" fullWidth class="newBtn" shape="round" nbButton>
 

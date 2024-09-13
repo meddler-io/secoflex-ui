@@ -79,35 +79,36 @@ export class JobHomeComponent implements OnInit {
     {
       title: 'Jobs',
       route: [
-        // 'jobs',
-        // 'job',
-        {
-
-          outlets: {
-            // tool_list: ['tools']
-            view: ['job']
+  
+        
 
 
-          }
-        }],
+          '/jobs',
+          'job',
+             
+
+   
+          
+        
+      ],
       // responsive: true,
     },
 
     {
-      title: 'Result',
-      route: [{
-        outlets: {
-
-
-          view: ['result']
-
-        }
-      }],
+      title: 'Pipelines',
+      route: [
+        '/jobs',
+        'pipeline',
+    ],
       // responsive: true,
     },
     {
-      title: 'Deployments',
-      route: ['/tools'],
+      title: 'Tasks',
+      route: [
+        '/jobs',
+        'result',
+      
+      ],
       // responsive: true,
     }
 

@@ -161,9 +161,16 @@
       <div fxLayout="column">
 
         <div>
-          <p class="subtitle-2 text-hint">
+          <p fxFlex  class="subtitle-2 text-hint">
             Entrypoint
           </p>
+
+      
+          <button
+          (click)="copyCommandToClipboard()"
+          ghost nbButton status="danger">
+            Copy
+          </button>
         </div>
 
 

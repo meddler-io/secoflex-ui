@@ -10,7 +10,7 @@ import { API_SERVICE_URL, LOG_SERVICE_URL } from '../reusable-components/common/
 
 const THROTTLE_CONNECTION = false
 const url = API_SERVICE_URL + 'api/v2'
-const logUrl = LOG_SERVICE_URL + 'api/v2/'
+const logUrl = LOG_SERVICE_URL + 'api/v4/'
 
 export enum LOG_STREAM_STATUS {
   PAUSE,
@@ -212,6 +212,28 @@ export class ToolApiService {
     return this.http.get(`${url}/tool`)
   }
 
+
+  getTaskPipelines() {
+    return this.http.get(`${url}/pipeline`)
+  }
+
+  getTaskPipelinesJobs( id = null , filter = {} , page_number = 1 ) {
+    if(null == id)
+    return this.http.get(`${url}/pipeline-jobs`, {params: {...filter , page_number}})
+
+    return this.http.get(`${url}/pipeline-jobs/${id}`, {params:  { ...filter , page_number} } ) 
+
+  }
+
+  getTaskPipelinesJobsMetadata( id = null) {
+    if(null == id)
+    return this.http.get(`${url}/pipeline-jobs-meta-data`)
+
+    return this.http.get(`${url}/pipeline-jobs-meta-data/${id}`)
+
+  }
+
+
   createBuild(build_type: string, data: {}) {
     return this.http.post(`${url}/build/${build_type}`, data
     )
@@ -373,6 +395,11 @@ export class ToolApiService {
     )
   }
 
+  retryTask(id : string) {
+    
+    return this.http.post(`${url}/task/retry/${id}`, {})
+  }
+
   updateTask(id : string, config) {
     
     return this.http.put(`${url}/task/${id}`,
@@ -433,6 +460,11 @@ export class ToolApiService {
     return this.http.get(`${url}/jobs/${id}`)
 
   }
+  geConfiguratedtJobs(id: string) {
+    return this.http.get(`${url}/jobs/${id}`)
+
+  }
+
 
   purgeDeployment() {
     // id = encodeURIComponent(id)
@@ -447,8 +479,18 @@ export class ToolApiService {
   getTasks(tool_id: string) {
     return this.http.get(`${url}/deployment/services/${tool_id}`)
   }
-  createDeployment(image_id: string) {
-    return this.http.post(`${url}/deployment/service/${image_id}`, {})
+  createDeployment(image_id: string  , scale = null , memory = null) {
+    return this.http.post(`${url}/deployment/service/${image_id}`, {}
+
+,
+{
+  params: {
+    scale,
+    memory
+  }
+}
+
+    )
   }
 
 

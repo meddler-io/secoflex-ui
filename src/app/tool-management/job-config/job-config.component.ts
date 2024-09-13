@@ -5,7 +5,9 @@ import { of } from 'rxjs';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { ToolApiService } from '../tool-api.service';
-import { element } from 'protractor';
+import { parseArrayOfCommandToRaw, parseRawCommandToArray } from 'src/app/reusable-components/common/services/api.service';
+
+
 
 @Component({
   selector: 'app-job-config',
@@ -27,6 +29,8 @@ export class JobConfigComponent implements OnInit {
   @Input('refrence_id') refrence_id;
   @Input('build_id')
   build_id = '6023ed566c2cdfd6f2edb435'
+
+
 
   getArgs(): FormArray {
     return this.form.get('args') as FormArray
@@ -167,6 +171,10 @@ export class JobConfigComponent implements OnInit {
   });
 
 
+  copyCommandToClipboard(){
+    
+  }
+
   constructor(
     private fb: FormBuilder,
     private toolApiService: ToolApiService,
@@ -176,7 +184,16 @@ export class JobConfigComponent implements OnInit {
     private drawerMngr: DrawerService,
     @Inject(DOCUMENT) private document: Document,
 
-  ) { }
+  ) { 
+
+let args = ['echo', 'Hello, World!', 'This is a test', '\\escaped\\ text'];
+let rawCmd = 'bash -c \'echo "hello-world $test"\''
+
+console.log('argument-parsing-test' , rawCmd  , '->', parseRawCommandToArray(rawCmd))
+console.log('argument-parsing-test' , args,  '->' , parseArrayOfCommandToRaw(args))
+
+
+  }
   ngOnInit(): void {
 
     this.loadConfig()

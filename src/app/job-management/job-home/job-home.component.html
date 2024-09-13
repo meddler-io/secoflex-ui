@@ -1,20 +1,23 @@
 <nb-layout>
 
 
-  <nb-layout-header
-  fixed
-  >
+  <nb-layout-header fixed>
 
-    <div class="header" fxFlex fxLayoutAlign="space-between">
+
+    <div>
+      <button shape="round" [routerLink]="['/tools' ]" ghost status="basic" class="action" size="large" nbButton>
+        <nb-icon icon="arrow-back-outline">
+
+        </nb-icon>
+      </button>
+    </div>
+
+    <div class="header" fxFlex fxLayoutAlign="end space-between">
 
 
       <div fxLayout="row">
 
-        <button shape="round" [routerLink]="['/tools' ]" ghost status="basic" class="action" size="large" nbButton>
-          <nb-icon icon="arrow-back-outline">
-
-          </nb-icon>
-        </button>
+        
 
         <nb-route-tabset [activeLinkOptions]="{exact:
         false}" [tabs]="tabs"></nb-route-tabset>
@@ -30,9 +33,7 @@
 
 
 
-  <nb-layout-column
-  fxLayoutGap="1rem"
-  >
+  <nb-layout-column fxLayoutGap="1rem">
 
     <div id="side" fxFlex.gt-xs="1 1 400px" fxFlex @openClose [fxShow]="true" [fxShow.lt-md]="slideState | async">
 

@@ -1,0 +1,148 @@
+<ng-template let-close="close" let-context="context" #taskExecTemplate>
+
+
+  <app-task-config [saveAction]="context?.edit" [runAction]="!context?.edit" [edit]="context?.edit"
+    [config]="context?.config" [id]="context?.id">
+  </app-task-config>
+
+</ng-template>
+
+
+
+
+<nb-card fxFill *ngIf="!showOnlyGraph">
+  <nb-card-header fxLayoutAlign="start center">
+    <!-- <button shape="round" [routerLink]="['/tools' , '']" ghost status="basic" class="action" size="medium" nbButton>
+        <nb-icon icon="arrow-back-outline">
+        </nb-icon>
+      </button> -->
+    <div class="subtitle-2">
+      Choose Tool
+    </div>
+
+
+    <button shape="round" (click)="closeToolSelection()" ghost status="basic" class="action" size="medium" nbButton>
+      <nb-icon icon="close-circle-outline">
+      </nb-icon>
+    </button>
+  </nb-card-header>
+
+
+
+
+  <nb-card-body style="padding: 0.2rem;">
+
+
+    <nb-list>
+      <nb-list-item (click)="selectPipelineView( pipeline )  " *ngFor="let pipeline of pipelines | async">
+        <div fxLayout="column">
+
+
+
+
+
+          <div fxLayout="row wrap" style="overflow-x: scroll;">
+
+
+
+
+
+
+
+            <ng-container *ngFor="let node of pipeline?.pipeline">
+
+
+
+              <div fxLayout="row">
+
+
+
+
+                <button  
+                  style="margin: 0; padding: 0;" shape="round" ghost status="basic" class="action" size="medium"
+                  nbButton nbTooltip="Edit">
+
+                  <nb-icon icon="settings-2">
+
+                  </nb-icon>
+                </button>
+
+
+                <p  
+                  style="margin: 0;" class="subtitle-2 text-hint "
+                  [class.text-danger]="node?._id?.$oid == pipeline?.cyclic?.$oid">
+
+                  {{ node?.identifier }}
+
+
+
+                </p>
+
+                <nb-icon *ngIf="!isLast" icon="chevron-right-outline"></nb-icon>
+
+
+
+
+
+
+              </div>
+
+            </ng-container>
+
+
+
+
+          </div>
+
+          <div *ngIf="false" fxLayoutGap="1rem" fxLayout="column">
+
+            <div fxLayout="row" *ngFor="let dependencySeq of pipeline?.incomingDependencySequence ; index as index	"
+              class="caption">
+
+              <strong>{{index + 1 }} </strong>
+              <div fxLayout="row" *ngFor="let dependency of dependencySeq	" class="caption">
+
+                {{dependency?.config?.identifier }} --
+
+              </div>
+
+
+              <!-- {{pipeline?.config?.identifier}} -->
+            </div>
+
+            <p style="margin: 0;" class="caption-2 ">
+              {{pipeline?.config?.identifier}}
+
+
+            </p>
+
+
+            <div fxLayout="column" *ngFor="let dependencySeq of pipeline?.outgoingDependencySequence ; index as index		"
+              class="caption">
+
+              <strong>{{index + 1 }}</strong>
+
+              <div fxLayout="row" *ngFor="let dependency of dependencySeq	" class="caption">
+
+                {{dependency?.config?.identifier }} --
+
+              </div>
+
+
+
+              <!-- {{pipeline?.config?.identifier}} -->
+            </div>
+
+
+
+          </div>
+
+        </div>
+
+      </nb-list-item>
+    </nb-list>
+
+  </nb-card-body>
+
+
+</nb-card>

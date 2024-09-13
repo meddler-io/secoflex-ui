@@ -40,20 +40,23 @@ import { FileCreateComponent } from './file-create/file-create.component';
 import {AutosizeModule} from 'ngx-autosize';
 import { FileListComponent } from './file-list/file-list.component';
 import { ToolsListForInputComponent } from './tools-list-for-input/tools-list-for-input.component';
+import { CommonImportsModule } from '../asset-management/submodules/common/common-imports.module';
 
 @NgModule({
   declarations: [
+
+    LogStreamComponent,
     ToolsListForInputComponent,
     ToolHomeComponent,
-
+    TaskConfigComponent,
     FileListComponent,
     FileCreateComponent,
-    HeadbarComponent, NavbarListItemComponent, LogStreamComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent, ToolExploreComponent, ScannersUiComponent,
-TaskConfigComponent
+    HeadbarComponent, NavbarListItemComponent, ToolBuildVariantsComponent, ToolScreenComponent, ToolListComponent, BuildCreateComponent, BuildListComponent, DividerComponent, BuildConfigComponent, ToolCreateComponent, BuiltImageListComponent, DeploymentUiComponent, JobListComponent, JobConfigComponent, ToolExploreComponent, ScannersUiComponent,
 
   ],
   imports: [
 
+    CommonImportsModule,
     AutosizeModule,
     DrawerModule,
 

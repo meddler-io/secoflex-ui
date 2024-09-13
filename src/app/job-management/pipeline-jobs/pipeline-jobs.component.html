@@ -1,0 +1,150 @@
+<nb-card fxFill [nbSpinner]="loadingFindings$" *ngIf="pipeline | async as pipeline">
+
+
+    <nb-card-header *ngIf="pipeline_meta_data | async as pipeline_meta_data">
+
+
+        <ng-container *ngFor="let meta_data of pipeline_meta_data ">
+
+
+            <ng-container *ngFor="let meta_data of meta_data | keyvalue ">
+
+
+                <nb-select (selectedChange)="filterChange() " multiple size="small" [placeholder]="meta_data?.key"
+                    [(ngModel)]="selectedValuesMetadata[meta_data?.key]" [placeholder]="meta_data?.key">
+                    <!-- <nb-option value="">
+                        {{meta_data?.key}}
+                    </nb-option> -->
+                    <nb-option *ngFor="let value of meta_data?.value" [value]="value">{{value}}</nb-option>
+                </nb-select>
+            </ng-container>
+
+        </ng-container>
+
+    </nb-card-header>
+
+    <nb-card-footer>
+        <app-pagination [paginator]="pipeline?.pagination" (onchange)="onPageChange($event)"></app-pagination>
+
+    </nb-card-footer>
+
+    <nb-card-body fxFlex style="overflow: hidden; border: none;">
+
+
+
+        <nb-list>
+            <nb-list-item *ngFor="let _pipeline of  pipeline?.pipelines ; index as index_p	">
+
+
+                <div fxLayout="column">
+
+
+                    <div fxLayout="row wrap" style="overflow-x: scroll;">
+
+
+
+                        <ng-container *ngFor="let node of _pipeline?.pipeline ; index as index_s">
+
+
+                            <div fxLayout="row">
+
+                                {{node?.node_message}}
+                            </div>
+
+                            <div fxLayout="row">
+
+
+
+
+                                <button nbTooltipStatus="info" [nbTooltip]="node?.node_message	"
+                                    (click)="openDrawer(taskExecTemplate , context =  {  id : node?.node_id?.$oid , edit: true }  ) "
+                                    style="margin: 0; padding: 0;" shape="round" ghost
+                                    [status]="node?.node_exec_status | execStatus" class="action" size="medium" nbButton
+                                    nbTooltip="Edit">
+
+                                    <nb-icon icon="settings-2">
+
+                                    </nb-icon>
+                                </button>
+
+
+                                <button size="small" status="danger" outline
+                                    *ngIf="node?.node_exec_status == 'FAILURE'  ; else reRun"
+                                    (click)="retry( node?.node_id?.$oid )" nbButton>
+                                    Retry
+                                </button>
+
+                                <ng-template #reRun>
+
+                                    <button size="small" status="warning" outline (click)="retry( node?.node_id?.$oid )"
+                                        nbButton>
+                                        Re-run
+                                    </button>
+                                </ng-template>
+
+                                <p (click)="openDrawer(taskExecTemplate , context =  {  id : node?.node_id?.$oid , edit: true }  ) "
+                                    style="margin: 0;" class="subtitle-2 text-hint "
+                                    [class.text-danger]="node?.node_id?.$oid == pipeline?.cyclic?.$oid">
+
+
+                                    {{_pipeline?.task_pipeline_details[index_s]?.config?.identifier }}
+
+
+
+                                </p>
+
+                                <nb-icon *ngIf="!isLast" icon="chevron-right-outline"></nb-icon>
+
+
+
+
+
+
+                            </div>
+
+                        </ng-container>
+
+
+
+
+                    </div>
+
+                    <div fxLayout="row">
+                        <nb-tag-list>
+                            <nb-tag *ngFor="let req of _pipeline?.request" appearance="outline" status="info"
+                                size="small" [text]="req?.scanner_value">
+                            </nb-tag>
+
+                        </nb-tag-list>
+                    </div>
+
+
+
+                    <div fxLayout="row">
+
+
+                        <nb-tag-list>
+                            <nb-tag *ngFor="let tag of _pipeline?.tags" appearance="outline" status="warning"
+                                size="small" [text]="tag">
+                            </nb-tag>
+
+                        </nb-tag-list>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!-- {{_pipeline?.pipeline | json }} -->
+
+
+
+            </nb-list-item>
+        </nb-list>
+    </nb-card-body>
+
+
+
+</nb-card>

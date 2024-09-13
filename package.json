@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200",
+    "start": "ng serve --host 0.0.0.0 --port 4400",
     "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
@@ -31,6 +31,7 @@
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "@rxweb/reactive-form-validators": "^13.0.1",
     "@swimlane/ngx-cron": "^5.0.1",
+    "@swimlane/ngx-graph": "^8.4.0",
     "@swimlane/ngx-ui": "48.0.0",
     "@tinymce/tinymce-angular": "^8.0.0",
     "2yy-ngx-ripple": "0.0.2",
@@ -51,6 +52,7 @@
     "ngx-scrollbar": "^15.0.1",
     "resize-observer": "^1.0.4",
     "rxjs": "~7.8.1",
+    "shell-quote": "^1.8.1",
     "tinymce": "^7.2.1",
     "tslib": "^2.6.3",
     "zone.js": "~0.14.7"

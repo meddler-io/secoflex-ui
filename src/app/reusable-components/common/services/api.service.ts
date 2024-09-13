@@ -8,10 +8,31 @@ import { FieldSchema } from '../abstract/BaseFieldSchema';
 import { FieldType } from '../schemas/FieldSchema';
 import { PropertySchema } from '../schemas/PropertySchema';
 
+import * as shellQuote from 'shell-quote';
 
 const THROTTLE_CONNECTION = false
 const url = API_SERVICE_URL + 'api/v2/'
 
+
+export function argsToCommand(args: string[]): string {
+  return args.map(arg => shellQuote.quote([arg])).join(' ');
+}
+
+export function commandToArgs(command: string): string[] {
+  return shellQuote.parse(command) as string[];
+}
+
+
+// 
+export function parseRawCommandToArray(rawCmd: string) {
+
+  return commandToArgs(rawCmd);
+
+}
+
+export function parseArrayOfCommandToRaw(parsedArgs: string[]) {
+  return argsToCommand( parsedArgs);
+}
 
 @Injectable({
   providedIn: 'root'

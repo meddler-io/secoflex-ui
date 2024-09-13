@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" novalidate >
+<form [formGroup]="myForm" novalidate>
 
   <nb-card @init>
 
@@ -18,12 +18,12 @@
     </nb-card-header>
 
     <nb-card-body @init>
-      <nb-form-field [nbSpinner]="saving" >
- 
-        <input formControlName="name" fullWidth fxFlex="50%"  nbInput fieldSize="large"   [status]="name?.valid ? 'primary' : 'basic' "
-            placeholder="Name">
+      <nb-form-field [nbSpinner]="saving">
 
-  
+        <input formControlName="name" fullWidth fxFlex="50%" nbInput fieldSize="large"
+          [status]="name?.valid ? 'primary' : 'basic' " placeholder="Name">
+
+
 
       </nb-form-field>
 
@@ -46,115 +46,103 @@
       </nb-form-field>
 
     </nb-card-body>
- 
-    <nb-card-body @init   >
-  <div  >
+
+    <nb-card-body @init>
+      <div>
 
 
-      <div     fxLayout="row" class="credentials h6 text-hint  ">
-        Credentials
+        <div fxLayout="row" class="credentials h6 text-hint  ">
+          Credentials
+        </div>
+
+        <div class="credentials" fxLayout="row">
+
+          <nb-radio-group formControlName="credential_type" fxLayout="row" name="status" status="basic">
+            <nb-radio [checked]="true" value="none">
+              None
+            </nb-radio>
+
+            <nb-radio value="password">
+              Password
+            </nb-radio>
+
+            <nb-radio value="access_token">
+              Access token
+            </nb-radio>
+
+            <nb-radio value="ssh">
+              SSH
+            </nb-radio>
+          </nb-radio-group>
+
+        </div>
+
+
+        <div class="credentials  " formGroupName="credential" @init fxLayout="column" fxLayoutGap="1rem">
+
+
+          <ng-container [ngSwitch]="myForm.get('credential_type').value">
+
+
+            <ng-container *ngSwitchCase="'none'">
+
+            </ng-container>
+
+
+            <ng-container *ngSwitchCase="'password'">
+              <nb-form-field>
+
+                <input formControlName="username" nbInput fieldSize="medium" status="primary" placeholder="Username">
+
+                <button nbButton nbSuffix size="small" filled status="primary">
+                  <nb-icon icon="close-outline">
+                  </nb-icon>
+                </button>
+
+              </nb-form-field>
+
+
+              <nb-form-field>
+
+                <input formControlName="password" nbInput fieldSize="medium" status="primary" placeholder="Password">
+
+                <button nbButton nbSuffix size="small" filled status="primary">
+                  <nb-icon icon="close-outline">
+                  </nb-icon>
+                </button>
+
+              </nb-form-field>
+            </ng-container>
+
+
+
+
+            <ng-container *ngSwitchCase="'access_token'">
+
+
+
+              <textarea formControlName="access_token" rows="7" status="primary" nbInput fullWidth
+                placeholder="Access Token"></textarea>
+
+
+            </ng-container>
+
+
+            <ng-container *ngSwitchCase="'ssh'">
+              <textarea formControlName="ssh" rows="7" status="primary" nbInput fullWidth
+                placeholder="SSH Key"></textarea>
+            </ng-container>
+          </ng-container>
+
+
+        </div>
+
+
+
+
+
+
       </div>
-
-      <div    class="credentials"   fxLayout="row">
-
-        <nb-radio-group formControlName="credential_type" fxLayout="row" name="status" status="basic">
-          <nb-radio [checked]="true" value="none">
-            None
-          </nb-radio>
-
-          <nb-radio value="password">
-            Password
-          </nb-radio>
-
-          <nb-radio value="access_token">
-            Access token
-          </nb-radio>
-
-          <nb-radio value="ssh">
-            SSH
-          </nb-radio>
-        </nb-radio-group>
-
-      </div>
-
-
-    <div   class="credentials  "  formGroupName="credentials"
-
-     @init fxLayout="column" fxLayoutGap="1rem">
-
-
-      <ng-container  
-      
-      [ngSwitch]="myForm.get('credential_type').value">
-
-
-        <ng-container *ngSwitchCase="'none'">
-
-        </ng-container>
-
-
-        <ng-container *ngSwitchCase="'password'">
-          <nb-form-field>
-
-            <input
-            formControlName="username"
-            nbInput fieldSize="medium" status="primary" placeholder="Username">
-
-            <button nbButton nbSuffix size="small" filled status="primary">
-              <nb-icon icon="close-outline">
-              </nb-icon>
-            </button>
-
-          </nb-form-field>
-
-
-          <nb-form-field>
-
-            <input
-            formControlName="password"
-            nbInput fieldSize="medium" status="primary" placeholder="Password">
-
-            <button nbButton nbSuffix size="small" filled status="primary">
-              <nb-icon icon="close-outline">
-              </nb-icon>
-            </button>
-
-          </nb-form-field>
-        </ng-container>
-
-
-
-
-        <ng-container *ngSwitchCase="'access_token'">
-
-
-
-          <textarea
-          formControlName="access_token"
-          
-          rows="7" status="primary" nbInput fullWidth placeholder="Access Token"></textarea>
-
-
-        </ng-container>
-
-
-        <ng-container *ngSwitchCase="'ssh'">
-          <textarea
-          formControlName="ssh"
-          
-          rows="7" status="primary" nbInput fullWidth placeholder="SSH Key"></textarea>
-        </ng-container>
-      </ng-container>
-
-
-    </div>
-
-
-
-
-
-
-    </div>
 
 
 
@@ -174,7 +162,8 @@
 
 
 
-      <button [disabled]="!myForm?.valid" (click)="save()" outline nbButton [status]="myForm?.valid ? 'success': 'basic'">
+      <button [disabled]="!myForm?.valid" (click)="save()" outline nbButton
+        [status]="myForm?.valid ? 'success': 'basic'">
 
         <nb-icon icon="checkmark-circle-2">
         </nb-icon>

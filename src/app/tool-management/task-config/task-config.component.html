@@ -90,7 +90,6 @@
 
 
 
-
               <div fxLayout="row" fxLayoutGap="1rem">
 
                 <nb-form-field fxFlex fieldSize="small">
@@ -115,6 +114,32 @@
                       (checkedChange)="checkedChangeScannerInput(  $event ,  scannerInput$ )" #toggle></nb-toggle>
 
                   </div>
+                </nb-form-field>
+              </div>
+
+              <!-- It's value -->
+              <div *ngIf="!edit" fxLayout="row" fxLayoutGap="1rem">
+
+
+
+                <button nbButton nbPrefix size="small" control status="basic">
+                  <nb-icon icon="text-outline"></nb-icon>
+
+
+                </button>
+
+                <nb-form-field fxFlex fieldSize="small">
+
+
+
+                  <!-- [value]="scannerInput$?.default_value" -->
+                  <input
+                    [formControl]="form.get('scanner_value')?.at(  form.get('scanner_input')?.value?.indexOf( scannerInput$?.id ) ) "
+                    fullWidth nbInput [placeholder]="scannerInput$?.placeholder">
+
+
+
+
                 </nb-form-field>
               </div>
             </ng-container>
@@ -166,17 +191,17 @@
 
           <ng-container *ngFor="let ingested_result of this.form.get('ingested_results')?.value">
 
-            <div style="padding-left: 1rem;" >
+            <div style="padding-left: 1rem;">
 
               <p fxFlex class="subtitle-2 text-hint">
                 {{ingested_result?.task_name}}
-                
+
               </p>
             </div>
 
             <ng-container *ngFor="let result of ingested_result?.result">
 
-             
+
 
 
 
@@ -206,7 +231,9 @@
 
                 <nb-form-field fxFlex fieldSize="small">
 
-                  <button (click)="copyText(  '$' + 'mount_volume_path' + '/' + ingested_result?.task_id + '/' +  result?.value )" nbButton nbPrefix size="small" control status="basic">
+                  <button
+                    (click)="copyText(  '$' + 'mount_volume_path' + '/' + ingested_result?.task_id + '/' +  result?.value )"
+                    nbButton nbPrefix size="small" control status="basic">
 
                     <span nbPrefix>$</span>
 
@@ -408,132 +435,121 @@
         <app-divider></app-divider> -->
 
 
-
       <!-- Entrypoint -->
       <div fxLayout="column">
 
         <div>
-          <p class="subtitle-2 text-hint">
-            Entrypoint
-          </p>
-        </div>
+
+          <!-- (checkedChange)="switchViewCmd( $event ) " -->
+          <nb-toggle 
+          #toggleCmdView
+           [formControl]="toggleCmdViewControl"> 
+            Switch View </nb-toggle>
 
 
-        <ng-container formArrayName="entrypoint">
+          <div fxFlex fxLayoutAlign="end">
 
-          <ng-container *ngFor="let entrypoint of this.form.get('entrypoint').controls ; let i=index ">
-
-
-            <div fxLayout="row" fxLayoutGap="1rem">
-              <nb-form-field fxFlex fieldSize="small">
-                <input fullWidth [formControlName]="i" nbInput placeholder="/bin/watchdog">
-              </nb-form-field>
-            </div>
-
-          </ng-container>
-        </ng-container>
-
-      </div>
-
-      <app-divider></app-divider>
-
-      <!-- Command -->
-      <div fxLayout="column">
-
-        <div fxLayout="row">
-          <p fxFlex class="subtitle-2 text-hint">
-            Command
-          </p>
-
-          <button (click)="addCmd()" ghost nbButton status="danger">
-            Add
-          </button>
-
-        </div>
-
-
-
-
-
-
-
-        <ng-container formArrayName="cmd">
-
-          <ng-container *ngFor="let _cmd of this.form.get('cmd').controls ; let i=index ">
-
-
-            <!-- <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem"> -->
-
-            <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
-              <nb-form-field fxFlex fieldSize="small">
-                <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
-
-
-              </nb-form-field>
-
-
-              <button ghost nbSuffix nbButton (click)="deleteCmd(i)">
-                <nb-icon icon="trash-outline">
-                </nb-icon>
-              </button>
-
-            </div>
-
-
-
-
-            <!-- </div> -->
-
-
-          </ng-container>
-
-
-        </ng-container>
-
-
-        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
-          <p class="subtitle-2 text-hint">
-            No Commands Defined
-          </p>
+            <button *ngIf="toggleCmdView?.checked" size="small" (click)="importCmd()" ghost nbButton
+              status="info">
+              Import
+            </button>
+          </div>
         </div>
       </div>
 
-      <app-divider></app-divider>
+      <ng-container *ngIf="toggleCmdView?.checked ; else formViewCmd">
+        <div  fxLayout="column">
+
+          <nb-form-field fxFlex fieldSize="small">
+            <input [formControl]="rawCommandView" fullWidth nbInput placeholder="/bin/watchdog">
+          </nb-form-field>
+        </div>
+
+      </ng-container>
+
+      <ng-template #formViewCmd>
 
 
-      <!-- Arguments -->
-      <div fxLayout="column">
 
-        <div fxLayout="row">
-          <p fxFlex class="subtitle-2 text-hint">
-            Arguments
-          </p>
 
-          <button (click)="addArg()" ghost nbButton status="danger">
-            Add
-          </button>
+        <!-- Entrypoint -->
+        <div fxLayout="column">
+
+          <div>
+
+
+
+            <p fxFlex class="subtitle-2 text-hint">
+              Entrypoint
+            </p>
+
+
+            <button size="small" (click)="copyCommandToClipboard()" ghost nbButton status="info">
+              Copy
+            </button>
+
+
+
+          </div>
+
+
+
+
+
+          <ng-container formArrayName="entrypoint">
+
+            <ng-container *ngFor="let entrypoint of this.form.get('entrypoint').controls ; let i=index ">
+
+
+              <div fxLayout="row" fxLayoutGap="1rem">
+                <nb-form-field fxFlex fieldSize="small">
+                  <input fullWidth [formControlName]="i" nbInput placeholder="/bin/watchdog">
+                </nb-form-field>
+              </div>
+
+            </ng-container>
+          </ng-container>
 
         </div>
 
+        <app-divider></app-divider>
 
-        <div fxFlex>
+        <!-- Command -->
+        <div fxLayout="column">
 
-          <ng-container formArrayName="args">
+          <div fxLayout="row">
+            <p fxFlex class="subtitle-2 text-hint">
+              Command
+            </p>
 
-            <ng-container *ngFor="let arg of this.form.get('args').controls ; let i=index ">
+            <button (click)="addCmd()" ghost nbButton status="danger">
+              Add
+            </button>
 
+          </div>
+
+
+
+
+
+
+
+          <ng-container formArrayName="cmd">
+
+            <ng-container *ngFor="let _cmd of this.form.get('cmd').controls ; let i=index ">
+
+
+              <!-- <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem"> -->
 
               <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
                 <nb-form-field fxFlex fieldSize="small">
-
-
-                  <input fullWidth [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
+                  <input fullWidth cdkFocusInitial [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
 
 
                 </nb-form-field>
 
 
-                <button ghost nbSuffix nbButton (click)="deleteArg(i)">
+                <button ghost nbSuffix nbButton (click)="deleteCmd(i)">
                   <nb-icon icon="trash-outline">
                   </nb-icon>
                 </button>
@@ -541,21 +557,83 @@
               </div>
 
 
+
+
+              <!-- </div> -->
+
+
             </ng-container>
 
 
           </ng-container>
+
+
+          <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('cmd').controls.length" fxFlex>
+            <p class="subtitle-2 text-hint">
+              No Commands Defined
+            </p>
+          </div>
         </div>
 
-        <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('args').controls.length" fxFlex>
-          <p class="subtitle-2 text-hint">
-            No Arguments Defined
-          </p>
+        <app-divider></app-divider>
+
+
+        <!-- Arguments -->
+        <div fxLayout="column">
+
+          <div fxLayout="row">
+            <p fxFlex class="subtitle-2 text-hint">
+              Arguments
+            </p>
+
+            <button (click)="addArg()" ghost nbButton status="danger">
+              Add
+            </button>
+
+          </div>
+
+
+          <div fxFlex>
+
+            <ng-container formArrayName="args">
+
+              <ng-container *ngFor="let arg of this.form.get('args').controls ; let i=index ">
+
+
+                <div [style.marginBottom]="'0.5rem'" fxLayout="row" fxLayoutGap="1rem">
+                  <nb-form-field fxFlex fieldSize="small">
+
+
+                    <input fullWidth [formControlName]="i" nbInput placeholder="/usr/bin/mobsf">
+
+
+                  </nb-form-field>
+
+
+                  <button ghost nbSuffix nbButton (click)="deleteArg(i)">
+                    <nb-icon icon="trash-outline">
+                    </nb-icon>
+                  </button>
+
+                </div>
+
+
+              </ng-container>
+
+
+            </ng-container>
+          </div>
+
+          <div fxFlex fxLayoutAlign="center center" *ngIf="!this.form.get('args').controls.length" fxFlex>
+            <p class="subtitle-2 text-hint">
+              No Arguments Defined
+            </p>
+          </div>
+
         </div>
 
-      </div>
-
-      <app-divider></app-divider>
+        <app-divider></app-divider>
+      </ng-template>
 
 
       <!-- Variables -->

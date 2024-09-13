@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobManagementRoutingModule } from './job-management-routing.module';
 import { JobHomeComponent } from './job-home/job-home.component';
-import { NbAccordionModule, NbActionsModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbContextMenuModule, NbDialogModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbMenuModule, NbRouteTabsetComponent, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbMenuModule, NbRouteTabsetComponent, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule, NbTooltipModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToolApiService } from '../tool-management/tool-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -27,11 +27,28 @@ import { JobRequestComponent } from './job-request/job-request.component';
 import { SelectedJobComponent } from './selected-job/selected-job.component';
 import { JobResultContentComponent } from './job-result-content/job-result-content.component';
 import { AutosizeModule } from 'ngx-autosize';
+// import { TaskConfigComponent } from '../tool-management/task-config/task-config.component';
+import { DividerComponent } from '../tool-management/divider/divider.component';
+import { LogStreamComponent } from '../tool-management/log-stream/log-stream.component';
+import { CommonImportsModule } from '../asset-management/submodules/common/common-imports.module';
 
+import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { PipelineComponent } from './pipeline/pipeline.component';
+import { PipelineJobsComponent } from './pipeline-jobs/pipeline-jobs.component';
+import { ExecStatusPipe } from '../exec-status.pipe';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
   declarations: [
+    
+    PaginationComponent,
+    ExecStatusPipe,
+
+    PipelineJobsComponent,
+    PipelineComponent,
+
+    // TaskConfigComponent,
     JobResultContentComponent,
     JobHomeComponent,
     JobListComponent,
@@ -47,7 +64,13 @@ import { AutosizeModule } from 'ngx-autosize';
     SelectedJobComponent,
 
   ],
+  
   imports: [
+
+    NgxGraphModule,
+    CommonImportsModule,
+    NbFormFieldModule,
+    NbTooltipModule,
 
     ReactiveFormsModule,
     FormsModule,
@@ -81,7 +104,9 @@ import { AutosizeModule } from 'ngx-autosize';
     NbContextMenuModule,
     NbInputModule
     ,
-    AutosizeModule
+    AutosizeModule,
+    
+    NbCheckboxModule,
 
 
 

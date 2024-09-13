@@ -15,7 +15,7 @@ import { ToolApiService } from '../tool-api.service';
 })
 export class JobListComponent implements OnInit {
 
-  private jobs
+   jobs
 
   constructor(
     private toolApiService: ToolApiService,
@@ -35,7 +35,7 @@ export class JobListComponent implements OnInit {
       ToolId
       .pipe(
         map(id => {
-          return this.toolApiService.getJobs(id)
+          return this.toolApiService.getJobs(id).pipe(map(( _: any)=>_?.jobs))
 
         }),
         mergeMap(_ => _)

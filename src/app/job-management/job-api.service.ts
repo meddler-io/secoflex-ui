@@ -51,6 +51,10 @@ export class JobApiService {
 
   }
 
+  getTaskJobs(id: string) {
+    return this.http.get(`${url}/task/${id}/jobs`)
+
+  }
   getAllJobs() {
     return this.http.get(`${url}/jobs`)
 
@@ -206,11 +210,17 @@ export class JobApiService {
 
 
   getJobResultContent(id: string , filename: string) {
+
     return this.http.get(`${url}/job/result/content/${id}` , {
       params: {
-        filename
+        filename,
+        
       }
-    })
+      ,
+      responseType: 'text'
+    }
+  
+  )
   }
 }
 

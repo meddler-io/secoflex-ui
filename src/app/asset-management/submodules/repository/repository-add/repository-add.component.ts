@@ -67,7 +67,7 @@ export class RepositoryAddComponent implements OnInit {
     name: new FormControl('', [Validators.required ]),
     url: new FormControl('', validations),
     credential_type: new FormControl('none'),
-    credentials: new FormGroup({
+    credential: new FormGroup({
     })
   })
 
@@ -85,19 +85,19 @@ export class RepositoryAddComponent implements OnInit {
       console.log('d', d)
       switch (d) {
         case 'none':
-          this.myForm.setControl('credentials', null)
+          this.myForm.setControl('credential', null)
           break
 
         case 'password':
-          this.myForm.setControl('credentials', this.auth$)
+          this.myForm.setControl('credential', this.auth$)
           break
 
         case 'access_token':
-          this.myForm.setControl('credentials', this.access_token$)
+          this.myForm.setControl('credential', this.access_token$)
           break
 
         case 'ssh':
-          this.myForm.setControl('credentials', this.ssh$)
+          this.myForm.setControl('credential', this.ssh$)
           break
       }
 

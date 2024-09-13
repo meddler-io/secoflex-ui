@@ -21,6 +21,8 @@
 
 
 
+        
+
 
 
       </div>
@@ -86,24 +88,27 @@
 
       </div>
 
-      
-      <div fxLayout="row" >
+
+      <div fxLayout="row">
         <button [routerLink]=" [ '/jobs' ] " fullWidth class="newBtn" shape="round" nbButton>
           Jobs
         </button>
 
-      <button (click)="openDrawer(toolEditTemplate)" class="newBtn" shape="round" nbButton>
+        <button (click)="openDrawer(toolEditTemplate)" class="newBtn" shape="round" nbButton>
 
-        <div class="icon" icon="plus"></div>
+          <div class="icon" icon="plus"></div>
 
-        <span>
-          Create Tool
+          <span>
+            Create Tool
 
-        </span>
-      </button>
+          </span>
+        </button>
 
 
-    </div>
+      </div>
+
+
+ 
 
     </div>
 
@@ -123,7 +128,7 @@
         </span>
 
         <span class="text-hint">
-          {{ '@' +  ( tool?.alias || 'Alias' ) }}
+          {{ '@' + ( tool?.alias || 'Alias' ) }}
         </span>
       </nb-accordion-item-header>
       <nb-accordion-item-body>
@@ -143,9 +148,7 @@
             <div fxLayoutGap="0.5rem" fxLayoutAlign="end center">
 
 
-              <nb-button-group
-              fxLayoutGap="2px"
-              multiple status="primary" size="small" appearance="filled">
+              <nb-button-group fxLayoutGap="2px" multiple status="primary" size="small" appearance="filled">
 
                 <button
                   (click)="openDrawer(toolEditTemplate  , context =  { 'tool_id':  tool?._id , 'edit_mode': true } )"
@@ -159,6 +162,8 @@
                   <nb-icon icon="flip-2-outline"></nb-icon>
                   Deployments
                 </button>
+
+                <button [routerLink]="[ '/job' , tool?._id ]  " status="success" size="small" nbButton>Jobs</button>
 
 
                 <button [routerLink]="[  '/tools'  , 'builds', tool?._id ]  " nbButton>

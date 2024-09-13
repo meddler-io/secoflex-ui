@@ -9,7 +9,7 @@ import { StateSyncService } from '../state-sync.service';
 })
 export class JobListComponent implements OnInit {
 
-  jobs = []
+  jobs ;
 
   constructor(
 
