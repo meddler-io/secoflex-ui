@@ -1,3 +1,13 @@
+<ng-template #deployTemplate let-context="context">
+
+  <app-worker-deployment-config [context]="context">
+
+  </app-worker-deployment-config>
+
+
+
+</ng-template>
+
 <div fxLayout="column">
   <ng-container *ngFor="let deploy of deployments | async  ; index as index">
 
@@ -54,6 +64,35 @@
           </div>
         </div>
 
+        <!--  -->
+        <div class="row">
+          <div fxFlex class="subtitle">
+            Workers
+
+          </div>
+          <div fxFlex class="subtitle-2">
+            Running
+            {{ deploy?.JobSummary?.Summary[ deploy?.Name ]?.Running  }}
+             | 
+            Starting
+            {{ deploy?.JobSummary?.Summary[ deploy?.Name ]?.Starting  }}
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div fxFlex class="subtitle">
+            Scake
+
+          </div>
+          <div fxFlex class="subtitle-2">
+            
+            {{ deploy?.JobSummary?.Summary[ deploy?.Name ]?.Running +  deploy?.JobSummary?.Summary[ deploy?.Name ]?.Queued }}
+             
+
+          </div>
+        </div>
+
 
         <!-- Submitted On -->
         <div class="row">
@@ -75,6 +114,17 @@
 
 
       <nb-card-footer fxLayoutGap="1rem" fxLayoutAlign="start">
+
+
+        
+        
+        <button 
+        (click)="openDrawer(deployTemplate  , context  =  {   'id' : deploy?.ID	,   'build_id':  build?._id , 'edit_mode': true } )"
+         status="basic" ghost size="small" nbButton>
+
+          <nb-icon icon="settings-2-outline"></nb-icon>
+          Config
+        </button>
 
 
         <button (click)="purge(  )" status="primary" ghost size="small" nbButton>

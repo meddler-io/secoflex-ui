@@ -1,0 +1,53 @@
+<nb-card fxFill [nbSpinner]="loading">
+  <nb-card-header>
+
+    <div fxFlex>
+
+
+      <span class="subtitle text-hint lineV">
+        Deployment
+      </span>
+    </div>
+
+    <button (click)="deploy( context?.build_id ) " status="danger" size="small" nbButton>Deploy</button>
+
+
+    <button (click)="update_deploy( context?.id ) " status="danger" size="small" nbButton>Update</button>
+
+
+  </nb-card-header>
+  <nb-card-body>
+
+    <div fxLayout="column">
+
+
+
+
+      <nb-select    size="small" placeholder="Image Tag"
+      [formControl]="image_formcontrol" >
+      <!-- <nb-option value="">
+          {{meta_data?.key}}
+      </nb-option> -->
+      <nb-option *ngFor="let value of image_tags | async " [value]="value?.image">{{value?.image}}</nb-option>
+  </nb-select>
+
+
+
+      <nb-form-field fxFlex fieldSize="small">
+        <input (keypress)="validateNo($event)" inputmode=”numeric” pattern=”[0–9]*” fullWidth
+          [formControl]="memory_formcontrol" nbInput placeholder="Memory">
+      </nb-form-field>
+
+      <nb-form-field fxFlex fieldSize="small">
+        <input (keypress)="validateNo($event)" inputmode=”numeric” pattern=”[0–9]*” fullWidth
+          [formControl]="scale_formcontrol" nbInput placeholder="Scale">
+      </nb-form-field>
+
+    </div>
+
+
+
+  </nb-card-body>
+
+
+</nb-card>

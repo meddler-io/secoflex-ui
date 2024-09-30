@@ -233,6 +233,33 @@ export class ToolApiService {
 
   }
 
+  getTaskPipelinesJobsSearchMetaData( search_param = null) {
+
+    return this.http.get(`${url}/pipeline-jobs-meta-data-search/asset`,
+      {
+        params: {
+          search_query: search_param
+        }
+      }
+    )
+
+
+
+  }
+
+  getTaskPipelinesJobsSearchMetaDataTags( tag = null) {
+
+    return this.http.get(`${url}/pipeline-jobs-meta-data-search/tag`,
+      {
+        params: {
+          search_query: tag
+        }
+      }
+    )
+
+
+
+  }
 
   createBuild(build_type: string, data: {}) {
     return this.http.post(`${url}/build/${build_type}`, data
@@ -493,6 +520,20 @@ export class ToolApiService {
     )
   }
 
+  updateDeployment(id: string  , scale = null , memory = null , image_id =null) {
+    return this.http.put(`${url}/deployment/service/${id}`, {}
+
+,
+{
+  params: {
+    scale,
+    memory,
+    image_id
+  }
+}
+
+    )
+  }
 
 
   // Create config files in minio

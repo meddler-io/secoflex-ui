@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { BehaviorSubject, interval, pipe, Subject, Subscription, timer } from 'rxjs';
-import { delay, repeat, repeatWhen, retry, retryWhen, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { delay, map, repeat, repeatWhen, retry, retryWhen, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { THROTTLE_DELAY } from 'src/app/reusable-components/common/shared/Constants';
 import { LOG_STREAM_STATUS, ToolApiService } from '../tool-api.service';
+import { DrawerService } from 'src/app/drawer/drawer.service';
+import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
+import { StateSyncService } from 'src/app/job-management/state-sync.service';
 
 
 
@@ -54,9 +57,16 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
   @ViewChild(NgScrollbar, { static: false }) scrollbarRef: NgScrollbar;
 
+
+  resultMetaData 
+
   constructor(
     private toolApiService: ToolApiService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private drawerMngr: DrawerService,
+    private stateSyncService: StateSyncService,
+
+
 
 
   ) {
@@ -151,11 +161,20 @@ export class LogStreamComponent implements OnInit, OnDestroy {
 
     if (this.deep_link == true)
       this.deepLinkLoadLog()
-    else
+    else{
       this.getExecutors(this.log_id)
 
+    
 
 
+    }
+
+
+    this.resultMetaData =    this.stateSyncService.jobApiService.getJobResult(this.log_id).pipe(map(( _:[] )=>{
+        
+      console.log('resultMetaData', _.length)
+      return _.length > 0
+    }))
   }
 
   deepLinkLoadLog() {
@@ -391,5 +410,31 @@ export class LogStreamComponent implements OnInit, OnDestroy {
     this.topic.pauseStreamer$.next(LOG_STREAM_STATUS.RESUME);
     this.cdr.markForCheck()
 
+  }
+
+
+  openDrawer(template, context, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
+
+    const zIndex = 1000;
+    const cssClass = 'backdrop_color'
+    // const cssClass = 'cdk-overlay-2'
+
+    this.drawerMngr.create({
+      direction,
+      template,
+      size,
+      closeOnOutsideClick,
+      parentContainer,
+      isRoot,
+      zIndex,
+      cssClass,
+      context: context
+    }
+
+    )
+      .onDestroy(() => {
+
+
+      });
   }
 }

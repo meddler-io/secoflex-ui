@@ -48,6 +48,20 @@
     <nb-card-body>
 
 
+      <!--  -->
+
+
+
+      <nb-toggle #toggleCmdView [formControl]="toggleCmdViewControl">
+        Publish </nb-toggle>
+
+      <app-divider></app-divider>
+
+
+      <!--  -->
+
+
+
 
       <!-- Entrypoint -->
       <div fxLayout="column">
@@ -64,6 +78,8 @@
         </nb-form-field>
 
       </div>
+
+
 
       <app-divider></app-divider>
 
@@ -441,16 +457,13 @@
         <div>
 
           <!-- (checkedChange)="switchViewCmd( $event ) " -->
-          <nb-toggle 
-          #toggleCmdView
-           [formControl]="toggleCmdViewControl"> 
+          <nb-toggle #toggleCmdView [formControl]="toggleCmdViewControl">
             Switch View </nb-toggle>
 
 
           <div fxFlex fxLayoutAlign="end">
 
-            <button *ngIf="toggleCmdView?.checked" size="small" (click)="importCmd()" ghost nbButton
-              status="info">
+            <button *ngIf="toggleCmdView?.checked" size="small" (click)="importCmd()" ghost nbButton status="info">
               Import
             </button>
           </div>
@@ -458,7 +471,7 @@
       </div>
 
       <ng-container *ngIf="toggleCmdView?.checked ; else formViewCmd">
-        <div  fxLayout="column">
+        <div fxLayout="column">
 
           <nb-form-field fxFlex fieldSize="small">
             <input [formControl]="rawCommandView" fullWidth nbInput placeholder="/bin/watchdog">

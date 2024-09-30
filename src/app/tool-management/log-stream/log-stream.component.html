@@ -1,4 +1,15 @@
-<nb-card fxFill >
+<ng-template #resultTemplate let-close="close" let-context="context">
+
+
+  <app-job-result [id]="log_id" >
+
+  </app-job-result>
+
+</ng-template>
+
+
+
+<nb-card fxFill>
 
 
   <nb-card-header fxLayoutAlign="space-between center">
@@ -14,7 +25,7 @@
 
         <div fxLayout="column">
           <div fxFlex class="subtitle text-alternate">
-            Logs  {{logsource | json}} {{STATUS}} 
+            Logs {{logsource | json}} {{STATUS}}
           </div>
           <div class="overflowFix">
 
@@ -31,6 +42,21 @@
 
 
 
+    </div>
+
+    <div>
+
+      <button
+      
+      [status]="  ( resultMetaData | async ) ? 'info'  : 'danger'  "
+      (click)="openDrawer(resultTemplate , context =  {  id : node?.node_id?.$oid , edit: true }  ) "
+        size="small"  ghost  nbButton>
+        Results
+
+        <nb-icon icon="settings-2">
+
+        </nb-icon>
+      </button>
     </div>
 
 
@@ -129,7 +155,7 @@
               <nb-icon icon="pause-circle">
               </nb-icon>
 
-              {{  ( status == LOG_STREAM_STATUS$.PAUSE   )  ? 'Resume' : 'Pause'  }}
+              {{ ( status == LOG_STREAM_STATUS$.PAUSE ) ? 'Resume' : 'Pause' }}
 
             </button>
 

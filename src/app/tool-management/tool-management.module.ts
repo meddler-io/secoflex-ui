@@ -41,9 +41,11 @@ import {AutosizeModule} from 'ngx-autosize';
 import { FileListComponent } from './file-list/file-list.component';
 import { ToolsListForInputComponent } from './tools-list-for-input/tools-list-for-input.component';
 import { CommonImportsModule } from '../asset-management/submodules/common/common-imports.module';
+import { WorkerDeploymentConfigComponent } from './worker-deployment-config/worker-deployment-config.component';
 
 @NgModule({
   declarations: [
+    WorkerDeploymentConfigComponent,
 
     LogStreamComponent,
     ToolsListForInputComponent,
@@ -115,7 +117,8 @@ import { CommonImportsModule } from '../asset-management/submodules/common/commo
   ],
   providers: [
     ToolApiService,
-    SharedDataService
+    SharedDataService,
+    
   ]
 })
 export class ToolManagementModule { }

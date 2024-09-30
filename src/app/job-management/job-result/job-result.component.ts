@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MainContainerTabs, StateSyncService } from '../state-sync.service';
-import { switchMap, tap } from 'rxjs';
+import { of, switchMap, tap } from 'rxjs';
 import { JobApiService } from '../job-api.service';
 import { DrawerService } from 'src/app/drawer/drawer.service';
 import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
@@ -12,30 +12,34 @@ import { DrawerDirection } from 'src/app/drawer/drawer-direction.enum';
 })
 export class JobResultComponent implements OnInit, OnDestroy {
 
+@Input('id') id;
+
+
   loading = true;
   jobId;
 
-  files = this.stateSyncService.SelectedJob.pipe(
-    tap(_ => {
+  files;
+  // files = this.stateSyncService.SelectedJob.pipe(
+  //   tap(_ => {
 
-      this.loading = true;
-    }),
+  //     this.loading = true;
+  //   }),
 
 
-    switchMap((_: any) => {
+  //   switchMap((_: any) => {
 
-      this.jobId = _?._id;
-      console.log('result', _)
-      return this.stateSyncService.jobApiService.getJobResult(_?._id)
-      return _;
+  //     this.jobId = _?._id;
+  //     console.log('result', _)
+  //     return this.stateSyncService.jobApiService.getJobResult(_?._id)
+  //     return _;
 
-    })
-    ,
-    tap(_ => {
+  //   })
+  //   ,
+  //   tap(_ => {
 
-      this.loading = false;
-    })
-  )
+  //     this.loading = false;
+  //   })
+  // )
 
   openDrawer(template, context, direction = DrawerDirection.Left, size = '50%', closeOnOutsideClick = true, isRoot = true, parentContainer?: any) {
 
@@ -75,6 +79,54 @@ export class JobResultComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    if(this.id ){
+
+      this.files = of( { _id :  this.id }   ).pipe(
+
+        tap(_ => {
+    
+          this.loading = true;
+        }),
+
+        switchMap((_: any) => {
+    
+          this.jobId = _?._id;
+          console.log('result', _)
+          return this.stateSyncService.jobApiService.getJobResult(_?._id)
+          return _;
+    
+        })
+        ,
+        tap(_ => {
+    
+          this.loading = false;
+        })
+      )
+      
+    } else{
+      this.files = this.stateSyncService.SelectedJob.pipe(
+        tap(_ => {
+    
+          this.loading = true;
+        }),
+    
+    
+        switchMap((_: any) => {
+    
+          this.jobId = _?._id;
+          console.log('result', _)
+          return this.stateSyncService.jobApiService.getJobResult(_?._id)
+          return _;
+    
+        })
+        ,
+        tap(_ => {
+    
+          this.loading = false;
+        })
+      )
+    }
 
     this.stateSyncService.mainContainerActiveTab.next(
       MainContainerTabs.RESULT

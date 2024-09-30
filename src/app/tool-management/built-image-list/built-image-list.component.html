@@ -1,44 +1,12 @@
-<ng-template #deployTemplate>
+<ng-template #deployTemplate let-context="context">
 
-  <nb-card fxFill>
-    <nb-card-header>
+  <app-worker-deployment-config
+  [create_mode]="true"
+  [context]="context">
 
-      <div fxFlex>
-
-        
-        <span class="subtitle text-hint lineV">
-          Deployment
-        </span>
-      </div>
-
-      <button (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy</button>
-
-    </nb-card-header>
-    <nb-card-body>
-
-      <div fxLayout="column">
+  </app-worker-deployment-config>
 
 
-
-
-        <nb-form-field fxFlex fieldSize="small">
-          <input (keypress)="validateNo($event)" inputmode=”numeric” pattern=”[0–9]*” fullWidth
-            [formControl]="memory_formcontrol" nbInput placeholder="Memory">
-        </nb-form-field>
-
-        <nb-form-field fxFlex fieldSize="small">
-          <input (keypress)="validateNo($event)" inputmode=”numeric” pattern=”[0–9]*” fullWidth
-            [formControl]="scale_formcontrol" nbInput placeholder="Scale">
-        </nb-form-field>
-
-      </div>
-
-
-
-    </nb-card-body>
-
-
-  </nb-card>
 
 </ng-template>
 
@@ -108,14 +76,14 @@
 
           </nb-select>
 
-          <button (click)="openDrawer(buildEditTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
+          <button (click)="openDrawer(buildEditTemplate  ,  { 'build_id':  build?._id , 'edit_mode': true } )"
             status="basic" size="small" nbButton>Edit</button>
 
           <button (click)="runRebuildTask( build?.refrence_id ,   build?._id ) " status="primary" size="small"
             nbButton>Re-Build</button>
 
           <button (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy</button>
-          <button (click)="openDrawer(deployTemplate  , context =  { 'build_id':  build?._id , 'edit_mode': true } )"
+          <button (click)="openDrawer(deployTemplate  ,  { 'build_id':  build?._id , 'edit_mode': true } )"
             (click)="deploy( build?._id ) " status="danger" size="small" nbButton>Deploy NEW</button>
         </nb-card-footer>
       </nb-card>

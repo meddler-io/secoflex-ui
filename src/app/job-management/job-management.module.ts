@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobManagementRoutingModule } from './job-management-routing.module';
 import { JobHomeComponent } from './job-home/job-home.component';
-import { NbAccordionModule, NbActionsModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbMenuModule, NbRouteTabsetComponent, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule, NbTooltipModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAutocompleteModule, NbButtonGroupModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbContextMenuModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbLayoutModule, NbListModule, NbMenuModule, NbRouteTabsetComponent, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule, NbTabsetModule, NbTagModule, NbThemeModule, NbToggleModule, NbTooltipModule } from '@nebular/theme';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToolApiService } from '../tool-management/tool-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -42,6 +42,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 @NgModule({
   declarations: [
     
+    LogStreamComponent,
     PaginationComponent,
     ExecStatusPipe,
 
@@ -67,6 +68,7 @@ import { PaginationComponent } from './pagination/pagination.component';
   
   imports: [
 
+    NbAutocompleteModule,
     NgxGraphModule,
     CommonImportsModule,
     NbFormFieldModule,

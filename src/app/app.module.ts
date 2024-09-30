@@ -20,12 +20,15 @@ import { SpinnerModule } from './spinner/spinner/spinner.module';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { EntryComponentComponent } from './entry-component/entry-component.component';
+import { StateSyncService } from './job-management/state-sync.service';
+import { LogStreamComponent } from './tool-management/log-stream/log-stream.component';
 
 
 
 
 @NgModule({
   declarations: [
+
     AppComponent,
     EntryComponentComponent,
 
@@ -43,7 +46,10 @@ import { EntryComponentComponent } from './entry-component/entry-component.compo
 
 
   ],
-  providers: [],
+  providers: [
+    StateSyncService,
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
