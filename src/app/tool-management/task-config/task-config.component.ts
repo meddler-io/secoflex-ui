@@ -19,13 +19,16 @@ export class TaskConfigComponent {
 
 
 
-  toggleCmdViewControl = new FormControl(false)
+  toggleCmdViewControl = new FormControl(false);
+  // 
+
 
 
   rawCommandView = new FormControl('hello-world');
 
 
   @ViewChild('logsTemplate', { static: false }) logsTemplate: TemplateRef<any>;
+
 
   @Input('saveAction') saveAction = false;
   @Input('runAction') runAction = false;
@@ -70,8 +73,8 @@ export class TaskConfigComponent {
         cmdControl.push(this.fb.control(element))
       });
 
-      this.form.setControl('entrypoint', entrypointControl);
-      this.form.setControl('cmd', cmdControl);
+      (this.response_form.get('config') as FormGroup).setControl('entrypoint', entrypointControl);
+      (this.response_form.get('config') as FormGroup).setControl('cmd', cmdControl);
 
 
 
@@ -131,14 +134,14 @@ export class TaskConfigComponent {
   build_id = '6023ed566c2cdfd6f2edb435'
 
   getArgs(): FormArray {
-    return this.form.get('args') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('args') as FormArray
   }
 
   getEntrypoint(): FormArray {
-    return this.form.get('entrypoint') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('entrypoint') as FormArray
   }
   getCmd(): FormArray {
-    return this.form.get('cmd') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('cmd') as FormArray
   }
   deleteArg(index: number) {
     this.getArgs().removeAt(index)
@@ -148,28 +151,28 @@ export class TaskConfigComponent {
   }
 
   getVariables(): FormArray {
-    return this.form.get('variables') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('variables') as FormArray
   }
 
   getResult(): FormArray {
-    return this.form.get('result') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('result') as FormArray
   }
 
 
   getEnviron(): FormArray {
-    return this.form.get('environ') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('environ') as FormArray
   }
 
 
   getConfProcess(): FormArray {
-    return this.form.get('config').get('process') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('process') as FormArray
   }
 
   getConfSystem(): FormArray {
-    return this.form.get('config').get('system') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('system') as FormArray
   }
   getConfReserved(): FormArray {
-    return this.form.get('config').get('reserved') as FormArray
+    return (this.response_form.get('config') as FormGroup).get('reserved') as FormArray
   }
 
   deleteVariables(index: number) {
@@ -190,107 +193,124 @@ export class TaskConfigComponent {
 
 
 
-  form: FormGroup = new FormGroup({
+  response_form: FormGroup = new FormGroup({
 
-    id: new FormControl(''),
-
-    entrypoint: this.fb.array([
-      // new FormControl(
-      //   {
-      //     value: '',
-      //     disabled: true,
-
-      //   }
-
-      // ),
-    ]),
+    publisher: new FormControl(false),
+    initiator: new FormControl(false),
+    title: new FormControl(''),
+    description: new FormControl(''),
+    identifier: new FormControl(''),
 
 
-    cmd: this.fb.array([
-      this.fb.control('/bin/cmd'),
-    ]),
-
-    scanner_input: this.fb.array([])
-    ,
-
-    ingested_results: this.fb.array([]),
-
-    identifier:
-      this.fb.control('', [Validators.required, Validators.minLength(2)]),
-
-
-    args: this.fb.array([
-      this.fb.control('hello'),
-      this.fb.control('hello'),
-    ]),
-
-
-    substitute_var: new FormControl(true),
-
-    environ: new FormArray([
-
-    ])
-    ,
-    variables: new FormArray([
-
-    ])
-    ,
-
-    result: new FormArray([
-
-    ])
-    ,
-
-    success_endpoint: new FormControl('http://success_endpoint.com/usr/bin/mobsf'),
-    failure_endpoint: new FormControl(''),
 
 
     config: new FormGroup({
 
-      process: new FormArray([
+      id: new FormControl(''),
 
+
+
+
+      entrypoint: this.fb.array([
+        // new FormControl(
+        //   {
+        //     value: '',
+        //     disabled: true,
+
+        //   }
+
+        // ),
       ]),
 
 
-
-      reserved: new FormArray([
-
+      cmd: this.fb.array([
+        this.fb.control('/bin/cmd'),
       ]),
-      _reserved: new FormGroup({
+
+      scanner_input: this.fb.array([])
+      ,
+
+      ingested_results: this.fb.array([]),
+
+      identifier:
+        this.fb.control('', [Validators.required, Validators.minLength(2)]),
+
+
+      args: this.fb.array([
+        this.fb.control('hello'),
+        this.fb.control('hello'),
+      ]),
+
+
+      substitute_var: new FormControl(true),
+
+      environ: new FormArray([
+
+      ])
+      ,
+      variables: new FormArray([
+
+      ])
+      ,
+
+      result: new FormArray([
+
+      ])
+      ,
+
+      success_endpoint: new FormControl('http://success_endpoint.com/usr/bin/mobsf'),
+      failure_endpoint: new FormControl(''),
+
+
+      config: new FormGroup({
+
+        process: new FormArray([
+
+        ]),
+
+
+
+        reserved: new FormArray([
+
+        ]),
+        _reserved: new FormGroup({
+
+        }),
+
+        system: new FormArray([
+
+        ]),
+
+
+        _process: new FormGroup({
+          input_api: new FormControl(''),
+          input_api_token: new FormControl(''),
+          output_api: new FormControl(''),
+          file_upload_api: new FormControl(''),
+        }),
+        _system: new FormGroup({
+          base_path: new FormControl(''),
+          input_dir: new FormControl(''),
+          output_dir: new FormControl(''),
+          results_json: new FormControl(''),
+          results_schema: new FormControl(''),
+          log_to_file: new FormControl(true),
+          stdout_file: new FormControl(''),
+          stderr_file: new FormControl(''),
+          enable_logging: new FormControl(true),
+          max_output_filesize: new FormControl(1000),
+          sample_inputfile: new FormControl(''),
+          sample_outputfile: new FormControl(''),
+        })
 
       }),
 
-      system: new FormArray([
-
-      ]),
 
 
-      _process: new FormGroup({
-        input_api: new FormControl(''),
-        input_api_token: new FormControl(''),
-        output_api: new FormControl(''),
-        file_upload_api: new FormControl(''),
-      }),
-      _system: new FormGroup({
-        base_path: new FormControl(''),
-        input_dir: new FormControl(''),
-        output_dir: new FormControl(''),
-        results_json: new FormControl(''),
-        results_schema: new FormControl(''),
-        log_to_file: new FormControl(true),
-        stdout_file: new FormControl(''),
-        stderr_file: new FormControl(''),
-        enable_logging: new FormControl(true),
-        max_output_filesize: new FormControl(1000),
-        sample_inputfile: new FormControl(''),
-        sample_outputfile: new FormControl(''),
-      })
-
-    }),
-
-
-
+    })
   });
+
+
 
 
   constructor(
@@ -305,11 +325,13 @@ export class TaskConfigComponent {
   ) { }
   ngOnInit(): void {
 
-    this.toggleCmdViewControl.valueChanges.subscribe(_=>{
+    this.loadConfig()
+
+
+    this.toggleCmdViewControl.valueChanges.subscribe(_ => {
       console.log('boomboo', _)
       this.switchViewCmd(_);
     })
-    this.loadConfig()
   }
 
   addArg() {
@@ -403,7 +425,9 @@ export class TaskConfigComponent {
   }
 
   formToJson(): any {
-    let data = this.form.getRawValue()
+    let form_data = this.response_form.getRawValue()
+
+    let data = form_data?.config;
 
     let variables = {}
     data['variables'].forEach(element => {
@@ -443,14 +467,18 @@ export class TaskConfigComponent {
     delete data['_reserved']
     delete data['_system']
     data['config'] = config
-    return data
+
+
+    form_data.config = data;
+
+    return form_data
 
   }
 
 
   save() {
 
-    if (!this.form.valid) {
+    if (!this.response_form.valid) {
       console.log('in valid form')
       return
     }
@@ -469,7 +497,7 @@ export class TaskConfigComponent {
 
   checkedChangeScannerInput(add, data) {
 
-    let formValue = new Set((this.form.get('scanner_input') as FormArray).value);
+    let formValue = new Set(((this.response_form.get('config') as FormGroup).get('scanner_input') as FormArray).value);
     if (add) {
 
       formValue.add(data?.id)
@@ -485,7 +513,7 @@ export class TaskConfigComponent {
 
 
 
-    this.form.setControl('scanner_input',
+    (this.response_form.get('config') as FormGroup).setControl('scanner_input',
       this.fb.array(newControlValue)
       // []
 
@@ -493,247 +521,270 @@ export class TaskConfigComponent {
 
     this.cdr.markForCheck()
 
-    console.log('form-value', this.form.get('scanner_input').value)
+    console.log('form-value', (this.response_form.get('config') as FormGroup).get('scanner_input').value)
 
   }
 
   tool_id;
   image_id;
 
-  parseAndLoadConfig(config: any) {
-    {
+  parseAndLoadConfig(form_config: any) {
 
-      this.tool_id = config?.config?.tool_id;
-      this.image_id = config?.config?.image_id;
 
-      let data = config?.config?.config;
-      this.scannerInput = config?.parameters?.scanner_input || [];
+    let form = this.response_form.get('config') as FormGroup;
 
-      if (!data)
-        data = {}
 
 
-      if (data['id'])
-        this.form.setControl('id', this.fb.control(data['id']))
 
-      if (data['identifier'])
-        this.form.setControl('identifier', this.fb.control(data['identifier']))
 
+    let config = form_config?.config;
 
-      if (data['ingested_results']) {
+    this.tool_id = config?.config?.tool_id;
+    this.image_id = config?.config?.image_id;
 
-        console.log('parseAndLoadConfig', data?.ingested_results)
-        this.form.setControl('ingested_results', this.fb.array(data['ingested_results']))
-      }
+    let data = config?.config;
 
 
-      if (data['scanner_input']) {
 
-        this.form.setControl('scanner_input', this.fb.array(data['scanner_input']))
-        this.form.setControl('scanner_value', this.fb.array(data['scanner_input']?.map(_ => '')))
-      }
 
+    console.log('scannerInput', form_config?.parameters?.scanner_input)
+    this.scannerInput = form_config?.parameters?.scanner_input || [];
 
-      // Result data
-      if (data['result']) {
+    if (!data)
+      data = {}
 
-        let result = [];
-        data['result'].forEach((element: { value: string, directory: boolean, regex: boolean, variable: string }) => {
 
-          result.push(this.fb.group({
-            value: this.fb.control(element.value),
-            regex: this.fb.control(element.regex),
-            directory: this.fb.control(element.directory),
-            variable: this.fb.control(element.variable),
+    if (data['id'])
+      form.setControl('id', this.fb.control(data['id']))
 
-          }))
-        });
+    if (data['identifier'])
+      form.setControl('identifier', this.fb.control(data['identifier']))
 
 
+    if (data['ingested_results']) {
 
-        this.form.setControl('result', this.fb.array(result))
+      console.log('parseAndLoadConfig', data?.ingested_results)
+      form.setControl('ingested_results', this.fb.array(data['ingested_results']))
+    }
 
 
+    if (data['scanner_input']) {
 
-      }
+      form.setControl('scanner_input', this.fb.array(data['scanner_input']))
+      form.setControl('scanner_value', this.fb.array(data['scanner_input']?.map(_ => '')))
+    }
 
-      // Environ variables
-      if (data['environ']) {
 
-        let environ = [];
-        Object.keys(data['environ']).forEach(element => {
-          environ.push(this.fb.group({
-            key: this.fb.control(element),
-            value: this.fb.control(data['environ'][element]),
-          }))
-        });
+    // Result data
+    if (data['result']) {
 
+      let result = [];
+      data['result'].forEach((element: { value: string, directory: boolean, regex: boolean, variable: string }) => {
 
+        result.push(this.fb.group({
+          value: this.fb.control(element.value),
+          regex: this.fb.control(element.regex),
+          directory: this.fb.control(element.directory),
+          variable: this.fb.control(element.variable),
 
-        this.form.setControl('environ', this.fb.array(environ))
+        }))
+      });
 
 
 
-      }
+      form.setControl('result', this.fb.array(result))
 
-
-      if (data['cmd']) {
-
-        let cmdControl = []
-
-        data['cmd'].forEach(element => {
-          cmdControl.push(this.fb.control(element))
-        });
-
-        this.form.setControl('cmd', this.fb.array(cmdControl))
-
-      }
-
-      if (data['entrypoint']) {
-
-        let entrypointControl = this.fb.array([])
-
-
-        data['entrypoint'].forEach(element => {
-
-
-          entrypointControl.push(this.fb.control(
-
-
-            // {
-            // value:
-            element,
-            // disabled: true,
-            // }
-          ))
-
-
-        });
-
-
-        this.form.setControl('entrypoint', entrypointControl);
-        console.log('setting entrypoint', entrypointControl)
-
-      }
-
-      if (data['args']) {
-
-        let argsControl = []
-
-        data['args'].forEach(element => {
-          argsControl.push(this.fb.control(element))
-        });
-
-        this.form.setControl('args', this.fb.array(argsControl))
-
-      }
-
-      // Set variables
-      if (data['variables']) {
-
-        let variables = this.getVariables();
-        Object.keys(data['variables']).forEach(element => {
-          variables.push(this.fb.group({
-
-            key: this.fb.control(element),
-            value: this.fb.control(data['variables'][element]),
-          }))
-        });
-
-
-
-      }
-
-
-      if (data['substitute_var'])
-        this.form.setControl('substitute_var', this.fb.control(data['substitute_var']))
-
-      if (data['success_endpoint'])
-        this.form.setControl('success_endpoint', this.fb.control(data['success_endpoint']))
-
-      if (data['failure_endpoint'])
-        this.form.setControl('failure_endpoint', this.fb.control(data['failure_endpoint']))
-
-
-      if (data['config']) {
-
-        let processConfigControl = []
-        let systemConfigControl = []
-        let reservedConfigControl = []
-        if (data['config']['process']) {
-
-
-
-
-          Object.keys(data['config']['process']).forEach(element => {
-            processConfigControl.push(this.fb.group({
-
-              // key: this.fb.control(element),
-              // value: this.fb.control(data['config']['process'][element]),
-
-              key: new FormControl({ value: element, disabled: true }),
-              value: new FormControl({ value: data['config']['process'][element], disabled: true }),
-            }))
-          });
-
-        }
-
-        if (data['config']['system']) {
-
-
-
-
-          Object.keys(data['config']['system']).forEach(element => {
-            systemConfigControl.push(this.fb.group({
-
-              key: new FormControl({ value: element, disabled: true }),
-              value: new FormControl({ value: data['config']['system'][element], disabled: true }),
-              // value: this.fb.control(data['config']['system'][element]),
-            }
-
-            ))
-          });
-
-        }
-
-        if (data['config']['reserved']) {
-
-
-          Object.keys(data['config']['reserved']).forEach(element => {
-            reservedConfigControl.push(this.fb.group({
-
-              key: this.fb.control({ value: element, disabled: true }),
-              value: this.fb.control(
-
-                {
-                  value: data['config']['reserved'][element]
-                  , disabled: true
-                }
-
-              ),
-            }))
-          });
-
-        }
-
-        console.log('config', this.form.value, data)
-
-        let configControl = this.fb.group({
-          process: this.fb.array(processConfigControl),
-          reserved: this.fb.array(reservedConfigControl),
-          system: this.fb.array(systemConfigControl)
-        })
-
-        this.form.setControl('config', configControl)
-
-      }
-
-
-      this.LOADING = false
-      this.cdr.markForCheck()
 
 
     }
+
+    // Environ variables
+    if (data['environ']) {
+
+      let environ = [];
+      Object.keys(data['environ']).forEach(element => {
+        environ.push(this.fb.group({
+          key: this.fb.control(element),
+          value: this.fb.control(data['environ'][element]),
+        }))
+      });
+
+
+
+      form.setControl('environ', this.fb.array(environ))
+
+
+
+    }
+
+
+    if (data['cmd']) {
+
+      let cmdControl = []
+
+      data['cmd'].forEach(element => {
+        cmdControl.push(this.fb.control(element))
+      });
+
+      form.setControl('cmd', this.fb.array(cmdControl))
+
+    }
+
+    if (data['entrypoint']) {
+
+      let entrypointControl = this.fb.array([])
+
+
+      data['entrypoint'].forEach(element => {
+
+
+        entrypointControl.push(this.fb.control(
+
+
+          // {
+          // value:
+          element,
+          // disabled: true,
+          // }
+        ))
+
+
+      });
+
+
+      form.setControl('entrypoint', entrypointControl);
+      console.log('setting entrypoint', entrypointControl)
+
+    }
+
+    if (data['args']) {
+
+      let argsControl = []
+
+      data['args'].forEach(element => {
+        argsControl.push(this.fb.control(element))
+      });
+
+      form.setControl('args', this.fb.array(argsControl))
+
+    }
+
+    // Set variables
+    if (data['variables']) {
+
+      let variables = this.getVariables();
+      Object.keys(data['variables']).forEach(element => {
+        variables.push(this.fb.group({
+
+          key: this.fb.control(element),
+          value: this.fb.control(data['variables'][element]),
+        }))
+      });
+
+
+
+    }
+
+
+    if (data['substitute_var'])
+      form.setControl('substitute_var', this.fb.control(data['substitute_var']))
+
+    if (data['success_endpoint'])
+      form.setControl('success_endpoint', this.fb.control(data['success_endpoint']))
+
+    if (data['failure_endpoint'])
+      form.setControl('failure_endpoint', this.fb.control(data['failure_endpoint']))
+
+
+    if (data['config']) {
+
+      let processConfigControl = []
+      let systemConfigControl = []
+      let reservedConfigControl = []
+      if (data['config']['process']) {
+
+
+
+
+        Object.keys(data['config']['process']).forEach(element => {
+          processConfigControl.push(this.fb.group({
+
+            // key: this.fb.control(element),
+            // value: this.fb.control(data['config']['process'][element]),
+
+            key: new FormControl({ value: element, disabled: true }),
+            value: new FormControl({ value: data['config']['process'][element], disabled: true }),
+          }))
+        });
+
+      }
+
+      if (data['config']['system']) {
+
+
+
+
+        Object.keys(data['config']['system']).forEach(element => {
+          systemConfigControl.push(this.fb.group({
+
+            key: new FormControl({ value: element, disabled: true }),
+            value: new FormControl({ value: data['config']['system'][element], disabled: true }),
+            // value: this.fb.control(data['config']['system'][element]),
+          }
+
+          ))
+        });
+
+      }
+
+      if (data['config']['reserved']) {
+
+
+        Object.keys(data['config']['reserved']).forEach(element => {
+          reservedConfigControl.push(this.fb.group({
+
+            key: this.fb.control({ value: element, disabled: true }),
+            value: this.fb.control(
+
+              {
+                value: data['config']['reserved'][element]
+                , disabled: true
+              }
+
+            ),
+          }))
+        });
+
+      }
+
+      console.log('config', form.value, data)
+
+      let configControl = this.fb.group({
+        process: this.fb.array(processConfigControl),
+        reserved: this.fb.array(reservedConfigControl),
+        system: this.fb.array(systemConfigControl)
+      })
+
+      form.setControl('config', configControl)
+
+    }
+
+
+    this.response_form.setControl('config', form);
+
+    this.response_form.get('title').setValue(config?.title);
+    this.response_form.get('description').setValue(config?.description);
+    this.response_form.get('publisher').setValue(config?.publisher);
+    this.response_form.get('initiator').setValue(config?.initiator);
+    this.response_form.get('identifier').setValue(config?.identifier);
+
+
+
+    this.LOADING = false
+    this.cdr.markForCheck()
+
+
+
   }
 
   loadConfig() {
@@ -797,8 +848,8 @@ export class TaskConfigComponent {
 
   runTask() {
 
-    let id = this.form.get('scanner_input')?.value;
-    let val = this.form.get('scanner_value')?.value;
+    let id = (this.response_form.get('config') as FormGroup).get('scanner_input')?.value;
+    let val = (this.response_form.get('config') as FormGroup).get('scanner_value')?.value;
 
     let scanner_val = id.map((id, index) => ({
       scanner_id: id,

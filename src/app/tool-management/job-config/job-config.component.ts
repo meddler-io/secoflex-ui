@@ -352,6 +352,7 @@ console.log('argument-parsing-test' , args,  '->' , parseArrayOfCommandToRaw(arg
   loadConfig() {
 
     this.LOADING = true
+    console.log('scannerInput')
 
     // of(this.config)
     this
@@ -360,8 +361,8 @@ console.log('argument-parsing-test' , args,  '->' , parseArrayOfCommandToRaw(arg
       .subscribe((config: any) => {
 
         let data = config?.config;
+        console.log('scannerInput', config)
         this.scannerInput = config?.parameters?.scanner_input || [];
-        console.log('config', data)
 
         if (!data)
           data = {}

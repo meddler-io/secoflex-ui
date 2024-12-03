@@ -27,6 +27,7 @@ export class ToolCreateComponent implements OnInit {
     alias: new FormControl('', [Validators.required, Validators.pattern('[a-z0-9]+(?:[._-]{1,2}[a-z0-9]+)*')]),
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
+    published: new FormControl(false),
 
   })
 
@@ -37,12 +38,14 @@ export class ToolCreateComponent implements OnInit {
         let alias = d['alias']
         let name = d['name']
         let description = d['description']
+        let published = d['published']
 
         this.form.get('alias').setValue(alias)
         this.form.get('alias').disable()
 
         this.form.get('name').setValue(name)
         this.form.get('description').setValue(description)
+        this.form.get('published').setValue(published)
         this.cdr.markForCheck()
       })
     }
@@ -53,6 +56,7 @@ export class ToolCreateComponent implements OnInit {
 
     of(EMPTY).pipe(map(_ => {
       if (this.edit_mode == true) {
+        // update
         return this.toolApiService.editTool(this.tool_id, this.form.value)
       } else {
         return this.toolApiService.createTool(this.form.value)

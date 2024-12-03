@@ -19,9 +19,7 @@
 
         </div>
 
-        <button
-        (click)="save()"
-        shape="round" ghost status="basic" class="action" size="large" nbButton>
+        <button (click)="save()" shape="round" ghost status="basic" class="action" size="large" nbButton>
             Save
         </button>
 
@@ -46,6 +44,15 @@
 
                     <div fxLayout="row">
 
+
+                        <div [class.text-hint]="!selectedIds.has(file?._id)" class="subtitle-2 ">
+
+                            {{
+                            file?.identifier
+                            }}
+                        </div>
+
+                        >
 
                         <div [class.text-hint]="!selectedIds.has(file?._id)" class="subtitle ">
 
