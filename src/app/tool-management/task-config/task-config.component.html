@@ -56,7 +56,7 @@
         <!-- ublish details -->
 
 
-     
+
 
         <div fxLayout="column">
 
@@ -66,11 +66,11 @@
               Initiator </nb-toggle>
           </div>
           <div>
-  
+
             <nb-toggle formControlName="publisher">
               Publisher </nb-toggle>
-  
-  
+
+
           </div>
 
 
@@ -126,9 +126,7 @@
 
         <!-- .config binding -->
 
-        <ng-container  
-        
-        formGroupName="config">
+        <ng-container formGroupName="config">
 
 
 
@@ -139,10 +137,7 @@
           <app-divider></app-divider>
 
           <!-- Scanner Input -->
-          <div
-        *ngIf="response_form.get('initiator')?.value"
-          
-          fxLayout="column">
+          <div *ngIf="response_form.get('initiator')?.value" fxLayout="column">
 
 
             <div fxLayout="row">
@@ -156,12 +151,14 @@
 
             <div fxLayout="column" fxLayoutGap="1rem">
 
+              <!-- {{response_form.get('config').get('scanner_input')?.value | json}}
+              {{scannerInput | json}} -->
 
 
               <ng-container *ngFor="let scannerInput$ of scannerInput">
 
                 <ng-container
-                  *ngIf=" edit ||  response_form.get('scanner_input')?.value?.includes( scannerInput$?.id )">
+                  *ngIf=" edit ||  response_form.get('config').get('scanner_input')?.value?.includes( scannerInput$?.id )">
 
 
 
@@ -180,12 +177,13 @@
 
 
                       <input
-                        [value]="response_form.get('scanner_input')?.value?.includes( scannerInput$?.id ) ? scannerInput$?.placeholder : '' "
+                        [value]="response_form.get('config').get('scanner_input')?.value?.includes( scannerInput$?.id ) ? scannerInput$?.placeholder : '' "
                         [readonly]="true" fullWidth nbInput [placeholder]="scannerInput$?.placeholder">
 
 
                       <div nbSuffix *ngIf="edit">
-                        <nb-toggle [checked]="response_form.get('scanner_input')?.value?.includes( scannerInput$?.id )"
+                        <nb-toggle
+                          [checked]="response_form.get('config').get('scanner_input')?.value?.includes( scannerInput$?.id )"
                           (checkedChange)="checkedChangeScannerInput(  $event ,  scannerInput$ )" #toggle></nb-toggle>
 
                       </div>
@@ -216,6 +214,30 @@
 
 
                     </nb-form-field>
+                  </div>
+
+
+                  <div fxLayoutAlign="end" *ngFor="let attribute of scannerInput$?.attributes">
+                    <!-- property {{attribute | json}} -->
+ 
+
+                    <ng-container *ngIf="attribute?.type == 'boolean' ">
+
+                      <div>
+
+                        <!-- [checked] -->
+                        <nb-toggle
+                        #qweewe
+
+                        [(ngModel)]="formDataForPropertiesAttributes[scannerInput$?.id][attribute.id]" 
+                          [ngModelOptions]="{ standalone: true }"
+                        >
+                          {{attribute?.title}}
+                        </nb-toggle>
+
+                      </div>
+                    </ng-container>
+
                   </div>
                 </ng-container>
 
@@ -401,6 +423,13 @@
                         <nb-checkbox formControlName="directory">Directory</nb-checkbox>
 
 
+
+                      </div>
+
+                      <div nbSuffix *ngIf="edit">
+
+                        <nb-checkbox formControlName="export">Export</nb-checkbox>
+                        <!-- <nb-checkbox status="primary">Primary</nb-checkbox> -->
 
                       </div>
 

@@ -310,6 +310,8 @@ export class TaskConfigComponent {
     })
   });
 
+  formDataForPropertiesAttributes: Record<string, Record<string, any>> = {};
+
 
 
 
@@ -348,6 +350,7 @@ export class TaskConfigComponent {
 
       new FormGroup({
 
+        export: new FormControl(false),
         value: new FormControl(''),
         regex: new FormControl(false),
         directory: new FormControl(false),
@@ -425,7 +428,9 @@ export class TaskConfigComponent {
   }
 
   formToJson(): any {
-    let form_data = this.response_form.getRawValue()
+    let form_data = this.response_form.getRawValue();
+
+    form_data.config['scanner_properties'] = this.formDataForPropertiesAttributes
 
     let data = form_data?.config;
 
@@ -575,13 +580,17 @@ export class TaskConfigComponent {
     }
 
 
+
+
+
     // Result data
     if (data['result']) {
 
       let result = [];
-      data['result'].forEach((element: { value: string, directory: boolean, regex: boolean, variable: string }) => {
+      data['result'].forEach((element: {  export: boolean ,  value: string, directory: boolean, regex: boolean, variable: string }) => {
 
         result.push(this.fb.group({
+          export: new FormControl(false),
           value: this.fb.control(element.value),
           regex: this.fb.control(element.regex),
           directory: this.fb.control(element.directory),
@@ -797,7 +806,22 @@ export class TaskConfigComponent {
       .getTaskById(this.id)
       .subscribe((config: any) => {
 
-        this.parseAndLoadConfig(config)
+        this.parseAndLoadConfig(config);
+
+
+        this.scannerInput.forEach(inp => {
+          this.formDataForPropertiesAttributes[inp.id] = {};
+
+          let scanner_properties = config?.config?.config?.scanner_properties;
+          // console.log('boommer', scanner_properties);
+          if (inp?.id in scanner_properties) {
+            this.formDataForPropertiesAttributes[inp.id] = scanner_properties[inp?.id]
+
+          }
+
+
+        })
+
       }
       )
   }

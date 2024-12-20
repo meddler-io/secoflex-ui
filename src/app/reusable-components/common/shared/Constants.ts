@@ -1,8 +1,8 @@
 
 // export const HOST = `192.168.29.185`
 // export const HOST = `192.168.29.194`
-// export const HOST = `http://localhost:8001/`
-export const HOST = `http://172.24.42.196:8000/`
+export const HOST = `http://localhost:8001/`
+// export const HOST = `http://172.24.42.196:8000/`
 
 
 export const API_SERVICE_URL = HOST
