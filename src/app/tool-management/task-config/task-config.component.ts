@@ -590,7 +590,7 @@ export class TaskConfigComponent {
       data['result'].forEach((element: {  export: boolean ,  value: string, directory: boolean, regex: boolean, variable: string }) => {
 
         result.push(this.fb.group({
-          export: new FormControl(false),
+          export: new FormControl(element?.export),
           value: this.fb.control(element.value),
           regex: this.fb.control(element.regex),
           directory: this.fb.control(element.directory),
