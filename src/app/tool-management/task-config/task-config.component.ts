@@ -154,6 +154,14 @@ export class TaskConfigComponent {
     return (this.response_form.get('config') as FormGroup).get('variables') as FormArray
   }
 
+  getIntegrationConfig(): FormArray {
+    return (this.response_form.get('config') as FormGroup).get('integration_config') as FormArray
+  }
+
+  deleteIntegrationConfig(index){
+    this.getIntegrationConfig().removeAt(index)
+
+  }
   getResult(): FormArray {
     return (this.response_form.get('config') as FormGroup).get('result') as FormArray
   }
@@ -177,6 +185,10 @@ export class TaskConfigComponent {
 
   deleteVariables(index: number) {
     this.getVariables().removeAt(index)
+  }
+
+  deleteEnviron(index: number) {
+    this.getEnviron().removeAt(index)
   }
 
   deleteConfProcess(index: number) {
@@ -252,6 +264,12 @@ export class TaskConfigComponent {
 
       ])
       ,
+      integration_config: new FormArray([
+
+      ])
+      ,
+
+      
 
       result: new FormArray([
 
@@ -368,10 +386,19 @@ export class TaskConfigComponent {
     )
   }
 
-
-
   addVar() {
     this.getVariables().push(
+
+      new FormGroup({
+        key: new FormControl(''),
+        value: new FormControl(''),
+      })
+
+    )
+  }
+
+  addIntegrationConfig() {
+    this.getIntegrationConfig().push(
 
       new FormGroup({
         key: new FormControl(''),
@@ -440,6 +467,16 @@ export class TaskConfigComponent {
     });
 
     data['variables'] = variables
+    // 
+    let integration_config = {}
+
+    data['integration_config'].forEach(element => {
+      integration_config[element.key] = element.value
+    });
+    data['integration_config'] = integration_config
+
+    
+
 
 
     let environ = {}
@@ -579,6 +616,8 @@ export class TaskConfigComponent {
       form.setControl('scanner_value', this.fb.array(data['scanner_input']?.map(_ => '')))
     }
 
+    
+
 
 
 
@@ -694,6 +733,22 @@ export class TaskConfigComponent {
 
     }
 
+    // Set integration config
+    
+    if (data['integration_config']) {
+
+      let variables = this.getIntegrationConfig();
+      Object.keys(data['integration_config']).forEach(element => {
+        variables.push(this.fb.group({
+
+          key: this.fb.control(element),
+          value: this.fb.control(data['integration_config'][element]),
+        }))
+      });
+
+
+
+    }
 
     if (data['substitute_var'])
       form.setControl('substitute_var', this.fb.control(data['substitute_var']))

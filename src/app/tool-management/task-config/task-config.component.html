@@ -750,6 +750,84 @@
           </ng-template>
 
 
+          <!-- Integration Config -->
+          <div fxLayout="column">
+
+            <div fxLayout="row">
+              <p fxFlex class="subtitle-2 text-hint">
+                Integration Config
+              </p>
+
+
+
+              <button (click)="addIntegrationConfig()" ghost nbButton status="danger">
+                Add
+              </button>
+
+
+            </div>
+
+
+            <ng-container formArrayName="integration_config">
+
+              <ng-container
+                *ngFor="let integration_config_variable of this.response_form.get('config').get('integration_config').controls ; let i=index ">
+
+                <div [style.marginBottom]="'0.5rem'" [formGroupName]="i" fxLayout="row" fxLayoutGap="1rem">
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+
+
+                    <button (click)="copyText(  integration_config_variable?.value?.value )" nbButton nbPrefix size="small" control
+                      status="basic">
+
+                      <span nbPrefix>$</span>
+
+                    </button>
+
+                    <input  fullWidth formControlName="key" nbInput placeholder="Config Param">
+                  </nb-form-field>
+
+
+
+
+
+
+                  <nb-form-field fxFlex fieldSize="small">
+                    <input   fullWidth formControlName="value" nbInput placeholder="Default Value">
+                  </nb-form-field>
+
+
+                  <button ghost nbButton (click)="deleteIntegrationConfig(i)">
+                    <nb-icon icon="trash-outline">
+                    </nb-icon>
+                  </button>
+
+
+
+
+                </div>
+
+
+              </ng-container>
+
+
+            </ng-container>
+
+
+            <div fxFlex fxLayoutAlign="center center"
+              *ngIf="!this.response_form.get('config').get('variables').controls.length" fxFlex>
+              <p class="subtitle-2 text-hint">
+                No Integration Config Defined
+              </p>
+            </div>
+
+          </div>
+
+          <app-divider></app-divider>
+
+
           <!-- Variables -->
           <div fxLayout="column">
 
@@ -944,7 +1022,7 @@
                   </nb-form-field>
 
 
-                  <button ghost nbButton (click)="deleteConfProcess(i)">
+                  <button ghost nbButton (click)="deleteEnviron(i)">
                     <nb-icon icon="trash-outline">
                     </nb-icon>
                   </button>

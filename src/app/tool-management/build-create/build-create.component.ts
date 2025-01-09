@@ -166,11 +166,11 @@ export class BuildCreateComponent implements OnInit {
 
     registry_public: new FormGroup({
 
-      authentication: new FormControl('credentials', []),
+      authentication: new FormControl('none', []),
 
       data: new FormGroup({
         image_name: new FormControl('', [Validators.required]),
-        image_tag: new FormControl('', [Validators.required]),
+        image_tag: new FormControl('latest', [Validators.required]),
       }),
 
       auth_mode: new FormGroup({
@@ -331,7 +331,7 @@ export class BuildCreateComponent implements OnInit {
     tool_tag: new FormControl({
       value: 'tool_tag', disabled: true
     }, [Validators.required]),
-    build_type: new FormControl('bundle_git'),
+    build_type: new FormControl('registry_public'),
     desc: new FormControl(''),
 
 
