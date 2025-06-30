@@ -42,6 +42,7 @@ import { FileListComponent } from './file-list/file-list.component';
 import { ToolsListForInputComponent } from './tools-list-for-input/tools-list-for-input.component';
 import { CommonImportsModule } from '../asset-management/submodules/common/common-imports.module';
 import { WorkerDeploymentConfigComponent } from './worker-deployment-config/worker-deployment-config.component';
+import { JobApiService } from '../job-management/job-api.service';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { WorkerDeploymentConfigComponent } from './worker-deployment-config/work
   providers: [
     ToolApiService,
     SharedDataService,
+    JobApiService
     
   ]
 })

@@ -196,6 +196,7 @@ export class TaskConfigComponent {
   response_form: FormGroup = new FormGroup({
 
     publisher: new FormControl(false),
+    icon: new FormControl(''),
     initiator: new FormControl(false),
     title: new FormControl(''),
     description: new FormControl(''),
@@ -351,6 +352,7 @@ export class TaskConfigComponent {
       new FormGroup({
 
         export: new FormControl(false),
+        export_type: new FormControl('findings_defect_dojo'),
         value: new FormControl(''),
         regex: new FormControl(false),
         directory: new FormControl(false),
@@ -587,10 +589,11 @@ export class TaskConfigComponent {
     if (data['result']) {
 
       let result = [];
-      data['result'].forEach((element: {  export: boolean ,  value: string, directory: boolean, regex: boolean, variable: string }) => {
+      data['result'].forEach((element: {  export_type: string,  export: boolean ,  value: string, directory: boolean, regex: boolean, variable: string }) => {
 
         result.push(this.fb.group({
           export: new FormControl(element?.export),
+          export_type: new FormControl(element?.export_type),
           value: this.fb.control(element.value),
           regex: this.fb.control(element.regex),
           directory: this.fb.control(element.directory),
@@ -784,6 +787,7 @@ export class TaskConfigComponent {
     this.response_form.get('title').setValue(config?.title);
     this.response_form.get('description').setValue(config?.description);
     this.response_form.get('publisher').setValue(config?.publisher);
+    this.response_form.get('icon').setValue(config?.icon);
     this.response_form.get('initiator').setValue(config?.initiator);
     this.response_form.get('identifier').setValue(config?.identifier);
 

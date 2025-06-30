@@ -42,7 +42,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 @NgModule({
   declarations: [
     
-    LogStreamComponent,
+    // LogStreamComponent,
     PaginationComponent,
     ExecStatusPipe,
 

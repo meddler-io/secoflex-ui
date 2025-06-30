@@ -65,13 +65,25 @@
             <nb-toggle formControlName="initiator">
               Initiator </nb-toggle>
           </div>
-          <div>
+          <div
+          fxLayout="column"
+          >
 
-            <nb-toggle formControlName="publisher">
+            <nb-toggle #publisherToggle formControlName="publisher">
               Publisher </nb-toggle>
 
 
+
+            <ng-container *ngIf="publisherToggle?.checked == true || publisherToggle?.checked == false  ">
+
+              <nb-form-field fxFlex fieldSize="small">
+                <input fullWidth formControlName="icon" nbInput placeholder="Icon">
+              </nb-form-field>
+            </ng-container>
+
           </div>
+
+
 
 
           <div>
@@ -219,19 +231,16 @@
 
                   <div fxLayoutAlign="end" *ngFor="let attribute of scannerInput$?.attributes">
                     <!-- property {{attribute | json}} -->
- 
+
 
                     <ng-container *ngIf="attribute?.type == 'boolean' ">
 
                       <div>
 
                         <!-- [checked] -->
-                        <nb-toggle
-                        #qweewe
-
-                        [(ngModel)]="formDataForPropertiesAttributes[scannerInput$?.id][attribute.id]" 
-                          [ngModelOptions]="{ standalone: true }"
-                        >
+                        <nb-toggle #qweewe
+                          [(ngModel)]="formDataForPropertiesAttributes[scannerInput$?.id][attribute.id]"
+                          [ngModelOptions]="{ standalone: true }">
                           {{attribute?.title}}
                         </nb-toggle>
 
@@ -428,10 +437,28 @@
 
                       <div nbSuffix *ngIf="edit">
 
-                        <nb-checkbox formControlName="export">Export</nb-checkbox>
+                        <nb-checkbox #chkBoxExport formControlName="export">Export</nb-checkbox>
                         <!-- <nb-checkbox status="primary">Primary</nb-checkbox> -->
+                        <ng-container>
+                          <ng-container *ngIf="chkBoxExport?.checked">
+
+                            <nb-select size="small" placeholder="Export As" formControlName="export_type">
+
+                              <nb-option value="findings_defect_dojo"> Findings </nb-option>
+                              <nb-option value="subdomain_enumeration"> Subdomains </nb-option>
+                              <nb-option value="port_enumeration"> Ports </nb-option>
+
+
+
+
+                            </nb-select>
+
+                          </ng-container>
+
+                        </ng-container>
 
                       </div>
+
 
                     </div>
 
