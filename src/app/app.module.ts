@@ -29,6 +29,7 @@ import { LogStreamComponent } from './tool-management/log-stream/log-stream.comp
 @NgModule({
   declarations: [
 
+    // LogStreamComponent,
     AppComponent,
     EntryComponentComponent,
 
@@ -36,6 +37,7 @@ import { LogStreamComponent } from './tool-management/log-stream/log-stream.comp
 
   ],
   imports: [
+    HttpClientModule,
     // SpinnerModule,
     BrowserModule,
     AppRoutingModule,

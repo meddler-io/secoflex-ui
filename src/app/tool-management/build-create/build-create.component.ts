@@ -303,6 +303,25 @@ export class BuildCreateComponent implements OnInit {
 
   })
 
+
+logValidationErrors(formGroup: FormGroup | FormArray, path: string = ''): void {
+  Object.keys(formGroup.controls).forEach(key => {
+    const control = formGroup.get(key);
+    const controlPath = path ? `${path}.${key}` : key;
+
+    if (control instanceof FormControl) {
+      control.markAsTouched({ onlySelf: true });
+      if (control.invalid) {
+        console.error(`Validation error at "${controlPath}":`, control.errors);
+      }
+    } else if (control instanceof FormGroup || control instanceof FormArray) {
+      this.logValidationErrors(control, controlPath);
+    }
+  });
+}
+
+
+
   form = new FormGroup({
 
     tool: new FormGroup({

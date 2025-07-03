@@ -49,6 +49,7 @@ import { JobApiService } from '../job-management/job-api.service';
     WorkerDeploymentConfigComponent,
 
     LogStreamComponent,
+    // LogStreamComponent,
     ToolsListForInputComponent,
     ToolHomeComponent,
     TaskConfigComponent,

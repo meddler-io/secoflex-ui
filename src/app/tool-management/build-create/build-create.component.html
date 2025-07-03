@@ -629,14 +629,14 @@
         <div fxLayout="row">
 
           <nb-tag-list fxFlex (tagRemove)="onTagRemove($event)">
-            <nb-tag   size="small" *ngFor="let tag of meta_tags" [text]="tag" removable></nb-tag>
+            <nb-tag size="small" *ngFor="let tag of meta_tags" [text]="tag" removable></nb-tag>
             <input type="text" nbTagInput (tagAdd)="onTagAdd($event)" fullWidth>
-            
+
           </nb-tag-list>
 
         </div>
 
-      <app-divider></app-divider>
+        <app-divider></app-divider>
 
       </div>
 
@@ -722,6 +722,11 @@
 
     <nb-card-footer (click)="saveChanges()">
 
+      <button
+      (click)="logValidationErrors( config_form?.get( form.get('build_type') ) )"
+      nbButton>
+        Test
+      </button>
       <button [disabled]="
 
       config_form?.get( form.get('build_type').value )?.get('data')?.invalid 
@@ -734,6 +739,7 @@
         <span>
 
 
+          {{form?.errors | json}}
 
           Build
         </span>
